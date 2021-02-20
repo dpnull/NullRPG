@@ -11,7 +11,7 @@ namespace NullRPG.Managers
         Cancel
     }
 
-    class KeybindingsManager
+    class oldKeybindingsManager
     {
         private static readonly Dictionary<Keybindings, Keys> _keybindings = new Dictionary<Keybindings, Keys>();
 
@@ -19,7 +19,7 @@ namespace NullRPG.Managers
         {
             (Keybindings, Keys)[] bindings = new (Keybindings, Keys)[]
             {
-                (Keybindings.Travel, Keys.T),
+                (Keybindings.Travel, Keys.T), // 
                 (Keybindings.Cancel, Keys.Q)
             };
 

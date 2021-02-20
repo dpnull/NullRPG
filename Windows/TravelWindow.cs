@@ -34,7 +34,7 @@ namespace NullRPG.Windows
 
         public override bool ProcessKeyboard(Keyboard info)
         {
-            if (info.IsKeyPressed(KeybindingsManager.GetKeybinding(Keybindings.Cancel)))
+            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Cancel)))
             {
                 CloseTravelWindow();
                 return true;

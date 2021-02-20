@@ -42,6 +42,7 @@ namespace NullRPG.Windows
         {
             if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D1))
             {
+                Initialize();
                 Start();
                 return true;
             }
@@ -111,6 +112,12 @@ namespace NullRPG.Windows
         private void Start()
         {
             this.Transition(UserInterfaceManager.Get<GameWindow>());
+        }
+
+        private void Initialize()
+        {
+            var keybindingsWindow = new KeybindingsWindow(Constants.Windows.KeybindingsWidth, Constants.Windows.KeybindingsHeight);
+            UserInterfaceManager.Add(keybindingsWindow);
         }
     }
 }

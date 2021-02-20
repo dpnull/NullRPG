@@ -36,12 +36,6 @@ namespace NullRPG.Windows
 
         public override bool ProcessKeyboard(Keyboard info)
         {
-            if (info.IsKeyReleased(Microsoft.Xna.Framework.Input.Keys.D3))
-            {
-                Environment.Exit(0);
-                return true;
-            }
-
             if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Q))
             {
                 OpenTitleWindow();

@@ -25,9 +25,14 @@ namespace NullRPG.Windows
             Global.CurrentScreen = this;
         }
 
+        public override void Update(TimeSpan timeElapsed)
+        {
+            base.Update(timeElapsed);
+        }
+
         public override bool ProcessKeyboard(Keyboard info)
         {
-            if (info.IsKeyPressed(KeybindingsManager.GetKeybinding(Keybindings.Travel)))
+            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Travel)))
             {
                 OpenTravelWindow();
                 return true;
@@ -39,7 +44,7 @@ namespace NullRPG.Windows
         private void OpenTravelWindow()
         {
             UserInterfaceManager.Get<TravelWindow>().ShowAndFocus();
-            
+
             UserInterfaceManager.Get<StatsWindow>().Update(); // [Temporary]
         }
 

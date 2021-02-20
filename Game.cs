@@ -33,7 +33,6 @@ namespace NullRPG
 
         private static void Init()
         {
-            KeybindingsManager.InitializeKeybindings();
             UserInterfaceManager.Initialize();
 
 
@@ -42,6 +41,8 @@ namespace NullRPG
 
             Global.CurrentScreen.IsFocused = true;
         }
+
+
 
     }
 }
