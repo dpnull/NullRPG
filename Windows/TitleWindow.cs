@@ -64,7 +64,34 @@ namespace NullRPG.Windows
 
         private void DrawGameTitle()
         {
-            this.PrintInsideSeparators(this.GetWindowYCenter(), Title, true, Color.DarkGreen);
+            Print(0, 0, "EARLY TESTING");
+            string[] titleFragments = @"
+                       .-.                 _    
+                      /   \              _/ \             
+         _        .--'\/\_ \            /    \       ___
+        / \_    _/ ^      \/\ __        /\/\  /\  __/   \  
+       /    \  /    .'   _/  /  \     /    \/  \/ .`'\_/\    
+      /\/\  /\/ :' __  ^/  ^/    `--./.'  ^  `-.\ _    _:\ _
+     /    \/  \  _/  \-' __/.' ^ _   \_   .'\   _/ \ .  __/ \
+   /\  .-   `. \/     \ / -.   _/ \ -. `_/   \ /    `._/  ^  \
+  /  `-.__ ^   / .-'.--'    . /    `--./ .-'  `-.  `-. `.  -  `.
+ /        `.  / /      `-.   /  .-'   / .   .'   \    \  \  .-  \
+"
+.Replace("\r", string.Empty).Split('\n');
+
+            int startPosX = (Constants.GameWidth / 2) - (titleFragments.OrderByDescending(a => a.Length).First().Length / 2);
+            int startPosY = 0;
+
+            // Print title fragments
+            for (int y = 0; y < titleFragments.Length; y++)
+            {
+                for (int x = 0; x < titleFragments[y].Length; x++)
+                {
+                    Print(startPosX + x, startPosY + y, new ColoredGlyph(titleFragments[y][x], Color.White, Color.Transparent));
+                }
+            }
+
+            this.PrintInsideSeparators(this.GetWindowYCenter(), Title, true, Color.LightGreen);
         }
         
         private void DrawButtons()
