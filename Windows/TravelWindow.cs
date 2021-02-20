@@ -47,6 +47,7 @@ namespace NullRPG.Windows
         {
             this.Transition(UserInterfaceManager.Get<GameWindow>());
             UserInterfaceManager.Get<StatsWindow>().Update();
+            UserInterfaceManager.Get<LocationWindow>().Update();
         }
     }
 }

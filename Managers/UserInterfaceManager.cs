@@ -35,6 +35,9 @@ namespace NullRPG.Managers
             var helpWindow = new HelpWindow(Constants.Windows.HelpWidth, Constants.Windows.HelpHeight);
             Add(helpWindow);
 
+            var locationWindow = new LocationWindow(Constants.Windows.LocationWidth, Constants.Windows.LocationHeight);
+            Add(locationWindow);
+
             var keybindingsWindow = new KeybindingsWindow(Constants.Windows.KeybindingsWidth, Constants.Windows.KeybindingsHeight);
             Add(keybindingsWindow);
 

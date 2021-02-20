@@ -12,6 +12,7 @@ using SadConsole.Controls;
 using NullRPG.Extensions;
 using SadConsole.Input;
 
+
 namespace NullRPG.Windows
 {
     public class TitleWindow : Console, IUserInterface
@@ -27,6 +28,8 @@ namespace NullRPG.Windows
 
         public TitleWindow(int width, int height) : base(width, height)
         {
+            
+
             SadConsole.Game.Instance.Window.Title = Constants.GameTitle;
 
             // Add it to the children of the main console

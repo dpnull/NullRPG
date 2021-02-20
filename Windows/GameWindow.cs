@@ -50,6 +50,7 @@ namespace NullRPG.Windows
             UserInterfaceManager.Get<TravelWindow>().ShowAndFocus();
 
             UserInterfaceManager.Get<StatsWindow>().Update(); // [Temporary]
+            UserInterfaceManager.Get<LocationWindow>().Update();
         }
 
 

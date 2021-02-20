@@ -9,6 +9,7 @@ namespace NullRPG
 {
     public static class Game
     {
+
         public static TitleWindow TitleWindow { get; private set; }
         public static GameSession GameSession { get; private set; }
 

@@ -28,6 +28,9 @@ namespace NullRPG
 
             public const int TravelWidth = GameWidth;
             public const int TravelHeight = GameHeight - KeybindingsHeight;
+
+            public const int LocationWidth = GameWidth;
+            public const int LocationHeight = 12;
         }
     }
 }
