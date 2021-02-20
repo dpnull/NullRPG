@@ -36,6 +36,12 @@ namespace NullRPG.Windows
                 return true;
             }
 
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.P))
+            {
+                Game.GameSession.Player.AddGold(1);
+                return true;
+            }
+
             return false;
         }
 

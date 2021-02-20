@@ -7,6 +7,7 @@ using SadConsole;
 using Console = SadConsole.Console;
 using NullRPG.Extensions;
 using NullRPG.Managers;
+using NullRPG.GameObjects;
 
 namespace NullRPG.Windows
 {
@@ -21,14 +22,22 @@ namespace NullRPG.Windows
         {
             Position = new Point(0, 0);
 
-            PrintStats();
-
             Global.CurrentScreen.Children.Add(this);
         }
 
-        public void PrintStats()
+        public override void Draw(TimeSpan timeElapsed)
         {
-            this.PrintInsideSeparators(1, "HP: 100 | LVL: 3 | XP: 100", true);
+            Clear();
+
+            PrintStats(Game.GameSession.Player);
+
+            base.Draw(timeElapsed);
+        }
+
+        public void PrintStats(Player player)
+        {
+            string stats = $"Name: {player.Name}    HP: {player.Health} / {player.MaxHealth}    Gold: {player.Gold}";
+            this.PrintInsideSeparators(1, stats, true);
         }
 
         public void Update()
