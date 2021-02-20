@@ -20,17 +20,14 @@ namespace NullRPG.Windows
             get { return this; }
         }
 
-        int test = 1;
         public KeybindingsWindow(int width, int height) : base(width, height)
         {
             // Instantiate keybindings
             
             Position = new Point(0, Constants.GameHeight - height);
 
-            // for testing purposes
-            DefaultBackground = Color.DarkGray;
-
             Initialize();
+            
 
             
 
@@ -51,7 +48,8 @@ namespace NullRPG.Windows
 
         public void PrintKeybindings()
         {
-            int x = 0;
+            this.DrawBorders(Width, Height, "+", "|", "-", DefaultForeground);
+            int x = 3;
             for (int i = 0; i < Keybindings.GetKeybindings().Count; i++)
             {
                 if (!Keybindings.GetKeybindings()[i].IsVisible)
@@ -59,9 +57,11 @@ namespace NullRPG.Windows
                     continue;
                 }
 
-                this.PrintButton(0, x, Keybindings.GetKeybindings()[i].TypeName.ToString(),
-                    char.Parse(Keybindings.GetKeybindings()[i].Key.ToString()), Color.DarkGreen, true);
-                x++;
+                this.PrintButton(x, 1, Keybindings.GetKeybindings()[i].TypeName.ToString(),
+                    char.Parse(Keybindings.GetKeybindings()[i].Key.ToString()), Color.Green, false);
+                // temporary soltuion
+                string offset = $"[{Keybindings.GetKeybindings()[i].Key}] {Keybindings.GetKeybindings()[i].TypeName}";
+                x += offset.Length + 2;
             }
 
         }

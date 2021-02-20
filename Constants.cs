@@ -24,7 +24,7 @@ namespace NullRPG
             public const int StatsHeight = 3;
 
             public const int KeybindingsWidth = 80;
-            public const int KeybindingsHeight = 5;
+            public const int KeybindingsHeight = 3;
 
             public const int TravelWidth = GameWidth;
             public const int TravelHeight = GameHeight - KeybindingsHeight;

@@ -19,8 +19,6 @@ namespace NullRPG.Windows
         {
             SadConsole.Game.Instance.Window.Title = Constants.GameTitle;
 
-            // Print game title at the top
-            Print((int)System.Math.Round((Width / 2) / 1.5f) - Constants.GameTitle.Length / 2, 1, Constants.GameTitle);
 
             Global.CurrentScreen = this;
         }

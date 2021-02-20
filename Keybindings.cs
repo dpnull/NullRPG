@@ -17,6 +17,8 @@ namespace NullRPG
         public enum Type
         {
             Travel,
+            TestButton,
+            Forge,
             Cancel
         }
 
@@ -34,6 +36,8 @@ namespace NullRPG
 
             // Travel Window
             AddKeybinding(Keybindings.Type.Cancel, Microsoft.Xna.Framework.Input.Keys.C, false);
+            AddKeybinding(Type.Forge, Keys.L, false);
+            AddKeybinding(Type.TestButton, Keys.T, false);
 
         }
 
@@ -51,6 +55,8 @@ namespace NullRPG
         {
             UpdateVisibility(Type.Travel, UserInterfaceManager.Get<Windows.TravelWindow>(), true);
             UpdateVisibility(Type.Cancel, UserInterfaceManager.Get<TravelWindow>(), false);
+            UpdateVisibility(Type.TestButton, UserInterfaceManager.Get<TravelWindow>(), false);
+            UpdateVisibility(Type.Forge, UserInterfaceManager.Get<TravelWindow>(), false);
         }
 
         private void UpdateVisibility(Type typeName, SadConsole.Console window, bool mustBeFalse)

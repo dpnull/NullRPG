@@ -19,7 +19,7 @@ namespace NullRPG.Windows
 
         public StatsWindow(int width, int height) : base(width, height)
         {
-            Position = new Point(0, 9);
+            Position = new Point(0, 0);
 
             PrintStats();
 

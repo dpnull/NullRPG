@@ -20,6 +20,34 @@ namespace NullRPG.Extensions
             currentWindow.Print(0, y, separator.ToString());
         }
 
+        public static void DrawBorders(this SadConsole.Console currentWindow, int width, int height, string cornerGlyph, string horizontalBorderGlyph, string verticalBorderGlyph, Color borderColor)
+        {
+            for (int rowIndex = 0; rowIndex < height; rowIndex++)
+            {
+                for (int colIndex = 0; colIndex < width; colIndex++)
+                {
+                    // Drawing Corners
+                    if ((rowIndex == 0 && colIndex == 0)
+                        || (rowIndex == height - 1 && colIndex == 0)
+                        || (rowIndex == height - 1 && colIndex == width - 1)
+                        || (rowIndex == 0 && colIndex == width - 1))
+                    {
+                        currentWindow.Print(colIndex, rowIndex, cornerGlyph, borderColor);
+                    }
+
+                    if (rowIndex > 0 && rowIndex < height - 1 && (colIndex == 0 || colIndex == width - 1))
+                    {
+                        currentWindow.Print(colIndex, rowIndex, horizontalBorderGlyph, borderColor);
+                    }
+
+                    if (colIndex > 0 && colIndex < width - 1 && (rowIndex == 0 || rowIndex == height - 1))
+                    {
+                        currentWindow.Print(colIndex, rowIndex, verticalBorderGlyph, borderColor);
+                    }
+                }
+            }
+        }
+
         public static void PrintInsideSeparators(this SadConsole.Console currentWindow, int y, string text, bool centered)
         {
             int _x = centered ? (currentWindow.Width / 2 - (text.Length / 2)) : 0;
@@ -40,10 +68,17 @@ namespace NullRPG.Extensions
         {
             var str = new SadConsole.ColoredString($"[{key}] {text}");
             str[1].Foreground = keyColor;
+            str.SetBackground(currentWindow.DefaultBackground);
 
             int _x = windowCentered ? (currentWindow.Width / 2 - (str.Count / 2)) : x;
 
             currentWindow.Print(_x, y, str);
+        }
+
+        //TODO
+        public static void PrintButtonsHorizontally(this SadConsole.Console currentWindow, int x, int y, string text, char key, Color keyColor, bool windowCentered)
+        {
+
         }
 
         public static int GetWindowXCenter(this SadConsole.Console currentWindow)
