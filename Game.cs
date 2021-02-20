@@ -33,7 +33,9 @@ namespace NullRPG
 
         private static void Init()
         {
+            KeybindingsManager.InitializeKeybindings();
             UserInterfaceManager.Initialize();
+
 
             // Shows the main menu
             TitleWindow = TitleWindow.Show();

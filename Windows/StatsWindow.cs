@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using SadConsole;
 using Console = SadConsole.Console;
 using NullRPG.Extensions;
+using NullRPG.Managers;
 
 namespace NullRPG.Windows
 {
@@ -18,7 +19,7 @@ namespace NullRPG.Windows
 
         public StatsWindow(int width, int height) : base(width, height)
         {
-            Position = new Point(0, 10);
+            Position = new Point(0, 9);
 
             PrintStats();
 
@@ -28,6 +29,24 @@ namespace NullRPG.Windows
         public void PrintStats()
         {
             this.PrintInsideSeparators(1, "HP: 100 | LVL: 3 | XP: 100", true);
+        }
+
+        public void Update()
+        {
+            AutoHide();
+        }
+
+        // Automatically hide when Travel window is visible
+        private void AutoHide()
+        {
+            if (UserInterfaceManager.Get<TravelWindow>().IsVisible)
+            {
+                this.Hide();
+            }
+            else
+            {
+                this.Show();
+            }
         }
     }
 }

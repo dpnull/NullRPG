@@ -19,6 +19,16 @@ namespace NullRPG.Managers
             var gameWindow = new GameWindow(Constants.GameWidth, Constants.GameHeight);
             Add(gameWindow);
 
+            var keybindingsWindow = new KeybindingsWindow(Constants.Windows.KeybindingsWidth, Constants.Windows.KeybindingsHeight);
+            Add(keybindingsWindow);
+
+            var travelWindow = new TravelWindow(Constants.Windows.TravelWidth, Constants.Windows.TravelHeight)
+            {
+                IsVisible = false,
+                IsFocused = false
+            };
+            Add(travelWindow);
+
             var statsWindow = new StatsWindow(Constants.Windows.StatsWidth, Constants.Windows.StatsHeight);
             Add(statsWindow);
 
@@ -27,7 +37,6 @@ namespace NullRPG.Managers
 
             var helpWindow = new HelpWindow(Constants.Windows.HelpWidth, Constants.Windows.HelpHeight);
             Add(helpWindow);
-
         }
 
         public static void Add<T>(T userInterface) where T : IUserInterface
