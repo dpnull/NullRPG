@@ -8,6 +8,7 @@ using Console = SadConsole.Console;
 using NullRPG.Extensions;
 using NullRPG.Managers;
 using NullRPG.GameObjects;
+using SadConsole.Effects;
 
 namespace NullRPG.Windows
 {
@@ -17,17 +18,18 @@ namespace NullRPG.Windows
 
         public LocationWindow(int width, int height) : base(width, height)
         {
-            Position = new Point(0, Constants.Windows.StatsHeight);
+            Position = new Point(Constants.GameWidth - Constants.Windows.LocationWidth - 1, Constants.GameHeight - Constants.Windows.KeybindingsHeight - Constants.Windows.LocationHeight - 1);
 
             Global.CurrentScreen.Children.Add(this);
         }
 
         public override void Update(TimeSpan timeElapsed)
         {
+            
             AutoHide();
-            DrawLocation();
-
+            DrawLocation(Game.GameSession.Player);
             base.Update(timeElapsed);
+            
         }
 
         private void AutoHide()
@@ -42,10 +44,19 @@ namespace NullRPG.Windows
             }
         }
 
-        private void DrawLocation()
+        private void DrawLocation(Player player)
         {
-            Print(1, 1, "Location");
-            this.DrawBorders(Width, Height, "+", "|", "-", DefaultForeground);
+            ColoredString locationName = new ColoredString($"{player.GetCurrentLocation().Name}");
+            locationName.SetForeground(Color.Green);
+
+
+            ColoredString locationDescription = new ColoredString($"{player.GetCurrentLocation().Description}");
+            locationDescription.SetForeground(Color.White);
+
+            Print(this.GetWindowXCenter() - (locationName.String.Length / 2), 0, locationName);
+            this.PrintSeparator(1);
+
+            Print(0, 2, locationDescription);
         }
 
     }

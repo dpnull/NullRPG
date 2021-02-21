@@ -8,6 +8,7 @@ using Console = SadConsole.Console;
 using NullRPG.Extensions;
 using NullRPG.Managers;
 using SadConsole.Input;
+using NullRPG.GameObjects;
 
 namespace NullRPG.Windows
 {
@@ -22,7 +23,7 @@ namespace NullRPG.Windows
         {
             Position = new Point(0, 0);
 
-            PrintLocations();
+            DrawLocations(Game.GameSession.World);
 
             Global.CurrentScreen.Children.Add(this);
         }
@@ -32,7 +33,7 @@ namespace NullRPG.Windows
             base.Update(timeElapsed);
         }
 
-        private void PrintLocations()
+        private void DrawLocations(World world)
         {
             this.PrintInsideSeparators(this.GetWindowYCenter(), "It worked!", true);
         }

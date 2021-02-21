@@ -16,11 +16,18 @@ namespace NullRPG.GameObjects
         public int Experience { get; set; }
         public int Level { get; set; }
         public PlayableClass CharacterClass { get; set; }
-        public Player(string name, int health, int maxHealth, int gold, int experience, int level, PlayableClass characterClass) : base(name, health, maxHealth, gold)
+        public Location Location { get; set; }
+        public Player(string name, int health, int maxHealth, int gold, int experience, int level, PlayableClass characterClass, Location location) : base(name, health, maxHealth, gold)
         {
             Experience = experience;
             Level = level;
             CharacterClass = characterClass;
+            Location = location;
+        }
+
+        public Location GetCurrentLocation()
+        {
+            return Location;
         }
     }
 }

@@ -38,15 +38,15 @@ namespace NullRPG.Managers
             var locationWindow = new LocationWindow(Constants.Windows.LocationWidth, Constants.Windows.LocationHeight);
             Add(locationWindow);
 
-            var keybindingsWindow = new KeybindingsWindow(Constants.Windows.KeybindingsWidth, Constants.Windows.KeybindingsHeight);
-            Add(keybindingsWindow);
-
             var characterWindow = new CharacterWindow(Constants.Windows.CharacterWidth, Constants.Windows.CharacterHeight)
             {
                 IsVisible = false,
                 IsFocused = false
             };
             Add(characterWindow);
+
+            var keybindingsWindow = new KeybindingsWindow(Constants.Windows.KeybindingsWidth, Constants.Windows.KeybindingsHeight);
+            Add(keybindingsWindow);
 
         }
 

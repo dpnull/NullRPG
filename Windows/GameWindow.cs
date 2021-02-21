@@ -19,7 +19,6 @@ namespace NullRPG.Windows
         {
             SadConsole.Game.Instance.Window.Title = Constants.GameTitle;
 
-
             Global.CurrentScreen = this;
         }
 
