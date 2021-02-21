@@ -47,7 +47,7 @@ namespace NullRPG.Windows
 
         private void OpenTitleWindow()
         {
-            this.Transition(UserInterfaceManager.Get<TitleWindow>());
+            this.TransitionVisibilityAndFocus(UserInterfaceManager.Get<TitleWindow>());
         }
     }
 }

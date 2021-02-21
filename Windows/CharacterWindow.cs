@@ -38,6 +38,13 @@ namespace NullRPG.Windows
             return false;
         }
 
+        public override void Update(TimeSpan timeElapsed)
+        {
+            AutoHide();
+
+            base.Update(timeElapsed);
+        }
+
         private void PrintStats(Player player)
         {
             this.PrintSeparator(0);
@@ -53,19 +60,12 @@ namespace NullRPG.Windows
 
         private void CloseStatsWindow()
         {
-            this.Transition(UserInterfaceManager.Get<GameWindow>());
-            UserInterfaceManager.Get<StatsWindow>().Update();
-            UserInterfaceManager.Get<LocationWindow>().Update();
-        }
-
-        public void Update()
-        {
-            AutoHide();
+            this.TransitionVisibilityAndFocus(UserInterfaceManager.Get<GameWindow>());
         }
 
         private void AutoHide()
         {
-            if (UserInterfaceManager.Get<TravelWindow>().IsVisible)
+            if (UserInterfaceManager.Get<TravelWindow>().IsVisible || UserInterfaceManager.Get<LocationWindow>().IsVisible)
             {
                 this.Hide();
             }

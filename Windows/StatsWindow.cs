@@ -26,8 +26,10 @@ namespace NullRPG.Windows
         }
 
         public override void Draw(TimeSpan timeElapsed)
-        {
+        {       
             Clear();
+
+            AutoHide();
 
             PrintStats(Game.GameSession.Player);
 
@@ -40,12 +42,6 @@ namespace NullRPG.Windows
             this.PrintInsideSeparators(1, stats, true);
         }
 
-        public void Update()
-        {
-            AutoHide();
-        }
-
-        // Automatically hide when Travel window is visible
         private void AutoHide()
         {
             if (UserInterfaceManager.Get<TravelWindow>().IsVisible || UserInterfaceManager.Get<CharacterWindow>().IsVisible)
@@ -56,8 +52,6 @@ namespace NullRPG.Windows
             {
                 this.Show();
             }
-
-
         }
     }
 }

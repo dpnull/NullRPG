@@ -91,7 +91,23 @@ namespace NullRPG.Extensions
             return currentWindow.Height / 2;
         }
 
-        public static void Transition(this SadConsole.Console currentWindow, SadConsole.Console transitionWindow)
+        public static void TransitionFocus(this SadConsole.Console currentWindow, SadConsole.Console transitionWindow)
+        {
+            currentWindow.Focus();
+            transitionWindow.Show();
+
+            SadConsole.Global.CurrentScreen = transitionWindow;
+        }
+
+        public static void TransitionVisibility(this SadConsole.Console currentWindow, SadConsole.Console transitionWindow)
+        {
+            currentWindow.Hide();
+            transitionWindow.Show();
+
+            SadConsole.Global.CurrentScreen = transitionWindow;
+        }
+
+        public static void TransitionVisibilityAndFocus(this SadConsole.Console currentWindow, SadConsole.Console transitionWindow)
         {
             currentWindow.HideAndUnfocus();
             transitionWindow.ShowAndFocus();
@@ -119,6 +135,16 @@ namespace NullRPG.Extensions
         public static void Hide(this SadConsole.Console currentWindow)
         {
             currentWindow.IsVisible = false;
+        }
+
+        public static void Focus(this SadConsole.Console currentWindow)
+        {
+            currentWindow.IsFocused = true;
+        }
+
+        public static void Unfocus(this SadConsole.Console currentWindow)
+        {
+            currentWindow.IsFocused = false;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace NullRPG.Windows
 {
     public class LocationWindow : Console, IUserInterface
     {
-        public Console Console { get; set; }
+        public Console Console { get { return this; } }
 
         public LocationWindow(int width, int height) : base(width, height)
         {
@@ -24,15 +24,10 @@ namespace NullRPG.Windows
 
         public override void Update(TimeSpan timeElapsed)
         {
+            AutoHide();
             DrawLocation();
 
             base.Update(timeElapsed);
-        }
-
-
-        public void Update()
-        {
-            AutoHide();
         }
 
         private void AutoHide()

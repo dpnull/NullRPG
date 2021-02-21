@@ -27,6 +27,11 @@ namespace NullRPG.Windows
             Global.CurrentScreen.Children.Add(this);
         }
 
+        public override void Update(TimeSpan timeElapsed)
+        {
+            base.Update(timeElapsed);
+        }
+
         private void PrintLocations()
         {
             this.PrintInsideSeparators(this.GetWindowYCenter(), "It worked!", true);
@@ -43,11 +48,10 @@ namespace NullRPG.Windows
             return false;
         }
 
+
         private void CloseTravelWindow()
         {
-            this.Transition(UserInterfaceManager.Get<GameWindow>());
-            UserInterfaceManager.Get<StatsWindow>().Update();
-            UserInterfaceManager.Get<LocationWindow>().Update();
+            this.TransitionVisibilityAndFocus(UserInterfaceManager.Get<GameWindow>());
         }
     }
 }

@@ -54,21 +54,11 @@ namespace NullRPG.Windows
         private void OpenTravelWindow()
         {
             UserInterfaceManager.Get<TravelWindow>().ShowAndFocus();
-
-            UserInterfaceManager.Get<StatsWindow>().Update(); // [Temporary]
-            UserInterfaceManager.Get<LocationWindow>().Update();
-            UserInterfaceManager.Get<CharacterWindow>().Update();
         }
         
         private void OpenCharacterWindow()
         {
-            this.IsFocused = false;
-
             UserInterfaceManager.Get<CharacterWindow>().ShowAndFocus();
-
-            UserInterfaceManager.Get<StatsWindow>().Update(); // [Temporary]
-            UserInterfaceManager.Get<LocationWindow>().Update();
-            UserInterfaceManager.Get<CharacterWindow>().Update();
         }
 
 

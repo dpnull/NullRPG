@@ -71,8 +71,8 @@ namespace NullRPG.Windows
             string[] titleFragments = @"
                        .-.                 _    
                       /   \              _/ \             
-         _        .--'\/\_ \            /    \       ___
-        / \_    _/ ^      \/\ __        /\/\  /\  __/   \  
+         _        .--'\/\_ \            /    \      ___
+        / \_    _/ ^      \/\ __       /\/\  /\  __/   \  
        /    \  /    .'   _/  /  \     /    \/  \/ .`'\_/\    
       /\/\  /\/ :' __  ^/  ^/    `--./.'  ^  `-.\ _    _:\ _
      /    \/  \  _/  \-' __/.' ^ _   \_   .'\   _/ \ .  __/ \
@@ -136,12 +136,12 @@ namespace NullRPG.Windows
 
         private void OpenHelpWindow()
         {
-            this.Transition(UserInterfaceManager.Get<HelpWindow>());
+            this.TransitionVisibilityAndFocus(UserInterfaceManager.Get<HelpWindow>());
         }
 
         private void Start()
         {
-            this.Transition(UserInterfaceManager.Get<GameWindow>());
+            this.TransitionVisibilityAndFocus(UserInterfaceManager.Get<GameWindow>());
         }
 
         private void Initialize()
