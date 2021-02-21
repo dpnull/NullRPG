@@ -50,29 +50,44 @@ namespace NullRPG
 
         public void UpdateKeybindings()
         {
-            UpdateVisibility(Type.Travel, UserInterfaceManager.Get<Windows.TravelWindow>(), true);
-            UpdateVisibility(Type.Cancel, UserInterfaceManager.Get<TravelWindow>(), false);
-            UpdateVisibility(Type.Character, UserInterfaceManager.Get<Windows.CharacterWindow>(), true);
+            // Game window
+            UpdateVisibility(Type.Travel, UserInterfaceManager.Get<Windows.GameWindow>());
+            UpdateVisibility(Type.Character, UserInterfaceManager.Get<Windows.GameWindow>());
+
+            // Cancel display
+            UpdateVisibility(Type.Cancel, UserInterfaceManager.Get<TravelWindow>().IsFocused ||
+                                          UserInterfaceManager.Get<CharacterWindow>().IsFocused);
+ 
         }
 
-        private void UpdateVisibility(Type typeName, SadConsole.Console window, bool mustBeFalse)
+        private void UpdateVisibility(Type typeName, SadConsole.Console window)
         {
-            if (mustBeFalse)
+            if (window.IsFocused)
             {
-                if (!window.IsVisible)
+                GetKeybindingObject(typeName).IsVisible = true;
+            }
+            else
+            {
+                GetKeybindingObject(typeName).IsVisible = false;
+            }
+        }
+
+        private void UpdateVisibility(Type typeName, bool visibility)
+        {
+            foreach(Keybindings binding in _keybindings)
+            {
+                if(typeName == binding.TypeName)
                 {
-                    GetKeybindingObject(typeName).IsVisible = true;
-                }
-                else
-                {
-                    GetKeybindingObject(typeName).IsVisible = false;
+                    if (visibility == false)
+                    {
+                        binding.IsVisible = false;
+                    }
+                    else
+                    {
+                        binding.IsVisible = true;
+                    }
                 }
             }
-            else if (!mustBeFalse)
-            {
-                GetKeybindingObject(typeName).IsVisible = window.IsVisible;
-            }
-            
         }
 
         public static Keybindings GetKeybindingObject(Type typeName)

@@ -62,6 +62,8 @@ namespace NullRPG.Windows
         
         private void OpenCharacterWindow()
         {
+            this.IsFocused = false;
+
             UserInterfaceManager.Get<CharacterWindow>().ShowAndFocus();
 
             UserInterfaceManager.Get<StatsWindow>().Update(); // [Temporary]
