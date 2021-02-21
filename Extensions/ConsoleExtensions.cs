@@ -20,6 +20,50 @@ namespace NullRPG.Extensions
             currentWindow.Print(0, y, separator.ToString());
         }
 
+        public static void PrintWrappedText(this SadConsole.Console currentWindow, int xPos, int yPos, string text, Color color)
+        {
+            int x = 0; int y = 0;
+            foreach (var c in text)
+            {
+                if (c == '\n') { x = 0; y++; continue; }
+                else { x++; }
+                currentWindow.Print(xPos + x, yPos + y, c.ToString(), color);
+            }
+        }
+
+        public static void PrintWrappedText(this SadConsole.Console currentWindow, int xPos, int yPos, string text)
+        {
+            int x = 0; int y = 0;
+            foreach (var c in text)
+            {
+                if (c == '\n') { x = 0; y++; continue; }
+                else { x++; }
+                currentWindow.Print(xPos + x, yPos + y, c.ToString());
+            }
+        }
+
+        public static void PrintWrappedText(this SadConsole.Console currentWindow, int xPos, int yPos, SadConsole.ColoredString text)
+        {
+            int x = 0; int y = 0;
+            foreach (var c in text.String)
+            {
+                if (c == '\n') { x = 0; y++; continue; }
+                else { x++; }
+                currentWindow.Print(xPos + x, yPos + y, c.ToString());
+            }
+        }
+
+        public static void PrintWrappedText(this SadConsole.Console currentWindow, int xPos, int yPos, SadConsole.ColoredString text, Color color)
+        {
+            int x = 0; int y = 0;
+            foreach (var c in text.String)
+            {
+                if (c == '\n') { x = 0; y++; continue; }
+                else { x++; }
+                currentWindow.Print(xPos + x, yPos + y, c.ToString(), color);
+            }
+        }
+
         public static void DrawBorders(this SadConsole.Console currentWindow, int width, int height, string cornerGlyph, string horizontalBorderGlyph, string verticalBorderGlyph, Color borderColor)
         {
             for (int rowIndex = 0; rowIndex < height; rowIndex++)

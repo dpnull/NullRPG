@@ -35,7 +35,14 @@ namespace NullRPG.Windows
 
         private void DrawLocations(World world)
         {
-            this.PrintInsideSeparators(this.GetWindowYCenter(), "It worked!", true);
+            this.PrintInsideSeparators(0, "TRAVEL", true, Color.LightGreen);
+
+            int y = 3;
+            foreach(Location location in world.GetLocations())
+            {
+                Print(0, y, location.Name);
+                y++;
+            }
         }
 
         public override bool ProcessKeyboard(Keyboard info)

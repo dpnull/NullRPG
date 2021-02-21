@@ -56,7 +56,8 @@ namespace NullRPG.Windows
             Print(this.GetWindowXCenter() - (locationName.String.Length / 2), 0, locationName);
             this.PrintSeparator(1);
 
-            Print(0, 2, locationDescription);
+            this.PrintWrappedText(0, 2, locationDescription);
+            //Cursor.Print(0, 2, locationDescription;)
         }
 
     }

@@ -32,5 +32,10 @@ namespace NullRPG.GameObjects
 
             return null;
         }
+
+        public Location[] GetLocations()
+        {
+            return _locations.ToArray();
+        }
     }
 }
