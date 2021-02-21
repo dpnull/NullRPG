@@ -36,6 +36,12 @@ namespace NullRPG.Windows
                 return true;
             }
 
+            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Character)))
+            {
+                OpenCharacterWindow();
+                return true;
+            }
+
             if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.P))
             {
                 Game.GameSession.Player.AddGold(1);
@@ -51,6 +57,16 @@ namespace NullRPG.Windows
 
             UserInterfaceManager.Get<StatsWindow>().Update(); // [Temporary]
             UserInterfaceManager.Get<LocationWindow>().Update();
+            UserInterfaceManager.Get<CharacterWindow>().Update();
+        }
+        
+        private void OpenCharacterWindow()
+        {
+            UserInterfaceManager.Get<CharacterWindow>().ShowAndFocus();
+
+            UserInterfaceManager.Get<StatsWindow>().Update(); // [Temporary]
+            UserInterfaceManager.Get<LocationWindow>().Update();
+            UserInterfaceManager.Get<CharacterWindow>().Update();
         }
 
 

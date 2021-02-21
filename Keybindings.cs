@@ -17,8 +17,7 @@ namespace NullRPG
         public enum Type
         {
             Travel,
-            TestButton,
-            Forge,
+            Character,
             Cancel
         }
 
@@ -32,12 +31,10 @@ namespace NullRPG
             _keybindings = new List<Keybindings>();
 
             // Game Window
-            AddKeybinding(Keybindings.Type.Travel, Microsoft.Xna.Framework.Input.Keys.T, false);
+            AddKeybinding(Type.Travel, Microsoft.Xna.Framework.Input.Keys.T, false);
+            AddKeybinding(Type.Character, Keys.C, false);
 
-            // Travel Window
-            AddKeybinding(Keybindings.Type.Cancel, Microsoft.Xna.Framework.Input.Keys.C, false);
-            AddKeybinding(Type.Forge, Keys.L, false);
-            AddKeybinding(Type.TestButton, Keys.T, false);
+            AddKeybinding(Type.Cancel, Microsoft.Xna.Framework.Input.Keys.C, false);
 
         }
 
@@ -55,8 +52,7 @@ namespace NullRPG
         {
             UpdateVisibility(Type.Travel, UserInterfaceManager.Get<Windows.TravelWindow>(), true);
             UpdateVisibility(Type.Cancel, UserInterfaceManager.Get<TravelWindow>(), false);
-            UpdateVisibility(Type.TestButton, UserInterfaceManager.Get<TravelWindow>(), false);
-            UpdateVisibility(Type.Forge, UserInterfaceManager.Get<TravelWindow>(), false);
+            UpdateVisibility(Type.Character, UserInterfaceManager.Get<Windows.CharacterWindow>(), true);
         }
 
         private void UpdateVisibility(Type typeName, SadConsole.Console window, bool mustBeFalse)

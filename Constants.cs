@@ -31,6 +31,9 @@ namespace NullRPG
 
             public const int LocationWidth = GameWidth;
             public const int LocationHeight = 12;
+
+            public const int CharacterWidth = GameWidth;
+            public const int CharacterHeight = 10;
         }
     }
 }

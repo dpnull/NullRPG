@@ -7,8 +7,20 @@ namespace NullRPG.GameObjects
 {
     public class Player : Entity
     {
-        public Player(string name, int health, int maxHealth, int gold) : base(name, health, maxHealth, gold)
+        public enum PlayableClass
         {
+            Warrior,
+            Mage,
+            Barbarian
+        }
+        public int Experience { get; set; }
+        public int Level { get; set; }
+        public PlayableClass CharacterClass { get; set; }
+        public Player(string name, int health, int maxHealth, int gold, int experience, int level, PlayableClass characterClass) : base(name, health, maxHealth, gold)
+        {
+            Experience = experience;
+            Level = level;
+            CharacterClass = characterClass;
         }
     }
 }

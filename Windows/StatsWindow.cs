@@ -48,7 +48,7 @@ namespace NullRPG.Windows
         // Automatically hide when Travel window is visible
         private void AutoHide()
         {
-            if (UserInterfaceManager.Get<TravelWindow>().IsVisible)
+            if (UserInterfaceManager.Get<TravelWindow>().IsVisible || UserInterfaceManager.Get<CharacterWindow>().IsVisible)
             {
                 this.Hide();
             }
@@ -56,6 +56,8 @@ namespace NullRPG.Windows
             {
                 this.Show();
             }
+
+
         }
     }
 }

@@ -41,6 +41,13 @@ namespace NullRPG.Managers
             var keybindingsWindow = new KeybindingsWindow(Constants.Windows.KeybindingsWidth, Constants.Windows.KeybindingsHeight);
             Add(keybindingsWindow);
 
+            var characterWindow = new CharacterWindow(Constants.Windows.CharacterWidth, Constants.Windows.CharacterHeight)
+            {
+                IsVisible = false,
+                IsFocused = false
+            };
+            Add(characterWindow);
+
         }
 
         public static void Add<T>(T userInterface) where T : IUserInterface

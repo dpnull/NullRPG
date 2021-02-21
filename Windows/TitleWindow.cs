@@ -90,7 +90,7 @@ namespace NullRPG.Windows
             {
                 for (int x = 0; x < titleFragments[y].Length; x++)
                 {
-                    Print(startPosX + x, startPosY + y, new ColoredGlyph(titleFragments[y][x], Color.White, Color.Transparent));
+                    Print(startPosX + x, startPosY + y, new ColoredGlyph(titleFragments[y][x], Color.Brown, Color.Transparent));
                 }
             }
 
