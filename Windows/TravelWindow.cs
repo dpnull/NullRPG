@@ -9,11 +9,15 @@ using NullRPG.Extensions;
 using NullRPG.Managers;
 using SadConsole.Input;
 using NullRPG.GameObjects;
+using SadConsole.Controls;
+using SadConsole.Themes;
 
 namespace NullRPG.Windows
 {
-    public class TravelWindow : Console, IUserInterface
+    public class TravelWindow : ControlsConsole, IUserInterface
     {
+        private List<SelectionButton> SelectionButtons = new List<SelectionButton>();
+
         public Console Console
         {
             get { return this; }
@@ -21,27 +25,37 @@ namespace NullRPG.Windows
 
         public TravelWindow(int width, int height) : base(width, height)
         {
-            Position = new Point(0, 0);
 
-            DrawLocations(Game.GameSession.World);
+            AssignKeybindings(Game.GameSession.World);
+
+            var colors = Colors.CreateDefault();
+            colors.ControlBack = Color.Black;
+            colors.Text = Color.White;
+            colors.TitleText = Color.White;
+            colors.ControlHostBack = Color.White;
+
+            Library.Default.SetControlTheme(typeof(Button), new ButtonLinesTheme());
+            colors.RebuildAppearances();
+
+            ThemeColors = colors;
 
             Global.CurrentScreen.Children.Add(this);
         }
 
         public override void Update(TimeSpan timeElapsed)
         {
+            DrawLocations();
             base.Update(timeElapsed);
         }
 
-        private void DrawLocations(World world)
+        private void DrawLocations()
         {
-            this.PrintInsideSeparators(0, "TRAVEL", true, Color.LightGreen);
-
+            int x = 5;
             int y = 3;
-            foreach(Location location in world.GetLocations())
+            foreach(SelectionButton button in SelectionButtons)
             {
-                Print(0, y, location.Name);
-                y++;
+                button.Position = new Point(x, y);
+                y += 3;
             }
         }
 
@@ -56,6 +70,32 @@ namespace NullRPG.Windows
             return false;
         }
 
+        private void AssignKeybindings(World world)
+        {
+            foreach (Location location in world.GetLocations())
+            {
+                AddSelectionButton(location.Name);
+            }
+        }
+
+        private void AddSelectionButton(string text)
+        {
+            Button3dTheme btnTheme = new Button3dTheme();
+
+            SelectionButton selectionButton = new SelectionButton(15, 1)
+            {
+                Text = text
+            };
+
+            selectionButton.UseMouse = false;
+            selectionButton.UseKeyboard = true;
+
+            selectionButton.Theme = btnTheme;
+
+            SelectionButtons.Add(selectionButton);
+            Add(selectionButton);
+           
+        }
 
         private void CloseTravelWindow()
         {

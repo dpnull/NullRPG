@@ -12,9 +12,7 @@ namespace NullRPG.Factories
             World world = new World();
 
             world.AddLocation(0, 0, "Home",
-                "This is your house.\n" +
-                "It's not much, but it's\n" +
-                "something.");
+                "This is your house.");
 
             world.AddLocation(1, 0, "Forest", "The local forest.");
             world.AddLocation(2, 0, "Town", "The seemingly abandoned town.");
