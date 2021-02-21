@@ -68,9 +68,11 @@ namespace NullRPG.Windows
         private void DrawGameTitle()
         {
             Print(0, 0, "EARLY TESTING");
+            Print(Width - (Constants.Build.Length), Height - 1, Constants.Build);
+
             string[] titleFragments = @"
                        .-.                 _    
-                      /   \              _/ \             
+                      /   \              _/ \  
          _        .--'\/\_ \            /    \      ___
         / \_    _/ ^      \/\ __       /\/\  /\  __/   \  
        /    \  /    .'   _/  /  \     /    \/  \/ .`'\_/\    
@@ -82,26 +84,53 @@ namespace NullRPG.Windows
 "
 .Replace("\r", string.Empty).Split('\n');
 
-            int startPosX = (Constants.GameWidth / 2) - (titleFragments.OrderByDescending(a => a.Length).First().Length / 2);
-            int startPosY = 0;
+            string[] gameNameFragments = @"
+  _   _ _    _ _      _      _____  _____   _____ 
+ | \ | | |  | | |    | |    |  __ \|  __ \ / ____|
+ |  \| | |  | | |    | |    | |__) | |__) | |  __ 
+ | . ` | |  | | |    | |    |  _  /|  ___/| | |_ |
+ | |\  | |__| | |____| |____| | \ \| |    | |__| |
+ |_| \_|\____/|______|______|_|  \_\_|     \_____|
+
+".Replace("\r", string.Empty).Split('\n');
+
+            int gStartPosX = (Constants.GameWidth / 2) - (titleFragments.OrderByDescending(a => a.Length).First().Length / 2);
+            int gStartPosY = 0;
 
             // Print title fragments
             for (int y = 0; y < titleFragments.Length; y++)
             {
                 for (int x = 0; x < titleFragments[y].Length; x++)
                 {
-                    Print(startPosX + x, startPosY + y, new ColoredGlyph(titleFragments[y][x], Color.Brown, Color.Transparent));
+                    Print(gStartPosX + x, gStartPosY + y + 1, new ColoredGlyph(titleFragments[y][x], Color.White, Color.Transparent));
                 }
             }
 
-            this.PrintInsideSeparators(this.GetWindowYCenter(), Title, true, Color.LightGreen);
+
+
+            int tStartPosX = (Constants.GameWidth / 2) - (gameNameFragments.OrderByDescending(a => a.Length).First().Length / 2);
+            int tStartPosY = this.GetWindowYCenter() - 1;
+
+            this.PrintSeparator(tStartPosY + 8);
+            this.PrintSeparator(tStartPosY);
+
+            // Print game name fragments
+            for (int y = 0; y < gameNameFragments.Length; y++)
+            {
+                for (int x = 0; x < gameNameFragments[y].Length; x++)
+                {
+                    Print(tStartPosX + x, tStartPosY + y, new ColoredGlyph(gameNameFragments[y][x], Color.Red, Color.Transparent));
+                }
+            }
+
         }
         
         private void DrawButtons()
         {
-            this.PrintButton(this.GetWindowXCenter(), this.GetWindowYCenter() + 2, "Play", '1', Color.DarkGreen, true);
-            this.PrintButton(this.GetWindowXCenter(), this.GetWindowYCenter() + 3, "Help", '2', Color.DarkGreen, true);
-            this.PrintButton(this.GetWindowXCenter(), this.GetWindowYCenter() + 4, "Quit", '3', Color.DarkGreen, true);
+            this.PrintButton(this.GetWindowXCenter(), Height - 5, "Play", '1', Color.DarkGreen, true);
+            this.PrintButton(this.GetWindowXCenter(), Height - 4, "Help", '2', Color.DarkGreen, true);
+            this.PrintButton(this.GetWindowXCenter(), Height - 3, "Quit", '3', Color.DarkGreen, true);
+            this.PrintSeparator(Height - 2);
         }
 
         public static TitleWindow Show()
