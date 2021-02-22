@@ -29,5 +29,10 @@ namespace NullRPG.GameObjects
         {
             return Location;
         }
+
+        public void TravelToLocation(World world, int x)
+        {
+            Location = world.GetLocation(x, 0);
+        }
     }
 }
