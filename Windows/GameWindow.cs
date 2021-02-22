@@ -17,6 +17,12 @@ namespace NullRPG.Windows
 
         public GameWindow(int width, int height) : base(width, height)
         {
+            ColoredString tStr = new ColoredString($"  {Constants.GameTitle}  ");
+            tStr.SetForeground(Color.White);
+            tStr.SetBackground(Color.DarkGreen);
+            Print(9, 0, tStr);
+            Print(Width - Constants.Build.Length, 0, Constants.Build, Color.Gray);
+
             SadConsole.Game.Instance.Window.Title = Constants.GameTitle;
 
             Global.CurrentScreen = this;

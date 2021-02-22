@@ -18,6 +18,8 @@ namespace NullRPG.Windows
 
         public CharacterWindow(int width, int height) : base(width, height)
         {
+            Position = new Point(0, 1);
+
             Global.CurrentScreen.Children.Add(this);
         }
 

@@ -16,9 +16,7 @@ namespace NullRPG.Windows
 {
     public class TravelWindow : Console, IUserInterface
     {
-        IndexedKeybindings IndexedKeybindings;
-
-
+        readonly IndexedKeybindings IndexedKeybindings;
         public Console Console
         {
             get { return this; }
@@ -26,6 +24,8 @@ namespace NullRPG.Windows
 
         public TravelWindow(int width, int height) : base(width, height)
         {
+            Position = new Point(0, 1);
+
             IndexedKeybindings = new IndexedKeybindings(Game.GameSession.World);
 
             Global.CurrentScreen.Children.Add(this);
@@ -71,21 +71,19 @@ namespace NullRPG.Windows
                 return true;
             }
 
-
             return false;
         }
 
         private void Travel(Location loc)
         {
             Game.GameSession.Player.TravelToLocation(loc);
+            CloseTravelWindow();
         }
 
         private void CloseTravelWindow()
         {
             this.TransitionVisibilityAndFocus(UserInterfaceManager.Get<GameWindow>());
         }
-
-
     }
 
 

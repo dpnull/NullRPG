@@ -24,12 +24,8 @@ namespace NullRPG.Windows
             get { return this; }
         }
 
-        private readonly string Title = $"{Constants.GameTitle} {Constants.Build}";
-
         public TitleWindow(int width, int height) : base(width, height)
         {
-            
-
             SadConsole.Game.Instance.Window.Title = Constants.GameTitle;
 
             // Add it to the children of the main console

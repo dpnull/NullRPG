@@ -20,7 +20,7 @@ namespace NullRPG.Windows
 
         public StatsWindow(int width, int height) : base(width, height)
         {
-            Position = new Point(0, 0);
+            Position = new Point(0, 1);
 
             Global.CurrentScreen.Children.Add(this);
         }

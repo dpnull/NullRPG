@@ -7,7 +7,7 @@ namespace NullRPG
     public sealed class Constants
     {
         public const string GameTitle = "NullRPG";
-        public const string Build = "Build 210219";
+        public const string Build = "Build 210222";
 
         public const int GameWidth = 80;
         public const int GameHeight = 25;
@@ -27,12 +27,12 @@ namespace NullRPG
             public const int KeybindingsHeight = 3;
 
             public const int TravelWidth = GameWidth;
-            public const int TravelHeight = GameHeight - KeybindingsHeight;
+            public const int TravelHeight = GameHeight - 1 - KeybindingsHeight;
 
             public const int LocationWidth = 25;
             public const int LocationHeight = 6;
 
-            public const int CharacterWidth = GameWidth;
+            public const int CharacterWidth = GameWidth - 1;
             public const int CharacterHeight = 10;
         }
     }
