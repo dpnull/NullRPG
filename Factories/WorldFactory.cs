@@ -16,6 +16,7 @@ namespace NullRPG.Factories
 
             world.AddLocation(1, 0, "Forest", "The local forest.");
             world.AddLocation(2, 0, "Town", "The seemingly abandoned town.");
+            world.AddLocation(3, 0, "Rocky Cave", "The entrance suggests it must be occupied by spiders.");
 
             return world;
         }

@@ -10,6 +10,7 @@ namespace NullRPG
     public static class Game
     {
 
+        public static WindowManager WindowManager;
         public static TitleWindow TitleWindow { get; private set; }
         public static GameSession GameSession { get; private set; }
 
@@ -35,6 +36,8 @@ namespace NullRPG
 
         private static void Init()
         {
+            WindowManager = new WindowManager();
+
             GameSession = new GameSession();
 
             UserInterfaceManager.Initialize();

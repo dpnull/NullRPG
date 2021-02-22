@@ -53,19 +53,44 @@ namespace NullRPG
             throw new System.Exception($"No keybinding defined with index: {index}");
         }
 
-
-
-        public IndexedTravelKeybinding GetTravelKeybinding(int index)
+        public Microsoft.Xna.Framework.Input.Keys GetTravelKeybinding(int index)
         {
             foreach (var keybinding in _indexedTravelKeybindings)
             {
                 if (index == keybinding.Index)
                 {
-                    return keybinding;
+                    return keybinding.Keybinding;
                 }
             }
 
+            return Microsoft.Xna.Framework.Input.Keys.Z;
+        }
+
+        public Location GetIndexedLocation(int index)
+        {
+            foreach (var keybinding in _indexedTravelKeybindings)
+            {
+                if (index == keybinding.Index)
+                {
+                    return keybinding.Location;
+                }
+            }
             return null;
+        }
+
+        public bool IsNotNull(int index)
+        {
+            foreach(var keybinding in _indexedTravelKeybindings)
+            {
+                if(index == keybinding.Index)
+                {
+                    if (keybinding == null)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 

@@ -37,13 +37,13 @@ namespace NullRPG.Windows
         {
             if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Travel)))
             {
-                OpenTravelWindow();
+                Game.WindowManager.OpenTravelWindow();
                 return true;
             }
 
             if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Character)))
             {
-                OpenCharacterWindow();
+                Game.WindowManager.OpenCharacterWindow();
                 return true;
             }
 
@@ -55,16 +55,7 @@ namespace NullRPG.Windows
 
             return false;
         }
-
-        private void OpenTravelWindow()
-        {
-            UserInterfaceManager.Get<TravelWindow>().ShowAndFocus();
-        }
         
-        private void OpenCharacterWindow()
-        {
-            UserInterfaceManager.Get<CharacterWindow>().ShowAndFocus();
-        }
 
 
         

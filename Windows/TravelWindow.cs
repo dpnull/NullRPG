@@ -49,42 +49,39 @@ namespace NullRPG.Windows
         {
             if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Cancel)))
             {
-                CloseTravelWindow();
-                return true;
-            }
-
-            if (info.IsKeyPressed(IndexedKeybindings.GetTravelKeybinding(1).Keybinding))
-            {
-                Travel(IndexedKeybindings.GetTravelKeybinding(1).Location);
+                Game.WindowManager.CloseCurrentWindow(this);
                 return true;
             }
             
-            if (info.IsKeyPressed(IndexedKeybindings.GetTravelKeybinding(2).Keybinding))
+            if (info.IsKeyPressed(IndexedKeybindings.GetTravelKeybinding(1)))
             {
-                Travel(IndexedKeybindings.GetTravelKeybinding(2).Location);
+                Game.WindowManager.Travel(IndexedKeybindings.GetIndexedLocation(1));
+                Game.WindowManager.CloseCurrentWindow(this);
+                return true;
+            }
+            
+            if (info.IsKeyPressed(IndexedKeybindings.GetTravelKeybinding(2)))
+            {
+                Game.WindowManager.Travel(IndexedKeybindings.GetIndexedLocation(2));
+                Game.WindowManager.CloseCurrentWindow(this);
                 return true;
             }
 
-            if (info.IsKeyPressed(IndexedKeybindings.GetTravelKeybinding(3).Keybinding))
+            if (info.IsKeyPressed(IndexedKeybindings.GetTravelKeybinding(3)))
             {
-                Travel(IndexedKeybindings.GetTravelKeybinding(3).Location);
+                Game.WindowManager.Travel(IndexedKeybindings.GetIndexedLocation(3));
+                Game.WindowManager.CloseCurrentWindow(this);
+                return true;
+            }
+
+            if (info.IsKeyPressed(IndexedKeybindings.GetTravelKeybinding(4)))
+            {
+                Game.WindowManager.Travel(IndexedKeybindings.GetIndexedLocation(4));
+                Game.WindowManager.CloseCurrentWindow(this);
                 return true;
             }
 
             return false;
         }
-
-        private void Travel(Location loc)
-        {
-            Game.GameSession.Player.TravelToLocation(loc);
-            CloseTravelWindow();
-        }
-
-        private void CloseTravelWindow()
-        {
-            this.TransitionVisibilityAndFocus(UserInterfaceManager.Get<GameWindow>());
-        }
     }
-
-
 }

@@ -30,9 +30,17 @@ namespace NullRPG.GameObjects
             return Location;
         }
 
+
         public void TravelToLocation(Location loc)
         {
-            Location = loc;
+            if (loc != null)
+            {
+                Location = loc;
+            }
+            else
+            {
+                throw new ArgumentException($"The location does not exist");
+            }
         }
     }
 }
