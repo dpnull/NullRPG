@@ -13,10 +13,10 @@ namespace NullRPG.GameObjects
             Mage,
             Barbarian
         }
-        public int Experience { get; set; }
-        public int Level { get; set; }
-        public PlayableClass CharacterClass { get; set; }
-        public Location Location { get; set; }
+        public int Experience { get; private set; }
+        public int Level { get; private set; }
+        public PlayableClass CharacterClass { get; private set; }
+        public Location Location { get; private set; }
         public Player(string name, int health, int maxHealth, int gold, int experience, int level, PlayableClass characterClass, Location location) : base(name, health, maxHealth, gold)
         {
             Experience = experience;
@@ -30,9 +30,9 @@ namespace NullRPG.GameObjects
             return Location;
         }
 
-        public void TravelToLocation(World world, int x)
+        public void TravelToLocation(Location loc)
         {
-            Location = world.GetLocation(x, 0);
+            Location = loc;
         }
     }
 }
