@@ -17,6 +17,7 @@ namespace NullRPG.Factories
             _items.Add(WeaponItem.Broadsword());
             _items.Add(WeaponItem.Longsword());
             _items.Add(WeaponItem.Longsword());
+            _items.Add(WeaponItem.Barehanded());
         }
     }
 }

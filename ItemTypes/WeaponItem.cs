@@ -13,6 +13,11 @@ namespace NullRPG.ItemTypes
 
         }
 
+        public static WeaponItem Barehanded()
+        {
+            return new WeaponItem(2000, "Barehanded", "Barehands better than a lack thereof", 0, 0, 0, 3, true);
+        }
+
         public static WeaponItem Longsword()
         {
             return new WeaponItem(2001, "Longsword", "A remarkable solid weapon.", 10, 1, 7, 10, true);

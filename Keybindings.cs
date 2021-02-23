@@ -19,6 +19,7 @@ namespace NullRPG
             Travel,
             Character,
             Inventory,
+            View,
             Cancel
         }
 
@@ -35,6 +36,9 @@ namespace NullRPG
             AddKeybinding(Type.Travel, Microsoft.Xna.Framework.Input.Keys.T, false);
             AddKeybinding(Type.Character, Keys.C, false);
             AddKeybinding(Type.Inventory, Keys.I, false);
+
+            // Character Window
+            AddKeybinding(Type.View, Keys.V, false);
 
             AddKeybinding(Type.Cancel, Microsoft.Xna.Framework.Input.Keys.C, false);
 
@@ -122,6 +126,19 @@ namespace NullRPG
         public List<Keybindings> GetKeybindings()
         {
             return _keybindings;
+        }
+
+        public static char GetKeybindingChar(Type typeName)
+        {
+            foreach(var keybinding in _keybindings)
+            {
+                if(keybinding.TypeName == typeName)
+                {
+                    return char.Parse(keybinding.Key.ToString());
+                }
+            }
+
+            return '\0';
         }
 
 

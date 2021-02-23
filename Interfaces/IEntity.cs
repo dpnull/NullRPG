@@ -10,7 +10,8 @@ namespace NullRPG.Interfaces
         public int Health { get; set; }
         public int MaxHealth { get; set; }
         public int Gold { get; set; }
-        public int Attack { get; set; }
+        public int MinDmg { get; set; }
+        public int MaxDmg { get; set; }
         public int Defense { get; set; }
     }
 }

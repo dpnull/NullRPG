@@ -14,6 +14,7 @@ namespace NullRPG.GameObjects
             Barbarian
         }
         public int Experience { get; private set; }
+        public int ExperiencedNeeded { get; set; }
         public int Level { get; private set; }
         public PlayableClass CharacterClass { get; private set; }
         public Location Location { get; private set; }
@@ -24,6 +25,10 @@ namespace NullRPG.GameObjects
             Level = level;
             CharacterClass = characterClass;
             Location = location;
+
+            ExperiencedNeeded = 100;
+            MinDmg = 0;
+            MaxDmg = 0;
         }
 
         public Location GetCurrentLocation()
