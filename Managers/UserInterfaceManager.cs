@@ -48,6 +48,13 @@ namespace NullRPG.Managers
             var keybindingsWindow = new KeybindingsWindow(Constants.Windows.KeybindingsWidth, Constants.Windows.KeybindingsHeight);
             Add(keybindingsWindow);
 
+            var inventoryWindow = new InventoryWindow(Constants.Windows.InventoryWidth, Constants.Windows.InventoryHeight)
+            {
+                IsVisible = false,
+                IsFocused = false
+            };
+            Add(inventoryWindow);
+
         }
 
         public static void Add<T>(T userInterface) where T : IUserInterface

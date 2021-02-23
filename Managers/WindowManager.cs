@@ -24,6 +24,11 @@ namespace NullRPG.Managers
             UserInterfaceManager.Get<CharacterWindow>().ShowAndFocus();
         }
 
+        public void OpenInventoryWindow()
+        {
+            UserInterfaceManager.Get<InventoryWindow>().ShowAndFocus();
+        }
+
         // Currently always sends back to game window
         public void CloseCurrentWindow(SadConsole.Console window)
         {

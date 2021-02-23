@@ -44,7 +44,8 @@ namespace NullRPG.Windows
 
         private void AutoHide()
         {
-            if (UserInterfaceManager.Get<TravelWindow>().IsVisible || UserInterfaceManager.Get<CharacterWindow>().IsVisible)
+            if (UserInterfaceManager.Get<TravelWindow>().IsVisible || UserInterfaceManager.Get<CharacterWindow>().IsVisible
+                || UserInterfaceManager.Get<InventoryWindow>().IsVisible)
             {
                 this.Hide();
             }

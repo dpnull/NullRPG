@@ -18,6 +18,7 @@ namespace NullRPG
         {
             Travel,
             Character,
+            Inventory,
             Cancel
         }
 
@@ -33,6 +34,7 @@ namespace NullRPG
             // Game Window
             AddKeybinding(Type.Travel, Microsoft.Xna.Framework.Input.Keys.T, false);
             AddKeybinding(Type.Character, Keys.C, false);
+            AddKeybinding(Type.Inventory, Keys.I, false);
 
             AddKeybinding(Type.Cancel, Microsoft.Xna.Framework.Input.Keys.C, false);
 
@@ -53,6 +55,7 @@ namespace NullRPG
             // Game window
             UpdateVisibility(Type.Travel, UserInterfaceManager.Get<Windows.GameWindow>());
             UpdateVisibility(Type.Character, UserInterfaceManager.Get<Windows.GameWindow>());
+            UpdateVisibility(Type.Inventory, UserInterfaceManager.Get<Windows.GameWindow>());
 
             // Cancel display
             UpdateVisibility(Type.Cancel, UserInterfaceManager.Get<TravelWindow>().IsFocused ||

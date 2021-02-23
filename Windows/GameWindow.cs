@@ -53,6 +53,11 @@ namespace NullRPG.Windows
                 return true;
             }
 
+            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Inventory)))
+            {
+                Game.WindowManager.OpenInventoryWindow();
+            }
+
             return false;
         }
         
