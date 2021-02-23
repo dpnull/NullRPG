@@ -12,7 +12,7 @@ using NullRPG.Interfaces;
 
 namespace NullRPG.Windows
 {
-    class InventoryWindow : Console, IUserInterface
+    public class InventoryWindow : Console, IUserInterface
     {
         public Console Console { get; set; }
 

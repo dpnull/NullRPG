@@ -10,6 +10,7 @@ namespace NullRPG.Factories
     {
         private static List<Item> _items = new List<Item>();
 
+        // Instantiate global items (might delete this factory)
         static ItemFactory()
         {
             _items.Add(MiscItem.BoarSkin());

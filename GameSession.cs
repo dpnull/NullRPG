@@ -15,6 +15,7 @@ namespace NullRPG
         {
             World = WorldFactory.CreateWorld();
             Player = new Player("Tianyu", 100, 100, 37, 0, 1, Player.PlayableClass.Warrior, World.GetLocation(0,0));
+            Player.TravelToLocation(World.GetLocation(0, 0));
 
             // add test items
             Player.Inventory.AddItemToInventory(WeaponItem.Broadsword());

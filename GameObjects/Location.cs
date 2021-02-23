@@ -10,12 +10,5 @@ namespace NullRPG.GameObjects
         public int Y { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public Location()
-        {
-            X = 0;
-            Y = 0;
-            Name = "Home";
-            Description = "This is your house.";
-        }
     }
 }

@@ -33,6 +33,7 @@ namespace NullRPG.Windows
             
         }
 
+        // Automatically hide this console if any of the listed consoles are visible
         private void AutoHide()
         {
             if (UserInterfaceManager.Get<TravelWindow>().IsVisible || UserInterfaceManager.Get<CharacterWindow>().IsVisible)
@@ -50,7 +51,6 @@ namespace NullRPG.Windows
             ColoredString locationName = new ColoredString($"{player.GetCurrentLocation().Name}");
             locationName.SetForeground(Color.Green);
 
-
             ColoredString locationDescription = new ColoredString($"{player.GetCurrentLocation().Description}");
             locationDescription.SetForeground(Color.White);
 
@@ -58,7 +58,6 @@ namespace NullRPG.Windows
             this.PrintSeparator(1);
 
             this.Print(0, 2, locationDescription);
-            //Cursor.Print(0, 2, locationDescription;)
         }
 
     }

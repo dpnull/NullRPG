@@ -36,7 +36,6 @@ namespace NullRPG.GameObjects
             return Location;
         }
 
-
         public void TravelToLocation(Location loc)
         {
             if (loc != null)

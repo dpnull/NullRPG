@@ -27,10 +27,7 @@ namespace NullRPG.Windows
             Position = new Point(0, Constants.GameHeight - height);
 
             Initialize();
-            
-
-            
-
+           
             Global.CurrentScreen.Children.Add(this);
         }
 
@@ -39,21 +36,25 @@ namespace NullRPG.Windows
         {
             Clear();
 
-            PrintKeybindings();
+            DrawKeybindings();
 
             Keybindings.UpdateKeybindings();
             
             base.Draw(timeElapsed);         
         }
 
-        public void PrintKeybindings()
+        public void DrawKeybindings()
         {
-            // Needs to be refractored heavily 
+            // Needs to be refractored heavily
+
+            int x = 3; // spacing between each button
+            
             this.DrawBorders(Width, Height, "+", "|", "-", DefaultForeground);
-            int x = 3;
+
+            
             for (int i = 0; i < Keybindings.GetKeybindings().Count; i++)
             {
-                if (!Keybindings.GetKeybindings()[i].IsVisible)
+                if (!Keybindings.GetKeybindings()[i].IsVisible) // don't iterate through hidden keybindings
                 {
                     continue;
                 }
@@ -73,7 +74,6 @@ namespace NullRPG.Windows
                 }
 
             }
-
         }
 
         public void Initialize()

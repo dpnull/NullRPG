@@ -11,6 +11,10 @@ namespace NullRPG.Managers
         Cancel
     }
 
+    /*
+     * Currently obsolete
+     */
+
     class oldKeybindingsManager
     {
         private static readonly Dictionary<Keybindings, Keys> _keybindings = new Dictionary<Keybindings, Keys>();

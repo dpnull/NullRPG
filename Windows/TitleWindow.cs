@@ -35,8 +35,6 @@ namespace NullRPG.Windows
             DrawButtons();
         }
 
-        // remember to eventually use public override void On[...]
-
         public override bool ProcessKeyboard(Keyboard info)
         {
             if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D1))
@@ -138,25 +136,6 @@ namespace NullRPG.Windows
 
             return titleWindow;
         }
-
-        /*
-        private static void Hide(Console transitionConsole)
-        {
-            var titleWindow = UserInterfaceManager.Get<TitleWindow>();
-
-            titleWindow.IsVisible = false;
-
-            transitionConsole.IsVisible = true;
-
-            Global.CurrentScreen = transitionConsole;
-        }
-
-        public static void Transition(Console transitionConsole)
-        {
-            Hide(transitionConsole);
-
-        }
-        */
 
         private void OpenHelpWindow()
         {

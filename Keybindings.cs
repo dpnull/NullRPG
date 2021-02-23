@@ -38,7 +38,6 @@ namespace NullRPG
             AddKeybinding(Type.Inventory, Keys.I, false);
 
             // Character Window
-
             AddKeybinding(Type.Cancel, Microsoft.Xna.Framework.Input.Keys.C, false);
 
             // Temporary hack for multiple keybinding choice display
@@ -46,6 +45,12 @@ namespace NullRPG
 
         }
 
+        /// <summary>
+        /// Add a new keybinding object to the keybindings list.
+        /// </summary>
+        /// <param name="typeName">Binding name (type).</param>
+        /// <param name="key">XNA key.</param>
+        /// <param name="isVisible">Visible upon creation.</param>
         public void AddKeybinding(Type typeName, Keys key, bool isVisible)
         {
             Keybindings keybinding = new Keybindings();
@@ -56,6 +61,8 @@ namespace NullRPG
             _keybindings.Add(keybinding);
         }
 
+        // Checks and updates visibilty of listed keybindings inside the function based on the visibilty of the console passed through the manager.
+        // Can become redundant if replaced with event listeners for visibility.
         public void UpdateKeybindings()
         {
             // Game window
@@ -72,6 +79,11 @@ namespace NullRPG
  
         }
 
+        /// <summary>
+        /// Show keybinding based on the visibilty of the window.
+        /// </summary>
+        /// <param name="typeName">Binding name (type).</param>
+        /// <param name="window">Console to be checked.</param>
         private void UpdateVisibility(Type typeName, SadConsole.Console window)
         {
             if (window.IsFocused)
@@ -84,6 +96,7 @@ namespace NullRPG
             }
         }
 
+        // Allows for passing multiple windows visibilites.
         private void UpdateVisibility(Type typeName, bool visibility)
         {
             foreach(Keybindings binding in _keybindings)
@@ -102,6 +115,11 @@ namespace NullRPG
             }
         }
 
+        /// <summary>
+        /// Retrieve a keybinding object using passed type name.
+        /// </summary>
+        /// <param name="typeName">Binding name (type).</param>
+        /// <returns></returns>
         public static Keybindings GetKeybindingObject(Type typeName)
         {
             foreach (var keybinding in _keybindings)
@@ -115,6 +133,11 @@ namespace NullRPG
             throw new System.Exception($"Keybinding with type name {typeName} does not exit.");
         }
 
+        /// <summary>
+        /// Retrieve a keybinding XNA key using passed type name.
+        /// </summary>
+        /// <param name="typeName">Binding name (type).</param>
+        /// <returns></returns>
         public static Keys GetKeybinding(Type typeName)
         {
             foreach(var keybinding in _keybindings)
@@ -128,11 +151,20 @@ namespace NullRPG
             throw new System.Exception($"Keybinding with type name {typeName} does not exit.");
         }
 
+        /// <summary>
+        /// Return a copy a of keybindings list
+        /// </summary>
+        /// <returns></returns>
         public List<Keybindings> GetKeybindings()
         {
             return _keybindings;
         }
 
+        /// <summary>
+        /// Retrieve a keybinding char using passed type name.
+        /// </summary>
+        /// <param name="typeName">Binding name (type).</param>
+        /// <returns></returns>
         public static char GetKeybindingChar(Type typeName)
         {
             foreach(var keybinding in _keybindings)

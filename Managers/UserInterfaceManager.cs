@@ -14,6 +14,7 @@ namespace NullRPG.Managers
         public static bool IsPaused { get; set; }
         public static bool IsInitialized { get; set; }
 
+        // Initialize all windows
         public static void Initialize()
         {
             var gameWindow = new GameWindow(Constants.GameWidth, Constants.GameHeight);
@@ -57,11 +58,13 @@ namespace NullRPG.Managers
 
         }
 
+        // Add a new window to the manager
         public static void Add<T>(T userInterface) where T : IUserInterface
         {
             Interfaces.Add(userInterface);
         }
 
+        // Fetch an existing window from the manager
         public static T Get<T>() where T : IUserInterface
         {
             return Interfaces.OfType<T>().SingleOrDefault();

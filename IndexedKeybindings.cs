@@ -17,6 +17,7 @@ namespace NullRPG
             InitializeIndexedKeybindings(world);
         }
 
+        // Add indexed keybindings objects to the dictionary. Objects use an int as key necessary for fetching value by using the passed index.
         public void InitializeIndexedKeybindingsDictionary()
         {
             (int, Microsoft.Xna.Framework.Input.Keys)[] indexedKeybindings = new (int, Microsoft.Xna.Framework.Input.Keys)[]
@@ -39,6 +40,7 @@ namespace NullRPG
             }
         }
 
+        // Initialize keybinding objects for travel by using the passed world object. 
         private void InitializeIndexedKeybindings(World world)
         {
             for (int i = 0; i < world.GetLocations().Length; i++)
@@ -47,12 +49,14 @@ namespace NullRPG
             }
         }
 
+        // Returns a XNA key from the dictionary based on the passed key.
         public Microsoft.Xna.Framework.Input.Keys GetIndexedKeybinding(int index)
         {
             if (IndexedKeybindingsDictionary.TryGetValue(index, out Microsoft.Xna.Framework.Input.Keys value)) return value;
             throw new System.Exception($"No keybinding defined with index: {index}");
         }
 
+        // Return a XNA keybinding from the travel object based on the passed index
         public Microsoft.Xna.Framework.Input.Keys GetTravelKeybinding(int index)
         {
             foreach (var keybinding in _indexedTravelKeybindings)
@@ -63,7 +67,8 @@ namespace NullRPG
                 }
             }
 
-            return Microsoft.Xna.Framework.Input.Keys.Z;
+            // Temporary hack for return
+            return Microsoft.Xna.Framework.Input.Keys.F20;
         }
 
         public Location GetIndexedLocation(int index)
