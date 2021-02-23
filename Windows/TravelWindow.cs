@@ -81,6 +81,14 @@ namespace NullRPG.Windows
                 return true;
             }
 
+
+            if (info.IsKeyPressed(IndexedKeybindings.GetTravelKeybinding(5)))
+            {
+                Game.WindowManager.Travel(IndexedKeybindings.GetIndexedLocation(5));
+                Game.WindowManager.CloseCurrentWindow(this);
+                return true;
+            }
+
             return false;
         }
     }

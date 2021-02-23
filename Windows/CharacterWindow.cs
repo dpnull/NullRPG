@@ -15,14 +15,94 @@ namespace NullRPG.Windows
 {
     public class CharacterWindow : Console, IUserInterface
     {
+
+        internal static bool _drawWeapon;
+        internal static bool _drawHeadItem;
+
+        internal class ViewWindow : Console
+        {
+            private static readonly int ViewWidth = 40;
+            private static readonly int ViewHeight = 10;
+            public ViewWindow() : base(ViewWidth, ViewHeight)
+            {
+                Position = new Point(Constants.Windows.CharacterWidth - ViewWidth, (Constants.Windows.CharacterHeight - ViewHeight) / 2);
+
+                IsVisible = true;
+                IsFocused = false;
+            }
+
+            public override void Update(TimeSpan timeElapsed)
+            {
+                Clear();
+
+                this.DrawBorders(Width, Height, "+", "|", "-", Color.White);
+
+                AutoHide();
+                DrawWeapon(Game.GameSession.Player.Inventory.GetCurrentWeapon());
+                DrawHeadItem(Game.GameSession.Player.Inventory.GetCurrentHeadItem());
+                base.Update(timeElapsed);
+            }
+
+            // TODO: automate and shrink drawing into one function
+            private void DrawWeapon(WeaponItem playerWeapon)
+            {
+                if (_drawWeapon)
+                {
+                    IsVisible = true;
+
+                    string name = $"- {playerWeapon.Name} -";
+                    string description = playerWeapon.Description;
+                    string damage = $"[{playerWeapon.MinDmg} - {playerWeapon.MaxDmg}]";
+                    string value = $"Value: {playerWeapon.Gold}";
+
+                    Print(2, 1, name);
+                    Print(2, 2, description);
+                    Print(2, 3, damage);
+                    Print(2, 4, value);
+                }
+
+            }
+
+            private void DrawHeadItem(HeadItem playerHeadItem)
+            {
+                if (_drawHeadItem)
+                {
+                    IsVisible = true;
+                    string name = $"- {playerHeadItem.Name} -";
+                    string description = playerHeadItem.Description;
+                    string defense = $"Defense: {playerHeadItem.Defense}";
+                    string value = $"Value: {playerHeadItem.Gold}";
+
+                    Print(2, 1, name);
+                    Print(2, 2, description);
+                    Print(2, 3, defense);
+                    Print(2, 4, value);
+                }
+
+            }
+
+            private void AutoHide()
+            {
+                if(!_drawWeapon && !_drawWeapon)
+                {
+                    IsVisible = false;
+                }
+            }
+
+        }
+
+
         public Console Console { get; set; }
 
-        private bool _drawWeapon;
+        private ViewWindow _viewWindow;
 
         public CharacterWindow(int width, int height) : base(width, height)
         {
+            _viewWindow = new ViewWindow();
+
             Position = new Point(0, 1);
 
+            Children.Add(_viewWindow);
             Global.CurrentScreen.Children.Add(this);
         }
 
@@ -37,13 +117,24 @@ namespace NullRPG.Windows
             if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Cancel)))
             {
                 CloseStatsWindow();
+                _drawHeadItem = false;
+                _drawWeapon = false;
                 return true;
             }
 
-            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.View)))
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D1))
             {
+                _drawHeadItem = false;
                 if(_drawWeapon == false) { _drawWeapon = true; return true; }
                 else if(_drawWeapon == true) { _drawWeapon = false; return true; }
+
+            }
+
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D2))
+            {
+                _drawWeapon = false;
+                if (_drawHeadItem == false) { _drawHeadItem = true; return true; }
+                else if (_drawHeadItem == true) { _drawHeadItem = false; return true; }
 
             }
 
@@ -62,6 +153,7 @@ namespace NullRPG.Windows
         private void PrintStats(Player player)
         {
             var playerWeapon = player.Inventory.GetCurrentWeapon();
+            var playerHeadItem = player.Inventory.GetCurrentHeadItem();
             #region
             // Temporary, veru ugly
             var coloredCurHp = new ColoredString(player.Health.ToString());
@@ -77,7 +169,7 @@ namespace NullRPG.Windows
             slashSeparator.SetForeground(Color.White);
 
 
-            #endregion // colored hp
+            #endregion  // colored hp string
 
             string levelAndXp = $"Level: {player.Level} [{player.Experience} - {player.ExperiencedNeeded}]";
             coloredHp = coloredHp + coloredCurHp + slashSeparator + coloredMaxHp;
@@ -85,7 +177,13 @@ namespace NullRPG.Windows
             string gold = $"Gold: {player.Gold}";
             string attackDamage = $"Attack damage: {player.MinDmg} - {player.MaxDmg}";
 
-            string currentWeapon = $"Currently wielding {playerWeapon.Name.ToLower()}";
+            // colored item strings
+            var currentWeapon = new ColoredString  ($"[1] WEAPON    {playerWeapon.Name}");
+            var currentHeadItem = new ColoredString($"[2] HEAD      {playerHeadItem.Name}");
+
+            currentWeapon[1].Foreground = Color.Green;
+            currentHeadItem[1].Foreground = Color.Green;
+
 
             this.PrintSeparator(0);
             string str = $"{player.Name}'s Character Stats";
@@ -97,31 +195,10 @@ namespace NullRPG.Windows
             Print(0, 6, attackDamage);
             Print(0, 8, gold);
             Print(0, 10, currentWeapon);
-            if (!_drawWeapon)
-            {
-                this.PrintButton(currentWeapon.Length + 2, 10, "View More", Keybindings.GetKeybindingChar(Keybindings.Type.View), Color.Green, false);
-            } else
-            {
-                this.PrintButton(currentWeapon.Length + 2, 10, "Hide", Keybindings.GetKeybindingChar(Keybindings.Type.View), Color.Green, false);
-            }
-
-
-            DrawWeapon(playerWeapon);
+            Print(0, 11, currentHeadItem);
         }
 
-        private void DrawWeapon(WeaponItem playerWeapon)
-        {
-            if (_drawWeapon)
-            {
-                string description = playerWeapon.Description;
-                string damage = $"[{playerWeapon.MinDmg} - {playerWeapon.MaxDmg}]";
-                string value = $"Value: {playerWeapon.Gold}";
 
-                Print(0, 11, description);
-                Print(0, 12, damage);
-                Print(0, 13, value);
-            }
-        }
 
         private void CloseStatsWindow()
         {

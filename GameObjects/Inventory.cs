@@ -10,11 +10,13 @@ namespace NullRPG.GameObjects
     {
         private List<Item> _inventory { get; set; }
         private WeaponItem CurrentWeapon { get; set; }
+        private HeadItem CurrentHeadItem { get; set; }
 
         public Inventory()
         {
             _inventory = new List<Item>();
             CurrentWeapon = WeaponItem.Barehanded();
+            CurrentHeadItem = HeadItem.LivingLogHelmet();
         }
 
         public void AddItemToInventory(Item item)
@@ -35,6 +37,11 @@ namespace NullRPG.GameObjects
         public WeaponItem GetCurrentWeapon()
         {
             return CurrentWeapon;
+        }
+
+        public HeadItem GetCurrentHeadItem()
+        {
+            return CurrentHeadItem;
         }
     }
 }

@@ -190,6 +190,6 @@ namespace NullRPG.Extensions
         public static void Unfocus(this SadConsole.Console currentWindow)
         {
             currentWindow.IsFocused = false;
-        }
+        } 
     }
 }

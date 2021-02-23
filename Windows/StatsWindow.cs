@@ -38,7 +38,7 @@ namespace NullRPG.Windows
 
         public void PrintStats(Player player)
         {
-            string stats = $"HP: {player.Health} / {player.MaxHealth}    Gold: {player.Gold}    Damage: {player.MinDmg} - {player.MaxDmg}";
+            string stats = $"HP: {player.Health} / {player.MaxHealth}    Gold: {player.Gold}    Damage: {player.MinDmg} - {player.MaxDmg}    Defense: {player.Defense}";
             this.PrintInsideSeparators(1, stats, true);
         }
 

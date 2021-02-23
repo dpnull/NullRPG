@@ -8,7 +8,7 @@ namespace NullRPG.ItemTypes
     public class WeaponItem : Item
     {
         private WeaponItem(int id, string name, string description, int gold, int level, int minDmg, int maxDmg, bool isUnique)
-            : base(id, name, description, gold, level, minDmg, maxDmg, 0, isUnique)
+            : base(id, name, description, gold, level, minDmg, maxDmg)
         {
 
         }

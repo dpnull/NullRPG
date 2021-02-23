@@ -48,6 +48,7 @@ namespace NullRPG.Windows
 
         public void PrintKeybindings()
         {
+            // Needs to be refractored heavily 
             this.DrawBorders(Width, Height, "+", "|", "-", DefaultForeground);
             int x = 3;
             for (int i = 0; i < Keybindings.GetKeybindings().Count; i++)
@@ -57,11 +58,20 @@ namespace NullRPG.Windows
                     continue;
                 }
 
-                this.PrintButton(x, 1, Keybindings.GetKeybindings()[i].TypeName.ToString(),
-                    char.Parse(Keybindings.GetKeybindings()[i].Key.ToString()), Color.Green, false);
-                // temporary soltuion
-                string offset = $"[{Keybindings.GetKeybindings()[i].Key}] {Keybindings.GetKeybindings()[i].TypeName}";
-                x += offset.Length + 2;
+                if (Keybindings.GetKeybindings()[i].TypeName == Keybindings.Type.View)
+                {
+                    string viewStr = $"[1 - 9] {Keybindings.GetKeybindings()[i].TypeName}";
+                    Print(Width - viewStr.Length - 3, 1, viewStr, Color.AntiqueWhite);
+                }
+                if(Keybindings.GetKeybindings()[i].TypeName != Keybindings.Type.View)
+                {
+                    this.PrintButton(x, 1, Keybindings.GetKeybindings()[i].TypeName.ToString(),
+                        char.Parse(Keybindings.GetKeybindings()[i].Key.ToString()), Color.Green, false);
+                    // temporary soltuion
+                    string offset = $"[{Keybindings.GetKeybindings()[i].Key}] {Keybindings.GetKeybindings()[i].TypeName}";
+                    x += offset.Length + 2;
+                }
+
             }
 
         }

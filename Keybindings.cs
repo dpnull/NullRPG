@@ -38,9 +38,11 @@ namespace NullRPG
             AddKeybinding(Type.Inventory, Keys.I, false);
 
             // Character Window
-            AddKeybinding(Type.View, Keys.V, false);
 
             AddKeybinding(Type.Cancel, Microsoft.Xna.Framework.Input.Keys.C, false);
+
+            // Temporary hack for multiple keybinding choice display
+            AddKeybinding(Type.View, Keys.F20, false);
 
         }
 
@@ -63,7 +65,10 @@ namespace NullRPG
 
             // Cancel display
             UpdateVisibility(Type.Cancel, UserInterfaceManager.Get<TravelWindow>().IsFocused ||
-                                          UserInterfaceManager.Get<CharacterWindow>().IsFocused);
+                                          UserInterfaceManager.Get<CharacterWindow>().IsFocused || UserInterfaceManager.Get<InventoryWindow>().IsFocused);
+
+            // Character display
+            UpdateVisibility(Type.View, UserInterfaceManager.Get<CharacterWindow>().IsFocused);
  
         }
 

@@ -33,7 +33,7 @@ namespace NullRPG
             public const int LocationHeight = 6;
 
             public const int CharacterWidth = GameWidth;
-            public const int CharacterHeight = GameHeight - 1 - KeybindingsHeight;
+            public const int CharacterHeight = GameHeight - KeybindingsHeight - 1;
 
             public const int InventoryWidth = GameWidth;
             public const int InventoryHeight = 30;

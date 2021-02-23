@@ -8,12 +8,22 @@ namespace NullRPG.GameObjects.Abstracts
     {
         private int _minDmg;
         private int _maxDmg;
+        private int _defense;
+        private int _maxHealth;
 
         public string Name { get; set; }
         public int Health { get; set; }
-        public int MaxHealth { get; set; }
         public int Gold { get; set; }
-        public int Defense { get; set; }
+        public int MaxHealth
+        {
+            get { return _maxHealth + Inventory.GetCurrentHeadItem().Health; }
+            set { _maxHealth = value; }
+        }
+        public int Defense
+        {
+            get { return _defense + Inventory.GetCurrentHeadItem().Defense; }
+            set { _defense = value; }
+        }
         public Inventory Inventory { get; set; }
 
         public int MinDmg
