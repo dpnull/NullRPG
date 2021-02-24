@@ -80,6 +80,11 @@ namespace NullRPG.Windows
             base.Update(timeElapsed);
         }
 
+        private void HighlightCurrentlySelected()
+        {
+
+        }
+
         private void PrintStats(Player player)
         {
             var playerWeapon = player.Inventory.GetCurrentWeapon();

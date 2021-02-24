@@ -131,7 +131,7 @@ namespace NullRPG.Windows
 
                 for (int i = 0; i < Printable.Length; i++)
                 {
-                    this.PrintButton(1, i, Printable[i].Name, char.Parse(IndexedKeybindings._indexedInventoryKeybindings[i].Index.ToString()), Color.Green, false);
+                    this.PrintButton(1, i, Printable[i].Name, IndexedKeybindings._indexedInventoryKeybindings[i].Index.ToString(), Color.Green, false);
                 }
                 /*
                 int y = 1; int x = 1;
@@ -144,6 +144,21 @@ namespace NullRPG.Windows
                     y++;
                 }
                 */
+                PrintItemOptions();
+            }
+        }
+
+        private void PrintItemOptions()
+        {
+            if (UserInterfaceManager.Get<ViewItemWindow>().DrawableItem != null)
+            {
+                // Draw only if item is not misc
+                if (!(UserInterfaceManager.Get<ViewItemWindow>().DrawableItem is MiscItem))
+                {
+                    this.PrintButton(UserInterfaceManager.Get<ViewItemWindow>().Position.X, Constants.Windows.ViewItemHeight + 1 + Constants.Windows.KeybindingsHeight,
+                        Keybindings.GetKeybindingName(Keybindings.Type.Equip),
+                        Keybindings.GetKeybindingChar(Keybindings.Type.Equip), Color.Green, false);
+                }
             }
         }
 

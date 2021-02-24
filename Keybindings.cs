@@ -21,6 +21,8 @@ namespace NullRPG
             Inventory,
             View,
             All,
+            Equip,
+            Drop,
             Equipment,
             Miscellaneous,
             Cancel
@@ -47,10 +49,13 @@ namespace NullRPG
             AddKeybinding(Type.View, Keys.F20, false);
 
             // Inventory Window
-            AddKeybinding(Type.All, Keys.A, false);
-            AddKeybinding(Type.Equipment, Keys.E, false);
-            AddKeybinding(Type.Miscellaneous, Keys.M, false);
+            AddKeybinding(Type.All, Keys.F1, false);
+            AddKeybinding(Type.Equipment, Keys.F2, false);
+            AddKeybinding(Type.Miscellaneous, Keys.F3, false);
 
+            // Selected item options
+            AddKeybinding(Type.Equip, Keys.E, false);
+            AddKeybinding(Type.Drop, Keys.D, false);
         }
 
         /// <summary>
@@ -166,6 +171,20 @@ namespace NullRPG
             throw new System.Exception($"Keybinding with type name {typeName} does not exit.");
         }
 
+        public static string GetKeybindingName(Type typeName)
+        {
+            foreach(var keybinding in _keybindings)
+            {
+                if(keybinding.TypeName == typeName)
+                {
+                    return keybinding.TypeName.ToString();
+                }
+            }
+
+            throw new System.Exception($"Keybinding with type name {typeName} does not exit.");
+
+        }
+
         /// <summary>
         /// Return a copy a of keybindings list
         /// </summary>
@@ -180,17 +199,17 @@ namespace NullRPG
         /// </summary>
         /// <param name="typeName">Binding name (type).</param>
         /// <returns></returns>
-        public static char GetKeybindingChar(Type typeName)
+        public static string GetKeybindingChar(Type typeName)
         {
             foreach(var keybinding in _keybindings)
             {
                 if(keybinding.TypeName == typeName)
                 {
-                    return char.Parse(keybinding.Key.ToString());
+                    return keybinding.Key.ToString();
                 }
             }
 
-            return '\0';
+            return "\0";
         }
 
 

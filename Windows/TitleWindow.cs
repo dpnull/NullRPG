@@ -120,9 +120,9 @@ namespace NullRPG.Windows
         
         private void DrawButtons()
         {
-            this.PrintButton(this.GetWindowXCenter(), Height - 5, "Play", '1', Color.DarkGreen, true);
-            this.PrintButton(this.GetWindowXCenter(), Height - 4, "Help", '2', Color.DarkGreen, true);
-            this.PrintButton(this.GetWindowXCenter(), Height - 3, "Quit", '3', Color.DarkGreen, true);
+            this.PrintButton(this.GetWindowXCenter(), Height - 5, "Play", "1", Color.DarkGreen, true);
+            this.PrintButton(this.GetWindowXCenter(), Height - 4, "Help", "2", Color.DarkGreen, true);
+            this.PrintButton(this.GetWindowXCenter(), Height - 3, "Quit", "3", Color.DarkGreen, true);
             this.PrintSeparator(Height - 2);
         }
 

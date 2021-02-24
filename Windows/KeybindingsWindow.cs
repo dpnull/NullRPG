@@ -67,7 +67,7 @@ namespace NullRPG.Windows
                 if(Keybindings.GetKeybindings()[i].TypeName != Keybindings.Type.View)
                 {
                     this.PrintButton(x, 1, Keybindings.GetKeybindings()[i].TypeName.ToString(),
-                        char.Parse(Keybindings.GetKeybindings()[i].Key.ToString()), Color.Green, false);
+                        Keybindings.GetKeybindings()[i].Key.ToString(), Color.Green, false);
                     // temporary soltuion
                     string offset = $"[{Keybindings.GetKeybindings()[i].Key}] {Keybindings.GetKeybindings()[i].TypeName}";
                     x += offset.Length + 2;

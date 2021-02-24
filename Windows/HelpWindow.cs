@@ -31,7 +31,7 @@ namespace NullRPG.Windows
 
         private void DrawButtons()
         {
-            this.PrintButton(this.GetWindowXCenter(), this.GetWindowYCenter() + 2, "Return", 'Q', Color.DarkGreen, true);
+            this.PrintButton(this.GetWindowXCenter(), this.GetWindowYCenter() + 2, "Return", "Q", Color.DarkGreen, true);
         }
 
         public override bool ProcessKeyboard(Keyboard info)

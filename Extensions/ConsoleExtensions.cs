@@ -109,15 +109,28 @@ namespace NullRPG.Extensions
             PrintSeparator(currentWindow, y + 1);
         }
 
-        public static void PrintButton(this SadConsole.Console currentWindow, int x, int y, string text, char key, Color keyColor, bool windowCentered)
+        public static void PrintButton(this SadConsole.Console currentWindow, int x, int y, string text, string key, Color keyColor, bool windowCentered)
         {
-            var str = new SadConsole.ColoredString($"[{key}] {text}");
-            str[1].Foreground = keyColor;
-            str.SetBackground(currentWindow.DefaultBackground);
+            var bracketA = new SadConsole.ColoredString("[");
+            bracketA.SetForeground(currentWindow.DefaultForeground);
+            var bracketB = new SadConsole.ColoredString("] ");
+            bracketB.SetForeground(currentWindow.DefaultForeground);
 
-            int _x = windowCentered ? (currentWindow.Width / 2 - (str.Count / 2)) : x;
+            var prefix = new SadConsole.ColoredString($"{key}");
+            prefix.SetForeground(keyColor);
 
-            currentWindow.Print(_x, y, str);
+            var suffix = new SadConsole.ColoredString($"{text}");
+            suffix.SetForeground(currentWindow.DefaultForeground);
+
+            var button = new SadConsole.ColoredString("");
+            button.SetForeground(currentWindow.DefaultForeground);
+            button.SetBackground(currentWindow.DefaultBackground);
+
+            button += bracketA + prefix + bracketB + suffix;
+
+            int _x = windowCentered ? (currentWindow.Width / 2 - (button.Count / 2)) : x;
+
+            currentWindow.Print(_x, y, button);
         }
 
         //TODO
