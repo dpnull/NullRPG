@@ -15,8 +15,7 @@ namespace NullRPG.ItemTypes
 
         public static LegsItem IronLeggings()
         {
-            return new LegsItem(5001, "Iron Leggins", "Encumbers you but packs good resistance.", 20, 1, 3, 0, true);
+            return new LegsItem(5001, "Iron Leggings", "Encumbers you but packs good resistance.", 20, 1, 3, 0, true);
         }
-
     }
 }

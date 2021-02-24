@@ -62,6 +62,9 @@ namespace NullRPG.Managers
                 IsFocused = false
             };
             Add(viewItemWindow);
+
+            var messageWindow = new MessageWindow(Constants.Windows.MessageWidth, Constants.Windows.MessageHeight);
+            Add(messageWindow);
         }
 
         // Add a new window to the manager
