@@ -151,6 +151,12 @@ namespace NullRPG.Windows
                     Print(x, y, defense); y++;
                     Print(x, y, health);
                     Print(this.GetWindowXCenter() - (value.Length / 2), Height - 2, value);
+                } else if (item is MiscItem)
+                {
+                    Print(Width - level.Length - 1, y, level);
+                    Print(this.GetWindowXCenter() - (name.Length / 2), y, name, Color.NavajoWhite); y++;
+                    Print(x, y, description); y++;
+                    Print(this.GetWindowXCenter() - (value.Length / 2), Height - 2, value);
                 }
             }
           

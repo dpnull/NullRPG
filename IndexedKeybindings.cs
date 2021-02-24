@@ -10,11 +10,19 @@ namespace NullRPG
         public Dictionary<int, Microsoft.Xna.Framework.Input.Keys> IndexedKeybindingsDictionary = new Dictionary<int, Microsoft.Xna.Framework.Input.Keys>();
 
         public List<IndexedTravelKeybinding> _indexedTravelKeybindings = new List<IndexedTravelKeybinding>();
+        public List<IndexedInventoryKeybinding> _indexedInventoryKeybindings = new List<IndexedInventoryKeybinding>();
 
         public IndexedKeybindings(World world)
         {
             InitializeIndexedKeybindingsDictionary();
-            InitializeIndexedKeybindings(world);
+            InitializeIndexedTravelKeybindings(world);
+        }
+
+        public IndexedKeybindings(Item[] items)
+        {
+            InitializeIndexedKeybindingsDictionary();
+            InitializeIndexedInventoryKeybindings(items);
+            
         }
 
         // Add indexed keybindings objects to the dictionary. Objects use an int as key necessary for fetching value by using the passed index.
@@ -41,11 +49,20 @@ namespace NullRPG
         }
 
         // Initialize keybinding objects for travel by using the passed world object. 
-        private void InitializeIndexedKeybindings(World world)
+        private void InitializeIndexedTravelKeybindings(World world)
         {
             for (int i = 0; i < world.GetLocations().Length; i++)
             {
                 _indexedTravelKeybindings.Add(IndexedTravelKeybinding.AddIndexedKeybinding(i, GetIndexedKeybinding(i), world.GetLocations()[i]));
+            }
+        }
+
+        // Initialize keybinding objects for inventory by using the passed items array.
+        private void InitializeIndexedInventoryKeybindings(Item[] items)
+        {
+            for (int i = 0; i < items.Length; i++)
+            {
+                _indexedInventoryKeybindings.Add(IndexedInventoryKeybinding.AddIndexedKeybinding(i, GetIndexedKeybinding(i), items[i]));
             }
         }
 
@@ -71,6 +88,21 @@ namespace NullRPG
             return Microsoft.Xna.Framework.Input.Keys.F20;
         }
 
+        // Return a XNA keybinding from the travel object based on the passed index
+        public Microsoft.Xna.Framework.Input.Keys GetInventoryKeybinding(int index)
+        {
+            foreach (var item in _indexedInventoryKeybindings)
+            {
+                if (index == item.Index)
+                {
+                    return item.Keybinding;
+                }
+            }
+
+            // Temporary hack for return
+            return Microsoft.Xna.Framework.Input.Keys.F20;
+        }
+
         public Location GetIndexedLocation(int index)
         {
             foreach (var keybinding in _indexedTravelKeybindings)
@@ -78,6 +110,18 @@ namespace NullRPG
                 if (index == keybinding.Index)
                 {
                     return keybinding.Location;
+                }
+            }
+            return null;
+        }
+
+        public Item GetIndexedItem(int index)
+        {
+            foreach(var item in _indexedInventoryKeybindings)
+            {
+                if(index == item.Index)
+                {
+                    return item.Item;
                 }
             }
             return null;
@@ -124,6 +168,32 @@ namespace NullRPG
 
             return indexKeybinding;
         }
+    }
 
+    public class IndexedInventoryKeybinding
+    {
+        private int _index;
+        public int Index
+        {
+            get { return _index; }
+            set
+            {
+                _index = value;
+                _index += 1;
+            }
+        }
+        public Microsoft.Xna.Framework.Input.Keys Keybinding { get; set; }
+        public Item Item { get; set; }
+
+        public static IndexedInventoryKeybinding AddIndexedKeybinding(int index, Microsoft.Xna.Framework.Input.Keys keybinding, Item item)
+        {
+            IndexedInventoryKeybinding indexKeybinding = new IndexedInventoryKeybinding();
+
+            indexKeybinding.Index = index;
+            indexKeybinding.Keybinding = keybinding;
+            indexKeybinding.Item = item;
+
+            return indexKeybinding;
+        }
     }
 }

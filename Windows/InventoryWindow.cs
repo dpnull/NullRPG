@@ -15,6 +15,8 @@ namespace NullRPG.Windows
 {
     public class InventoryWindow : Console, IUserInterface
     {
+        private IndexedKeybindings IndexedKeybindings;
+
         public Console Console { get; set; }
 
         private Item[] Printable { get; set; }
@@ -22,6 +24,11 @@ namespace NullRPG.Windows
         public InventoryWindow(int width, int height) : base(width, height)
         {
             Position = new Point(0, 1);
+
+            Printable = ShowAll(Game.GameSession.Player);
+
+            // Assign the new index keys
+            IndexedKeybindings = new IndexedKeybindings(Printable);
 
             Global.CurrentScreen.Children.Add(this);
         }
@@ -45,6 +52,7 @@ namespace NullRPG.Windows
             if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Cancel)))
             {
                 Game.WindowManager.CloseCurrentWindow(this);
+                UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = null;
                 return true;
             }
 
@@ -66,6 +74,51 @@ namespace NullRPG.Windows
                 return true;
             }
 
+            if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(1)))
+            {
+                UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(1);
+            }
+
+            if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(2)))
+            {
+                UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(2);
+            }
+
+            if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(3)))
+            {
+                UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(3);
+            }
+
+            if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(4)))
+            {
+                UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(4);
+            }
+
+            if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(5)))
+            {
+                UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(5);
+            }
+
+            if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(6)))
+            {
+                UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(6);
+            }
+
+            if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(7)))
+            {
+                UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(7);
+            }
+
+            if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(8)))
+            {
+                UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(8);
+            }
+
+            if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(9)))
+            {
+                UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(9);
+            }
+
             return false;
         }
 
@@ -73,6 +126,14 @@ namespace NullRPG.Windows
         {
             if (Printable != null)
             {
+                IndexedKeybindings = new IndexedKeybindings(Printable);
+                // Reassign the new index keys
+
+                for (int i = 0; i < Printable.Length; i++)
+                {
+                    this.PrintButton(1, i, Printable[i].Name, char.Parse(IndexedKeybindings._indexedInventoryKeybindings[i].Index.ToString()), Color.Green, false);
+                }
+                /*
                 int y = 1; int x = 1;
                 foreach (var item in Printable)
                 {
@@ -82,6 +143,7 @@ namespace NullRPG.Windows
                     Print(x + 25, y, value);
                     y++;
                 }
+                */
             }
         }
 
