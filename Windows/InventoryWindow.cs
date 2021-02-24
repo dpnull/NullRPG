@@ -9,12 +9,15 @@ using NullRPG.GameObjects;
 using Microsoft.Xna.Framework;
 using SadConsole;
 using NullRPG.Interfaces;
+using NullRPG.ItemTypes;
 
 namespace NullRPG.Windows
 {
     public class InventoryWindow : Console, IUserInterface
     {
         public Console Console { get; set; }
+
+        private Item[] Printable { get; set; }
 
         public InventoryWindow(int width, int height) : base(width, height)
         {
@@ -26,8 +29,15 @@ namespace NullRPG.Windows
 
         public override void Update(TimeSpan timeElapsed)
         {
-            DrawFilters();
+            Draw();
             base.Update(timeElapsed);
+        }
+
+        private void Draw()
+        {
+            Clear();
+            DrawInventory();
+            DrawFilters();
         }
 
         public override bool ProcessKeyboard(Keyboard info)
@@ -40,22 +50,54 @@ namespace NullRPG.Windows
 
             if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.All)))
             {
-                ShowAll(Game.GameSession.Player);
+                Printable = ShowAll(Game.GameSession.Player);
+                return true;
+            }
+
+            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Miscellaneous)))
+            {
+                Printable = ShowMisc(Game.GameSession.Player);
+                return true;
+            }
+
+            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Equipment)))
+            {
+                Printable = ShowEquipment(Game.GameSession.Player);
                 return true;
             }
 
             return false;
         }
 
-        private void ShowAll(Player player)
+        private void DrawInventory()
         {
-            var inventory = player.Inventory.GetInventory();
-            int y = 1; int x = 1;
-            foreach(var item in inventory)
+            if (Printable != null)
             {
-                string printable = $"{item.Name}    {item.Description}    {item.Gold}";
-                Print(x, y, printable);
+                int y = 1; int x = 1;
+                foreach (var item in Printable)
+                {
+                    string name = $"- {item.Name} -";
+                    string value = $"Val: {item.Gold}";
+                    Print(x, y, name);
+                    Print(x + 25, y, value);
+                    y++;
+                }
             }
+        }
+
+        private Item[] ShowAll(Player player)
+        {
+            return player.Inventory.GetInventory();
+        }
+
+        private Item[] ShowMisc(Player player)
+        {
+            return player.Inventory.GetMisc();
+        }
+
+        private Item[] ShowEquipment(Player player)
+        {
+            return player.Inventory.GetEquipment();
         }
 
         private void DrawFilters()

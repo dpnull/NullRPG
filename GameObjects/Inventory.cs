@@ -38,6 +38,34 @@ namespace NullRPG.GameObjects
             return _inventory.ToArray();
         }
 
+        public Item[] GetMisc()
+        {
+            var misc = new List<Item>();
+            foreach(var item in _inventory)
+            {
+                if(item is MiscItem)
+                {
+                    misc.Add(item);
+                }
+            }
+
+            return misc.ToArray();
+        }
+
+        public Item[] GetEquipment()
+        {
+            var equipment = new List<Item>();
+            foreach(var item in _inventory)
+            {
+                if(item is WeaponItem || item is HeadItem || item is BodyItem || item is LegsItem)
+                {
+                    equipment.Add(item);
+                }
+            }
+
+            return equipment.ToArray();
+        }
+
         public WeaponItem GetCurrentWeapon()
         {
             return CurrentWeapon;

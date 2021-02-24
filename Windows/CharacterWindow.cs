@@ -64,6 +64,8 @@ namespace NullRPG.Windows
                 return true;
             }
 
+            // todo: perhaps add optional close button
+
             return false;
         }
 

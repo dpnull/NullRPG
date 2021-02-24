@@ -19,6 +19,12 @@ namespace NullRPG
 
             // add test items
             Player.Inventory.AddItemToInventory(WeaponItem.Broadsword());
+            Player.Inventory.AddItemToInventory(WeaponItem.Longsword());
+            Player.Inventory.AddItemToInventory(WeaponItem.Longsword());
+            Player.Inventory.AddItemToInventory(MiscItem.BoarSkin());
+            Player.Inventory.AddItemToInventory(MiscItem.BoarSkin());
+            Player.Inventory.AddItemToInventory(MiscItem.BoarSkin());
+            Player.Inventory.AddItemToInventory(HeadItem.IronHelmet());
         }
     }
 }
