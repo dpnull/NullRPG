@@ -84,5 +84,13 @@ namespace NullRPG.GameObjects
         {
             return CurrentLegsItem;
         }
+
+        public void EquipWeapon(WeaponItem weapon)
+        {
+            if(weapon != null)
+            {
+                CurrentWeapon = weapon;
+            }
+        }
     }
 }

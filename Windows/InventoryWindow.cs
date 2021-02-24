@@ -74,6 +74,12 @@ namespace NullRPG.Windows
                 return true;
             }
 
+            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Equip)))
+            {
+                EquipWeapon(Game.GameSession.Player);
+                return true;
+            }
+
             if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(1)))
             {
                 UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(1);
@@ -120,6 +126,15 @@ namespace NullRPG.Windows
             }
 
             return false;
+        }
+
+        private void EquipWeapon(Player player)
+        {
+            if (UserInterfaceManager.Get<ViewItemWindow>().DrawableItem != null)
+            {
+                player.Inventory.EquipWeapon((WeaponItem)UserInterfaceManager.Get<ViewItemWindow>().DrawableItem);
+                MessageQueue.AddWeaponChanged(UserInterfaceManager.Get<ViewItemWindow>().DrawableItem.Name);
+            }
         }
 
         private void DrawInventory()
