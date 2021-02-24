@@ -98,7 +98,7 @@ namespace NullRPG
             return false;
         }
     }
-    
+
     public class IndexedTravelKeybinding
     {
         private int _index;

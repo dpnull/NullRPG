@@ -44,68 +44,23 @@ namespace NullRPG.Windows
             }
 
             // TODO: automate and shrink drawing into one function
-
-            private void DrawSelectedItem(Item item)
-            {
-                // colored dmg string
-                var coloredMinDmg = new ColoredString(item.MinDmg.ToString());
-                coloredMinDmg.SetForeground(Color.LightGreen);
-                var coloredMaxDmg = new ColoredString(item.MaxDmg.ToString());
-                coloredMaxDmg.SetForeground(Color.LightGreen); 
-                var separator = new ColoredString(" - ");
-                var dmgSuffix = new ColoredString(" Attack");
-                var coloredDmg = new ColoredString("+ ");
-                coloredDmg += coloredMinDmg + separator + coloredMaxDmg + dmgSuffix;
-
-                // colored defense string
-                var coloredDefPrefix = new ColoredString(item.Defense.ToString());    
-                coloredDefPrefix.SetForeground(Color.LightGreen);
-                var defSuffix = new ColoredString(" Defense");
-                var coloredDefense = new ColoredString("+ ");
-                coloredDefense += coloredDefPrefix + defSuffix;
-
-                // colored health string
-                var healthPrefix = new ColoredString(item.Health.ToString());
-                healthPrefix.SetForeground(Color.LightGreen);
-                var healthSuffix = new ColoredString(" Health");
-                var health = new ColoredString("+ ");
-                health += healthPrefix + healthSuffix;
-
-
-
-                string name = $"- {item.Name} -";
-                string description = $"{item.Description}";
-                string value = $"Value: {item.Gold}";
-                string level = $"ilvl {item.Level}";
-
-                int x = 2;
-                int y = 1;
-
-                if (item is WeaponItem)
-                {
-                    Print(Width - level.Length - 1, y, level);
-                    Print(this.GetWindowXCenter() - (name.Length/2), y, name, Color.NavajoWhite); y++;
-                    Print(x, y, description); y++;
-                    Print(x, y, coloredDmg);
-                    Print(this.GetWindowXCenter() - (value.Length / 2), Height - 2, value);
-                } else if (item is HeadItem)
-                {
-                    Print(Width - level.Length - 1, y, level);
-                    Print(this.GetWindowXCenter() - (name.Length / 2), y, name, Color.NavajoWhite); y++;                  
-                    Print(x, y, description); y++;                    
-                    Print(x, y, coloredDefense); y++;
-                    Print(x, y, health);
-                    Print(this.GetWindowXCenter() - (value.Length / 2), Height - 2, value);
-                }
-            }
             private void DrawWeapon(WeaponItem playerWeapon)
             {
                 if (_drawWeapon)
                 {
                     IsVisible = true;
-                    DrawSelectedItem(playerWeapon);
+
+                    string name = $"- {playerWeapon.Name} -";
+                    string description = playerWeapon.Description;
+                    string damage = $"[{playerWeapon.MinDmg} - {playerWeapon.MaxDmg}]";
+                    string value = $"Value: {playerWeapon.Gold}";
+
+                    Print(2, 1, name);
+                    Print(2, 2, description);
+                    Print(2, 3, damage);
+                    Print(2, 4, value);
                 }
-                
+
             }
 
             private void DrawHeadItem(HeadItem playerHeadItem)
@@ -113,8 +68,17 @@ namespace NullRPG.Windows
                 if (_drawHeadItem)
                 {
                     IsVisible = true;
-                    DrawSelectedItem(playerHeadItem);
+                    string name = $"- {playerHeadItem.Name} -";
+                    string description = playerHeadItem.Description;
+                    string defense = $"Defense: {playerHeadItem.Defense}";
+                    string value = $"Value: {playerHeadItem.Gold}";
+
+                    Print(2, 1, name);
+                    Print(2, 2, description);
+                    Print(2, 3, defense);
+                    Print(2, 4, value);
                 }
+
             }
 
             private void AutoHide()
