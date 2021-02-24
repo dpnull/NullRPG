@@ -56,6 +56,12 @@ namespace NullRPG.Managers
             };
             Add(inventoryWindow);
 
+            var viewItemWindow = new ViewItemWindow(Constants.Windows.ViewItemWidth, Constants.Windows.ViewItemHeight)
+            {
+                IsVisible = false,
+                IsFocused = false
+            };
+            Add(viewItemWindow);
         }
 
         // Add a new window to the manager

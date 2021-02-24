@@ -11,12 +11,16 @@ namespace NullRPG.GameObjects
         private List<Item> _inventory { get; set; }
         private WeaponItem CurrentWeapon { get; set; }
         private HeadItem CurrentHeadItem { get; set; }
+        private BodyItem CurrentBodyItem { get; set; }
+        private LegsItem CurrentLegsItem { get; set; }
 
         public Inventory()
         {
             _inventory = new List<Item>();
             CurrentWeapon = WeaponItem.Barehanded();
             CurrentHeadItem = HeadItem.LivingLogHelmet();
+            CurrentBodyItem = BodyItem.ThornsArmor();
+            CurrentLegsItem = LegsItem.IronLeggings();
         }
 
         public void AddItemToInventory(Item item)
@@ -42,6 +46,15 @@ namespace NullRPG.GameObjects
         public HeadItem GetCurrentHeadItem()
         {
             return CurrentHeadItem;
+        }
+        public BodyItem GetCurrentBodyItem()
+        {
+            return CurrentBodyItem;
+        }
+
+        public LegsItem GetCurrentLegsItem()
+        {
+            return CurrentLegsItem;
         }
     }
 }

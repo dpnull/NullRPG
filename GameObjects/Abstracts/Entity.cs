@@ -16,12 +16,12 @@ namespace NullRPG.GameObjects.Abstracts
         public int Gold { get; set; }
         public int MaxHealth
         {
-            get { return _maxHealth + Inventory.GetCurrentHeadItem().Health; }
+            get { return _maxHealth + Inventory.GetCurrentHeadItem().Health + Inventory.GetCurrentBodyItem().Health; }
             set { _maxHealth = value; }
         }
         public int Defense
         {
-            get { return _defense + Inventory.GetCurrentHeadItem().Defense; }
+            get { return _defense + Inventory.GetCurrentHeadItem().Defense + Inventory.GetCurrentBodyItem().Defense + Inventory.GetCurrentLegsItem().Defense; }
             set { _defense = value; }
         }
         public Inventory Inventory { get; set; }

@@ -33,6 +33,8 @@ namespace NullRPG.Windows
 
         public override void Update(TimeSpan timeElapsed)
         {
+            Clear();
+
             DrawLocations(Game.GameSession.World);
             base.Update(timeElapsed);
         }

@@ -19,7 +19,7 @@ namespace NullRPG.Managers
             UserInterfaceManager.Get<TravelWindow>().ShowAndFocus();
         }
 
-        public void OpenCharacterWindow()
+        public void OpenCharacterWindow() 
         {
             UserInterfaceManager.Get<CharacterWindow>().ShowAndFocus();
         }

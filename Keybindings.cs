@@ -20,6 +20,9 @@ namespace NullRPG
             Character,
             Inventory,
             View,
+            All,
+            Equipment,
+            Miscellaneous,
             Cancel
         }
 
@@ -42,6 +45,11 @@ namespace NullRPG
 
             // Temporary hack for multiple keybinding choice display
             AddKeybinding(Type.View, Keys.F20, false);
+
+            // Inventory Window
+            AddKeybinding(Type.All, Keys.A, false);
+            AddKeybinding(Type.Equipment, Keys.E, false);
+            AddKeybinding(Type.Miscellaneous, Keys.M, false);
 
         }
 
@@ -72,11 +80,18 @@ namespace NullRPG
 
             // Cancel display
             UpdateVisibility(Type.Cancel, UserInterfaceManager.Get<TravelWindow>().IsFocused ||
-                                          UserInterfaceManager.Get<CharacterWindow>().IsFocused || UserInterfaceManager.Get<InventoryWindow>().IsFocused);
+                                          UserInterfaceManager.Get<CharacterWindow>().IsFocused ||
+                                          UserInterfaceManager.Get<InventoryWindow>().IsFocused);
 
             // Character display
             UpdateVisibility(Type.View, UserInterfaceManager.Get<CharacterWindow>().IsFocused);
- 
+
+            // Inventory display is currently displayed externally
+            /*
+            UpdateVisibility(Type.All, UserInterfaceManager.Get<InventoryWindow>());
+            UpdateVisibility(Type.Equipment, UserInterfaceManager.Get<InventoryWindow>());
+            UpdateVisibility(Type.Miscellaneous, UserInterfaceManager.Get<InventoryWindow>());
+            */
         }
 
         /// <summary>

@@ -36,7 +36,8 @@ namespace NullRPG.Windows
         // Automatically hide this console if any of the listed consoles are visible
         private void AutoHide()
         {
-            if (UserInterfaceManager.Get<TravelWindow>().IsVisible || UserInterfaceManager.Get<CharacterWindow>().IsVisible)
+            if (UserInterfaceManager.Get<TravelWindow>().IsVisible || UserInterfaceManager.Get<CharacterWindow>().IsVisible ||
+                UserInterfaceManager.Get<InventoryWindow>().IsVisible)
             {
                 this.Hide();
             }

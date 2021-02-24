@@ -15,163 +15,53 @@ namespace NullRPG.Windows
 {
     public class CharacterWindow : Console, IUserInterface
     {
-
-        internal static bool _drawWeapon;
-        internal static bool _drawHeadItem;
-
-        internal class ViewWindow : Console
-        {
-            private static readonly int ViewWidth = 40;
-            private static readonly int ViewHeight = 10;
-            public ViewWindow() : base(ViewWidth, ViewHeight)
-            {
-                Position = new Point(Constants.Windows.CharacterWidth - ViewWidth, (Constants.Windows.CharacterHeight - ViewHeight) / 2);
-
-                IsVisible = true;
-                IsFocused = false;
-            }
-
-            public override void Update(TimeSpan timeElapsed)
-            {
-                Clear();
-
-                this.DrawBorders(Width, Height, "+", "|", "-", Color.White);
-
-                AutoHide();
-                DrawWeapon(Game.GameSession.Player.Inventory.GetCurrentWeapon());
-                DrawHeadItem(Game.GameSession.Player.Inventory.GetCurrentHeadItem());
-                base.Update(timeElapsed);
-            }
-
-            // TODO: automate and shrink drawing into one function
-
-            private void DrawSelectedItem(Item item)
-            {
-                // colored dmg string
-                var coloredMinDmg = new ColoredString(item.MinDmg.ToString());
-                coloredMinDmg.SetForeground(Color.LightGreen);
-                var coloredMaxDmg = new ColoredString(item.MaxDmg.ToString());
-                coloredMaxDmg.SetForeground(Color.LightGreen); 
-                var separator = new ColoredString(" - ");
-                var dmgSuffix = new ColoredString(" Attack");
-                var coloredDmg = new ColoredString("+ ");
-                coloredDmg += coloredMinDmg + separator + coloredMaxDmg + dmgSuffix;
-
-                // colored defense string
-                var coloredDefPrefix = new ColoredString(item.Defense.ToString());    
-                coloredDefPrefix.SetForeground(Color.LightGreen);
-                var defSuffix = new ColoredString(" Defense");
-                var coloredDefense = new ColoredString("+ ");
-                coloredDefense += coloredDefPrefix + defSuffix;
-
-                // colored health string
-                var healthPrefix = new ColoredString(item.Health.ToString());
-                healthPrefix.SetForeground(Color.LightGreen);
-                var healthSuffix = new ColoredString(" Health");
-                var health = new ColoredString("+ ");
-                health += healthPrefix + healthSuffix;
-
-
-
-                string name = $"- {item.Name} -";
-                string description = $"{item.Description}";
-                string value = $"Value: {item.Gold}";
-                string level = $"ilvl {item.Level}";
-
-                int x = 2;
-                int y = 1;
-
-                if (item is WeaponItem)
-                {
-                    Print(Width - level.Length - 1, y, level);
-                    Print(this.GetWindowXCenter() - (name.Length/2), y, name, Color.NavajoWhite); y++;
-                    Print(x, y, description); y++;
-                    Print(x, y, coloredDmg);
-                    Print(this.GetWindowXCenter() - (value.Length / 2), Height - 2, value);
-                } else if (item is HeadItem)
-                {
-                    Print(Width - level.Length - 1, y, level);
-                    Print(this.GetWindowXCenter() - (name.Length / 2), y, name, Color.NavajoWhite); y++;                  
-                    Print(x, y, description); y++;                    
-                    Print(x, y, coloredDefense); y++;
-                    Print(x, y, health);
-                    Print(this.GetWindowXCenter() - (value.Length / 2), Height - 2, value);
-                }
-            }
-            private void DrawWeapon(WeaponItem playerWeapon)
-            {
-                if (_drawWeapon)
-                {
-                    IsVisible = true;
-                    DrawSelectedItem(playerWeapon);
-                }
-                
-            }
-
-            private void DrawHeadItem(HeadItem playerHeadItem)
-            {
-                if (_drawHeadItem)
-                {
-                    IsVisible = true;
-                    DrawSelectedItem(playerHeadItem);
-                }
-            }
-
-            private void AutoHide()
-            {
-                if(!_drawWeapon && !_drawWeapon)
-                {
-                    IsVisible = false;
-                }
-            }
-
-        }
-
-
+        // Character window 
         public Console Console { get; set; }
 
-        private ViewWindow _viewWindow;
+        public bool CanDrawWeapon { get; set; }
+        public bool CanDrawHeadItem { get; set; }
+        public bool CanDrawBodyItem { get; set; }
+        public bool CanDrawLegsItem { get; set; }
 
         public CharacterWindow(int width, int height) : base(width, height)
         {
-            _viewWindow = new ViewWindow();
-
             Position = new Point(0, 1);
 
-            Children.Add(_viewWindow);
             Global.CurrentScreen.Children.Add(this);
-        }
-
-        public override void Draw(TimeSpan timeElapsed)
-        {
-            PrintStats(Game.GameSession.Player);
-            base.Draw(timeElapsed);
         }
 
         public override bool ProcessKeyboard(Keyboard info)
         {
+            // welcome to the bool hell :^)
             if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Cancel)))
             {
-                CloseStatsWindow();
-                _drawHeadItem = false;
-                _drawWeapon = false;
+                Game.WindowManager.CloseCurrentWindow(this);
+                UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = null;
                 return true;
             }
 
             if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D1))
             {
-                _drawHeadItem = false;
-                if(_drawWeapon == false) { _drawWeapon = true; return true; }
-                else if(_drawWeapon == true) { _drawWeapon = false; return true; }
-
+                UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = Game.GameSession.Player.Inventory.GetCurrentWeapon();
+                return true;
             }
 
             if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D2))
             {
-                _drawWeapon = false;
-                if (_drawHeadItem == false) { _drawHeadItem = true; return true; }
-                else if (_drawHeadItem == true) { _drawHeadItem = false; return true; }
+                UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = Game.GameSession.Player.Inventory.GetCurrentHeadItem();
+                return true;
+            }
 
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D3))
+            {
+                UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = Game.GameSession.Player.Inventory.GetCurrentBodyItem();
+                return true;
+            }
+
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D4))
+            {
+                UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = Game.GameSession.Player.Inventory.GetCurrentLegsItem();
+                return true;
             }
 
             return false;
@@ -179,9 +69,11 @@ namespace NullRPG.Windows
 
         public override void Update(TimeSpan timeElapsed)
         {
+            AutoHide();
+
             Clear();
 
-            AutoHide();
+            PrintStats(Game.GameSession.Player);
 
             base.Update(timeElapsed);
         }
@@ -190,6 +82,8 @@ namespace NullRPG.Windows
         {
             var playerWeapon = player.Inventory.GetCurrentWeapon();
             var playerHeadItem = player.Inventory.GetCurrentHeadItem();
+            var playerBodyItem = player.Inventory.GetCurrentBodyItem();
+            var playerLegsItem = player.Inventory.GetCurrentLegsItem();
             #region
             // Temporary, veru ugly
             var coloredCurHp = new ColoredString(player.Health.ToString());
@@ -216,9 +110,13 @@ namespace NullRPG.Windows
             // colored item strings
             var currentWeapon = new ColoredString  ($"[1] WEAPON    {playerWeapon.Name}");
             var currentHeadItem = new ColoredString($"[2] HEAD      {playerHeadItem.Name}");
+            var currentBodyItem = new ColoredString($"[3] BODY      {playerBodyItem.Name}");
+            var currentLegsItem = new ColoredString($"[4] LEGS      {playerLegsItem.Name}");
 
             currentWeapon[1].Foreground = Color.Green;
             currentHeadItem[1].Foreground = Color.Green;
+            currentBodyItem[1].Foreground = Color.Green;
+            currentLegsItem[1].Foreground = Color.Green;
 
 
             this.PrintSeparator(0);
@@ -232,18 +130,14 @@ namespace NullRPG.Windows
             Print(0, 8, gold);
             Print(0, 10, currentWeapon);
             Print(0, 11, currentHeadItem);
-        }
-
-
-
-        private void CloseStatsWindow()
-        {
-            this.TransitionVisibilityAndFocus(UserInterfaceManager.Get<GameWindow>());
+            Print(0, 12, currentBodyItem);
+            Print(0, 13, currentLegsItem);
         }
 
         private void AutoHide()
         {
-            if (UserInterfaceManager.Get<TravelWindow>().IsVisible || UserInterfaceManager.Get<LocationWindow>().IsVisible)
+            if (UserInterfaceManager.Get<TravelWindow>().IsVisible || UserInterfaceManager.Get<LocationWindow>().IsVisible ||
+                UserInterfaceManager.Get<InventoryWindow>().IsVisible)
             {
                 this.Hide();
             }
