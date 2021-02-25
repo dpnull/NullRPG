@@ -41,8 +41,8 @@ namespace NullRPG
             public const int ViewItemWidth = 40;
             public const int ViewItemHeight = 10;
 
-            public const int MessageWidth = 60;
-            public const int MessageHeight = 1;
+            public const int MessageWidth = GameWidth;
+            public const int MessageHeight = 2;
         }
     }
 }

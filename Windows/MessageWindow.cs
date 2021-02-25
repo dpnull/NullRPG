@@ -25,8 +25,8 @@ namespace NullRPG.Windows
         public override void Update(TimeSpan timeElapsed)
         {
             Clear();
-
-            MessageQueue.Draw(this);
+            this.PrintSeparator(0, '-', Color.DimGray);
+            MessageQueue.Draw(this, 1, 1);
 
             base.Update(timeElapsed);
         }

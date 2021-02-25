@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace NullRPG.Interfaces
 {
@@ -16,5 +17,6 @@ namespace NullRPG.Interfaces
         public int Defense { get; set; }
         public int Health { get; set; }
         public bool IsUnique { get; set; }
+        public Color Color { get; set; }
     }
 }

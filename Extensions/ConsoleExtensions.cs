@@ -7,6 +7,7 @@ namespace NullRPG.Extensions
 {
     public static class ConsoleExtensions
     {
+        // todo: sort out PrintSeparator overloading
         public static void PrintSeparator(this SadConsole.Console currentWindow, int y)
         {
             StringBuilder separator = new StringBuilder();
@@ -18,6 +19,19 @@ namespace NullRPG.Extensions
             separator.Append("+");
 
             currentWindow.Print(0, y, separator.ToString());
+        }
+
+        public static void PrintSeparator(this SadConsole.Console currentWindow, int y, char corner, Color c)
+        {
+            StringBuilder separator = new StringBuilder();
+            separator.Append(corner);
+            for (int i = 1; i < currentWindow.Width - 1; i++)
+            {
+                separator.Append("-");
+            }
+            separator.Append(corner);
+
+            currentWindow.Print(0, y, separator.ToString(), c);
         }
 
         // Temporarily unused due to \n glyph glitch when using an already implemented Print function from SadConsole...

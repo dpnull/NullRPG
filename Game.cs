@@ -9,8 +9,8 @@ namespace NullRPG
 {
     public static class Game
     {
-
-        public static WindowManager WindowManager;
+        public static CommandManager CommandManager { get; private set; }
+        public static WindowManager WindowManager { get; private set; }
         public static TitleWindow TitleWindow { get; private set; }
         public static GameSession GameSession { get; private set; }
 
@@ -39,6 +39,8 @@ namespace NullRPG
             WindowManager = new WindowManager();
 
             GameSession = new GameSession();
+
+            CommandManager = new CommandManager();
 
             UserInterfaceManager.Initialize();
 

@@ -42,13 +42,15 @@ namespace NullRPG
             Add(str);
         }
 
-        public static void AddWeaponChanged(string weaponName)
+        public static void AddItemEquipped(string itemName)
         {
-            var cStr = Convert(weaponName);
+            var cStr = Convert(itemName);
             cStr.SetForeground(Color.Green);
-            var message = new ColoredString("You changed your current weapon to ");
+            var message = new ColoredString("You have equipped ");
             message.SetForeground(Color.White);
-            message += cStr;
+            var dot = new ColoredString(".");
+            dot.SetForeground(Color.White);
+            message += cStr + dot;
             Add(message);
         }
 
@@ -57,11 +59,8 @@ namespace NullRPG
             return new ColoredString(str);
         }
 
-        public static void Draw(Console console)
+        public static void Draw(Console console, int x = 0, int y = 0)
         {
-            int x = 0;
-            int y = 0;
-
             ColoredString[] messages = _lines.ToArray();
 
             foreach(var message in messages)

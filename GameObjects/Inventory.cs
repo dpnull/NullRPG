@@ -92,5 +92,29 @@ namespace NullRPG.GameObjects
                 CurrentWeapon = weapon;
             }
         }
+
+        public void EquipHeadItem(HeadItem headItem)
+        {
+            if (headItem != null)
+            {
+                CurrentHeadItem = headItem;
+            }
+        }
+
+        public void EquipBodyItem(BodyItem bodyItem)
+        {
+            if (bodyItem != null)
+            {
+                CurrentBodyItem = bodyItem;
+            }
+        }
+
+        public void EquipLegsItem(LegsItem legsItem)
+        {
+            if (legsItem != null)
+            {
+                CurrentLegsItem = legsItem;
+            }
+        }
     }
 }

@@ -53,17 +53,6 @@ namespace NullRPG.Windows
                 return true;
             }
 
-            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.P))
-            {
-                MessageQueue.AddDefault("Testing the default message");
-                return true;
-            }
-            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.L))
-            {
-                MessageQueue.AddWeaponChanged("Iron Sword");
-                return true;
-            }
-
             return false;
         }
         

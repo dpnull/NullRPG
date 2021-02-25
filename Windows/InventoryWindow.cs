@@ -76,7 +76,7 @@ namespace NullRPG.Windows
 
             if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Equip)))
             {
-                EquipWeapon(Game.GameSession.Player);
+                Game.CommandManager.EquipItem(UserInterfaceManager.Get<ViewItemWindow>().DrawableItem);
                 return true;
             }
 
@@ -128,14 +128,7 @@ namespace NullRPG.Windows
             return false;
         }
 
-        private void EquipWeapon(Player player)
-        {
-            if (UserInterfaceManager.Get<ViewItemWindow>().DrawableItem != null)
-            {
-                player.Inventory.EquipWeapon((WeaponItem)UserInterfaceManager.Get<ViewItemWindow>().DrawableItem);
-                MessageQueue.AddWeaponChanged(UserInterfaceManager.Get<ViewItemWindow>().DrawableItem.Name);
-            }
-        }
+
 
         private void DrawInventory()
         {
@@ -195,7 +188,7 @@ namespace NullRPG.Windows
         private void DrawFilters()
         {
             int x = 1;
-            int y = Constants.Windows.InventoryHeight - Constants.Windows.KeybindingsHeight - 2;
+            int y = Constants.Windows.InventoryHeight - Constants.Windows.KeybindingsHeight - 4;
             var all = Keybindings.GetKeybindingObject(Keybindings.Type.All).TypeName.ToString();
             var eq = Keybindings.GetKeybindingObject(Keybindings.Type.Equipment).TypeName.ToString();
             var misc = Keybindings.GetKeybindingObject(Keybindings.Type.Miscellaneous).TypeName.ToString();
