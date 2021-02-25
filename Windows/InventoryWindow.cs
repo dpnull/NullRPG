@@ -21,9 +21,13 @@ namespace NullRPG.Windows
 
         private Item[] Printable { get; set; }
 
+        private string CurrentSort { get; set; }
+
         public InventoryWindow(int width, int height) : base(width, height)
         {
             Position = new Point(0, 1);
+
+            CurrentSort = "All items";
 
             Printable = ShowAll(Game.GameSession.Player);
 
@@ -132,6 +136,7 @@ namespace NullRPG.Windows
 
         private void DrawInventory()
         {
+            this.PrintInsideSeparators(1, CurrentSort, true);
             if (Printable != null)
             {
                 IndexedKeybindings = new IndexedKeybindings(Printable);
@@ -139,7 +144,7 @@ namespace NullRPG.Windows
 
                 for (int i = 0; i < Printable.Length; i++)
                 {
-                    this.PrintButton(1, i, Printable[i].Name, IndexedKeybindings._indexedInventoryKeybindings[i].Index.ToString(), Color.Green, false);
+                    this.PrintButton(1, i + 3, Printable[i].Name, IndexedKeybindings._indexedInventoryKeybindings[i].Index.ToString(), Color.Green, false);
                 }
                 /*
                 int y = 1; int x = 1;
@@ -172,16 +177,19 @@ namespace NullRPG.Windows
 
         private Item[] ShowAll(Player player)
         {
+            CurrentSort = "All Items";
             return player.Inventory.GetInventory();
         }
 
         private Item[] ShowMisc(Player player)
         {
+            CurrentSort = "Miscellaneous Items";
             return player.Inventory.GetMisc();
         }
 
         private Item[] ShowEquipment(Player player)
         {
+            CurrentSort = "Equipment Items";
             return player.Inventory.GetEquipment();
         }
 
