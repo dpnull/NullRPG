@@ -21,6 +21,9 @@ namespace NullRPG
 
             Player.Inventory.AddItemToInventory(WeaponItem.Broadsword());
             Player.Inventory.AddItemToInventory(WeaponItem.Scimitar());
+            Player.Inventory.AddItemToInventory(WeaponItem.Longsword());
+            Player.Inventory.AddItemToInventory(WeaponItem.Longsword());
+            Player.Inventory.AddItemToInventory(WeaponItem.Longsword());
         }
     }
 }

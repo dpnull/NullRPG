@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using SadConsole;
 using NullRPG.Interfaces;
 using NullRPG.ItemTypes;
+using System.Linq;
 
 namespace NullRPG.Windows
 {
@@ -144,13 +145,14 @@ namespace NullRPG.Windows
                 Printable = ShowItems(Game.GameSession.Player);
             }
 
-            Draw();
-
             return false;
         }
 
         private void DrawInventory()
         {
+            // temporary hack for printing currently equipped text next to currently worn item
+            bool equippedDrawn = false;
+
             string sortName;
             if (CurrentSort is SortType.Equipment) { sortName = "Equipment items"; }
             else if (CurrentSort is SortType.Misc) { sortName = "Miscellaneous items"; }
@@ -164,8 +166,18 @@ namespace NullRPG.Windows
 
                 for (int i = 0; i < Printable.Length; i++)
                 {
-                    string name = $"{Printable[i].Item.Name}";
+
+                    /* Equipped item highlight currently unused
+                    string name;
+                    var comparator = Printable.FirstOrDefault(c => c.Item.ID == Printable[i].Item.ID);
+                    if(Game.GameSession.Player.Inventory.GetCurrentWeapon().Item.ID == comparator.Item.ID && !equippedDrawn)
+                    {
+                        name = $"{Printable[i].Item.Name} [[ EQUIPPED ]]";
+                        equippedDrawn = true;
+                    }
+                    */
                     // Add quantity for misc items
+                    string name = $"{Printable[i].Item.Name}";
                     if (Printable[i].Item is MiscItem)
                     {
                         name = $"{Printable[i].Item.Name}  x{Printable[i].Quantity}";

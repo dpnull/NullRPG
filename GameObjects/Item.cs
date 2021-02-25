@@ -19,7 +19,7 @@ namespace NullRPG.GameObjects
         public bool IsUnique { get; set; }
         public Color Color { get; set; }
 
-        public Item(int id, string name, int gold, int level = 1, int minDmg = 0, int maxDmg = 0, int defense = 0, int health = 0, bool isUnique = false)
+        public Item(int id, string name, int gold, bool isUnique = false, int level = 1, int minDmg = 0, int maxDmg = 0, int defense = 0, int health = 0)
         {
             ID = id;
             Name = name;
@@ -35,7 +35,7 @@ namespace NullRPG.GameObjects
 
         public Item Clone()
         {
-            return new Item(ID, Name, Gold, Level, MinDmg, MaxDmg, Defense, Health, IsUnique);
+            return new Item(ID, Name, Gold, IsUnique, Level, MinDmg, MaxDmg, Defense, Health);
         }
     }
 }

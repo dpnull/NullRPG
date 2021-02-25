@@ -8,7 +8,7 @@ namespace NullRPG.ItemTypes
     public class LegsItem : Item
     {
         private LegsItem(int id, string name, int gold, int level, int defense, int health, bool isUnique)
-            : base(id, name, gold, level, 0, 0, defense, health, true)
+            : base(id, name, gold, isUnique, level, 0, 0, defense, health)
         {
 
         }
