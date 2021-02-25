@@ -50,7 +50,7 @@ namespace NullRPG.Windows
 
         private void Draw()
         {
-            
+         
             this.DrawBorders(Width, Height, "+", "|", "-", Color.White);
             DrawSelectedItem(DrawableItem);
         }

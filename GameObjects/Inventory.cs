@@ -18,7 +18,7 @@ namespace NullRPG.GameObjects
 
         public Inventory()
         {
-            CurrentWeapon = new WeaponSlot(WeaponItem.Broadsword());
+            CurrentWeapon = new WeaponSlot(WeaponItem.Longsword());
             CurrentHeadItem = new HeadSlot(HeadItem.IronHelmet());
             CurrentBodyItem = new BodySlot(BodyItem.IronArmor());
             CurrentLegsItem = new LegsSlot(LegsItem.IronLeggings());
@@ -28,7 +28,6 @@ namespace NullRPG.GameObjects
         {
             if (item.IsUnique)
             {
-                // YOU WERE WORKING ON ACCESS MODIFIERS
                 _inventory.Add(new Slot(item, 1));
             }
             else
@@ -94,8 +93,18 @@ namespace NullRPG.GameObjects
 
         public void EquipWeaponItem(WeaponItem item)
         {
-            CurrentWeapon.ReplaceItem(item);
+            // first take the item then delete
+            // then equip saved item
+            var weapon = _inventory.FirstOrDefault(i => i.Item.ID == item.ID);
+            if(weapon != null)
+            {
+                var oldWeapon = CurrentWeapon;
+                CurrentWeapon.ReplaceItem(item);
+                _inventory.Remove(weapon);
+                //_inventory.Add(oldWeapon);
+            }
         }
+
         public void EquipHeadItem(HeadItem item)
         {
             CurrentHeadItem.ReplaceItem(item);

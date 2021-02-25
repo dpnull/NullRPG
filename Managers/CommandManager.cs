@@ -14,9 +14,10 @@ namespace NullRPG.Managers
         {
             if (UserInterfaceManager.Get<ViewItemWindow>().DrawableItem != null)
             {
-                if(item is WeaponItem)
+                if(item is WeaponItem item1)
                 {
-                    Game.GameSession.Player.Inventory.EquipWeaponItem((WeaponItem)item);
+                    Game.GameSession.Player.Inventory.EquipWeaponItem(item1);
+                    
                     MessageQueue.AddItemEquipped(UserInterfaceManager.Get<ViewItemWindow>().DrawableItem.Item.Name);
                 } else if(item is HeadItem)
                 {

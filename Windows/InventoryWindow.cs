@@ -21,15 +21,22 @@ namespace NullRPG.Windows
 
         private Slot[] Printable { get; set; }
 
-        private string CurrentSort { get; set; }
+        private enum SortType
+        {
+            All,
+            Misc,
+            Equipment
+        }
+
+        private SortType CurrentSort { get; set; }
 
         public InventoryWindow(int width, int height) : base(width, height)
         {
             Position = new Point(0, 1);
 
-            CurrentSort = "All items";
+            CurrentSort = SortType.All;
 
-            Printable = ShowAll(Game.GameSession.Player);
+            Printable = ShowItems(Game.GameSession.Player);
 
             // Assign the new index keys
             IndexedKeybindings = new IndexedKeybindings(Printable);
@@ -51,8 +58,11 @@ namespace NullRPG.Windows
             DrawFilters();
         }
 
+
         public override bool ProcessKeyboard(Keyboard info)
         {
+            bool updatePrintable = false;
+
             if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Cancel)))
             {
                 Game.WindowManager.CloseCurrentWindow(this);
@@ -62,88 +72,90 @@ namespace NullRPG.Windows
 
             if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.All)))
             {
-                Printable = ShowAll(Game.GameSession.Player);
-                return true;
+                CurrentSort = SortType.All;
+                updatePrintable = true;
             }
 
             if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Miscellaneous)))
             {
-                Printable = ShowMisc(Game.GameSession.Player);
-                return true;
+                CurrentSort = SortType.Misc;
+                updatePrintable = true;
             }
 
             if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Equipment)))
             {
-                Printable = ShowEquipment(Game.GameSession.Player);
-                return true;
+                CurrentSort = SortType.Equipment;
+                updatePrintable = true;
             }
 
             if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Equip)))
             {
                 Game.CommandManager.EquipItem(UserInterfaceManager.Get<ViewItemWindow>().DrawableItem.Item);
-                return true;
+                updatePrintable = true;
             }
 
             if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(1)))
             {
                 UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(1);
-                return true;
             }
 
             if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(2)))
             {
                 UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(2);
-                return true;
             }
 
             if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(3)))
             {
                 UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(3);
-                return true;
             }
 
             if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(4)))
             {
                 UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(4);
-                return true;
             }
 
             if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(5)))
             {
                 UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(5);
-                return true;
             }
 
             if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(6)))
             {
                 UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(6);
-                return true;
             }
 
             if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(7)))
             {
                 UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(7);
-                return true;
             }
 
             if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(8)))
             {
                 UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(8);
-                return true;
             }
 
             if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(9)))
             {
                 UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(9);
-                return true;
             }
+
+            if (updatePrintable)
+            {
+                Printable = ShowItems(Game.GameSession.Player);
+            }
+
+            Draw();
 
             return false;
         }
 
         private void DrawInventory()
         {
-            this.PrintInsideSeparators(1, CurrentSort, true);
+            string sortName;
+            if (CurrentSort is SortType.Equipment) { sortName = "Equipment items"; }
+            else if (CurrentSort is SortType.Misc) { sortName = "Miscellaneous items"; }
+            else { sortName = "All items"; }
+            this.PrintInsideSeparators(1, sortName, true);
 
             if (Printable != null)
             {
@@ -178,23 +190,17 @@ namespace NullRPG.Windows
             }
         }
 
-        private Slot[] ShowAll(Player player)
+        private Slot[] ShowItems(Player player)
         {
-            CurrentSort = "All Items";
-            return player.Inventory.GetInventory();
+            if(CurrentSort is SortType.All) { return player.Inventory.GetInventory(); }
+            else if(CurrentSort is SortType.Misc) { return player.Inventory.GetMisc(); }
+            else if (CurrentSort is SortType.Equipment) { return player.Inventory.GetEquipment(); }
+            else
+            {
+                return null;
+            }
         }
 
-        private Slot[] ShowMisc(Player player)
-        {
-            CurrentSort = "Miscellaneous Items";
-            return player.Inventory.GetMisc();
-        }
-
-        private Slot[] ShowEquipment(Player player)
-        {
-            CurrentSort = "Equipment Items";
-            return player.Inventory.GetEquipment();
-        }
 
         private void DrawFilters()
         {

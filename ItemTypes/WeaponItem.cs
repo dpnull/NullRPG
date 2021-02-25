@@ -18,14 +18,19 @@ namespace NullRPG.ItemTypes
             return new WeaponItem(2000, "Barehanded", 0, 0, 0, 3, true);
         }
 
+        public static WeaponItem Scimitar()
+        {
+            return new WeaponItem(2001, "Scimitar", 10, 1, 5, 13, true);
+        }
+
         public static WeaponItem Longsword()
         {
-            return new WeaponItem(2001, "Longsword", 10, 1, 7, 10, true);
+            return new WeaponItem(2002, "Longsword", 10, 1, 7, 10, true);
         }
 
         public static WeaponItem Broadsword()
         {
-            return new WeaponItem(2001, "Broadsword", 10, 1, 8, 9, true);
+            return new WeaponItem(2003, "Broadsword", 10, 1, 8, 9, true);
         }
     }
 }
