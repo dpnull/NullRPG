@@ -188,10 +188,58 @@ namespace NullRPG.Extensions
             currentWindow.Print(x + width - 1, y + 2, separatorCornerGlyph);
 
             // Draw the box title
-            currentWindow.Print(width - (title.Length ), y + 1, title);
+            currentWindow.Print((width / 2) - (title.Length / 2), y + 1, title);
         }
 
-        public static void DrawRectangleTitledNoBottom(this SadConsole.Console currentWindow, int x, int y, int width, int height, string cornerGlyph, string horizontalGlyph, string verticalGlyph, string separatorCornerGlyph, string title, Color borderColor)
+        public static void DrawRectangleTitled(this SadConsole.Console currentWindow, int x, int y, int width, int height, string cornerGlyph, string horizontalGlyph, string verticalGlyph, string separatorCornerGlyph, SadConsole.ColoredString title)
+        {
+            int _x;
+            int _y;
+
+            // top
+            for (_x = x + 1; _x < (x + width) - 1; _x++)
+            {
+                currentWindow.Print(_x, y, horizontalGlyph);
+            }
+            // draw top corners
+            currentWindow.Print(x, y, cornerGlyph);
+            currentWindow.Print(x + width - 1, y, cornerGlyph);
+
+            // bottom
+            for (_x = x + 1; _x < (x + width) - 1; _x++)
+            {
+                currentWindow.Print(_x, height + y, horizontalGlyph);
+            }
+            // draw bottom corners
+            currentWindow.Print(x, height + y, cornerGlyph);
+            currentWindow.Print(x + width - 1, height + y, cornerGlyph);
+
+            // left
+            for (_y = y + 1; _y < (y + height); _y++)
+            {
+                currentWindow.Print(x, _y, verticalGlyph);
+            }
+
+            // right
+            for (_y = y + 1; _y < (y + height); _y++)
+            {
+                currentWindow.Print(x + width - 1, _y, verticalGlyph);
+            }
+
+            // draw title separator. simply draws on top of already drawn glyphs
+            for (_x = x + 1; _x < (x + width) - 1; _x++)
+            {
+                currentWindow.Print(_x, y + 2, horizontalGlyph);
+            }
+            // draw separator corners
+            currentWindow.Print(x, y + 2, separatorCornerGlyph);
+            currentWindow.Print(x + width - 1, y + 2, separatorCornerGlyph);
+
+            // Draw the box title
+            currentWindow.Print((width / 2) - (title.String.Length / 2), y + 1, title);
+        }
+
+        public static void DrawRectangleTitledNoBottom(this SadConsole.Console currentWindow, int x, int y, int width, int height, string cornerGlyph, string horizontalGlyph, string verticalGlyph, string separatorCornerGlyph, string title)
         {
             int _x;
             int _y;
@@ -228,7 +276,47 @@ namespace NullRPG.Extensions
             currentWindow.Print(x + width - 1, y + 2, separatorCornerGlyph);
 
             // Draw the box title
-            currentWindow.Print(width - (title.Length), y + 1, title);
+            currentWindow.Print((width / 2) - (title.Length / 2), y + 1, title);
+        }
+
+        public static void DrawRectangleTitledNoBottom(this SadConsole.Console currentWindow, int x, int y, int width, int height, string cornerGlyph, string horizontalGlyph, string verticalGlyph, string separatorCornerGlyph, SadConsole.ColoredString title)
+        {
+            int _x;
+            int _y;
+
+            // top
+            for (_x = x + 1; _x < (x + width) - 1; _x++)
+            {
+                currentWindow.Print(_x, y, horizontalGlyph);
+            }
+            // draw top corners
+            currentWindow.Print(x, y, cornerGlyph);
+            currentWindow.Print(x + width - 1, y, cornerGlyph);
+
+
+            // left
+            for (_y = y + 1; _y < (y + height); _y++)
+            {
+                currentWindow.Print(x, _y, verticalGlyph);
+            }
+
+            // right
+            for (_y = y + 1; _y < (y + height); _y++)
+            {
+                currentWindow.Print(x + width - 1, _y, verticalGlyph);
+            }
+
+            // draw title separator. simply draws on top of already drawn glyphs
+            for (_x = x + 1; _x < (x + width) - 1; _x++)
+            {
+                currentWindow.Print(_x, y + 2, horizontalGlyph);
+            }
+            // draw separator corners
+            currentWindow.Print(x, y + 2, separatorCornerGlyph);
+            currentWindow.Print(x + width - 1, y + 2, separatorCornerGlyph);
+
+            // Draw the box title
+            currentWindow.Print((width / 2) - (title.String.Length / 2), y + 1, title);
         }
 
 

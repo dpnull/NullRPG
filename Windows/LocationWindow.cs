@@ -18,7 +18,7 @@ namespace NullRPG.Windows
 
         public LocationWindow(int width, int height) : base(width, height)
         {
-            Position = new Point(Constants.GameWidth - Constants.Windows.LocationWidth - 1, Constants.GameHeight - Constants.Windows.KeybindingsHeight - Constants.Windows.LocationHeight - 1);
+            Position = new Point(Constants.GameWidth - Constants.Windows.LocationWidth - 1, Constants.GameHeight - Constants.Windows.KeybindingsHeight - Constants.Windows.LocationHeight - Constants.Windows.MessageHeight);
 
             Global.CurrentScreen.Children.Add(this);
         }
@@ -55,10 +55,9 @@ namespace NullRPG.Windows
             ColoredString locationDescription = new ColoredString($"{player.GetCurrentLocation().Description}");
             locationDescription.SetForeground(Color.White);
 
-            Print(this.GetWindowXCenter() - (locationName.String.Length / 2), 0, locationName);
-            this.PrintSeparator(1);
+            this.DrawRectangleTitledNoBottom(0, 0, Width, Height, "+", "-", "|", "-", locationName);
 
-            this.Print(0, 2, locationDescription);
+            this.Print(2, 3, locationDescription);
         }
 
     }
