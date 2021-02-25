@@ -168,7 +168,7 @@ namespace NullRPG.Windows
                 // Draw only if item is not misc
                 if (!(UserInterfaceManager.Get<ViewItemWindow>().DrawableItem is MiscItem))
                 {
-                    this.PrintButton(UserInterfaceManager.Get<ViewItemWindow>().Position.X, Constants.Windows.ViewItemHeight + 1 + Constants.Windows.KeybindingsHeight,
+                    this.PrintButton(UserInterfaceManager.Get<ViewItemWindow>().Position.X, Constants.Windows.ViewItemHeight + 2 + Constants.Windows.KeybindingsHeight,
                         Keybindings.GetKeybindingName(Keybindings.Type.Equip),
                         Keybindings.GetKeybindingChar(Keybindings.Type.Equip), Color.Green, false);
                 }

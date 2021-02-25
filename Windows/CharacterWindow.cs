@@ -64,9 +64,39 @@ namespace NullRPG.Windows
                 return true;
             }
 
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.U))
+            {
+                Game.GameSession.Player.Experience += 1;
+                return true;
+            }
+
             // todo: perhaps add optional close button
 
             return false;
+        }
+
+        private void DrawExperienceBar(int x, int y, int width, Player player)
+        {
+            string bar = "[";
+
+            double percent = (double)player.Experience / player.ExperiencedNeeded;
+            int complete = Convert.ToInt32(percent * width);
+            int incomplete = width - complete;
+
+            for (int i = 0; i < complete; i++)
+            {
+                bar += "#";
+            }
+
+            for (int i = complete; i < width; i++)
+            {
+                bar += ".";
+            }
+
+            bar += "]";
+
+            Print(x, y, bar);
+
         }
 
         public override void Update(TimeSpan timeElapsed)
@@ -75,18 +105,17 @@ namespace NullRPG.Windows
 
             Clear();
 
-            PrintStats(Game.GameSession.Player);
+            DrawExperienceBar(0, 3, Width - 2, Game.GameSession.Player);
+
+            DrawStats(Game.GameSession.Player);
 
             base.Update(timeElapsed);
         }
 
-        private void HighlightCurrentlySelected()
+        private void DrawStats(Player player)
         {
-
-        }
-
-        private void PrintStats(Player player)
-        {
+            int x = 0;
+            int y = 5;
             var playerWeapon = player.Inventory.GetCurrentWeapon();
             var playerHeadItem = player.Inventory.GetCurrentHeadItem();
             var playerBodyItem = player.Inventory.GetCurrentBodyItem();
@@ -130,15 +159,15 @@ namespace NullRPG.Windows
             string str = $"{player.Name}'s Character Stats";
             Print(this.GetWindowXCenter() - (str.Length / 2), 1, str, Color.Green);
             this.PrintSeparator(2);
-            Print(0, 3, levelAndXp);
-            Print(0, 4, coloredHp);
-            Print(0, 5, defense);
-            Print(0, 6, attackDamage);
-            Print(0, 8, gold);
-            Print(0, 10, currentWeapon);
-            Print(0, 11, currentHeadItem);
-            Print(0, 12, currentBodyItem);
-            Print(0, 13, currentLegsItem);
+            Print(this.GetWindowXCenter() - (levelAndXp.Length/2), y - 1, levelAndXp); y++;
+            Print(6, y, coloredHp); y++;
+            Print(6, y, defense); y++;
+            Print(6, y, attackDamage); y++;
+            Print(6, y, gold); y+=6;
+            Print(0, y, currentWeapon); y++;
+            Print(0, y, currentHeadItem); y++;
+            Print(0, y, currentBodyItem); y++;
+            Print(0, y, currentLegsItem); y++;
         }
 
         private void AutoHide()

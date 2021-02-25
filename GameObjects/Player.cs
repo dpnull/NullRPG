@@ -13,7 +13,7 @@ namespace NullRPG.GameObjects
             Mage,
             Barbarian
         }
-        public int Experience { get; private set; }
+        public int Experience { get; set; }
         public int ExperiencedNeeded { get; set; }
         public int Level { get; private set; }
         public PlayableClass CharacterClass { get; private set; }

@@ -10,7 +10,6 @@ namespace NullRPG.GameObjects
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
         public int Gold { get; set; }
         public int Level { get; set; }
         public int MinDmg { get; set; }
@@ -20,11 +19,10 @@ namespace NullRPG.GameObjects
         public bool IsUnique { get; set; }
         public Color Color { get; set; }
 
-        public Item(int id, string name, string description, int gold, int level = 1, int minDmg = 0, int maxDmg = 0, int defense = 0, int health = 0, bool isUnique = false)
+        public Item(int id, string name, int gold, int level = 1, int minDmg = 0, int maxDmg = 0, int defense = 0, int health = 0, bool isUnique = false)
         {
             ID = id;
             Name = name;
-            Description = description;
             Level = level;
             Gold = gold;
             MinDmg = minDmg;

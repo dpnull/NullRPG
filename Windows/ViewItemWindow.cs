@@ -21,8 +21,8 @@ namespace NullRPG.Windows
         public ViewItemWindow(int width, int height) : base(width, height)
         {
             // position for character window
-            Position = new Point(Constants.Windows.CharacterWidth - Constants.Windows.ViewItemWidth,
-                 (Constants.Windows.CharacterHeight - Constants.Windows.ViewItemHeight) / 2);
+            Position = new Point(Constants.Windows.CharacterWidth - Constants.Windows.ViewItemWidth - 1,
+                 (Constants.Windows.CharacterHeight - Constants.Windows.ViewItemHeight) / 2 + 1);
 
             // add only to character window and inventory window
             Global.CurrentScreen.Children.Add(this);
@@ -128,7 +128,6 @@ namespace NullRPG.Windows
                 }
 
                 string name = $"- {item.Name} -";
-                string description = $"{item.Description}";
 
                 string level = $"ilvl {item.Level}";
 
@@ -139,7 +138,6 @@ namespace NullRPG.Windows
                 {
                     Print(Width - level.Length - 1, y, level);
                     Print(this.GetWindowXCenter() - (name.Length / 2), y, name, Color.NavajoWhite); y++;
-                    Print(x, y, description); y++;
                     Print(x, y, coloredDmg);
                     Print(this.GetWindowXCenter() - (value.Length / 2), Height - 2, value);
                 }
@@ -147,7 +145,6 @@ namespace NullRPG.Windows
                 {
                     Print(Width - level.Length - 1, y, level);
                     Print(this.GetWindowXCenter() - (name.Length / 2), y, name, Color.NavajoWhite); y++;
-                    Print(x, y, description); y++;
                     Print(x, y, defense); y++;
                     Print(x, y, health);
                     Print(this.GetWindowXCenter() - (value.Length / 2), Height - 2, value);
@@ -155,7 +152,6 @@ namespace NullRPG.Windows
                 {
                     Print(Width - level.Length - 1, y, level);
                     Print(this.GetWindowXCenter() - (name.Length / 2), y, name, Color.NavajoWhite); y++;
-                    Print(x, y, description); y++;
                     Print(this.GetWindowXCenter() - (value.Length / 2), Height - 2, value);
                 }
             }
