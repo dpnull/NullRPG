@@ -93,29 +93,36 @@ namespace NullRPG.GameObjects
 
         public void EquipWeaponItem(WeaponItem item)
         {
-            // first take the item then delete
-            // then equip saved item
             var weapon = _inventory.FirstOrDefault(i => i.Item.ID == item.ID);
             if(weapon != null)
             {
-                var oldWeapon = CurrentWeapon;
                 CurrentWeapon.ReplaceItem(item);
-                _inventory.Remove(weapon);
-                //_inventory.Add(oldWeapon);
             }
         }
 
         public void EquipHeadItem(HeadItem item)
         {
-            CurrentHeadItem.ReplaceItem(item);
+            var head = _inventory.FirstOrDefault(i => i.Item.ID == item.ID);
+            if (head != null)
+            {
+                CurrentWeapon.ReplaceItem(item);
+            }
         }
         public void EquipBodyItem(BodyItem item)
         {
-            CurrentBodyItem.ReplaceItem(item);
+            var body = _inventory.FirstOrDefault(i => i.Item.ID == item.ID);
+            if (body != null)
+            {
+                CurrentWeapon.ReplaceItem(item);
+            }
         }
         public void EquipLegsItem(LegsItem item)
         {
-            CurrentLegsItem.ReplaceItem(item);
+            var legs = _inventory.FirstOrDefault(i => i.Item.ID == item.ID);
+            if (legs != null)
+            {
+                CurrentWeapon.ReplaceItem(item);
+            }
         }
     }
 }
