@@ -39,6 +39,7 @@ namespace NullRPG.Managers
         public void Travel(Location loc)
         {
             Game.GameSession.Player.TravelToLocation(loc);
+            MessageQueue.AddTravelled(loc.Name);
         }
     }
 }

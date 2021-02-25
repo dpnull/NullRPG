@@ -36,6 +36,18 @@ namespace NullRPG
             }
         }
 
+        private static void AddAndHighlight(string message, string highlighted)
+        {
+            var hcStr = Convert(highlighted);
+            hcStr.SetForeground(Color.Green);
+            var cStr = Convert(message);
+            cStr.SetForeground(Color.White);
+            var dot = new ColoredString(".");
+            dot.SetForeground(Color.White);
+            cStr += hcStr + dot;
+            Add(cStr);
+        }
+
         public static void AddDefault(string message)
         {
             var str = Convert(message);
@@ -44,14 +56,12 @@ namespace NullRPG
 
         public static void AddItemEquipped(string itemName)
         {
-            var cStr = Convert(itemName);
-            cStr.SetForeground(Color.Green);
-            var message = new ColoredString("You have equipped ");
-            message.SetForeground(Color.White);
-            var dot = new ColoredString(".");
-            dot.SetForeground(Color.White);
-            message += cStr + dot;
-            Add(message);
+            AddAndHighlight("You have equipped ", itemName);
+        }
+
+        public static void AddTravelled(string locationName)
+        {
+            AddAndHighlight("Arrived at ", locationName);
         }
 
         private static ColoredString Convert(string str)
