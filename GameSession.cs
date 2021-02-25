@@ -18,10 +18,13 @@ namespace NullRPG
             Player.TravelToLocation(World.GetLocation(0, 0));
 
             // add test items
-            Player.Inventory.AddItemToInventory(WeaponItem.Broadsword());
-            Player.Inventory.AddItemToInventory(WeaponItem.Longsword());
+
             Player.Inventory.AddItemToInventory(MiscItem.BoarSkin());
-            Player.Inventory.AddItemToInventory(HeadItem.IronHelmet());
+            Player.Inventory.AddItemToInventory(MiscItem.BoarSkin());
+            Player.Inventory.AddItemToInventory(MiscItem.BoarSkin());
+            Player.Inventory.AddItemToInventory(MiscItem.BoarSkin());
+            Player.Inventory.AddItemToInventory(WeaponItem.Broadsword());
         }
     }
 }
+

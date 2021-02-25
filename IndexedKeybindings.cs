@@ -18,7 +18,7 @@ namespace NullRPG
             InitializeIndexedTravelKeybindings(world);
         }
 
-        public IndexedKeybindings(Item[] items)
+        public IndexedKeybindings(InventorySlot[] items)
         {
             InitializeIndexedKeybindingsDictionary();
             InitializeIndexedInventoryKeybindings(items);
@@ -58,7 +58,7 @@ namespace NullRPG
         }
 
         // Initialize keybinding objects for inventory by using the passed items array.
-        private void InitializeIndexedInventoryKeybindings(Item[] items)
+        private void InitializeIndexedInventoryKeybindings(InventorySlot[] items)
         {
             for (int i = 0; i < items.Length; i++)
             {
@@ -115,7 +115,7 @@ namespace NullRPG
             return null;
         }
 
-        public Item GetIndexedItem(int index)
+        public InventorySlot GetIndexedItem(int index)
         {
             foreach(var item in _indexedInventoryKeybindings)
             {
@@ -183,9 +183,9 @@ namespace NullRPG
             }
         }
         public Microsoft.Xna.Framework.Input.Keys Keybinding { get; set; }
-        public Item Item { get; set; }
+        public InventorySlot Item { get; set; }
 
-        public static IndexedInventoryKeybinding AddIndexedKeybinding(int index, Microsoft.Xna.Framework.Input.Keys keybinding, Item item)
+        public static IndexedInventoryKeybinding AddIndexedKeybinding(int index, Microsoft.Xna.Framework.Input.Keys keybinding, InventorySlot item)
         {
             IndexedInventoryKeybinding indexKeybinding = new IndexedInventoryKeybinding();
 

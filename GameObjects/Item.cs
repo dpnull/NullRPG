@@ -32,5 +32,10 @@ namespace NullRPG.GameObjects
             Health = health;
             Color = Color.White;
         }
+
+        public Item Clone()
+        {
+            return new Item(ID, Name, Gold, Level, MinDmg, MaxDmg, Defense, Health, IsUnique);
+        }
     }
 }

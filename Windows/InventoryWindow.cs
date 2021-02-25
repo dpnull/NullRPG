@@ -19,7 +19,7 @@ namespace NullRPG.Windows
 
         public Console Console { get; set; }
 
-        private Item[] Printable { get; set; }
+        private InventorySlot[] Printable { get; set; }
 
         private string CurrentSort { get; set; }
 
@@ -80,7 +80,7 @@ namespace NullRPG.Windows
 
             if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Equip)))
             {
-                Game.CommandManager.EquipItem(UserInterfaceManager.Get<ViewItemWindow>().DrawableItem);
+                Game.CommandManager.EquipItem(UserInterfaceManager.Get<ViewItemWindow>().DrawableItem.Item);
                 return true;
             }
 
@@ -144,7 +144,15 @@ namespace NullRPG.Windows
 
                 for (int i = 0; i < Printable.Length; i++)
                 {
-                    this.PrintButton(1, i + 3, Printable[i].Name, IndexedKeybindings._indexedInventoryKeybindings[i].Index.ToString(), Color.Green, false);
+                    string name = $"{Printable[i].Item.Name}";
+                    if (Printable[i].Item is MiscItem)
+                    {
+                        name = $"{Printable[i].Item.Name}  x{Printable[i].Quantity}";
+                    }
+                                        
+
+
+                    this.PrintButton(1, i + 3, name, IndexedKeybindings._indexedInventoryKeybindings[i].Index.ToString(), Color.Green, false);
                 }
                 /*
                 int y = 1; int x = 1;
@@ -166,7 +174,7 @@ namespace NullRPG.Windows
             if (UserInterfaceManager.Get<ViewItemWindow>().DrawableItem != null)
             {
                 // Draw only if item is not misc
-                if (!(UserInterfaceManager.Get<ViewItemWindow>().DrawableItem is MiscItem))
+                if (!(UserInterfaceManager.Get<ViewItemWindow>().DrawableItem.Item is MiscItem))
                 {
                     this.PrintButton(UserInterfaceManager.Get<ViewItemWindow>().Position.X, Constants.Windows.ViewItemHeight + 2 + Constants.Windows.KeybindingsHeight,
                         Keybindings.GetKeybindingName(Keybindings.Type.Equip),
@@ -175,19 +183,19 @@ namespace NullRPG.Windows
             }
         }
 
-        private Item[] ShowAll(Player player)
+        private InventorySlot[] ShowAll(Player player)
         {
             CurrentSort = "All Items";
             return player.Inventory.GetInventory();
         }
 
-        private Item[] ShowMisc(Player player)
+        private InventorySlot[] ShowMisc(Player player)
         {
             CurrentSort = "Miscellaneous Items";
             return player.Inventory.GetMisc();
         }
 
-        private Item[] ShowEquipment(Player player)
+        private InventorySlot[] ShowEquipment(Player player)
         {
             CurrentSort = "Equipment Items";
             return player.Inventory.GetEquipment();

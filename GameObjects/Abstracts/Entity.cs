@@ -16,24 +16,24 @@ namespace NullRPG.GameObjects.Abstracts
         public int Gold { get; set; }
         public int MaxHealth
         {
-            get { return _maxHealth + Inventory.GetCurrentHeadItem().Health + Inventory.GetCurrentBodyItem().Health; }
+            get { return _maxHealth + Inventory.GetCurrentHeadItem().Item.Health + Inventory.GetCurrentBodyItem().Item.Health; }
             set { _maxHealth = value; }
         }
         public int Defense
         {
-            get { return _defense + Inventory.GetCurrentHeadItem().Defense + Inventory.GetCurrentBodyItem().Defense + Inventory.GetCurrentLegsItem().Defense; }
+            get { return _defense + Inventory.GetCurrentHeadItem().Item.Defense + Inventory.GetCurrentBodyItem().Item.Defense + Inventory.GetCurrentLegsItem().Item.Defense; }
             set { _defense = value; }
         }
         public Inventory Inventory { get; set; }
 
         public int MinDmg
         {
-            get { return _minDmg + Inventory.GetCurrentWeapon().MinDmg; }
+            get { return _minDmg + Inventory.GetCurrentWeapon().Item.MinDmg; }
             set { _minDmg = value; }
         }
         public int MaxDmg
         {
-            get { return _maxDmg + Inventory.GetCurrentWeapon().MaxDmg; }
+            get { return _maxDmg + Inventory.GetCurrentWeapon().Item.MaxDmg; }
             set { _maxDmg = value; }
         }
 

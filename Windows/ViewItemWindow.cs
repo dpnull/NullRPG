@@ -15,7 +15,7 @@ namespace NullRPG.Windows
 {
     public class ViewItemWindow : Console, IUserInterface
     {
-        public Item DrawableItem { get; set; }
+        public InventorySlot DrawableItem { get; set; }
 
         public Console Console { get; set; }
         public ViewItemWindow(int width, int height) : base(width, height)
@@ -55,14 +55,14 @@ namespace NullRPG.Windows
             DrawSelectedItem(DrawableItem);
         }
 
-        private void DrawSelectedItem(Item item)
+        private void DrawSelectedItem(InventorySlot item)
         {
             if (item != null)
             {
                 // colored dmg string
-                var coloredMinDmg = new ColoredString(item.MinDmg.ToString());
+                var coloredMinDmg = new ColoredString(item.Item.MinDmg.ToString());
                 coloredMinDmg.SetForeground(Color.LightGreen);
-                var coloredMaxDmg = new ColoredString(item.MaxDmg.ToString());
+                var coloredMaxDmg = new ColoredString(item.Item.MaxDmg.ToString());
                 coloredMaxDmg.SetForeground(Color.LightGreen);
                 var separator = new ColoredString(" - ");
                 var dmgSuffix = new ColoredString(" Attack");
@@ -72,17 +72,17 @@ namespace NullRPG.Windows
                 // colored defense string
                 ColoredString defense;
 
-                if (item.Defense > 0)
+                if (item.Item.Defense > 0)
                 {
-                    var defPrefix = new ColoredString(item.Defense.ToString());
+                    var defPrefix = new ColoredString(item.Item.Defense.ToString());
                     defPrefix.SetForeground(Color.LightGreen);
                     var defSuffix = new ColoredString(" Defense");
                     defense = new ColoredString("+ ");
                     defense += defPrefix + defSuffix;
                 }
-                else if (item.Defense < 0)
+                else if (item.Item.Defense < 0)
                 {
-                    var defPrefix = new ColoredString(Math.Abs(item.Defense).ToString());
+                    var defPrefix = new ColoredString(Math.Abs(item.Item.Defense).ToString());
                     defPrefix.SetForeground(Color.Red);
                     var defSuffix = new ColoredString(" Defense");
                     defense = new ColoredString("+ ");
@@ -95,17 +95,17 @@ namespace NullRPG.Windows
 
                 // colored health string. Print empty space if value is 0 and make values red if below 0.
                 ColoredString health;
-                if (item.Health > 0)
+                if (item.Item.Health > 0)
                 {
-                    var healthPrefix = new ColoredString(item.Health.ToString());
+                    var healthPrefix = new ColoredString(item.Item.Health.ToString());
                     healthPrefix.SetForeground(Color.LightGreen);
                     var healthSuffix = new ColoredString(" Health");
                     health = new ColoredString("+ ");
                     health += healthPrefix + healthSuffix;
                 }
-                else if (item.Health < 0)
+                else if (item.Item.Health < 0)
                 {
-                    var healthPrefix = new ColoredString(Math.Abs(item.Health).ToString());
+                    var healthPrefix = new ColoredString(Math.Abs(item.Item.Health).ToString());
                     healthPrefix.SetForeground(Color.Red);
                     var healthSuffix = new ColoredString(" Health");
                     health = new ColoredString("- ");
@@ -118,37 +118,37 @@ namespace NullRPG.Windows
 
                 string value;
 
-                if (item.Gold > 0)
+                if (item.Item.Gold > 0)
                 {
-                    value = $"Value: {item.Gold}";
+                    value = $"Value: {item.Item.Gold}";
                 }
                 else
                 {
                     value = "\0";
                 }
 
-                string name = $"- {item.Name} -";
+                string name = $"- {item.Item.Name} -";
 
-                string level = $"ilvl {item.Level}";
+                string level = $"ilvl {item.Item.Level}";
 
                 int x = 2;
                 int y = 1;
 
-                if (item is WeaponItem)
+                if (item.Item is WeaponItem)
                 {
                     Print(Width - level.Length - 1, y, level);
                     Print(this.GetWindowXCenter() - (name.Length / 2), y, name, Color.NavajoWhite); y++;
                     Print(x, y, coloredDmg);
                     Print(this.GetWindowXCenter() - (value.Length / 2), Height - 2, value);
                 }
-                else if (item is HeadItem || item is BodyItem || item is LegsItem)
+                else if (item.Item is HeadItem || item.Item is BodyItem || item.Item is LegsItem)
                 {
                     Print(Width - level.Length - 1, y, level);
                     Print(this.GetWindowXCenter() - (name.Length / 2), y, name, Color.NavajoWhite); y++;
                     Print(x, y, defense); y++;
                     Print(x, y, health);
                     Print(this.GetWindowXCenter() - (value.Length / 2), Height - 2, value);
-                } else if (item is MiscItem)
+                } else if (item.Item is MiscItem)
                 {
                     Print(Width - level.Length - 1, y, level);
                     Print(this.GetWindowXCenter() - (name.Length / 2), y, name, Color.NavajoWhite); y++;

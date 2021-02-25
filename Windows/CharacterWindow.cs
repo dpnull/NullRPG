@@ -144,10 +144,10 @@ namespace NullRPG.Windows
             string attackDamage = $"Attack damage: {player.MinDmg} - {player.MaxDmg}";
 
             // colored item strings
-            var currentWeapon = new ColoredString  ($"[1] WEAPON    {playerWeapon.Name}");
-            var currentHeadItem = new ColoredString($"[2] HEAD      {playerHeadItem.Name}");
-            var currentBodyItem = new ColoredString($"[3] BODY      {playerBodyItem.Name}");
-            var currentLegsItem = new ColoredString($"[4] LEGS      {playerLegsItem.Name}");
+            var currentWeapon = new ColoredString  ($"[1] WEAPON    {playerWeapon.Item.Name}");
+            var currentHeadItem = new ColoredString($"[2] HEAD      {playerHeadItem.Item.Name}");
+            var currentBodyItem = new ColoredString($"[3] BODY      {playerBodyItem.Item.Name}");
+            var currentLegsItem = new ColoredString($"[4] LEGS      {playerLegsItem.Item.Name}");
 
             currentWeapon[1].Foreground = Color.Green;
             currentHeadItem[1].Foreground = Color.Green;
