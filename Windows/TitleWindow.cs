@@ -31,7 +31,8 @@ namespace NullRPG.Windows
             // Add it to the children of the main console
             Global.CurrentScreen.Children.Add(this);
 
-            DrawGameTitle();
+            this.DrawRectangleTitledNoBottom(5, 5, 20, 15, "+", "-", "|", null,"Test title", Color.Red);
+            //DrawGameTitle();
             DrawButtons();
         }
 

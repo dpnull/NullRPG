@@ -43,7 +43,8 @@ namespace NullRPG.Windows
         {
             for (int i = 0; i < world.GetLocations().Length; i++)
             {
-                this.PrintButton(0, i, world.GetLocations()[i].Name, IndexedKeybindings._indexedTravelKeybindings[i].Index.ToString(), Color.Green, false);
+                this.PrintInsideSeparators(1, "Travelling to...", true);
+                this.PrintButton(1, i + 3, world.GetLocations()[i].Name, IndexedKeybindings._indexedTravelKeybindings[i].Index.ToString(), Color.Green, false);
             }
         }
 
