@@ -3,50 +3,53 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using NullRPG.GameObjects.Slots;
 
 namespace NullRPG.GameObjects
 {
     public class Inventory
     {
-        private WeaponItem CurrentWeapon { get; set; }
-        private HeadItem CurrentHeadItem { get; set; }
-        private BodyItem CurrentBodyItem { get; set; }
-        private LegsItem CurrentLegsItem { get; set; }
+        private List<Slot> _inventory = new List<Slot>();
 
-        private List<InventorySlot> _inventory = new List<InventorySlot>();
+        private WeaponSlot CurrentWeapon { get; set; }
+        private HeadSlot CurrentHeadItem { get; set; }
+        private BodySlot CurrentBodyItem { get; set; }
+        private LegsSlot CurrentLegsItem { get; set; }
 
         public Inventory()
         {
-            CurrentWeapon = WeaponItem.Barehanded();
-            CurrentHeadItem = HeadItem.IronHelmet();
-            CurrentBodyItem = BodyItem.IronArmor();
-            CurrentLegsItem = LegsItem.IronLeggings();
+            CurrentWeapon = new WeaponSlot(WeaponItem.Broadsword());
+            CurrentHeadItem = new HeadSlot(HeadItem.IronHelmet());
+            CurrentBodyItem = new BodySlot(BodyItem.IronArmor());
+            CurrentLegsItem = new LegsSlot(LegsItem.IronLeggings());
         }
 
         public void AddItemToInventory(Item item)
         {
             if (item.IsUnique)
             {
-                _inventory.Add(new InventorySlot(item, 1));
+                // YOU WERE WORKING ON ACCESS MODIFIERS
+                _inventory.Add(new Slot(item, 1));
             }
             else
             {
                 if(!_inventory.Any(i => i.Item.ID == item.ID))
                 {
-                    _inventory.Add(new InventorySlot(item, 0));
+                    _inventory.Add(new Slot(item, 0));
                 }
 
-                _inventory.First(i => i.Item.ID == item.ID).Quantity++;
+                _inventory.First(i => i.Item.ID == item.ID).IncrementQuantity();
             }
         }
 
-        public InventorySlot[] GetInventory()
+        public Slot[] GetInventory()
         {
             return _inventory.ToArray();
         }
-        public InventorySlot[] GetMisc()
+
+        public Slot[] GetMisc()
         {
-            var misc = new List<InventorySlot>();
+            var misc = new List<Slot>();
             foreach(var item in _inventory)
             {
                 if (item.Item is MiscItem)
@@ -57,9 +60,9 @@ namespace NullRPG.GameObjects
             return misc.ToArray();
         }
 
-        public InventorySlot[] GetEquipment()
+        public Slot[] GetEquipment()
         {
-            var equipment = new List<InventorySlot>();
+            var equipment = new List<Slot>();
             foreach (var item in _inventory)
             {
                 if (item.Item is WeaponItem || item.Item is HeadItem || item.Item is BodyItem || item.Item is LegsItem)
@@ -70,40 +73,40 @@ namespace NullRPG.GameObjects
             return equipment.ToArray();
         }
 
-        public InventorySlot GetCurrentWeapon()
+        public Slot GetCurrentWeapon()
         {
-            return new InventorySlot(CurrentWeapon, 1);
+            return CurrentWeapon;
         }
 
-        public InventorySlot GetCurrentHeadItem()
+        public Slot GetCurrentHeadItem()
         {
-            return new InventorySlot(CurrentHeadItem, 1);
+            return CurrentHeadItem;
         }
-        public InventorySlot GetCurrentBodyItem()
+        public Slot GetCurrentBodyItem()
         {
-            return new InventorySlot(CurrentBodyItem, 1);
+            return CurrentBodyItem;
         }
 
-        public InventorySlot GetCurrentLegsItem()
+        public Slot GetCurrentLegsItem()
         {
-            return new InventorySlot(CurrentLegsItem, 1);
+            return CurrentLegsItem;
         }
 
         public void EquipWeaponItem(WeaponItem item)
         {
-            CurrentWeapon = item;
+            CurrentWeapon.ReplaceItem(item);
         }
         public void EquipHeadItem(HeadItem item)
         {
-            CurrentHeadItem = item;
+            CurrentHeadItem.ReplaceItem(item);
         }
         public void EquipBodyItem(BodyItem item)
         {
-            CurrentBodyItem = item;
+            CurrentBodyItem.ReplaceItem(item);
         }
         public void EquipLegsItem(LegsItem item)
         {
-            CurrentLegsItem = item;
+            CurrentLegsItem.ReplaceItem(item);
         }
     }
 }

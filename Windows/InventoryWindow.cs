@@ -19,7 +19,7 @@ namespace NullRPG.Windows
 
         public Console Console { get; set; }
 
-        private InventorySlot[] Printable { get; set; }
+        private Slot[] Printable { get; set; }
 
         private string CurrentSort { get; set; }
 
@@ -87,84 +87,79 @@ namespace NullRPG.Windows
             if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(1)))
             {
                 UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(1);
+                return true;
             }
 
             if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(2)))
             {
                 UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(2);
+                return true;
             }
 
             if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(3)))
             {
                 UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(3);
+                return true;
             }
 
             if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(4)))
             {
                 UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(4);
+                return true;
             }
 
             if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(5)))
             {
                 UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(5);
+                return true;
             }
 
             if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(6)))
             {
                 UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(6);
+                return true;
             }
 
             if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(7)))
             {
                 UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(7);
+                return true;
             }
 
             if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(8)))
             {
                 UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(8);
+                return true;
             }
 
             if (info.IsKeyPressed(IndexedKeybindings.GetInventoryKeybinding(9)))
             {
                 UserInterfaceManager.Get<ViewItemWindow>().DrawableItem = IndexedKeybindings.GetIndexedItem(9);
+                return true;
             }
 
             return false;
         }
 
-
-
         private void DrawInventory()
         {
             this.PrintInsideSeparators(1, CurrentSort, true);
+
             if (Printable != null)
             {
-                IndexedKeybindings = new IndexedKeybindings(Printable);
                 // Reassign the new index keys
+                IndexedKeybindings = new IndexedKeybindings(Printable);               
 
                 for (int i = 0; i < Printable.Length; i++)
                 {
                     string name = $"{Printable[i].Item.Name}";
+                    // Add quantity for misc items
                     if (Printable[i].Item is MiscItem)
                     {
                         name = $"{Printable[i].Item.Name}  x{Printable[i].Quantity}";
                     }
-                                        
-
-
                     this.PrintButton(1, i + 3, name, IndexedKeybindings._indexedInventoryKeybindings[i].Index.ToString(), Color.Green, false);
                 }
-                /*
-                int y = 1; int x = 1;
-                foreach (var item in Printable)
-                {
-                    string name = $"- {item.Name} -";
-                    string value = $"Val: {item.Gold}";
-                    Print(x, y, name);
-                    Print(x + 25, y, value);
-                    y++;
-                }
-                */
                 PrintItemOptions();
             }
         }
@@ -183,19 +178,19 @@ namespace NullRPG.Windows
             }
         }
 
-        private InventorySlot[] ShowAll(Player player)
+        private Slot[] ShowAll(Player player)
         {
             CurrentSort = "All Items";
             return player.Inventory.GetInventory();
         }
 
-        private InventorySlot[] ShowMisc(Player player)
+        private Slot[] ShowMisc(Player player)
         {
             CurrentSort = "Miscellaneous Items";
             return player.Inventory.GetMisc();
         }
 
-        private InventorySlot[] ShowEquipment(Player player)
+        private Slot[] ShowEquipment(Player player)
         {
             CurrentSort = "Equipment Items";
             return player.Inventory.GetEquipment();

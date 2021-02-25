@@ -15,7 +15,7 @@ namespace NullRPG.Windows
 {
     public class ViewItemWindow : Console, IUserInterface
     {
-        public InventorySlot DrawableItem { get; set; }
+        public Slot DrawableItem { get; set; }
 
         public Console Console { get; set; }
         public ViewItemWindow(int width, int height) : base(width, height)
@@ -55,7 +55,7 @@ namespace NullRPG.Windows
             DrawSelectedItem(DrawableItem);
         }
 
-        private void DrawSelectedItem(InventorySlot item)
+        private void DrawSelectedItem(Slot item)
         {
             if (item != null)
             {
