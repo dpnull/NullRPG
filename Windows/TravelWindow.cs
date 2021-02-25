@@ -58,28 +58,28 @@ namespace NullRPG.Windows
             
             if (info.IsKeyPressed(IndexedKeybindings.GetTravelKeybinding(1)))
             {
-                Game.WindowManager.Travel(IndexedKeybindings.GetIndexedLocation(1));
+                Game.CommandManager.Travel(IndexedKeybindings.GetIndexedLocation(1));
                 Game.WindowManager.CloseCurrentWindow(this);
                 return true;
             }
             
             if (info.IsKeyPressed(IndexedKeybindings.GetTravelKeybinding(2)))
             {
-                Game.WindowManager.Travel(IndexedKeybindings.GetIndexedLocation(2));
+                Game.CommandManager.Travel(IndexedKeybindings.GetIndexedLocation(2));
                 Game.WindowManager.CloseCurrentWindow(this);
                 return true;
             }
 
             if (info.IsKeyPressed(IndexedKeybindings.GetTravelKeybinding(3)))
             {
-                Game.WindowManager.Travel(IndexedKeybindings.GetIndexedLocation(3));
+                Game.CommandManager.Travel(IndexedKeybindings.GetIndexedLocation(3));
                 Game.WindowManager.CloseCurrentWindow(this);
                 return true;
             }
 
             if (info.IsKeyPressed(IndexedKeybindings.GetTravelKeybinding(4)))
             {
-                Game.WindowManager.Travel(IndexedKeybindings.GetIndexedLocation(4));
+                Game.CommandManager.Travel(IndexedKeybindings.GetIndexedLocation(4));
                 Game.WindowManager.CloseCurrentWindow(this);
                 return true;
             }
@@ -87,7 +87,7 @@ namespace NullRPG.Windows
 
             if (info.IsKeyPressed(IndexedKeybindings.GetTravelKeybinding(5)))
             {
-                Game.WindowManager.Travel(IndexedKeybindings.GetIndexedLocation(5));
+                Game.CommandManager.Travel(IndexedKeybindings.GetIndexedLocation(5));
                 Game.WindowManager.CloseCurrentWindow(this);
                 return true;
             }

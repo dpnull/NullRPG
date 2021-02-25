@@ -54,6 +54,13 @@ namespace NullRPG
             Add(str);
         }
 
+        public static void AddColored(string message, Color c)
+        {
+            var str = Convert(message);
+            str.SetForeground(c);
+            Add(str);
+        }
+
         public static void AddItemEquipped(string itemName)
         {
             AddAndHighlight("You have equipped ", itemName);

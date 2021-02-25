@@ -4,6 +4,7 @@ using NullRPG.Windows;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace NullRPG.Managers
 {
@@ -30,8 +31,21 @@ namespace NullRPG.Managers
                     Game.GameSession.Player.Inventory.EquipLegsItem((LegsItem)item);
                     MessageQueue.AddItemEquipped(UserInterfaceManager.Get<ViewItemWindow>().DrawableItem.Item.Name);
                 }
-
             }
+        }
+
+        public void Travel(Location loc)
+        {
+            if(Game.GameSession.Player.GetCurrentLocation().X != loc.X)
+            {
+                Game.GameSession.Player.TravelToLocation(loc);
+                MessageQueue.AddTravelled(loc.Name);
+            } else
+            {
+                MessageQueue.AddColored("You are already at this location.", Color.DarkGoldenrod);
+            }
+            
+            
         }
     }
 }

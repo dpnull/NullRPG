@@ -35,11 +35,5 @@ namespace NullRPG.Managers
             window.TransitionVisibilityAndFocus(UserInterfaceManager.Get<GameWindow>());
         }
 
-        // Perhaps move this somewhere else
-        public void Travel(Location loc)
-        {
-            Game.GameSession.Player.TravelToLocation(loc);
-            MessageQueue.AddTravelled(loc.Name);
-        }
     }
 }
