@@ -8,7 +8,7 @@ namespace NullRPG.GameObjects
     {
         public List<Location> _locations = new List<Location>();
 
-        public void AddLocation(int x, int y, string name, string description)
+        public void AddLocation(int x, int y, string name, string description, bool canGather = false)
         {
             Location location = new Location();
 
@@ -16,6 +16,7 @@ namespace NullRPG.GameObjects
             location.Y = y;
             location.Name = name;
             location.Description = description;
+            location.CanGather = canGather;
 
             _locations.Add(location);
         }

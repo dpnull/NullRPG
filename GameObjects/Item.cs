@@ -19,23 +19,22 @@ namespace NullRPG.GameObjects
         public bool IsUnique { get; set; }
         public Color Color { get; set; }
 
-        public Item(int id, string name, int gold, bool isUnique = false, int level = 1, int minDmg = 0, int maxDmg = 0, int defense = 0, int health = 0)
+        public Item CreateGatherableItem(int id, string name, int gold, bool isUnique = false)
         {
             ID = id;
             Name = name;
-            Level = level;
             Gold = gold;
-            MinDmg = minDmg;
-            MaxDmg = maxDmg;
-            Defense = defense;
             IsUnique = isUnique;
-            Health = health;
             Color = Color.White;
-        }
 
-        public Item Clone()
-        {
-            return new Item(ID, Name, Gold, IsUnique, Level, MinDmg, MaxDmg, Defense, Health);
+            Level = 0;           
+            MinDmg = 0;
+            MaxDmg = 0;
+            Defense = 0;          
+            Health = 0;
+
+
+            return this;
         }
     }
 }

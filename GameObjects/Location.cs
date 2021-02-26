@@ -10,5 +10,15 @@ namespace NullRPG.GameObjects
         public int Y { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public bool CanGather { get; set; }
+        public List<Item> Gathereable { get; set; }
+
+        public void Gather()
+        {
+            Gathereable = new List<Item>();
+
+            Gathereable = 
+
+        }
     }
 }
