@@ -48,10 +48,9 @@ namespace NullRPG.Windows
 
         private void DrawButtons()
         {
-            _backBtn = new Button("Back", Microsoft.Xna.Framework.Input.Keys.D1, Color.Green, DefaultForeground,
-                this.GetWindowXCenter(), this.GetWindowYCenter());
+            _backBtn = new Button("Back", Microsoft.Xna.Framework.Input.Keys.D1, Color.Green, DefaultForeground);
             _backBtn.DrawNumericOnly(true);
-            _backBtn.Draw(this);
+            _backBtn.Draw(this, this.GetWindowXCenter() - (_backBtn.Length / 2), this.GetWindowYCenter());
         }
 
         private void OpenTitleWindow()

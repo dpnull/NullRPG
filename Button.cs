@@ -16,18 +16,21 @@ namespace NullRPG
         public Color TextColor { get; set; }
         public bool NumericOnly { get; set; }
 
-        public int Length { get; set; }
+        
+        public int Length { get; set; } // Needs to be redone
 
         public Button(Keybindings keybinding, Color keyColor, Color textColor, int x = 0, int y = 0)
         {
             Name = keybinding.TypeName.ToString();
-            Key = Key;
+            Key = keybinding.Key;
             KeyColor = keyColor;
             TextColor = textColor;
 
             X = x;
             Y = y;
             NumericOnly = false;
+
+            Length = 3 + KeyString().Length + Name.Length;
         }
 
         public Button(string name, Keys key, Color keyColor, Color textColor, int x = 0, int y = 0)
@@ -86,9 +89,8 @@ namespace NullRPG
 
             button += bracketA + prefix + bracketB + suffix;
 
-            Length = button.ToString().Length;
 
-            console.Print(X - (button.Count / 2), Y, button);
+            console.Print(X, Y, button);
         }
 
         public void Draw(SadConsole.Console console, int x, int y)
@@ -112,7 +114,6 @@ namespace NullRPG
 
             button += bracketA + prefix + bracketB + suffix;
 
-            Length = button.ToString().Length;
 
             console.Print(_x - (button.Count / 2), _y, button);
         }

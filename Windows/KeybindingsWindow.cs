@@ -22,7 +22,7 @@ namespace NullRPG.Windows
             Position = new Point(0, Constants.GameHeight - Constants.Windows.KeybindingsHeight);
 
             Initialize();
-            DrawKeybindings();
+            RefractoredDrawKeybindings();
 
             Global.CurrentScreen.Children.Add(this);
         }
@@ -31,36 +31,38 @@ namespace NullRPG.Windows
         {
             Clear();
 
-            DrawKeybindings();
-
             Keybindings.UpdateKeybindings();
 
+            RefractoredDrawKeybindings();
 
             base.Draw(timeElapsed);
         }
 
-        private void DrawKeybindings()
+        private void RefractoredDrawKeybindings()
         {
-            // NEEDS HEAVY REFRACTORING
 
+            int x = 3;
 
-
-            int x = 3; // spacing between each button
+            List<Button> buttons = new List<Button>();
 
             this.DrawBorders(Width, Height, "+", "|", "-", DefaultForeground);
 
-            for (int i = 0; i < Keybindings.GetKeybindings().Count; i++)
+            for(int i = 0; i < Keybindings.GetKeybindings().Count; i++)
             {
                 if (!Keybindings.GetKeybindings()[i].IsVisible) // don't iterate through hidden keybindings
                 {
                     continue;
                 }
 
-                this.DrawButton(x, 1, Keybindings.GetKeybindings()[i].TypeName.ToString(),
-                    Keybindings.GetKeybindings()[i].Key.ToString(), Color.Green, false);
+                var btn = new Button(Keybindings.GetKeybindings()[i], Color.Green, DefaultForeground, x, 1);
+                buttons.Add(btn);
+                x += 3;
+                
+            }
 
-                string offset = $"[{Keybindings.GetKeybindings()[i].Key}] {Keybindings.GetKeybindings()[i].TypeName}";
-                x += offset.Length + 2;
+            foreach(var btn in buttons)
+            {
+                btn.Draw(this);
             }
         }
 
