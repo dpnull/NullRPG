@@ -29,5 +29,26 @@ namespace NullRPG.Windows
 
             Global.CurrentScreen = this;
         }
+
+        public override void Update(TimeSpan timeElapsed)
+        {
+
+            base.Update(timeElapsed);
+        }
+
+        public override bool ProcessKeyboard(Keyboard info)
+        {
+            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Character)))
+            {
+                OpenCharacterWindow();
+            }
+
+            return base.ProcessKeyboard(info);
+        }
+        
+        private void OpenCharacterWindow()
+        {
+            this.SwitchFocusMakeVisible(UserInterfaceManager.Get<CharacterWindow>());
+        }
     }
 }

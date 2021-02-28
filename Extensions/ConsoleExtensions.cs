@@ -143,5 +143,16 @@ namespace NullRPG.Extensions
 
             SadConsole.Global.CurrentScreen = transition;
         }
+
+        public static void SwitchFocus(SadConsole.Console focusConsole)
+        {
+            focusConsole.IsFocused = true;
+        }
+
+        public static void SwitchFocusMakeVisible(this SadConsole.Console c, SadConsole.Console focusConsole)
+        {
+            focusConsole.IsVisible = true;
+            focusConsole.IsFocused = true;
+        }
     }
 }

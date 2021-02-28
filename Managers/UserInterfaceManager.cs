@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NullRPG.Windows;
 using System.Linq;
+using System;
 
 namespace NullRPG.Managers
 {
@@ -36,6 +37,22 @@ namespace NullRPG.Managers
             Add(characterWindow);
 
             IsInitialized = true;
+        }
+
+        public static void AutoVisiblity()
+        {
+            CheckVisibility(Get<StatsWindow>(), Get<CharacterWindow>().IsVisible);
+        }
+
+        private static void CheckVisibility(IUserInterface window, bool criteria)
+        {
+            if (criteria)
+            {
+                window.Console.IsVisible = false;
+            } else
+            {
+                window.Console.IsVisible = true;
+            }
         }
 
         public static void Add<T>(T userInterface) where T : IUserInterface
