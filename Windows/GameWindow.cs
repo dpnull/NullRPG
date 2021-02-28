@@ -24,6 +24,12 @@ namespace NullRPG.Windows
             SadConsole.Game.Instance.Window.Title = Constants.GameTitle;
 
             Global.CurrentScreen = this;
+
+            // Instantiate game window consoles
+
+            var statsWindow = new StatsWindow(Constants.Windows.StatsWidth, Constants.Windows.StatsHeight);
+            statsWindow.Position = new Point(0, 1);
+            UserInterfaceManager.Add(statsWindow);
         }
     }
 }

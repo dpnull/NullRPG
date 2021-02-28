@@ -8,7 +8,7 @@ namespace NullRPG
 {
     public class GameSession
     {
-        public static Player Player { get; set; }
+        public Player Player { get; set; }
         public GameSession()
         {
             Player = EntityManager.Create<Player>();

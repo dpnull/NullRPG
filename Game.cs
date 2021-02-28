@@ -9,6 +9,7 @@ namespace NullRPG
 {
     class Game
     {
+        public static GameSession GameSession { get; set; }
         public static TitleWindow TitleWindow { get; private set; }
 
         private static void Main()
@@ -45,7 +46,10 @@ namespace NullRPG
 
         private static void Init()
         {
+            GameSession = new GameSession();
+
             Keybindings.CreateKeybindings();
+
             UserInterfaceManager.Initialize();
 
             // Shows the main menu

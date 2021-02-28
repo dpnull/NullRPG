@@ -15,6 +15,9 @@
 
             public const int HelpWidth = GameWidth;
             public const int HelpHeight = GameHeight - 1;
+
+            public const int StatsWidth = GameWidth;
+            public const int StatsHeight = 3;
         }
     }
 }
