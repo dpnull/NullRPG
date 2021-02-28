@@ -36,6 +36,7 @@ namespace NullRPG.Windows
 
         public override void Draw(TimeSpan timeElapsed)
         {
+            Clear();
             DrawGameTitle();
             DrawButtons();
 
@@ -44,10 +45,15 @@ namespace NullRPG.Windows
 
         public override bool ProcessKeyboard(Keyboard info)
         {
+            if (info.IsKeyPressed(_playBtn.Key))
+            {
+                Start();
+                return true;
+            }
+
             if (info.IsKeyPressed(_helpBtn.Key))
             {
                 OpenHelpWindow();
-
                 return true;
             }
 
@@ -145,6 +151,11 @@ namespace NullRPG.Windows
         private void OpenHelpWindow()
         {
             this.FullTransition(UserInterfaceManager.Get<HelpWindow>());
+        }
+
+        private void Start()
+        {
+            this.FullTransition(UserInterfaceManager.Get<GameWindow>());
         }
     }
 }

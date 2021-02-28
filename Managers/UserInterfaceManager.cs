@@ -14,10 +14,18 @@ namespace NullRPG.Managers
 
         public static void Initialize()
         {
+            var gameWindow = new GameWindow(Constants.GameWidth, Constants.GameHeight);
+            Add(gameWindow);
+
             var titleWindow = new TitleWindow(Constants.Windows.TitleWidth, Constants.Windows.TitleHeight);
             Add(titleWindow);
 
-            var helpWindow = new HelpWindow(Constants.Windows.HelpWidth, Constants.Windows.HelpHeight);
+            var helpWindow = new HelpWindow(Constants.Windows.HelpWidth, Constants.Windows.HelpHeight)
+            {
+                IsVisible = false,
+                IsFocused = false,
+                IsPaused = true
+            };
             Add(helpWindow);
 
             IsInitialized = true;
