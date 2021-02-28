@@ -4,20 +4,19 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using SadConsole;
 using Console = SadConsole.Console;
-using System.Linq;
-using Microsoft.Xna.Framework.Graphics;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
-using SadConsole.Controls;
+using System.Linq;
 using NullRPG.Extensions;
 using SadConsole.Input;
-
 
 namespace NullRPG.Windows
 {
     public class TitleWindow : Console, IUserInterface
     {
-        public HelpWindow HelpWindow { get; set; }
+        private Button _playBtn;
+        private Button _helpBtn;
+        private Button _quitBtn;
 
         public Console Console
         {
@@ -28,34 +27,31 @@ namespace NullRPG.Windows
         {
             SadConsole.Game.Instance.Window.Title = Constants.GameTitle;
 
-            // Add it to the children of the main console
-            Global.CurrentScreen.Children.Add(this);
+            DrawGameTitle();
+            // Also initializes the buttons
+            DrawButtons();
 
+            Global.CurrentScreen.Children.Add(this);
+        }
+
+        public override void Draw(TimeSpan timeElapsed)
+        {
             DrawGameTitle();
             DrawButtons();
+
+            base.Draw(timeElapsed);
         }
 
         public override bool ProcessKeyboard(Keyboard info)
         {
-            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D1))
-            {
-                Start();
-                return true;
-            }
-
-            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D2))
+            if (info.IsKeyPressed(_helpBtn.Key))
             {
                 OpenHelpWindow();
+
                 return true;
             }
 
-            if (info.IsKeyReleased(Microsoft.Xna.Framework.Input.Keys.D3))
-            {
-                Environment.Exit(0);
-                return true;
-            }
-
-            return false;
+            return base.ProcessKeyboard(info);
         }
 
         private void DrawGameTitle()
@@ -100,12 +96,11 @@ namespace NullRPG.Windows
             }
 
 
-
             int tStartPosX = (Constants.GameWidth / 2) - (gameNameFragments.OrderByDescending(a => a.Length).First().Length / 2);
             int tStartPosY = this.GetWindowYCenter() - 1;
 
-            this.PrintSeparator(tStartPosY + 8);
-            this.PrintSeparator(tStartPosY);
+            this.DrawSeparator(tStartPosY + 8, "+", DefaultForeground);
+            this.DrawSeparator(tStartPosY, "+", DefaultForeground);
 
             // Print game name fragments
             for (int y = 0; y < gameNameFragments.Length; y++)
@@ -115,15 +110,24 @@ namespace NullRPG.Windows
                     Print(tStartPosX + x, tStartPosY + y, new ColoredGlyph(gameNameFragments[y][x], Color.Red, Color.Transparent));
                 }
             }
-
         }
-        
+
         private void DrawButtons()
         {
-            this.PrintButton(this.GetWindowXCenter(), Height - 5, "Play", "1", Color.DarkGreen, true);
-            this.PrintButton(this.GetWindowXCenter(), Height - 4, "Help", "2", Color.DarkGreen, true);
-            this.PrintButton(this.GetWindowXCenter(), Height - 3, "Quit", "3", Color.DarkGreen, true);
-            this.PrintSeparator(Height - 2);
+            _playBtn = new Button("Play", Microsoft.Xna.Framework.Input.Keys.D1, Color.Green, DefaultForeground,
+                this.GetWindowXCenter(), this.GetWindowYCenter() + 8);
+            _playBtn.DrawNumericOnly(true);
+            _playBtn.Draw(this);
+
+            _helpBtn = new Button("Help", Microsoft.Xna.Framework.Input.Keys.D2, Color.Green, DefaultForeground,
+                this.GetWindowXCenter(), _playBtn.Y + 1);
+            _helpBtn.DrawNumericOnly(true);
+            _helpBtn.Draw(this);
+
+            _quitBtn = new Button("Quit", Microsoft.Xna.Framework.Input.Keys.D3, Color.Green, DefaultForeground,
+                this.GetWindowXCenter(), _helpBtn.Y + 1);
+            _quitBtn.DrawNumericOnly(true);
+            _quitBtn.Draw(this);
         }
 
         public static TitleWindow Show()
@@ -131,6 +135,7 @@ namespace NullRPG.Windows
             var titleWindow = UserInterfaceManager.Get<TitleWindow>();
 
             titleWindow.IsVisible = true;
+            titleWindow.IsFocused = true;
 
             Global.CurrentScreen = titleWindow;
 
@@ -139,13 +144,7 @@ namespace NullRPG.Windows
 
         private void OpenHelpWindow()
         {
-            this.TransitionVisibilityAndFocus(UserInterfaceManager.Get<HelpWindow>());
+            this.FullTransition(UserInterfaceManager.Get<HelpWindow>());
         }
-
-        private void Start()
-        {
-            this.TransitionVisibilityAndFocus(UserInterfaceManager.Get<GameWindow>());
-        }
-
     }
 }

@@ -1,53 +1,61 @@
-﻿using System;
+﻿using NullRPG.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using NullRPG.Interfaces;
-using SadConsole;
-using Console = SadConsole.Console;
-using System.Linq;
-using Microsoft.Xna.Framework.Graphics;
 using NullRPG.Managers;
 using SadConsole.Controls;
 using NullRPG.Extensions;
 using SadConsole.Input;
+using SadConsole;
+using Console = SadConsole.Console;
 using Microsoft.Xna.Framework;
 
 namespace NullRPG.Windows
 {
-    public class HelpWindow : Console, IUserInterface
+    class HelpWindow : Console, IUserInterface
     {
+        private Button _backBtn;
         public Console Console => this;
 
         public HelpWindow(int width, int height) : base(width, height)
         {
-            PrintConfirmation();
+            Global.CurrentScreen.Children.Add(this);
+        }
+
+        public override void Draw(TimeSpan timeElapsed)
+        {
+            DrawConfirmation();
             DrawButtons();
-        }
 
-        private void PrintConfirmation()
-        {
-            this.PrintInsideSeparators(this.GetWindowYCenter(), "It works!", true, Color.Red);
-        }
-
-        private void DrawButtons()
-        {
-            this.PrintButton(this.GetWindowXCenter(), this.GetWindowYCenter() + 2, "Return", "Q", Color.DarkGreen, true);
+            base.Draw(timeElapsed);
         }
 
         public override bool ProcessKeyboard(Keyboard info)
         {
-            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Q))
+            if (info.IsKeyPressed(_backBtn.Key))
             {
                 OpenTitleWindow();
-                return true;
             }
 
-            return false;
+            return base.ProcessKeyboard(info);
+        }
+
+        private void DrawConfirmation()
+        {
+            this.DrawRectangleTitled(0, 0, Width - 2, Height - 10, "+", "-", "|", "|", new ColoredString("IT WORKS"));
+        }
+
+        private void DrawButtons()
+        {
+            _backBtn = new Button("Back", Microsoft.Xna.Framework.Input.Keys.D1, Color.Green, DefaultForeground,
+                this.GetWindowXCenter(), this.GetWindowYCenter());
+            _backBtn.DrawNumericOnly(true);
+            _backBtn.Draw(this);
         }
 
         private void OpenTitleWindow()
         {
-            this.TransitionVisibilityAndFocus(UserInterfaceManager.Get<TitleWindow>());
+            this.FullTransition(UserInterfaceManager.Get<TitleWindow>());
         }
     }
 }

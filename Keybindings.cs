@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using NullRPG.Factories;
 using NullRPG.Managers;
 using System.Collections.Generic;
 using System.Linq;
 using NullRPG.Windows;
 using System.ComponentModel;
 using System;
+
 
 namespace NullRPG
 {
@@ -31,9 +31,9 @@ namespace NullRPG
         public Type TypeName { get; set; }
         public Keys Key { get; set; }
         public bool IsVisible { get; set; }
-        
 
-        public void CreateKeybindings()
+
+        public static void CreateKeybindings()
         {
             _keybindings = new List<Keybindings>();
 
@@ -64,7 +64,7 @@ namespace NullRPG
         /// <param name="typeName">Binding name (type).</param>
         /// <param name="key">XNA key.</param>
         /// <param name="isVisible">Visible upon creation.</param>
-        public void AddKeybinding(Type typeName, Keys key, bool isVisible)
+        public static void AddKeybinding(Type typeName, Keys key, bool isVisible)
         {
             Keybindings keybinding = new Keybindings();
             keybinding.TypeName = typeName;
@@ -76,13 +76,10 @@ namespace NullRPG
 
         // Checks and updates visibilty of listed keybindings inside the function based on the visibilty of the console passed through the manager.
         // Can become redundant if replaced with event listeners for visibility.
-        public void UpdateKeybindings()
+        public static void UpdateKeybindings()
         {
-            // Game window
-            UpdateVisibility(Type.Travel, UserInterfaceManager.Get<Windows.GameWindow>());
-            UpdateVisibility(Type.Character, UserInterfaceManager.Get<Windows.GameWindow>());
-            UpdateVisibility(Type.Inventory, UserInterfaceManager.Get<Windows.GameWindow>());
 
+            /*
             // Cancel display
             UpdateVisibility(Type.Cancel, UserInterfaceManager.Get<TravelWindow>().IsFocused ||
                                           UserInterfaceManager.Get<CharacterWindow>().IsFocused ||
@@ -104,7 +101,7 @@ namespace NullRPG
         /// </summary>
         /// <param name="typeName">Binding name (type).</param>
         /// <param name="window">Console to be checked.</param>
-        private void UpdateVisibility(Type typeName, SadConsole.Console window)
+        private static void UpdateVisibility(Type typeName, SadConsole.Console window)
         {
             if (window.IsFocused)
             {
@@ -117,11 +114,11 @@ namespace NullRPG
         }
 
         // Allows for passing multiple windows visibilites.
-        private void UpdateVisibility(Type typeName, bool visibility)
+        private static void UpdateVisibility(Type typeName, bool visibility)
         {
-            foreach(Keybindings binding in _keybindings)
+            foreach (Keybindings binding in _keybindings)
             {
-                if(typeName == binding.TypeName)
+                if (typeName == binding.TypeName)
                 {
                     if (visibility == false)
                     {
@@ -160,9 +157,9 @@ namespace NullRPG
         /// <returns></returns>
         public static Keys GetKeybinding(Type typeName)
         {
-            foreach(var keybinding in _keybindings)
+            foreach (var keybinding in _keybindings)
             {
-                if(keybinding.TypeName == typeName)
+                if (keybinding.TypeName == typeName)
                 {
                     return keybinding.Key;
                 }
@@ -173,9 +170,9 @@ namespace NullRPG
 
         public static string GetKeybindingName(Type typeName)
         {
-            foreach(var keybinding in _keybindings)
+            foreach (var keybinding in _keybindings)
             {
-                if(keybinding.TypeName == typeName)
+                if (keybinding.TypeName == typeName)
                 {
                     return keybinding.TypeName.ToString();
                 }
@@ -185,11 +182,25 @@ namespace NullRPG
 
         }
 
+        public static string GetNumericKeyName(Keys key)
+        {
+            string str = String.Empty;
+            for (int i = 0; i < key.ToString().Length; i++)
+            {
+                if (Char.IsDigit(key.ToString()[i]))
+                {
+                    str += key.ToString()[i];
+                }
+            }
+
+            return str;
+        }
+
         /// <summary>
         /// Return a copy a of keybindings list
         /// </summary>
         /// <returns></returns>
-        public List<Keybindings> GetKeybindings()
+        public static List<Keybindings> GetKeybindings()
         {
             return _keybindings;
         }
@@ -201,9 +212,9 @@ namespace NullRPG
         /// <returns></returns>
         public static string GetKeybindingChar(Type typeName)
         {
-            foreach(var keybinding in _keybindings)
+            foreach (var keybinding in _keybindings)
             {
-                if(keybinding.TypeName == typeName)
+                if (keybinding.TypeName == typeName)
                 {
                     return keybinding.Key.ToString();
                 }
