@@ -20,6 +20,13 @@ namespace NullRPG.Extensions
             console.Print(0, y, separator.ToString(), c);
         }
 
+        public static void DrawHeader(this SadConsole.Console console, int y, string title, string corner, Color c)
+        {
+            DrawSeparator(console, y, corner, console.DefaultForeground);
+            console.Print(console.GetWindowXCenter() - (title.Length / 2), y + 1, title, c);
+            DrawSeparator(console, y + 2, corner, console.DefaultForeground);
+        }
+
         // Can be improved
         public static void DrawButton(this SadConsole.Console console, int x, int y, string text, string key, Color keyColor, bool windowCentered)
         {

@@ -32,7 +32,6 @@ namespace NullRPG.Windows
 
         public override void Update(TimeSpan timeElapsed)
         {
-
             base.Update(timeElapsed);
         }
 
@@ -41,9 +40,12 @@ namespace NullRPG.Windows
             if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Character)))
             {
                 OpenCharacterWindow();
+                return true;
             }
 
-            return base.ProcessKeyboard(info);
+            
+
+            return false;
         }
         
         private void OpenCharacterWindow()

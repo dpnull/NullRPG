@@ -25,6 +25,7 @@ namespace NullRPG.Windows
             Position = new Point(0, Constants.GameHeight - Constants.Windows.KeybindingsHeight);
 
             Initialize();
+            Keybindings.UpdateKeybindings();
             RefractoredDrawKeybindings();
 
             Global.CurrentScreen.Children.Add(this);

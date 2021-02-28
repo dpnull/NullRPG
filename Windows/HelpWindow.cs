@@ -38,7 +38,7 @@ namespace NullRPG.Windows
                 OpenTitleWindow();
             }
 
-            return base.ProcessKeyboard(info);
+            return false;
         }
 
         private void DrawConfirmation()

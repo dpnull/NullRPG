@@ -38,7 +38,6 @@ namespace NullRPG.Windows
 
         public override void Draw(TimeSpan timeElapsed)
         {
-            Clear();
             DrawGameTitle();
             DrawButtons();
 
@@ -59,7 +58,7 @@ namespace NullRPG.Windows
                 return true;
             }
 
-            return base.ProcessKeyboard(info);
+            return false;
         }
 
         private void DrawGameTitle()
