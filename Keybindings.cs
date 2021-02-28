@@ -33,29 +33,16 @@ namespace NullRPG
         public bool IsVisible { get; set; }
 
 
-        public static void CreateKeybindings()
+        public void CreateKeybindings()
         {
             _keybindings = new List<Keybindings>();
 
             // Game Window
-            AddKeybinding(Type.Travel, Microsoft.Xna.Framework.Input.Keys.T, false);
             AddKeybinding(Type.Character, Keys.C, false);
-            AddKeybinding(Type.Inventory, Keys.I, false);
-
-            // Character Window
-            AddKeybinding(Type.Cancel, Microsoft.Xna.Framework.Input.Keys.C, false);
 
             // Temporary hack for multiple keybinding choice display
             AddKeybinding(Type.View, Keys.F20, false);
 
-            // Inventory Window
-            AddKeybinding(Type.All, Keys.F1, false);
-            AddKeybinding(Type.Equipment, Keys.F2, false);
-            AddKeybinding(Type.Miscellaneous, Keys.F3, false);
-
-            // Selected item options
-            AddKeybinding(Type.Equip, Keys.E, false);
-            AddKeybinding(Type.Drop, Keys.D, false);
         }
 
         /// <summary>
@@ -64,7 +51,7 @@ namespace NullRPG
         /// <param name="typeName">Binding name (type).</param>
         /// <param name="key">XNA key.</param>
         /// <param name="isVisible">Visible upon creation.</param>
-        public static void AddKeybinding(Type typeName, Keys key, bool isVisible)
+        public void AddKeybinding(Type typeName, Keys key, bool isVisible)
         {
             Keybindings keybinding = new Keybindings();
             keybinding.TypeName = typeName;
@@ -76,20 +63,14 @@ namespace NullRPG
 
         // Checks and updates visibilty of listed keybindings inside the function based on the visibilty of the console passed through the manager.
         // Can become redundant if replaced with event listeners for visibility.
-        public static void UpdateKeybindings()
+        public void UpdateKeybindings()
         {
 
-            /*
             // Cancel display
-            UpdateVisibility(Type.Cancel, UserInterfaceManager.Get<TravelWindow>().IsFocused ||
-                                          UserInterfaceManager.Get<CharacterWindow>().IsFocused ||
-                                          UserInterfaceManager.Get<InventoryWindow>().IsFocused);
+            UpdateVisibility(Type.Character, UserInterfaceManager.Get<Windows.GameWindow>());
 
-            // Character display
-            UpdateVisibility(Type.View, UserInterfaceManager.Get<CharacterWindow>().IsFocused);
-
-            // Inventory display is currently displayed externally
             /*
+            // Inventory display is currently displayed externally
             UpdateVisibility(Type.All, UserInterfaceManager.Get<InventoryWindow>());
             UpdateVisibility(Type.Equipment, UserInterfaceManager.Get<InventoryWindow>());
             UpdateVisibility(Type.Miscellaneous, UserInterfaceManager.Get<InventoryWindow>());
@@ -101,7 +82,7 @@ namespace NullRPG
         /// </summary>
         /// <param name="typeName">Binding name (type).</param>
         /// <param name="window">Console to be checked.</param>
-        private static void UpdateVisibility(Type typeName, SadConsole.Console window)
+        private void UpdateVisibility(Type typeName, SadConsole.Console window)
         {
             if (window.IsFocused)
             {
@@ -113,8 +94,9 @@ namespace NullRPG
             }
         }
 
+        
         // Allows for passing multiple windows visibilites.
-        private static void UpdateVisibility(Type typeName, bool visibility)
+        private void UpdateVisibility(Type typeName, bool visibility)
         {
             foreach (Keybindings binding in _keybindings)
             {
@@ -131,7 +113,7 @@ namespace NullRPG
                 }
             }
         }
-
+        
         /// <summary>
         /// Retrieve a keybinding object using passed type name.
         /// </summary>
@@ -200,7 +182,7 @@ namespace NullRPG
         /// Return a copy a of keybindings list
         /// </summary>
         /// <returns></returns>
-        public static List<Keybindings> GetKeybindings()
+        public List<Keybindings> GetKeybindings()
         {
             return _keybindings;
         }

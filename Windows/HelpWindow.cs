@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework;
 
 namespace NullRPG.Windows
 {
-    class HelpWindow : Console, IUserInterface
+    public class HelpWindow : Console, IUserInterface
     {
         private Button _backBtn;
         public Console Console => this;

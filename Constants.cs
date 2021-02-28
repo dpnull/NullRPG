@@ -18,6 +18,12 @@
 
             public const int StatsWidth = GameWidth;
             public const int StatsHeight = 3;
+
+            public const int KeybindingsWidth = GameWidth;
+            public const int KeybindingsHeight = 3;
+
+            public const int CharacterWidth = GameWidth;
+            public const int CharacterHeight = GameHeight - KeybindingsHeight - 1;
         }
     }
 }

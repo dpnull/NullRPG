@@ -6,9 +6,6 @@ namespace NullRPG.Interfaces
 {
     public interface IUserInterface
     {
-        public interface IUserInterface
-        {
-            SadConsole.Console Console { get; }
-        }
+        SadConsole.Console Console { get; }
     }
 }

@@ -12,8 +12,12 @@ namespace NullRPG.Windows
 {
     public class StatsWindow : Console, IUserInterface
     {
+        public Console Console => this;
+
         public StatsWindow(int width, int height) : base(width, height)
         {
+            Position = new Point(0, 1);
+
             DrawStats(Game.GameSession.Player);
 
             Global.CurrentScreen.Children.Add(this); // add to game window

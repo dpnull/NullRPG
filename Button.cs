@@ -16,6 +16,8 @@ namespace NullRPG
         public Color TextColor { get; set; }
         public bool NumericOnly { get; set; }
 
+        public int Length { get; set; }
+
         public Button(Keybindings keybinding, Color keyColor, Color textColor, int x = 0, int y = 0)
         {
             Name = keybinding.TypeName.ToString();
@@ -83,6 +85,9 @@ namespace NullRPG
             button.SetBackground(TextColor);
 
             button += bracketA + prefix + bracketB + suffix;
+
+            Length = button.ToString().Length;
+
             console.Print(X - (button.Count / 2), Y, button);
         }
 
@@ -106,6 +111,9 @@ namespace NullRPG
             button.SetBackground(TextColor);
 
             button += bracketA + prefix + bracketB + suffix;
+
+            Length = button.ToString().Length;
+
             console.Print(_x - (button.Count / 2), _y, button);
         }
 

@@ -11,7 +11,11 @@ namespace NullRPG.Windows
 {
     public class GameWindow : Console, IUserInterface
     {
-        public Console Console => this;
+        public Console Console
+        {
+            get { return this; }
+        }
+
         public GameWindow(int width, int height) : base(width, height)
         {
             // print game title at the top
@@ -24,12 +28,6 @@ namespace NullRPG.Windows
             SadConsole.Game.Instance.Window.Title = Constants.GameTitle;
 
             Global.CurrentScreen = this;
-
-            // Instantiate game window consoles
-
-            var statsWindow = new StatsWindow(Constants.Windows.StatsWidth, Constants.Windows.StatsHeight);
-            statsWindow.Position = new Point(0, 1);
-            UserInterfaceManager.Add(statsWindow);
         }
     }
 }

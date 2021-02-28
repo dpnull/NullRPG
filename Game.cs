@@ -48,10 +48,6 @@ namespace NullRPG
         {
             GameSession = new GameSession();
 
-            Keybindings.CreateKeybindings();
-
-            UserInterfaceManager.Initialize();
-
             // Shows the main menu
             TitleWindow = TitleWindow.Show();
 

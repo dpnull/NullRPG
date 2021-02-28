@@ -23,6 +23,8 @@ namespace NullRPG.Windows
             get { return this; }
         }
 
+        public HelpWindow HelpWindow { get; private set; }
+
         public TitleWindow(int width, int height) : base(width, height)
         {
             SadConsole.Game.Instance.Window.Title = Constants.GameTitle;
@@ -139,6 +141,15 @@ namespace NullRPG.Windows
         public static TitleWindow Show()
         {
             var titleWindow = UserInterfaceManager.Get<TitleWindow>();
+            if(titleWindow == null)
+            {
+                titleWindow = new TitleWindow(Constants.Windows.TitleWidth, Constants.Windows.TitleHeight);
+                UserInterfaceManager.Add(titleWindow);
+            } else
+            {
+                titleWindow.IsVisible = true;
+                titleWindow.IsFocused = true;
+            }
 
             titleWindow.IsVisible = true;
             titleWindow.IsFocused = true;
@@ -150,11 +161,22 @@ namespace NullRPG.Windows
 
         private void OpenHelpWindow()
         {
-            this.FullTransition(UserInterfaceManager.Get<HelpWindow>());
+            var helpWindow = UserInterfaceManager.Get<HelpWindow>();
+            if(helpWindow == null)
+            {
+                helpWindow = new HelpWindow(Constants.Windows.HelpWidth, Constants.Windows.HelpHeight);
+                UserInterfaceManager.Add(helpWindow);
+                this.FullTransition(helpWindow);
+            } else
+            {
+                this.FullTransition(helpWindow);
+            }
         }
 
         private void Start()
         {
+            UserInterfaceManager.Initialize();
+
             this.FullTransition(UserInterfaceManager.Get<GameWindow>());
         }
     }
