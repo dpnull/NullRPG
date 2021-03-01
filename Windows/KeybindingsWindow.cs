@@ -58,7 +58,9 @@ namespace NullRPG.Windows
 
                 var btn = new Button(Keybindings.GetKeybindings()[i], Color.Green, DefaultForeground, x, 1);
                 Buttons.Add(btn);
-                x += 3;
+
+                int offset = btn.Length + 3;
+                x += offset;
                 
             }
 

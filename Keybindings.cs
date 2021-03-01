@@ -39,9 +39,13 @@ namespace NullRPG
 
             // Game Window
             AddKeybinding(Type.Character, Keys.C, false);
+            AddKeybinding(Type.Inventory, Keys.I, false);
 
             // Temporary hack for multiple keybinding choice display
             AddKeybinding(Type.View, Keys.F20, false);
+
+            // Cancel button
+            AddKeybinding(Type.Cancel, Keys.C, false);
 
         }
 
@@ -66,8 +70,12 @@ namespace NullRPG
         public void UpdateKeybindings()
         {
 
-            // Cancel display
+            // Game Window
             UpdateVisibility(Type.Character, UserInterfaceManager.Get<Windows.GameWindow>());
+            UpdateVisibility(Type.Inventory, UserInterfaceManager.Get<Windows.GameWindow>());
+
+            // Cancel button
+            UpdateVisibility(Type.Cancel, UserInterfaceManager.Get<CharacterWindow>().IsVisible);
 
             /*
             // Inventory display is currently displayed externally

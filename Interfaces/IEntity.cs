@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NullRPG.ItemTypes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,6 +8,7 @@ namespace NullRPG.Interfaces
     public interface IEntity
     {
         public int ObjectId { get; }
+        public int Level { get; set; }
         public string Name { get; set; }
         public int Health { get; set; }
         public int MaxHealth { get; set; }
@@ -14,5 +16,6 @@ namespace NullRPG.Interfaces
         public int MinDmg { get; set; }
         public int MaxDmg { get; set; }
         public int Defense { get; set; }
+        public WeaponItem CurrentWeapon { get; set; }
     }
 }

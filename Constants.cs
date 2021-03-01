@@ -5,7 +5,7 @@
         public const string GameTitle = "NullRPG";
         public const string Build = "Build 280222";
 
-        public const int GameWidth = 120;
+        public const int GameWidth = 80;
         public const int GameHeight = 26;
 
         public static class Windows
@@ -24,6 +24,9 @@
 
             public const int CharacterWidth = GameWidth;
             public const int CharacterHeight = GameHeight - KeybindingsHeight - 1;
+
+            public const int InventoryWidth = GameWidth;
+            public const int InventoryHeight = GameHeight - KeybindingsHeight - 1;
         }
     }
 }

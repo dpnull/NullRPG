@@ -18,6 +18,7 @@ namespace NullRPG.Windows
 
         public GameWindow(int width, int height) : base(width, height)
         {
+
             // print game title at the top
             ColoredString tStr = new ColoredString($"  {Constants.GameTitle}  ");
             tStr.SetForeground(Color.White);
@@ -43,7 +44,13 @@ namespace NullRPG.Windows
                 return true;
             }
 
-            
+            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Inventory)))
+            {
+                OpenInventoryWindow();
+                return true;
+            }
+
+
 
             return false;
         }
@@ -51,6 +58,11 @@ namespace NullRPG.Windows
         private void OpenCharacterWindow()
         {
             this.SwitchFocusMakeVisible(UserInterfaceManager.Get<CharacterWindow>());
+        }
+
+        private void OpenInventoryWindow()
+        {
+            this.SwitchFocusMakeVisible(UserInterfaceManager.Get<InventoryWindow>());
         }
     }
 }

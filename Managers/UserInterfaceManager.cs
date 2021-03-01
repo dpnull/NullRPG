@@ -23,12 +23,6 @@ namespace NullRPG.Managers
 
             Add(gameWindow);
 
-            var keybindingsWindow = new KeybindingsWindow(Constants.Windows.KeybindingsWidth, Constants.Windows.KeybindingsHeight);
-            Add(keybindingsWindow);
-
-            var statsWindow = new StatsWindow(Constants.Windows.StatsWidth, Constants.Windows.StatsHeight);
-            Add(statsWindow);
-
             var characterWindow = new CharacterWindow(Constants.Windows.CharacterWidth, Constants.Windows.CharacterHeight)
             {
                 IsVisible = false,
@@ -36,12 +30,26 @@ namespace NullRPG.Managers
             };
             Add(characterWindow);
 
+            var statsWindow = new StatsWindow(Constants.Windows.StatsWidth, Constants.Windows.StatsHeight);
+            Add(statsWindow);
+
+            var inventoryWindow = new InventoryWindow(Constants.Windows.InventoryWidth, Constants.Windows.InventoryHeight)
+            {
+                IsVisible = false,
+                IsFocused = false
+            };
+            Add(inventoryWindow);
+
+            // Initialize last so all consoles are instantiated prior to creating keybinding bools for visibility
+            var keybindingsWindow = new KeybindingsWindow(Constants.Windows.KeybindingsWidth, Constants.Windows.KeybindingsHeight);
+            Add(keybindingsWindow);
+
             IsInitialized = true;
         }
 
         public static void AutoVisiblity()
         {
-            CheckVisibility(Get<StatsWindow>(), Get<CharacterWindow>().IsVisible);
+            CheckVisibility(Get<StatsWindow>(), Get<CharacterWindow>().IsVisible || Get<InventoryWindow>().IsVisible);
         }
 
         private static void CheckVisibility(IUserInterface window, bool criteria)

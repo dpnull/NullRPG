@@ -142,11 +142,9 @@ namespace NullRPG.Extensions
         {
             currentConsole.IsVisible = false;
             currentConsole.IsFocused = false;
-            currentConsole.IsPaused = true;
 
             transition.IsVisible = true;
             transition.IsFocused = true;
-            transition.IsPaused = false;
 
             SadConsole.Global.CurrentScreen = transition;
         }

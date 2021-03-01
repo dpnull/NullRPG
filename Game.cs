@@ -14,6 +14,8 @@ namespace NullRPG
 
         private static void Main()
         {
+            SadConsole.Settings.ResizeMode = Settings.WindowResizeOptions.Stretch;
+
             // Setup the engine and create the main window.
             SadConsole.Game.Create(Constants.GameWidth, Constants.GameHeight);
 
@@ -47,6 +49,7 @@ namespace NullRPG
 
         private static void Init()
         {
+
             GameSession = new GameSession();
 
             // Shows the main menu

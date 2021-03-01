@@ -41,13 +41,18 @@ namespace NullRPG.Windows
                 Game.GameSession.Player.Experience += 1;
             }
 
+            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Cancel)))
+            {
+                this.FullTransition(UserInterfaceManager.Get<GameWindow>());
+            }
+
             return false;
         }
 
         private void DrawDetailedStats(Player player)
         {
             DrawExperience(player, 0, 3, Width);
-            DrawCharacter();
+            DrawCharacter(player);
         }
 
         private void DrawExperience(Player player, int x, int y, int width)
@@ -75,13 +80,25 @@ namespace NullRPG.Windows
             Print(this.GetWindowXCenter() - (printableExperience.Length / 2), y + 1, printableExperience);
         }
 
-        private void DrawCharacter()
+        private void DrawCharacter(Player player)
         {
-            this.DrawSeparator(0, "+", DefaultForeground);
+            int _x = 1;
+            int _y = 4;
+            this.DrawHeader(0, $"{player.Name}'s character overview", "+", Color.Green); _y++;
 
-            this.DrawHeader(0, "Character overview", "+", Color.Green);
+            string level = $"Level: {player.Level}";
+            string health = $"Health: {player.Health} / {player.MaxHealth}";
+            string damage = $"Attack: {player.MinDmg} / {player.MaxDmg}";
+            string gold = $"Gold: {player.Gold}";
 
-            this.DrawSeparator(2, "+", DefaultForeground);
+            string weapon = $"Current weapon: {player.GetWeaponName()}";
+
+            Print(_x, _y, level); _y++;
+            Print(_x, _y, health); _y++;
+            Print(_x, _y, damage); _y += 2;
+            Print(_x, _y, gold); _y += 2;
+
+            Print(_x, _y, weapon);
         }
 
     }
