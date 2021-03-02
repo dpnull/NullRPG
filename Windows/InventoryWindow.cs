@@ -15,6 +15,7 @@ namespace NullRPG.Windows
 {
     class InventoryWindow : Console, IUserInterface
     {
+        private IndexedKeybindings IndexedKeybindings;
         public Console Console => this;
         public InventoryWindow(int width, int height) : base(width, height)
         {
@@ -35,11 +36,65 @@ namespace NullRPG.Windows
             return base.ProcessKeyboard(info);
         }
 
+        /*
+        private void DrawPrintable()
+        {
+            Printable = InventoryManager.GetSlots<ISlot>(); // temp
+
+            var empty = new List<String>();
+            var printable = new List<String>();
+            var bindable = new List<ISlot>();
+
+            int y = 0;
+            foreach (var item in Printable)
+            {
+                if (!item.Item.Any())
+                {
+                    string emptyStr = "[EMPTY]";
+                    empty.Add(emptyStr);
+                    continue;
+                }
+                else
+                {
+                    if (item.Item != null)
+                    {
+                        if (item.Item.Any<IItem>(i => i.ObjectId == Game.GameSession.Player.CurrentWeapon.ObjectId))
+                        {
+                            printable.Add($"id: {item.Item.First().ObjectId}    [{item.Item.First().Name}]     - EQUIPPED -");
+                            bindable.Add(item);
+                        }
+                        else if (item.Item.Any<IItem>(i => i.IsUnique))
+                        {
+                            printable.Add($"id: {item.Item.First().ObjectId}    [{item.Item.First().Name}]");
+                            bindable.Add(item);
+                        }
+                        else if (item.Item.Any<IItem>(i => !i.IsUnique))
+                        {
+                            printable.Add($"{item.Item.First().Name}   Quantity: {item.Item.Count}");
+                            bindable.Add(item);
+                        }
+                    }
+                }
+            }
+
+            foreach (var str in printable)
+            {
+                Print(0, y, str); y++;
+            }
+
+            foreach (var str in empty)
+            {
+                Print(0, y, str); y++;
+            }
+        }
+        */
+
         private void DrawInventory()
         {
             var inventory = InventoryManager.GetSlots<ISlot>();
             var emptySlots = new List<String>();
-            var bindable = new List<String>();
+            var printable = new List<String>();
+            var bindable = new List<ISlot>();
 
             int _x = 1;
             int _y = 3;
@@ -64,16 +119,20 @@ namespace NullRPG.Windows
                         {
                             string printableStr = $"[id_{slot.Item.First().ObjectId}]  {slot.Item.First().Name}     {slot.Item.First().MinDmg} - {slot.Item.First().MaxDmg}";
 
-                            bindable.Add(printableStr);
+                            printable.Add(printableStr);
+                            bindable.Add(slot);
                         } else
                         {
                             string printableStr = $"[id_{slot.Item.First().ObjectId}]  {slot.Item.First().Name}   Count: {slot.Item.Count}";
 
-                            bindable.Add(printableStr);
+                            printable.Add(printableStr);
+                            bindable.Add(slot);
                         }
                     }
                 }
             }
+
+            IndexedKeybindings = new IndexedKeybindings(bindable.ToArray());
 
             if (emptySlots.Count > 0)
             {
@@ -85,9 +144,12 @@ namespace NullRPG.Windows
 
             if(bindable.Count > 0)
             {
+                int index = 0;
                 foreach (var str in bindable)
                 {
-                    Print(_x, _y, str); _y++;
+                    string itemStr = $"{IndexedKeybindings._indexedKeybindings[index].Index} {str}";
+                    Print(_x, _y, itemStr); _y++;
+                    index++;
                 }
             }
 

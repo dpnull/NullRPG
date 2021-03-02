@@ -6,7 +6,7 @@ using System.Text;
 
 namespace NullRPG.GameObjects
 {
-    public class Slot : ISlot
+    public class Slot : ISlot, IIndexable
     {
         public int ObjectId { get; set; }
         public List<IItem> Item { get; set; }

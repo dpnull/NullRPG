@@ -6,7 +6,7 @@ using System.Text;
 
 namespace NullRPG.GameObjects
 {
-    public abstract class Item : IItem
+    public abstract class Item : IItem, IIndexable
     {
         private string _name;
         public int ObjectId { get; set; }
