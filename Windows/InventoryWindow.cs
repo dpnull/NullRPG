@@ -137,7 +137,7 @@ namespace NullRPG.Windows
             if (emptySlots.Count > 0)
             {
                 foreach(var str in emptySlots)
-                {
+                {               
                     Print(_x, _y, str); _y++;
                 }
             }
@@ -145,10 +145,11 @@ namespace NullRPG.Windows
             if(bindable.Count > 0)
             {
                 int index = 0;
-                foreach (var str in bindable)
+                foreach (var str in printable)
                 {
-                    string itemStr = $"{IndexedKeybindings._indexedKeybindings[index].Index} {str}";
-                    Print(_x, _y, itemStr); _y++;
+                    var btn = new Button(str, IndexedKeybindings.GetIndexedKeybinding(index), Color.Green, DefaultForeground, 0, index);
+                    btn.DrawNumericOnly(true);
+                    btn.Draw(this);
                     index++;
                 }
             }
