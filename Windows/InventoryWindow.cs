@@ -130,37 +130,25 @@ namespace NullRPG.Windows
 
             IndexedKeybindings = new IndexedKeybindings(bindable.ToArray());
 
-            container.Print(this);
-            if (emptySlots.Count > 0)
-            {
 
-            }
-            /*
-            if(bindable.Count > 0)
-            {
-                int index = 0;
-                foreach (var str in printable)
-                {
-                    var btn = new Button(str, IndexedKeybindings.GetIndexedKeybinding(index), Color.Green, DefaultForeground, 0, index);
-                    btn.DrawNumericOnly(true);
-                    btn.Draw(this);
-                    index++;
-                }
-            }
-            */
+            container.Print(this,IndexedKeybindings);
+
+
 
         }
 
         private class PrintContainer
         {
-            private const int NAME_OFFSET = 0;
-            private const int PARAS_OFFSET = 15;
-            private const int ID_OFFSET = 30;
+            private const int INDEX_OFFSET = 0;
+            private const int NAME_OFFSET = 4;
+            private const int PARAS_OFFSET = 20;
+            private const int ID_OFFSET = 35;
 
             private int _startingX;
             private int _startingY;
 
             private List<PrintContainer> _printable;
+            public int IndexX { get; set; }
             public string Name { get; set; }
             public int NameX { get; set; }
             public string Paras { get; set; }
@@ -178,10 +166,12 @@ namespace NullRPG.Windows
             {
                 _printable = new List<PrintContainer>();
             }
+
             public void Add(string name, string paras, string id)
             {
                 var temp = new PrintContainer()
                 {
+                    IndexX = _startingX + INDEX_OFFSET,
                     Name = name,
                     NameX = _startingX + NAME_OFFSET,
                     Paras = paras,
@@ -193,11 +183,19 @@ namespace NullRPG.Windows
                 _printable.Add(temp);
             }
 
-            public void Print(SadConsole.Console console)
+            public void Print(SadConsole.Console console, IndexedKeybindings keybinding)
             {
                 int yCoord = _startingY;
-                foreach(var str in _printable)
-                {
+                int index = 0;
+                foreach (var str in _printable)
+                {               
+                    var btn = new Button("\0", keybinding.GetIndexedKeybinding(index), Color.Green, console.DefaultForeground, IndexX, yCoord);
+                    btn.DrawNumericOnly(true);
+                    
+                    index++;
+
+                    if(str.Name == "[EMPTY]") { btn.KeyColor = Color.Gray; } // very lazy
+                    btn.Draw(console);
                     console.Print(str.NameX, yCoord, str.Name);
                     console.Print(str.ParasX, yCoord, str.Paras);
                     console.Print(str.IdX, yCoord, str.Id);
