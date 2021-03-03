@@ -96,36 +96,32 @@ namespace NullRPG.Windows
             var printable = new List<String>();
             var bindable = new List<ISlot>();
 
-            int _x = 1;
-            int _y = 3;
+            PrintContainer container = new PrintContainer();
+
 
             foreach(var slot in inventory)
             {
                 if (!slot.Item.Any())
                 {
                     string emptyStr = "[EMPTY]";
-                    emptySlots.Add(emptyStr);
+                    container.Add(emptyStr, "\0", "\0");
                     continue;
                 }
                 else
                 {
                     if(slot.Item != null)
                     {
-                       /*if(slot.Item.Any<IItem>(i => i.ObjectId == Game.GameSession.Player.CurrentWeapon.ObjectId))
-                        {
-                            string bindableStr = $"{slot}"
-                        }*/
                         if (slot.Item.Any<IItem>(i => i.IsUnique))
                         {
-                            string printableStr = $"[id_{slot.Item.First().ObjectId}]  {slot.Item.First().Name}     {slot.Item.First().MinDmg} - {slot.Item.First().MaxDmg}";
-
-                            printable.Add(printableStr);
+                            container.Add(slot.Item.FirstOrDefault().Name,
+                                $"{slot.Item.FirstOrDefault().MinDmg} - {slot.Item.FirstOrDefault().MaxDmg}",
+                                $"item_id{slot.Item.FirstOrDefault().ObjectId} | slot_id{slot.ObjectId}");
                             bindable.Add(slot);
                         } else
                         {
-                            string printableStr = $"[id_{slot.Item.First().ObjectId}]  {slot.Item.First().Name}   Count: {slot.Item.Count}";
-
-                            printable.Add(printableStr);
+                            container.Add(slot.Item.FirstOrDefault().Name,
+                                $"x{slot.Item.Count}",
+                                $"item_id{slot.Item.FirstOrDefault().ObjectId} | slot_id{slot.ObjectId}");
                             bindable.Add(slot);
                         }
                     }
@@ -134,14 +130,12 @@ namespace NullRPG.Windows
 
             IndexedKeybindings = new IndexedKeybindings(bindable.ToArray());
 
+            container.Print(this);
             if (emptySlots.Count > 0)
             {
-                foreach(var str in emptySlots)
-                {               
-                    Print(_x, _y, str); _y++;
-                }
-            }
 
+            }
+            /*
             if(bindable.Count > 0)
             {
                 int index = 0;
@@ -153,7 +147,64 @@ namespace NullRPG.Windows
                     index++;
                 }
             }
+            */
 
+        }
+
+        private class PrintContainer
+        {
+            private const int NAME_OFFSET = 0;
+            private const int PARAS_OFFSET = 15;
+            private const int ID_OFFSET = 30;
+
+            private int _startingX;
+            private int _startingY;
+
+            private List<PrintContainer> _printable;
+            public string Name { get; set; }
+            public int NameX { get; set; }
+            public string Paras { get; set; }
+            public int ParasX { get; set; }
+            public string Id { get; set; }
+            public int IdX { get; set; }
+
+            public void SetParameters(int startingX, int startingY)
+            {
+                _startingX = startingX;
+                _startingY = startingY;
+            }
+
+            public PrintContainer()
+            {
+                _printable = new List<PrintContainer>();
+            }
+            public void Add(string name, string paras, string id)
+            {
+                var temp = new PrintContainer()
+                {
+                    Name = name,
+                    NameX = _startingX + NAME_OFFSET,
+                    Paras = paras,
+                    ParasX = NameX + PARAS_OFFSET,
+                    Id = id,
+                    IdX = ParasX + ID_OFFSET
+                };
+
+                _printable.Add(temp);
+            }
+
+            public void Print(SadConsole.Console console)
+            {
+                int yCoord = _startingY;
+                foreach(var str in _printable)
+                {
+                    console.Print(str.NameX, yCoord, str.Name);
+                    console.Print(str.ParasX, yCoord, str.Paras);
+                    console.Print(str.IdX, yCoord, str.Id);
+                    yCoord++;
+                }
+
+            }
         }
     }
 }
