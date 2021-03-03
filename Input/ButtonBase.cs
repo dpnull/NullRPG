@@ -35,7 +35,7 @@ namespace NullRPG
             }
         }
 
-        public string KeyString()
+        public string KeyToString()
         {
             if (IsNumeric)
             {

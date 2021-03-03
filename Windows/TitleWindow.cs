@@ -9,14 +9,15 @@ using NullRPG.Managers;
 using System.Linq;
 using NullRPG.Extensions;
 using SadConsole.Input;
+using NullRPG.Input;
 
 namespace NullRPG.Windows
 {
     public class TitleWindow : Console, IUserInterface
     {
-        private Button _playBtn;
-        private Button _helpBtn;
-        private Button _quitBtn;
+        private ButtonString _playBtn;
+        private ButtonString _helpBtn;
+        private ButtonString _quitBtn;
 
         public Console Console
         {
@@ -121,17 +122,16 @@ namespace NullRPG.Windows
 
         private void DrawButtons()
         {
-            _playBtn = new Button("Play", Microsoft.Xna.Framework.Input.Keys.D1, Color.Green, DefaultForeground);
-            _playBtn.DrawNumericOnly(true);
-            _playBtn.Draw(this, this.GetWindowXCenter() - (_playBtn.Length / 2), this.GetWindowYCenter() + 8);
+            _playBtn = new ButtonString("Play", Microsoft.Xna.Framework.Input.Keys.D1, Color.Green, Color.White, 0, 0, true);
+            _playBtn.Draw(this.GetWindowXCenter() - (_playBtn.GetLength() / 2), this.GetWindowYCenter() + 8, this);
 
-            _helpBtn = new Button("Help", Microsoft.Xna.Framework.Input.Keys.D2, Color.Green, DefaultForeground);
+            _helpBtn = new ButtonString("Help", Microsoft.Xna.Framework.Input.Keys.D2, Color.Green, DefaultForeground, 0, 0, true);
             _helpBtn.DrawNumericOnly(true);
-            _helpBtn.Draw(this, this.GetWindowXCenter() - (_helpBtn.Length / 2), this.GetWindowYCenter() + 9);
+            _helpBtn.Draw(this.GetWindowXCenter() - (_helpBtn.GetLength() / 2), this.GetWindowYCenter() + 9, this);
 
-            _quitBtn = new Button("Quit", Microsoft.Xna.Framework.Input.Keys.D3, Color.Green, DefaultForeground);
+            _quitBtn = new ButtonString("Quit", Microsoft.Xna.Framework.Input.Keys.D3, Color.Green, DefaultForeground, 0, 0, true);
             _quitBtn.DrawNumericOnly(true);
-            _quitBtn.Draw(this, this.GetWindowXCenter() - (_quitBtn.Length / 2), this.GetWindowYCenter() + 10);
+            _quitBtn.Draw(this.GetWindowXCenter() - (_quitBtn.GetLength() / 2), this.GetWindowYCenter() + 10, this);
         }
 
         public static TitleWindow Show()
