@@ -10,6 +10,7 @@ using NullRPG.Managers;
 using NullRPG.GameObjects;
 using SadConsole.Input;
 using System.Linq;
+using NullRPG.ItemTypes;
 
 namespace NullRPG.Windows
 {
@@ -92,19 +93,18 @@ namespace NullRPG.Windows
         private void DrawInventory()
         {
             var inventory = InventoryManager.GetSlots<ISlot>();
-            var emptySlots = new List<String>();
-            var printable = new List<String>();
-            var bindable = new List<ISlot>();
 
             PrintContainer container = new PrintContainer();
+
+            List<IIndexable> bindable = new List<IIndexable>();
 
 
             foreach(var slot in inventory)
             {
                 if (!slot.Item.Any())
                 {
-                    string emptyStr = "[EMPTY]";
-                    container.Add(emptyStr, "\0", "\0");
+                    //string emptyStr = "[EMPTY]";
+                    //container.Add(emptyStr, "\0", "\0");
                     continue;
                 }
                 else
@@ -116,13 +116,13 @@ namespace NullRPG.Windows
                             container.Add(slot.Item.FirstOrDefault().Name,
                                 $"{slot.Item.FirstOrDefault().MinDmg} - {slot.Item.FirstOrDefault().MaxDmg}",
                                 $"item_id{slot.Item.FirstOrDefault().ObjectId} | slot_id{slot.ObjectId}");
-                            bindable.Add(slot);
+                            bindable.Add((IIndexable)slot);
                         } else
                         {
                             container.Add(slot.Item.FirstOrDefault().Name,
                                 $"x{slot.Item.Count}",
                                 $"item_id{slot.Item.FirstOrDefault().ObjectId} | slot_id{slot.ObjectId}");
-                            bindable.Add(slot);
+                            bindable.Add((IIndexable)slot);
                         }
                     }
                 }
@@ -131,10 +131,7 @@ namespace NullRPG.Windows
             IndexedKeybindings = new IndexedKeybindings(bindable.ToArray());
 
 
-            container.Print(this,IndexedKeybindings);
-
-
-
+            container.Print(this, IndexedKeybindings);
         }
 
         private class PrintContainer
@@ -162,6 +159,11 @@ namespace NullRPG.Windows
                 _startingY = startingY;
             }
 
+            public PrintContainer(IndexedKeybindings reference)
+            {
+                _printable = new List<PrintContainer>();
+            }
+
             public PrintContainer()
             {
                 _printable = new List<PrintContainer>();
@@ -183,6 +185,20 @@ namespace NullRPG.Windows
                 _printable.Add(temp);
             }
 
+            public void Print(SadConsole.Console console, IndexedKeybindings bindings)
+            {
+                int _y = _startingY;
+                int index = 0;
+                foreach(var str in _printable)
+                {
+                    string weaponName = InventoryManager.GetSlot<ISlot>(bindings.GetIndexable(index).ObjectId).Item.FirstOrDefault().Name;
+                    console.Print(0, _y, weaponName);
+                    _y++;
+                    index++;
+                }
+            }
+
+            /*
             public void Print(SadConsole.Console console, IndexedKeybindings keybinding)
             {
                 int yCoord = _startingY;
@@ -197,11 +213,18 @@ namespace NullRPG.Windows
                     if(str.Name == "[EMPTY]") { btn.KeyColor = Color.Gray; } // very lazy
                     btn.Draw(console);
                     console.Print(str.NameX, yCoord, str.Name);
-                    console.Print(str.ParasX, yCoord, str.Paras);
+                    console.Print(str.ParasX, yCoord, keybinding.GetIndexedItem(index);
                     console.Print(str.IdX, yCoord, str.Id);
                     yCoord++;
                 }
 
+            }
+            */
+
+            private String GetItemTypePara(IItem item)
+            {
+                // TODO: IMPLEMENT WEAPON TYPES AS PARAMETER FOR ITEM OBJECTS
+                return item is WeaponItem ? "Weapon" : item is MiscItem ? "Miscellaneous" : "UNKNOWN TYPE";
             }
         }
     }

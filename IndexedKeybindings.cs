@@ -8,16 +8,17 @@ using System.Linq;
 
 namespace NullRPG
 {
+
     public class IndexedKeybindings
     {
         public Dictionary<int, Microsoft.Xna.Framework.Input.Keys> IndexedKeybindingsDictionary = new Dictionary<int, Microsoft.Xna.Framework.Input.Keys>();
 
         public List<IIndexedKeybinding> _indexedKeybindings = new List<IIndexedKeybinding>();
 
-        public IndexedKeybindings(ISlot[] slots)
+        public IndexedKeybindings(IIndexable[] indexable)
         {
             InitializeIndexedKeybindingsDictionary();
-            Initialize(slots);
+            Initialize(indexable);
         }
 
         // Add indexed keybindings objects to the dictionary. Objects use an int as key necessary for fetching value by using the passed index.
@@ -45,42 +46,34 @@ namespace NullRPG
 
         // Initialize keybinding objects for inventory by using the passed items array.
 
-        private void Initialize(ISlot[] slots)
+
+        // New Dictionary of index ints and Keys
+        // where index corresponds to D keys
+        // then use the dictionary to initialize objects starting from i = 0 where passed object is assigned to the index for later reference
+        // It is done by assigning key from dictionary based on the i
+
+        private void Initialize(IIndexable[] indexableArr)
         {
             int index = 0;
-            foreach(var item in slots)
+            foreach(var item in indexableArr)
             {
-                if (item.Item.First() != null)
-                {
-                    var i = slots.FirstOrDefault().Item;
-                    AddIndexedKeybinding<IndexedInventoryKeybinding>(index, GetIndexedKeybinding(index), (IIndexable)i.First()); // temporary solution for i
-                    index++;
-                }
-                else { continue; }            
+                var indexable = item;
+                AddIndexedKeybinding<IndexedInventoryKeybinding>(index, GetIndexedKeybinding(index), indexable); // temporary solution for i
+                index++;        
             }
         }
 
-        public void AddIndexedKeybinding<T>(int index, Microsoft.Xna.Framework.Input.Keys keybinding, IIndexable item) where T : IIndexedKeybinding, new()
+        public void AddIndexedKeybinding<T>(int index, Microsoft.Xna.Framework.Input.Keys keybinding, IIndexable indexable) where T : IIndexedKeybinding, new()
         {
             T obj = new T
             {
                 Index = index,
                 Keybinding = keybinding,
-                Object = item
+                Object = indexable
             };
 
             _indexedKeybindings.Add(obj);
         }
-
-        /*
-        private void T InitializeIndexedKeybindings(Item[] items)
-        {
-            for (int i = 0; i < items.Length; i++)
-            {
-                _indexedKeybindings.Add(IndexedKeybinding.AddIndexedKeybinding(i, GetIndexedKeybinding(i), items[i]));
-            }
-        }
-        */
 
         // Returns a XNA key from the dictionary based on the passed key.
         public Microsoft.Xna.Framework.Input.Keys GetIndexedKeybinding(int index)
@@ -89,35 +82,26 @@ namespace NullRPG
             throw new System.Exception($"No keybinding defined with index: {index}");
         }
 
-
-        // Return a XNA keybinding from the travel object based on the passed index
-        public Microsoft.Xna.Framework.Input.Keys GetInventoryKeybinding(int index)
+        public IIndexable GetIndexable(int index)
         {
-            foreach (var item in _indexedKeybindings)
-            {
-                if (index == item.Index)
-                {
-                    return item.Keybinding;
-                }
-            }
-
-            // Temporary hack for return
-            return Microsoft.Xna.Framework.Input.Keys.F20;
+            return _indexedKeybindings[index].Object;
         }
 
+        /*
         public object GetIndexedItem(int index)
         {
-            foreach (var item in _indexedKeybindings)
+            foreach (var slot in _indexedKeybindings)
             {
-                if (index == item.Index)
+                if (index == slot.Object)
                 {
-                    return item.Object;
+                    return slot.Object
                 }
             }
             return null;
         }
+        */
 
-
+        // TO REVISE
         public bool IsNotNull(int index)
         {
             foreach (var keybinding in _indexedKeybindings)
@@ -147,6 +131,5 @@ namespace NullRPG
         }
         public Microsoft.Xna.Framework.Input.Keys Keybinding { get; set; }
         public IIndexable Object { get; set; }
-
     }
 }
