@@ -11,6 +11,7 @@ using NullRPG.GameObjects;
 using SadConsole.Input;
 using System.Linq;
 using NullRPG.ItemTypes;
+using NullRPG.Input;
 
 namespace NullRPG.Windows
 {
@@ -36,60 +37,6 @@ namespace NullRPG.Windows
         {
             return base.ProcessKeyboard(info);
         }
-
-        /*
-        private void DrawPrintable()
-        {
-            Printable = InventoryManager.GetSlots<ISlot>(); // temp
-
-            var empty = new List<String>();
-            var printable = new List<String>();
-            var bindable = new List<ISlot>();
-
-            int y = 0;
-            foreach (var item in Printable)
-            {
-                if (!item.Item.Any())
-                {
-                    string emptyStr = "[EMPTY]";
-                    empty.Add(emptyStr);
-                    continue;
-                }
-                else
-                {
-                    if (item.Item != null)
-                    {
-                        if (item.Item.Any<IItem>(i => i.ObjectId == Game.GameSession.Player.CurrentWeapon.ObjectId))
-                        {
-                            printable.Add($"id: {item.Item.First().ObjectId}    [{item.Item.First().Name}]     - EQUIPPED -");
-                            bindable.Add(item);
-                        }
-                        else if (item.Item.Any<IItem>(i => i.IsUnique))
-                        {
-                            printable.Add($"id: {item.Item.First().ObjectId}    [{item.Item.First().Name}]");
-                            bindable.Add(item);
-                        }
-                        else if (item.Item.Any<IItem>(i => !i.IsUnique))
-                        {
-                            printable.Add($"{item.Item.First().Name}   Quantity: {item.Item.Count}");
-                            bindable.Add(item);
-                        }
-                    }
-                }
-            }
-
-            foreach (var str in printable)
-            {
-                Print(0, y, str); y++;
-            }
-
-            foreach (var str in empty)
-            {
-                Print(0, y, str); y++;
-            }
-        }
-        */
-
         private void DrawInventory()
         {
             var inventory = InventoryManager.GetSlots<ISlot>();
@@ -122,19 +69,20 @@ namespace NullRPG.Windows
             printable.Print(this);
         }
 
-        private class PrintContainer
+        public class PrintContainer
         {
             private const int INDEX_OFFSET = 0;
-            private const int NAME_OFFSET = 0;
-            private const int TYPE_OFFSET = 20;
-            private const int DATA_OFFSET = 30;
-            private const int ID_OFFSET = 50;
+            private const int NAME_OFFSET = 4;
+            private const int TYPE_OFFSET = 24;
+            private const int DATA_OFFSET = 34;
+            private const int ID_OFFSET = 54;
 
             private List<PrintContainer> _printable;
             public string Name { get; set; }
             public string Type { get; set; }
             public string Data { get; set; }
             public string Id { get; set; }
+            public ButtonIndex ButtonIndex { get; set; }
 
             public PrintContainer(IIndexedKeybinding[] keybindings)
             {
@@ -148,6 +96,7 @@ namespace NullRPG.Windows
 
             public void Add(IIndexedKeybinding[] keybindings)
             {
+                int index = 0; // for keybinding index
                 foreach(var item in keybindings)
                 {
                     var slotItem = InventoryManager.GetSlot<ISlot>(item.Object.ObjectId).Item.FirstOrDefault();
@@ -162,13 +111,13 @@ namespace NullRPG.Windows
                         Name = itemName,
                         Type = itemType,
                         Data = itemData,
-                        Id = itemId
+                        Id = itemId,
+                        ButtonIndex = new ButtonIndex(keybindings[index].Keybinding, Color.Green, Color.White)
                     };
 
                     _printable.Add(printableItem);
+                    index++;
                 }
-
-                
             }
 
             public void Print(SadConsole.Console console)
@@ -176,6 +125,7 @@ namespace NullRPG.Windows
                 int _y = 0;
                 foreach(var str in _printable)
                 {
+                    str.ButtonIndex.Draw(INDEX_OFFSET, _y, console);
                     console.Print(NAME_OFFSET, _y, str.Name);
                     console.Print(TYPE_OFFSET, _y, str.Type);
                     console.Print(DATA_OFFSET, _y, str.Data);

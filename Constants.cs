@@ -1,4 +1,5 @@
-﻿namespace NullRPG
+﻿using Microsoft.Xna.Framework;
+namespace NullRPG
 {
     public static class Constants
     {
@@ -27,6 +28,12 @@
 
             public const int InventoryWidth = GameWidth;
             public const int InventoryHeight = GameHeight - KeybindingsHeight - 1;
+        }
+
+        public static class Theme
+        {
+            public static readonly Color BackgroundColor = Color.Black;
+            public static readonly Color ForegroundColor = Color.White;
         }
     }
 }
