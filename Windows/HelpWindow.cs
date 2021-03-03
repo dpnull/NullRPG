@@ -9,12 +9,13 @@ using SadConsole.Input;
 using SadConsole;
 using Console = SadConsole.Console;
 using Microsoft.Xna.Framework;
+using NullRPG.Input;
 
 namespace NullRPG.Windows
 {
     public class HelpWindow : Console, IUserInterface
     {
-        private Button _backBtn;
+        private ButtonString _backBtn;
         public Console Console => this;
 
         public HelpWindow(int width, int height) : base(width, height)
@@ -48,9 +49,8 @@ namespace NullRPG.Windows
 
         private void DrawButtons()
         {
-            _backBtn = new Button("Back", Microsoft.Xna.Framework.Input.Keys.D1, Color.Green, DefaultForeground);
-            _backBtn.DrawNumericOnly(true);
-            _backBtn.Draw(this, this.GetWindowXCenter() - (_backBtn.Length / 2), this.GetWindowYCenter());
+            _backBtn = new ButtonString("Back", Microsoft.Xna.Framework.Input.Keys.D1, Color.Green, DefaultForeground, 0, 0, true);
+            _backBtn.Draw(this.GetWindowXCenter() - (_backBtn.GetLength() / 2), this.GetWindowYCenter(), this);
         }
 
         private void OpenTitleWindow()

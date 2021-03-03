@@ -9,6 +9,7 @@ using NullRPG.Extensions;
 using NullRPG.Managers;
 using System.Linq;
 using SadConsole.Input;
+using NullRPG.Input;
 
 namespace NullRPG.Windows
 {
@@ -18,7 +19,7 @@ namespace NullRPG.Windows
 
         Keybindings Keybindings = new Keybindings();
 
-        public List<Button> Buttons { get; set; }
+        public List<ButtonString> Buttons { get; set; }
 
         public KeybindingsWindow(int width, int height) : base(width, height)
         {
@@ -44,7 +45,7 @@ namespace NullRPG.Windows
 
         private void RefractoredDrawKeybindings()
         {
-            Buttons = new List<Button>();
+            Buttons = new List<ButtonString>();
             int x = 3;
 
             this.DrawBorders(Width, Height, "+", "|", "-", DefaultForeground);
@@ -56,10 +57,10 @@ namespace NullRPG.Windows
                     continue;
                 }
 
-                var btn = new Button(Keybindings.GetKeybindings()[i], Color.Green, DefaultForeground, x, 1);
+                var btn = new ButtonString(Keybindings.GetKeybindings()[i].TypeName.ToString(), Keybindings.GetKeybindings()[i].Key, Color.Green, DefaultForeground, x, 1);
                 Buttons.Add(btn);
 
-                int offset = btn.Length + 3;
+                int offset = btn.GetLength() + 3;
                 x += offset;
                 
             }

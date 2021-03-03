@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace NullRPG.Input
 {
-    class ButtonString : ButtonIndex
+    public class ButtonString : ButtonIndex
     {
         public string Name { get; set; }
 

@@ -112,7 +112,7 @@ namespace NullRPG.Windows
                         Type = itemType,
                         Data = itemData,
                         Id = itemId,
-                        ButtonIndex = new ButtonIndex(keybindings[index].Keybinding, Color.Green, Color.White)
+                        ButtonIndex = new ButtonIndex(keybindings[index].Keybinding, Color.Green, Color.White, 0, 0, true)
                     };
 
                     _printable.Add(printableItem);
