@@ -93,35 +93,23 @@ namespace NullRPG.Windows
         private void DrawInventory()
         {
             var inventory = InventoryManager.GetSlots<ISlot>();
-
-            PrintContainer container = new PrintContainer();
-
-            List<IIndexable> bindable = new List<IIndexable>();
+            List<IIndexable> bindable = new List<IIndexable>(); // to be used for instantiating indexes and objectid reference
 
 
             foreach(var slot in inventory)
             {
                 if (!slot.Item.Any())
-                {
-                    //string emptyStr = "[EMPTY]";
-                    //container.Add(emptyStr, "\0", "\0");
                     continue;
-                }
                 else
                 {
-                    if(slot.Item != null)
+                    if (slot.Item != null)
                     {
                         if (slot.Item.Any<IItem>(i => i.IsUnique))
                         {
-                            container.Add(slot.Item.FirstOrDefault().Name,
-                                $"{slot.Item.FirstOrDefault().MinDmg} - {slot.Item.FirstOrDefault().MaxDmg}",
-                                $"item_id{slot.Item.FirstOrDefault().ObjectId} | slot_id{slot.ObjectId}");
                             bindable.Add((IIndexable)slot);
-                        } else
+                        }
+                        else
                         {
-                            container.Add(slot.Item.FirstOrDefault().Name,
-                                $"x{slot.Item.Count}",
-                                $"item_id{slot.Item.FirstOrDefault().ObjectId} | slot_id{slot.ObjectId}");
                             bindable.Add((IIndexable)slot);
                         }
                     }
@@ -129,102 +117,71 @@ namespace NullRPG.Windows
             }
 
             IndexedKeybindings = new IndexedKeybindings(bindable.ToArray());
+            PrintContainer printable = new PrintContainer(IndexedKeybindings.GetIndexedKeybindings());
 
-
-            container.Print(this, IndexedKeybindings);
+            printable.Print(this);
         }
 
         private class PrintContainer
         {
             private const int INDEX_OFFSET = 0;
-            private const int NAME_OFFSET = 4;
-            private const int PARAS_OFFSET = 20;
-            private const int ID_OFFSET = 35;
-
-            private int _startingX;
-            private int _startingY;
+            private const int NAME_OFFSET = 0;
+            private const int TYPE_OFFSET = 20;
+            private const int DATA_OFFSET = 30;
+            private const int ID_OFFSET = 50;
 
             private List<PrintContainer> _printable;
-            public int IndexX { get; set; }
             public string Name { get; set; }
-            public int NameX { get; set; }
-            public string Paras { get; set; }
-            public int ParasX { get; set; }
+            public string Type { get; set; }
+            public string Data { get; set; }
             public string Id { get; set; }
-            public int IdX { get; set; }
 
-            public void SetParameters(int startingX, int startingY)
-            {
-                _startingX = startingX;
-                _startingY = startingY;
-            }
-
-            public PrintContainer(IndexedKeybindings reference)
+            public PrintContainer(IIndexedKeybinding[] keybindings)
             {
                 _printable = new List<PrintContainer>();
+                Add(keybindings);
             }
-
             public PrintContainer()
             {
-                _printable = new List<PrintContainer>();
+
             }
 
-            public void Add(string name, string paras, string id)
+            public void Add(IIndexedKeybinding[] keybindings)
             {
-                var temp = new PrintContainer()
+                foreach(var item in keybindings)
                 {
-                    IndexX = _startingX + INDEX_OFFSET,
-                    Name = name,
-                    NameX = _startingX + NAME_OFFSET,
-                    Paras = paras,
-                    ParasX = NameX + PARAS_OFFSET,
-                    Id = id,
-                    IdX = ParasX + ID_OFFSET
-                };
+                    var slotItem = InventoryManager.GetSlot<ISlot>(item.Object.ObjectId).Item.FirstOrDefault();
+                    string itemName = slotItem.Name;
+                    string itemType = slotItem is WeaponItem ? "[Weapon]" : slotItem is MiscItem ? "[Misc]" : "UNKNOWN TYPE";
+                    string itemData = slotItem is WeaponItem ? $"Atk: {slotItem.MinDmg} - {slotItem.MaxDmg}" :
+                                      slotItem is MiscItem ? $"Count: {InventoryManager.GetSlot<ISlot>(item.Object.ObjectId).Item.Count}" : "UNKNOWN ITEM DATA";
+                    string itemId = $"slotId_{InventoryManager.GetSlot<ISlot>(item.Object.ObjectId).ObjectId}, itemId_{slotItem.ObjectId}";
 
-                _printable.Add(temp);
+                    var printableItem = new PrintContainer()
+                    {
+                        Name = itemName,
+                        Type = itemType,
+                        Data = itemData,
+                        Id = itemId
+                    };
+
+                    _printable.Add(printableItem);
+                }
+
+                
             }
 
-            public void Print(SadConsole.Console console, IndexedKeybindings bindings)
+            public void Print(SadConsole.Console console)
             {
-                int _y = _startingY;
-                int index = 0;
+                int _y = 0;
                 foreach(var str in _printable)
                 {
-                    string weaponName = InventoryManager.GetSlot<ISlot>(bindings.GetIndexable(index).ObjectId).Item.FirstOrDefault().Name;
-                    console.Print(0, _y, weaponName);
+                    console.Print(NAME_OFFSET, _y, str.Name);
+                    console.Print(TYPE_OFFSET, _y, str.Type);
+                    console.Print(DATA_OFFSET, _y, str.Data);
+                    console.Print(ID_OFFSET, _y, str.Id);
                     _y++;
-                    index++;
                 }
-            }
-
-            /*
-            public void Print(SadConsole.Console console, IndexedKeybindings keybinding)
-            {
-                int yCoord = _startingY;
-                int index = 0;
-                foreach (var str in _printable)
-                {               
-                    var btn = new Button("\0", keybinding.GetIndexedKeybinding(index), Color.Green, console.DefaultForeground, IndexX, yCoord);
-                    btn.DrawNumericOnly(true);
-                    
-                    index++;
-
-                    if(str.Name == "[EMPTY]") { btn.KeyColor = Color.Gray; } // very lazy
-                    btn.Draw(console);
-                    console.Print(str.NameX, yCoord, str.Name);
-                    console.Print(str.ParasX, yCoord, keybinding.GetIndexedItem(index);
-                    console.Print(str.IdX, yCoord, str.Id);
-                    yCoord++;
-                }
-
-            }
-            */
-
-            private String GetItemTypePara(IItem item)
-            {
-                // TODO: IMPLEMENT WEAPON TYPES AS PARAMETER FOR ITEM OBJECTS
-                return item is WeaponItem ? "Weapon" : item is MiscItem ? "Miscellaneous" : "UNKNOWN TYPE";
             }
         }
     }

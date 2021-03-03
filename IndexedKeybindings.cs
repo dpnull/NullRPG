@@ -87,6 +87,11 @@ namespace NullRPG
             return _indexedKeybindings[index].Object;
         }
 
+        public IIndexedKeybinding[] GetIndexedKeybindings()
+        {
+            return _indexedKeybindings.ToArray();
+        }
+
         /*
         public object GetIndexedItem(int index)
         {
