@@ -37,13 +37,15 @@ namespace NullRPG.Windows
 
         public PreviewWindow(int width, int height) : base(width, height)
         {
-            Position = new Point(20, 5); // temp
+            Position = new Point(20, 10); // temp
 
             Global.CurrentScreen.Children.Add(this);
         }
 
         public override void Draw(TimeSpan timeElapsed)
         {
+            Clear();
+
             DrawItem();
 
             base.Draw(timeElapsed);
@@ -64,19 +66,27 @@ namespace NullRPG.Windows
         {
             if (ObjectId != -1)
             {
-                var item = ItemManager.GetItem<IItem>(ObjectId);
+                if(ItemManager.GetItem<IItem>(ObjectId) != null)
+                {
+                    var item = ItemManager.GetItem<IItem>(ObjectId);
 
-                string itemId = item.ObjectId.ToString();
-                string itemName = item.Name;
-                string itemType = item is WeaponItem ? "Weapon" : item is MiscItem ? "Misc" : "UNKNOWN TYPE";
-                string itemData = $"{item.MinDmg} - {item.MaxDmg}";
+                    string itemId = item.ObjectId.ToString();
+                    string itemName = Game.GameSession.Player.CurrentWeapon.ObjectId == item.ObjectId ? $"{item.Name} [Equipped]" : $"{item.Name}";
+                    string itemType = item is WeaponItem ? "Weapon" : item is MiscItem ? "Misc" : "UNKNOWN TYPE";
+                    string itemData = $"{item.MinDmg} - {item.MaxDmg}";
 
-                // todo: draw borders
+                    // todo: draw borders
 
-                Print(Coords.ITEM_ID_X, Coords.ITEM_ID_Y, itemId);
-                Print(Coords.ITEM_DATA_X, Coords.ITEM_DATA_Y, itemData);
-                Print(Coords.ITEM_TYPE_X, Coords.ITEM_TYPE_Y, itemType);
-                Print(Coords.ITEM_NAME_X, Coords.ITEM_NAME_Y, itemName);             
+                    Print(Coords.ITEM_ID_X, Coords.ITEM_ID_Y, itemId);
+                    Print(Coords.ITEM_DATA_X, Coords.ITEM_DATA_Y, itemData);
+                    Print(Coords.ITEM_TYPE_X, Coords.ITEM_TYPE_Y, itemType);
+                    Print(Coords.ITEM_NAME_X, Coords.ITEM_NAME_Y, itemName);
+                }
+                else
+                {
+                    throw new System.Exception($"Could not find ObjectId_{ObjectId}.");
+                }
+        
             }
         }
     }

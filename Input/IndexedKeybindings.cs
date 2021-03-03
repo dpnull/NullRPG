@@ -84,7 +84,10 @@ namespace NullRPG
 
         public IIndexable GetIndexable(int index)
         {
-            return _indexedKeybindings[index].Object;
+            if(index < _indexedKeybindings.Count)
+                if(_indexedKeybindings[index] != null)
+                    return _indexedKeybindings[index].Object;
+            throw new System.Exception($"No indexed keybinding exists at index_{index}.");
         }
 
         public IIndexedKeybinding[] GetIndexedKeybindings()
@@ -124,15 +127,12 @@ namespace NullRPG
     }
     public class IndexedInventoryKeybinding : IIndexedKeybinding
     {
-        private int _index;
-        public int Index
+        public int Index { get; set; }
+
+        // redundant?
+        public int IncrementIndex()
         {
-            get { return _index; }
-            set
-            {
-                _index = value;
-                _index += 1;
-            }
+            return Index++;
         }
         public Microsoft.Xna.Framework.Input.Keys Keybinding { get; set; }
         public IIndexable Object { get; set; }

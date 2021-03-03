@@ -36,6 +36,17 @@ namespace NullRPG.Windows
         public override bool ProcessKeyboard(Keyboard info)
         {
 
+            foreach(var key in IndexedKeybindings.GetIndexedKeybindings())
+            {
+                if (info.IsKeyPressed(key.Keybinding))
+                {
+                    UserInterfaceManager.Get<PreviewWindow>().
+                        SetObjectForPreview(InventoryManager.GetSlot<ISlot>(IndexedKeybindings.GetIndexable(key.Index).ObjectId).Item.FirstOrDefault().ObjectId);
+                    UserInterfaceManager.Get<PreviewWindow>().IsVisible = true;
+                    return true;
+                }
+            }
+
             if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Cancel)))
             {
                 this.FullTransition(UserInterfaceManager.Get<GameWindow>());
