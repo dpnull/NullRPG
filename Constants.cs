@@ -28,6 +28,9 @@ namespace NullRPG
 
             public const int InventoryWidth = GameWidth;
             public const int InventoryHeight = GameHeight - KeybindingsHeight - 1;
+
+            public const int PreviewWidth = 40;
+            public const int PreviewHeight = 8;
         }
 
         public static class Theme

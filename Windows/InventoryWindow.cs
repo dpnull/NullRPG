@@ -35,7 +35,14 @@ namespace NullRPG.Windows
 
         public override bool ProcessKeyboard(Keyboard info)
         {
-            return base.ProcessKeyboard(info);
+
+            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Cancel)))
+            {
+                this.FullTransition(UserInterfaceManager.Get<GameWindow>());
+                return true;
+            }
+
+            return false;
         }
         private void DrawInventory()
         {

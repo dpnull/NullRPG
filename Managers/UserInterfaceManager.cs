@@ -44,6 +44,9 @@ namespace NullRPG.Managers
             var keybindingsWindow = new KeybindingsWindow(Constants.Windows.KeybindingsWidth, Constants.Windows.KeybindingsHeight);
             Add(keybindingsWindow);
 
+            var previewWindow = new PreviewWindow(Constants.Windows.PreviewWidth, Constants.Windows.PreviewHeight);
+            Add(previewWindow);
+
             IsInitialized = true;
         }
 

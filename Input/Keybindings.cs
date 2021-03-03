@@ -47,6 +47,8 @@ namespace NullRPG
             // Cancel button
             AddKeybinding(Type.Cancel, Keys.C, false);
 
+            // Inventory window
+
         }
 
         /// <summary>
@@ -75,14 +77,8 @@ namespace NullRPG
             UpdateVisibility(Type.Inventory, UserInterfaceManager.Get<Windows.GameWindow>());
 
             // Cancel button
-            UpdateVisibility(Type.Cancel, UserInterfaceManager.Get<CharacterWindow>().IsVisible);
+            UpdateVisibility(Type.Cancel, UserInterfaceManager.Get<CharacterWindow>().IsVisible || UserInterfaceManager.Get<InventoryWindow>().IsVisible);
 
-            /*
-            // Inventory display is currently displayed externally
-            UpdateVisibility(Type.All, UserInterfaceManager.Get<InventoryWindow>());
-            UpdateVisibility(Type.Equipment, UserInterfaceManager.Get<InventoryWindow>());
-            UpdateVisibility(Type.Miscellaneous, UserInterfaceManager.Get<InventoryWindow>());
-            */
         }
 
         /// <summary>
