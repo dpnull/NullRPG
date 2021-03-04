@@ -13,7 +13,7 @@ using NullRPG.Input;
 
 namespace NullRPG.Windows
 {
-    public class TitleWindow : Console, IUserInterface
+    public class MainMenuWindow : Console, IUserInterface
     {
         private ButtonString _playBtn;
         private ButtonString _helpBtn;
@@ -26,7 +26,7 @@ namespace NullRPG.Windows
 
         public HelpWindow HelpWindow { get; private set; }
 
-        public TitleWindow(int width, int height) : base(width, height)
+        public MainMenuWindow(int width, int height) : base(width, height)
         {
             SadConsole.Game.Instance.Window.Title = Constants.GameTitle;
 
@@ -134,12 +134,12 @@ namespace NullRPG.Windows
             _quitBtn.Draw(this.GetWindowXCenter() - (_quitBtn.GetLength() / 2), this.GetWindowYCenter() + 10, this);
         }
 
-        public static TitleWindow Show()
+        public static MainMenuWindow Show()
         {
-            var titleWindow = UserInterfaceManager.Get<TitleWindow>();
+            var titleWindow = UserInterfaceManager.Get<MainMenuWindow>();
             if(titleWindow == null)
             {
-                titleWindow = new TitleWindow(Constants.Windows.TitleWidth, Constants.Windows.TitleHeight);
+                titleWindow = new MainMenuWindow(Constants.Windows.TitleWidth, Constants.Windows.TitleHeight);
                 UserInterfaceManager.Add(titleWindow);
             } else
             {

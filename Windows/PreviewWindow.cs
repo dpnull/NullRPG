@@ -75,31 +75,33 @@ namespace NullRPG.Windows
             {
                 if(ItemManager.GetItem<IItem>(ObjectId) != null)
                 {
+                    List<ColoredString> itemData = new List<ColoredString>();
+
                     var item = ItemManager.GetItem<IItem>(ObjectId);
             
                     ColoredString itemName = ItemManager.GetItemName<IItem>(ObjectId);
                     
-
                     this.DrawRectangleTitled(0, 0, Constants.Windows.PreviewWidth - 1, Constants.Windows.PreviewHeight - 1, "+", "-", "|", "|", itemName);
 
-                    List<string> itemData = new List<string>();
+                    
 
                     string itemLevel = $"iLvl {item.Level}";
                     string upgradeLevel = $"uLvl {item.UpgradeLevel}";
                     string itemType = item is WeaponItem ? "[Weapon]" : item is MiscItem ? "[Misc]" : "[UNKNOWN TYPE]";
 
                     // objects to the ordered list for item attributes
-                    string atkData = $"+ {item.MinDmg} - {item.MaxDmg} to attack";
-                    string separator = "\0";
-                    string valueData = $"Value: {item.Gold}";                  
+                    ColoredString atkData = Extensions.ConsoleExtensions.AttributeString(item.MinDmg, item.MaxDmg, "to attack");
+                    ColoredString valueData = new ColoredString($"Value: {item.Gold}");                  
                     itemData.Add(atkData);
                     itemData.Add(valueData);
-                    itemData.Add(separator);
 
                     int index = 0;
                     foreach (var str in itemData)
                     {
-                        Print(Coords.ITEM_DATA_X, Coords.ITEM_DATA_Y + index++, str);
+                        if (str != null)
+                        {
+                            Print(Coords.ITEM_DATA_X, Coords.ITEM_DATA_Y + index++, str);
+                        }
                     }
 
                     Print(Coords.ITEM_NAME_X - (itemName.Count / 2), Coords.ITEM_NAME_Y, itemName);

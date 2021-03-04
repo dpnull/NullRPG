@@ -164,6 +164,48 @@ namespace NullRPG.Extensions
             }
         }
 
+        public static SadConsole.ColoredString AttributeString(int value1, int value2, string attribute)
+        {
+            if(value1 == 0 && value2 == 0)
+            {
+                return null;
+            } else
+            {
+                // currently draws everything as a positive value
+                var pVal = Constants.Theme.PositiveAttributeColor;
+                var cBg = Constants.Theme.BackgroundColor;
+                var cFg = Constants.Theme.ForegroundColor;
+
+                var val1 = new SadConsole.ColoredString(value1.ToString(), pVal, cBg);
+                var val2 = new SadConsole.ColoredString(value2.ToString(), pVal, cBg);
+                var att = new SadConsole.ColoredString(attribute, cFg, cBg);
+
+                var separator = new SadConsole.ColoredString(" - ", cFg, cBg);
+
+                var str = new SadConsole.ColoredString("+ ", cFg, cBg);
+
+                return str + val1 + separator + val2 + " " + att;
+            }
+        }
+
+        public static SadConsole.ColoredString AttributeString(int value, string attribute)
+        {
+            // currently draws everything as a positive value
+            var pVal = Constants.Theme.PositiveAttributeColor;
+            var nVal = Constants.Theme.NegativeAttributeColor;
+            var cBg = Constants.Theme.BackgroundColor;
+            var cFg = Constants.Theme.ForegroundColor;
+
+            var val = new SadConsole.ColoredString(value.ToString());
+            var att = new SadConsole.ColoredString(attribute, cFg, cBg);
+
+            val.SetForeground(value > 0 ? pVal : nVal);
+
+            var str = new SadConsole.ColoredString("+ ", cFg, cBg);
+
+            return str + val + " " + att;
+        }
+
         public static int GetWindowXCenter(this SadConsole.Console console)
         {
             return console.Width / 2;

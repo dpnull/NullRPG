@@ -39,6 +39,11 @@ namespace NullRPG
         {
             public static readonly Color BackgroundColor = Color.Black;
             public static readonly Color ForegroundColor = Color.White;
+
+            public static readonly Color ButtonKeyColor = Color.Green;
+
+            public static readonly Color PositiveAttributeColor = Color.LightGreen;
+            public static readonly Color NegativeAttributeColor = Color.Red;
         }
     }
 }

@@ -26,17 +26,24 @@ namespace NullRPG.Windows
 
         public override void Draw(TimeSpan timeElapsed)
         {
+            Clear();
+
             DrawInventory();
+
+            DrawEquipButton();
 
             base.Draw(timeElapsed);
         }
 
-
-        // Deprecated
-        private void DrawPreviewBorders()
+        private void DrawEquipButton()
         {
-            this.DrawRectangle(Constants.Windows.PreviewX - 1, Constants.Windows.PreviewY + 1 - Constants.Windows.KeybindingsHeight,
-                Constants.Windows.PreviewWidth + 1, Constants.Windows.PreviewHeight + 1, "+", "-", "|");
+            if (ItemManager.GetItem<IItem>(UserInterfaceManager.Get<PreviewWindow>().ObjectId) is WeaponItem)
+            {
+                var btn = new Input.ButtonString("Equip", Keybindings.GetKeybinding(Keybindings.Type.Equip), Constants.Theme.ButtonKeyColor, DefaultForeground,
+                    Constants.Windows.PreviewX, Constants.Windows.PreviewY + Constants.Windows.PreviewHeight - 1);
+
+                btn.Draw(this);
+            }
         }
 
         public override bool ProcessKeyboard(Keyboard info)
@@ -76,6 +83,8 @@ namespace NullRPG.Windows
 
         private void DrawInventory()
         {
+            this.DrawHeader(0, $"{Game.GameSession.Player.Name}'s Inventory", "+", DefaultForeground);
+
             var inventory = InventoryManager.GetSlots<ISlot>();
             List<IIndexable> bindable = new List<IIndexable>(); // to be used for instantiating indexes and objectid reference
 
@@ -138,6 +147,12 @@ namespace NullRPG.Windows
                 {
                     var slotItem = InventoryManager.GetSlot<ISlot>(item.Object.ObjectId).Item.FirstOrDefault();
                     ColoredString itemName = ItemManager.GetItemName<IItem>(slotItem.ObjectId);
+                    // temp
+                    if(slotItem.ObjectId == Game.GameSession.Player.CurrentWeapon.ObjectId)
+                    {
+                        itemName.SetBackground(new Color(18,77,7));
+                    }
+
                     string itemType = slotItem is WeaponItem ? "[Weapon]" : slotItem is MiscItem ? "[Misc]" : "UNKNOWN TYPE";
                     string itemData = slotItem is WeaponItem ? $"Atk: {slotItem.MinDmg} - {slotItem.MaxDmg}" :
                                       slotItem is MiscItem ? $"Count: {InventoryManager.GetSlot<ISlot>(item.Object.ObjectId).Item.Count}" : "UNKNOWN ITEM DATA";

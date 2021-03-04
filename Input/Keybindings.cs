@@ -48,6 +48,7 @@ namespace NullRPG
             AddKeybinding(Type.Cancel, Keys.C, false);
 
             // Inventory window
+            AddKeybinding(Type.Equip, Keys.E, false);
 
         }
 
