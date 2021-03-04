@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SadConsole;
+using static NullRPG.GameObjects.Item;
+using Microsoft.Xna.Framework;
 
 namespace NullRPG.Managers
 {
@@ -48,6 +51,23 @@ namespace NullRPG.Managers
 
             return default;
         }
+
+        public static ColoredString GetItemName<T>(int objectId) where T : IItem
+        {
+            var item = GetItem<T>(objectId);
+
+            if (item.Enchantment != EnchantmentType.Default)
+            {
+                Color c = item.Enchantment == EnchantmentType.Fire ? Color.OrangeRed : item.Enchantment == EnchantmentType.Steel ? Color.LightSlateGray : Color.White;
+                ColoredString prefix = new ColoredString($"{item.Enchantment}", c, Constants.Theme.BackgroundColor);
+                ColoredString suffix = new ColoredString($"{item.Name}", Constants.Theme.ForegroundColor, Constants.Theme.BackgroundColor);
+                return prefix + " " + suffix;
+            }
+
+            var str = new ColoredString(item.Name);
+            return str;
+        }
+
     }
 
     public static class ItemDatabase

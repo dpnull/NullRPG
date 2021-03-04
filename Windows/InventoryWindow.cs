@@ -29,8 +29,14 @@ namespace NullRPG.Windows
         public override void Draw(TimeSpan timeElapsed)
         {
             DrawInventory();
+            DrawPreviewBorders();
 
             base.Draw(timeElapsed);
+        }
+
+        private void DrawPreviewBorders()
+        {
+            this.DrawRectangle(Constants.Windows.PreviewX - 1, Constants.Windows.PreviewY + 1 - Constants.Windows.KeybindingsHeight, Constants.Windows.PreviewWidth + 1, Constants.Windows.PreviewHeight + 1, "+", "-", "|");
         }
 
         public override bool ProcessKeyboard(Keyboard info)
@@ -96,7 +102,7 @@ namespace NullRPG.Windows
             private const int ID_OFFSET = 54;
 
             private List<PrintContainer> _printable;
-            public string Name { get; set; }
+            public ColoredString Name { get; set; }
             public string Type { get; set; }
             public string Data { get; set; }
             public string Id { get; set; }
@@ -118,7 +124,7 @@ namespace NullRPG.Windows
                 foreach(var item in keybindings)
                 {
                     var slotItem = InventoryManager.GetSlot<ISlot>(item.Object.ObjectId).Item.FirstOrDefault();
-                    string itemName = slotItem.Name;
+                    ColoredString itemName = ItemManager.GetItemName<IItem>(slotItem.ObjectId);
                     string itemType = slotItem is WeaponItem ? "[Weapon]" : slotItem is MiscItem ? "[Misc]" : "UNKNOWN TYPE";
                     string itemData = slotItem is WeaponItem ? $"Atk: {slotItem.MinDmg} - {slotItem.MaxDmg}" :
                                       slotItem is MiscItem ? $"Count: {InventoryManager.GetSlot<ISlot>(item.Object.ObjectId).Item.Count}" : "UNKNOWN ITEM DATA";

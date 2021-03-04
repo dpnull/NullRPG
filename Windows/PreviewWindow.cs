@@ -18,16 +18,16 @@ namespace NullRPG.Windows
         private class Coords
         {
             public const int ITEM_ID_X = 1;
-            public const int ITEM_ID_Y = 1;
+            public const int ITEM_ID_Y = 0;
 
             public const int ITEM_TYPE_X = Constants.Windows.PreviewWidth - 10;
-            public const int ITEM_TYPE_Y = 1;
+            public const int ITEM_TYPE_Y = 0;
 
             public const int ITEM_NAME_X = 1;
-            public const int ITEM_NAME_Y = 2;
+            public const int ITEM_NAME_Y = 1;
 
             public const int ITEM_DATA_X = 1;
-            public const int ITEM_DATA_Y = 3;
+            public const int ITEM_DATA_Y = 2;
         }
 
 
@@ -37,7 +37,7 @@ namespace NullRPG.Windows
 
         public PreviewWindow(int width, int height) : base(width, height)
         {
-            Position = new Point(20, 10); // temp
+            Position = new Point(Constants.Windows.PreviewX, Constants.Windows.PreviewY);
 
             Global.CurrentScreen.Children.Add(this);
         }

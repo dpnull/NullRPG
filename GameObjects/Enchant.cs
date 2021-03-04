@@ -7,6 +7,7 @@ using System.Text;
 namespace NullRPG.GameObjects
 {
     // This can be much better
+    // Todo: perhaps add IEnchantable and go from there
     public static class Enchant
     {
         public static void Upgrade(IItem weapon)

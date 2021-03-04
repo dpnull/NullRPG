@@ -3,28 +3,15 @@ using NullRPG.Managers;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using SadConsole;
+using Microsoft.Xna.Framework;
 
 namespace NullRPG.GameObjects
 {
     public abstract class Item : IItem, IIndexable
     {
-        private string _name;
         public int ObjectId { get; set; }
-        public string Name
-        {
-            get
-            {
-                if (Enchantment != EnchantmentType.Default)
-                {
-                    return String.Format($"{Enchantment} {_name}");
-                }
-                else
-                {
-                    return _name;
-                }
-            }
-            set { _name = value; }
-        }
+        public string Name { get; set; }
         public int Gold { get; set; }
         public int Level { get; set; }
         public int MinDmg { get; set; }
@@ -73,5 +60,6 @@ namespace NullRPG.GameObjects
             Enchantment = EnchantmentType.Default;
 
         }
+        
     }
 }

@@ -39,11 +39,11 @@ namespace NullRPG.Managers
             else
             {
                 // get the first slot with matching item name to passed item in the item list and add it.
-                if (SlotDatabase.Slots.Values.Any(i => i.Item.Any(j => j.Name == item.Name)))
+                if (SlotDatabase.Slots.Values.Any(i => i.Item.Any(j => j.Name.ToString() == item.Name.ToString())))
                 {
                     foreach (var slot in SlotDatabase.Slots)
                     {
-                        if (slot.Value.Item.Any(i => i.Name == item.Name))
+                        if (slot.Value.Item.Any(i => i.Name.ToString() == item.Name.ToString()))
                         {
                             slot.Value.Item.Add(item);
                         }
@@ -52,7 +52,7 @@ namespace NullRPG.Managers
                 else
                 {
                     // If no existing non-unique item in the slots exists, use up the next available slot.
-                    if (freeSlot.Value.Item.All(i => i.Name != item.Name))
+                    if (freeSlot.Value.Item.All(i => i.Name.ToString() != item.Name.ToString()))
                     {
                         SlotDatabase.Slots[freeSlot.Key].Item.Add(item);
                     }
