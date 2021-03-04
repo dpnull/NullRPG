@@ -26,10 +26,11 @@ namespace NullRPG.Managers
             (RarityType, string)[] rarityGlyphs = new (RarityType, string)[]
             {
                 (RarityType.Common, "-"),
-                (RarityType.Uncommon, "~"),
-                (RarityType.Rare, "="),
-                (RarityType.VeryRare, "+"),
-                (RarityType.Legendary, "*")
+                (RarityType.Uncommon, "="),
+                (RarityType.Rare, "+"),
+                (RarityType.VeryRare, "*"),
+                (RarityType.Legendary, "$")
+                // todo: add reversing of glyphs 
             };
 
             foreach (var glyph in rarityGlyphs)
@@ -85,17 +86,19 @@ namespace NullRPG.Managers
         {
             var item = GetItem<T>(objectId);
 
+
+            ColoredString lRarityGlyph = new ColoredString(GetRarityGlyph(item.Rarity));
+            ColoredString rRarityGlyph = new ColoredString(GetRarityGlyph(item.Rarity));
+            Color c = item.Enchantment == EnchantmentType.Fire ? Color.OrangeRed : item.Enchantment == EnchantmentType.Steel ? Color.LightSlateGray : Color.White;
+            ColoredString prefix = new ColoredString($"{item.Enchantment}", c, Constants.Theme.BackgroundColor);
+            ColoredString suffix = new ColoredString($"{item.Name}", Constants.Theme.ForegroundColor, Constants.Theme.BackgroundColor);
             if (item.Enchantment != EnchantmentType.Default)
             {
-                ColoredString rarityGlyph = new ColoredString(GetRarityGlyph(item.Rarity));
-                Color c = item.Enchantment == EnchantmentType.Fire ? Color.OrangeRed : item.Enchantment == EnchantmentType.Steel ? Color.LightSlateGray : Color.White;
-                ColoredString prefix = new ColoredString($"{item.Enchantment}", c, Constants.Theme.BackgroundColor);
-                ColoredString suffix = new ColoredString($"{rarityGlyph} {item.Name} {rarityGlyph}", Constants.Theme.ForegroundColor, Constants.Theme.BackgroundColor);
-                return prefix + " " + suffix;
+                return lRarityGlyph + prefix + " " + suffix + rRarityGlyph;
+            } else
+            {
+                return lRarityGlyph + suffix + rRarityGlyph;
             }
-
-            var str = new ColoredString(item.Name);
-            return str;
         }
 
     }

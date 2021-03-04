@@ -25,6 +25,7 @@ namespace NullRPG.GameObjects
             item.Enchantment = SteelType.SetToSteelType();
             item.MinDmg = SteelType.UpgradeMinDmg(item.MinDmg);
             item.MaxDmg = SteelType.UpgradeMaxDmg(item.MaxDmg);
+            item.UpgradeLevel++;
         }
 
         public static void EnchantSteel(IItem weapon)

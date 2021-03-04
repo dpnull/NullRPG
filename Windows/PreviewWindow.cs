@@ -17,17 +17,24 @@ namespace NullRPG.Windows
     {
         private class Coords
         {
-            public const int ITEM_ID_X = 1;
-            public const int ITEM_ID_Y = 0;
+            // decrements at the end account for the border
+            public const int ITEM_ID_X = 2;
+            public const int ITEM_ID_Y = 1;
 
-            public const int ITEM_TYPE_X = Constants.Windows.PreviewWidth - 10;
-            public const int ITEM_TYPE_Y = 0;
-
-            public const int ITEM_NAME_X = 1;
+            public const int ITEM_NAME_X = Constants.Windows.PreviewWidth / 2 - 1;
             public const int ITEM_NAME_Y = 1;
 
-            public const int ITEM_DATA_X = 1;
-            public const int ITEM_DATA_Y = 2;
+            public const int ITEM_DATA_X = 2;
+            public const int ITEM_DATA_Y = 3;
+
+            public const int ITEM_LEVEL_X = 2;
+            public const int ITEM_LEVEL_Y = Constants.Windows.PreviewHeight - 2;
+
+            public const int UPGRADE_LEVEL_X = Constants.Windows.PreviewWidth - 3;
+            public const int UPGRADE_LEVEL_Y = Constants.Windows.PreviewHeight - 2;
+
+            public const int ITEM_TYPE_X = Constants.Windows.PreviewWidth / 2 - 1;
+            public const int ITEM_TYPE_Y = Constants.Windows.PreviewHeight - 2;
         }
 
 
@@ -69,18 +76,42 @@ namespace NullRPG.Windows
                 if(ItemManager.GetItem<IItem>(ObjectId) != null)
                 {
                     var item = ItemManager.GetItem<IItem>(ObjectId);
+            
+                    ColoredString itemName = ItemManager.GetItemName<IItem>(ObjectId);
+                    
 
-                    string itemId = item.ObjectId.ToString();
-                    string itemName = Game.GameSession.Player.CurrentWeapon.ObjectId == item.ObjectId ? $"{item.Name} [Equipped]" : $"{item.Name}";
-                    string itemType = item is WeaponItem ? "Weapon" : item is MiscItem ? "Misc" : "UNKNOWN TYPE";
-                    string itemData = $"{item.MinDmg} - {item.MaxDmg}";
+                    this.DrawRectangleTitled(0, 0, Constants.Windows.PreviewWidth - 1, Constants.Windows.PreviewHeight - 1, "+", "-", "|", "|", itemName);
 
-                    // todo: draw borders
+                    List<string> itemData = new List<string>();
 
-                    Print(Coords.ITEM_ID_X, Coords.ITEM_ID_Y, itemId);
-                    Print(Coords.ITEM_DATA_X, Coords.ITEM_DATA_Y, itemData);
-                    Print(Coords.ITEM_TYPE_X, Coords.ITEM_TYPE_Y, itemType);
-                    Print(Coords.ITEM_NAME_X, Coords.ITEM_NAME_Y, itemName);
+                    string itemLevel = $"iLvl {item.Level}";
+                    string upgradeLevel = $"uLvl {item.UpgradeLevel}";
+                    string itemType = item is WeaponItem ? "[Weapon]" : item is MiscItem ? "[Misc]" : "[UNKNOWN TYPE]";
+
+                    // objects to the ordered list for item attributes
+                    string atkData = $"+ {item.MinDmg} - {item.MaxDmg} to attack";
+                    string separator = "\0";
+                    string valueData = $"Value: {item.Gold}";                  
+                    itemData.Add(atkData);
+                    itemData.Add(valueData);
+                    itemData.Add(separator);
+
+                    int index = 0;
+                    foreach (var str in itemData)
+                    {
+                        Print(Coords.ITEM_DATA_X, Coords.ITEM_DATA_Y + index++, str);
+                    }
+
+                    Print(Coords.ITEM_NAME_X - (itemName.Count / 2), Coords.ITEM_NAME_Y, itemName);
+                    Print(Coords.ITEM_LEVEL_X, Coords.ITEM_LEVEL_Y, itemLevel);
+                    Print(Coords.UPGRADE_LEVEL_X - upgradeLevel.Length, Coords.UPGRADE_LEVEL_Y, upgradeLevel);
+                    Print(Coords.ITEM_TYPE_X - (itemType.Length / 2), Coords.ITEM_TYPE_Y, itemType);
+
+
+                    // unused currently
+                    // string itemId = item.ObjectId.ToString();
+                    // string itemData = $"{item.MinDmg} - {item.MaxDmg}";
+                    //string itemName = Game.GameSession.Player.CurrentWeapon.ObjectId == item.ObjectId ? $"{item.Name} [Equipped]" : $"{item.Name}";
                 }
                 else
                 {

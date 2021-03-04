@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using NullRPG.Interfaces;
 using Microsoft.Xna.Framework;
 using SadConsole;
 using Console = SadConsole.Console;
 using NullRPG.Extensions;
 using NullRPG.Managers;
-using NullRPG.GameObjects;
 using SadConsole.Input;
 using System.Linq;
 using NullRPG.ItemTypes;
@@ -29,14 +27,16 @@ namespace NullRPG.Windows
         public override void Draw(TimeSpan timeElapsed)
         {
             DrawInventory();
-            DrawPreviewBorders();
 
             base.Draw(timeElapsed);
         }
 
+
+        // Deprecated
         private void DrawPreviewBorders()
         {
-            this.DrawRectangle(Constants.Windows.PreviewX - 1, Constants.Windows.PreviewY + 1 - Constants.Windows.KeybindingsHeight, Constants.Windows.PreviewWidth + 1, Constants.Windows.PreviewHeight + 1, "+", "-", "|");
+            this.DrawRectangle(Constants.Windows.PreviewX - 1, Constants.Windows.PreviewY + 1 - Constants.Windows.KeybindingsHeight,
+                Constants.Windows.PreviewWidth + 1, Constants.Windows.PreviewHeight + 1, "+", "-", "|");
         }
 
         public override bool ProcessKeyboard(Keyboard info)
@@ -59,8 +59,21 @@ namespace NullRPG.Windows
                 return true;
             }
 
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.E)) // REWORK
+            {
+                Equip();
+            }
+
             return false;
         }
+
+        public void Equip()
+        {
+            var objectId = UserInterfaceManager.Get<PreviewWindow>().ObjectId;
+
+            Game.GameSession.Player.EquipWeapon(objectId);
+        }
+
         private void DrawInventory()
         {
             var inventory = InventoryManager.GetSlots<ISlot>();
@@ -134,8 +147,8 @@ namespace NullRPG.Windows
                     {
                         Name = itemName,
                         Type = itemType,
-                        Data = itemData,
-                        Id = itemId,
+                        Data = "\0",
+                        Id = "\0",
                         ButtonIndex = new ButtonIndex(keybindings[index].Keybinding, Color.Green, Color.White, 0, 0, true)
                     };
 

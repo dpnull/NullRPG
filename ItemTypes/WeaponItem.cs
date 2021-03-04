@@ -25,7 +25,7 @@ namespace NullRPG.ItemTypes
 
         public static WeaponItem Axe()
         {
-            return new WeaponItem("Axe", 20, RarityType.Common, 1, 10, 20);
+            return new WeaponItem("Axe", 20, RarityType.VeryRare, 1, 10, 20);
         }
     }
 }

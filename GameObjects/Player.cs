@@ -29,11 +29,20 @@ namespace NullRPG.GameObjects
 
         }
 
-        public void EquipWeapon(int slotObjectId)
+        public void EquipWeaponViaSlot(int slotObjectId)
         {
             if (InventoryManager.GetSlot<ISlot>(slotObjectId).Item.Any())
             {
                 var equippable = InventoryManager.GetSlot<ISlot>(slotObjectId).Item.FirstOrDefault(i => i is WeaponItem);
+                CurrentWeapon = (WeaponItem)equippable;
+            }
+        }
+
+        public void EquipWeapon(int itemObjectId)
+        {
+            if (ItemManager.GetItem<IItem>(itemObjectId) != null)
+            {
+                var equippable = ItemManager.GetItem<IItem>(itemObjectId);
                 CurrentWeapon = (WeaponItem)equippable;
             }
         }
