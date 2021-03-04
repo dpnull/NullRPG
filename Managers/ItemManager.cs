@@ -11,9 +11,38 @@ namespace NullRPG.Managers
 {
     public static class ItemManager
     {
+
+        public static Dictionary<RarityType, string> RarityGlyphs = InitializeRarityGlyphsDictionary();
+
         public static int GetUniqueId()
         {
             return ItemDatabase.GetUniqueId();
+        }
+
+        public static Dictionary<RarityType, string> InitializeRarityGlyphsDictionary()
+        {
+            var dictionary = new Dictionary<RarityType, string>();
+
+            (RarityType, string)[] rarityGlyphs = new (RarityType, string)[]
+            {
+                (RarityType.Common, "-"),
+                (RarityType.Uncommon, "~"),
+                (RarityType.Rare, "="),
+                (RarityType.VeryRare, "+"),
+                (RarityType.Legendary, "*")
+            };
+
+            foreach (var glyph in rarityGlyphs)
+            {
+                dictionary.Add(glyph.Item1, glyph.Item2);
+            }
+
+            return dictionary;
+        }
+
+        public static string GetRarityGlyph(RarityType rarity)
+        {
+            return RarityGlyphs.TryGetValue(rarity, out string value) ? value : null;
         }
 
         // called automatically when creating a new item
@@ -58,9 +87,10 @@ namespace NullRPG.Managers
 
             if (item.Enchantment != EnchantmentType.Default)
             {
+                ColoredString rarityGlyph = new ColoredString(GetRarityGlyph(item.Rarity));
                 Color c = item.Enchantment == EnchantmentType.Fire ? Color.OrangeRed : item.Enchantment == EnchantmentType.Steel ? Color.LightSlateGray : Color.White;
                 ColoredString prefix = new ColoredString($"{item.Enchantment}", c, Constants.Theme.BackgroundColor);
-                ColoredString suffix = new ColoredString($"{item.Name}", Constants.Theme.ForegroundColor, Constants.Theme.BackgroundColor);
+                ColoredString suffix = new ColoredString($"{rarityGlyph} {item.Name} {rarityGlyph}", Constants.Theme.ForegroundColor, Constants.Theme.BackgroundColor);
                 return prefix + " " + suffix;
             }
 

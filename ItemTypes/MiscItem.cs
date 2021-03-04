@@ -7,14 +7,14 @@ namespace NullRPG.ItemTypes
 {
     public class MiscItem : Item
     {
-        public MiscItem(string name, int gold) : base(name, gold, false)
+        public MiscItem(string name, int gold, RarityType rarity) : base(name, gold, rarity, false)
         {
 
         }
 
         public static MiscItem Quartz()
         {
-            return new MiscItem("Quartz", 50);
+            return new MiscItem("Quartz", 50, RarityType.Common);
         }
     }
 }
