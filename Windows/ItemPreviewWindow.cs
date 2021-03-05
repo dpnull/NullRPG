@@ -13,7 +13,7 @@ using NullRPG.ItemTypes;
 
 namespace NullRPG.Windows
 {
-    public class PreviewWindow : Console, IUserInterface
+    public class ItemPreviewWindow : Console, IUserInterface
     {
         private class Coords
         {
@@ -21,20 +21,20 @@ namespace NullRPG.Windows
             public const int ITEM_ID_X = 2;
             public const int ITEM_ID_Y = 1;
 
-            public const int ITEM_NAME_X = Constants.Windows.PreviewWidth / 2 - 1;
+            public const int ITEM_NAME_X = Constants.Windows.ItemPreviewWidth / 2 - 1;
             public const int ITEM_NAME_Y = 1;
 
             public const int ITEM_DATA_X = 2;
             public const int ITEM_DATA_Y = 3;
 
             public const int ITEM_LEVEL_X = 2;
-            public const int ITEM_LEVEL_Y = Constants.Windows.PreviewHeight - 2;
+            public const int ITEM_LEVEL_Y = Constants.Windows.ItemPreviewHeight - 2;
 
-            public const int UPGRADE_LEVEL_X = Constants.Windows.PreviewWidth - 3;
-            public const int UPGRADE_LEVEL_Y = Constants.Windows.PreviewHeight - 2;
+            public const int UPGRADE_LEVEL_X = Constants.Windows.ItemPreviewWidth - 3;
+            public const int UPGRADE_LEVEL_Y = Constants.Windows.ItemPreviewHeight - 2;
 
-            public const int ITEM_TYPE_X = Constants.Windows.PreviewWidth / 2 - 1;
-            public const int ITEM_TYPE_Y = Constants.Windows.PreviewHeight - 2;
+            public const int ITEM_TYPE_X = Constants.Windows.ItemPreviewWidth / 2 - 1;
+            public const int ITEM_TYPE_Y = Constants.Windows.ItemPreviewHeight - 2;
         }
 
 
@@ -42,7 +42,7 @@ namespace NullRPG.Windows
 
         public int ObjectId { get; set; } = -1;
 
-        public PreviewWindow(int width, int height) : base(width, height)
+        public ItemPreviewWindow(int width, int height) : base(width, height)
         {
             Position = new Point(Constants.Windows.PreviewX, Constants.Windows.PreviewY);
 
@@ -81,7 +81,7 @@ namespace NullRPG.Windows
             
                     ColoredString itemName = ItemManager.GetItemName<IItem>(ObjectId);
                     
-                    this.DrawRectangleTitled(0, 0, Constants.Windows.PreviewWidth - 1, Constants.Windows.PreviewHeight - 1, "+", "-", "|", "|", itemName);
+                    this.DrawRectangleTitled(0, 0, Constants.Windows.ItemPreviewWidth - 1, Constants.Windows.ItemPreviewHeight - 1, "+", "-", "|", "|", itemName);
 
                     
 

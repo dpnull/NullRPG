@@ -44,7 +44,7 @@ namespace NullRPG.Managers
             var keybindingsWindow = new KeybindingsWindow(Constants.Windows.KeybindingsWidth, Constants.Windows.KeybindingsHeight);
             Add(keybindingsWindow);
 
-            var previewWindow = new PreviewWindow(Constants.Windows.PreviewWidth, Constants.Windows.PreviewHeight)
+            var previewWindow = new ItemPreviewWindow(Constants.Windows.ItemPreviewWidth, Constants.Windows.ItemPreviewHeight)
             {
                 IsVisible = false,
                 IsFocused = false

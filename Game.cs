@@ -10,7 +10,7 @@ namespace NullRPG
     class Game
     {
         public static GameSession GameSession { get; set; }
-        public static MainMenuWindow TitleWindow { get; private set; }
+        public static TitleWindow TitleWindow { get; private set; }
 
         private static void Main()
         {
@@ -53,7 +53,7 @@ namespace NullRPG
             GameSession = new GameSession();
 
             // Shows the main menu
-            TitleWindow = MainMenuWindow.Show();
+            TitleWindow = TitleWindow.Show();
 
             Global.CurrentScreen.IsFocused = true;
         }

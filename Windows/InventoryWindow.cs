@@ -37,27 +37,34 @@ namespace NullRPG.Windows
 
         private void DrawEquipButton()
         {
-            if (ItemManager.GetItem<IItem>(UserInterfaceManager.Get<PreviewWindow>().ObjectId) is WeaponItem)
+            if (ItemManager.GetItem<IItem>(UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId) is WeaponItem)
             {
                 var btn = new Input.ButtonString("Equip", Keybindings.GetKeybinding(Keybindings.Type.Equip), Constants.Theme.ButtonKeyColor, DefaultForeground,
-                    Constants.Windows.PreviewX, Constants.Windows.PreviewY + Constants.Windows.PreviewHeight - 1);
+                    Constants.Windows.PreviewX, Constants.Windows.PreviewY + Constants.Windows.ItemPreviewHeight - 1);
 
                 btn.Draw(this);
             }
         }
 
+        public override void OnFocusLost()
+        {
+            UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId = -1;
+        }
+
         public override bool ProcessKeyboard(Keyboard info)
         {
-
-            foreach(var key in IndexedKeybindings.GetIndexedKeybindings())
+            foreach (var key in IndexedKeybindings.GetIndexedKeybindings())
             {
                 if (info.IsKeyPressed(key.Keybinding))
                 {
-                    UserInterfaceManager.Get<PreviewWindow>().
+                    
+                    var itemPreviewWindow = UserInterfaceManager.Get<ItemPreviewWindow>();
+                    itemPreviewWindow.
                         SetObjectForPreview(InventoryManager.GetSlot<ISlot>(IndexedKeybindings.GetIndexable(key.Index).ObjectId).Item.FirstOrDefault().ObjectId);
-                    UserInterfaceManager.Get<PreviewWindow>().IsVisible = true;
+                    itemPreviewWindow.IsVisible = true;
                     return true;
                 }
+
             }
 
             if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Cancel)))
@@ -76,7 +83,7 @@ namespace NullRPG.Windows
 
         public void Equip()
         {
-            var objectId = UserInterfaceManager.Get<PreviewWindow>().ObjectId;
+            var objectId = UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId;
 
             Game.GameSession.Player.EquipWeapon(objectId);
         }
@@ -150,7 +157,7 @@ namespace NullRPG.Windows
                     // temp
                     if(slotItem.ObjectId == Game.GameSession.Player.CurrentWeapon.ObjectId)
                     {
-                        itemName.SetBackground(new Color(18,77,7));
+                        //itemName.SetBackground(new Color(18,77,7));
                     }
 
                     string itemType = slotItem is WeaponItem ? "[Weapon]" : slotItem is MiscItem ? "[Misc]" : "UNKNOWN TYPE";
@@ -174,7 +181,7 @@ namespace NullRPG.Windows
 
             public void Print(SadConsole.Console console)
             {
-                int _y = 0;
+                int _y = 3;
                 foreach(var str in _printable)
                 {
                     str.ButtonIndex.Draw(INDEX_OFFSET, _y, console);

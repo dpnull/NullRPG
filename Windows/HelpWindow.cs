@@ -55,7 +55,7 @@ namespace NullRPG.Windows
 
         private void OpenTitleWindow()
         {
-            this.FullTransition(UserInterfaceManager.Get<MainMenuWindow>());
+            this.FullTransition(UserInterfaceManager.Get<TitleWindow>());
         }
     }
 }
