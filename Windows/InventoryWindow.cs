@@ -60,7 +60,7 @@ namespace NullRPG.Windows
                     
                     var itemPreviewWindow = UserInterfaceManager.Get<ItemPreviewWindow>();
                     itemPreviewWindow.
-                        SetObjectForPreview(InventoryManager.GetSlot<ISlot>(IndexedKeybindings.GetIndexable(key.Index).ObjectId).Item.FirstOrDefault().ObjectId);
+                        SetObjectForPreview(InventoryManager.GetSlot<ISlot>(Game.GameSession.Player.PlayerInventory, IndexedKeybindings.GetIndexable(key.Index).ObjectId).Item.FirstOrDefault().ObjectId);
                     itemPreviewWindow.IsVisible = true;
                     return true;
                 }
@@ -92,7 +92,7 @@ namespace NullRPG.Windows
         {
             this.DrawHeader(0, $"{Game.GameSession.Player.Name}'s Inventory", "+", DefaultForeground);
 
-            var inventory = InventoryManager.GetSlots<ISlot>();
+            var inventory = InventoryManager.GetSlots<ISlot>(Game.GameSession.Player.PlayerInventory);
             List<IIndexable> bindable = new List<IIndexable>(); // to be used for instantiating indexes and objectid reference
 
 
@@ -152,7 +152,7 @@ namespace NullRPG.Windows
                 int index = 0; // for keybinding index
                 foreach(var item in keybindings)
                 {
-                    var slotItem = InventoryManager.GetSlot<ISlot>(item.Object.ObjectId).Item.FirstOrDefault();
+                    var slotItem = InventoryManager.GetSlot<ISlot>(Game.GameSession.Player.PlayerInventory, item.Object.ObjectId).Item.FirstOrDefault();
                     ColoredString itemName = ItemManager.GetItemName<IItem>(slotItem.ObjectId);
                     // temp
                     if(slotItem.ObjectId == Game.GameSession.Player.CurrentWeapon.ObjectId)
@@ -162,8 +162,8 @@ namespace NullRPG.Windows
 
                     string itemType = slotItem is WeaponItem ? "[Weapon]" : slotItem is MiscItem ? "[Misc]" : "UNKNOWN TYPE";
                     string itemData = slotItem is WeaponItem ? $"Atk: {slotItem.MinDmg} - {slotItem.MaxDmg}" :
-                                      slotItem is MiscItem ? $"Count: {InventoryManager.GetSlot<ISlot>(item.Object.ObjectId).Item.Count}" : "UNKNOWN ITEM DATA";
-                    string itemId = $"slotId_{InventoryManager.GetSlot<ISlot>(item.Object.ObjectId).ObjectId}, itemId_{slotItem.ObjectId}";
+                                      slotItem is MiscItem ? $"Count: {InventoryManager.GetSlot<ISlot>(Game.GameSession.Player.PlayerInventory, item.Object.ObjectId).Item.Count}" : "UNKNOWN ITEM DATA";
+                    string itemId = $"slotId_{InventoryManager.GetSlot<ISlot>(Game.GameSession.Player.PlayerInventory, item.Object.ObjectId).ObjectId}, itemId_{slotItem.ObjectId}";
 
                     var printableItem = new PrintContainer()
                     {

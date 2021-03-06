@@ -11,21 +11,10 @@ namespace NullRPG.GameObjects
         public int ObjectId { get; set; }
         public List<IItem> Item { get; set; }
 
-        public Slot()
+        public Slot(int objectId)
         {
             Item = new List<IItem>();
-            ObjectId = InventoryManager.GetUniqueId();
-            InventoryManager.AddSlot(this);
-        }
-
-        // Probably deprecated
-        public Slot(IItem item)
-        {
-            Item = new List<IItem>();
-            ObjectId = InventoryManager.GetUniqueId();
-            InventoryManager.AddSlot(this);
-
-            Item.Add(item);
+            ObjectId = objectId;
         }
 
     }

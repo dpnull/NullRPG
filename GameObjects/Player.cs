@@ -13,7 +13,7 @@ namespace NullRPG.GameObjects
         public int Experience { get; set; }
         public int ExperienceNeeded { get; set; }
 
-        private readonly Inventory _inventory;
+        public PlayerInventory PlayerInventory;
 
         public Player() : base("Tianyu", 100, 20, 1)
         {
@@ -25,15 +25,15 @@ namespace NullRPG.GameObjects
 
             CurrentWeapon = (WeaponItem)ItemManager.GetItem<IItem>(0);
 
-            _inventory = new Inventory();
+            PlayerInventory = new PlayerInventory();
 
         }
 
         public void EquipWeaponViaSlot(int slotObjectId)
         {
-            if (InventoryManager.GetSlot<ISlot>(slotObjectId).Item.Any())
+            if (InventoryManager.GetSlot<ISlot>(PlayerInventory, slotObjectId).Item.Any())
             {
-                var equippable = InventoryManager.GetSlot<ISlot>(slotObjectId).Item.FirstOrDefault(i => i is WeaponItem);
+                var equippable = InventoryManager.GetSlot<ISlot>(PlayerInventory, slotObjectId).Item.FirstOrDefault(i => i is WeaponItem);
                 CurrentWeapon = (WeaponItem)equippable;
             }
         }
