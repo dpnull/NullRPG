@@ -11,6 +11,7 @@ using NullRPG.GameObjects;
 using SadConsole.Input;
 using NullRPG.ItemTypes;
 using NullRPG.Input;
+using static NullRPG.Windows.InventoryWindow;
 
 namespace NullRPG.Windows
 {
@@ -20,6 +21,8 @@ namespace NullRPG.Windows
 
         private const int EQUIPPABLE_X = 1;
         private const int EQUIPPABLE_Y = Constants.Windows.CharacterHeight - 5;
+
+        private IndexedKeybindings IndexedKeybindings;
         public CharacterWindow(int width, int height) : base(width, height)
         {
             Position = new Point(0, 1);
@@ -109,6 +112,28 @@ namespace NullRPG.Windows
 
         private void DrawEquippable()
         {
+            var equipped = InventoryManager.GetEquippedItems<PlayerInventory>();
+            List<IIndexable> bindable = new List<IIndexable>();
+
+            foreach(var item in equipped)
+            {
+                if (item is null)
+                    continue;
+                else
+                {
+                    bindable.Add((IIndexable)item);
+                }
+            }
+
+            IndexedKeybindings = new IndexedKeybindings(bindable.ToArray());
+
+            PrintContainer printable = new PrintContainer(IndexedKeybindings.GetIndexedKeybindings());
+            printable.SetPrintingOffsets(EQUIPPABLE_X, EQUIPPABLE_Y, 25);
+
+            printable.Print(this);
+
+
+            /*
             var weapon = InventoryManager.GetEquippedItem<PlayerInventory>(typeof(WeaponItem));
             ColoredString weaponName = ItemManager.GetItemName<WeaponItem>(weapon.ObjectId);
 
@@ -146,6 +171,7 @@ namespace NullRPG.Windows
             {
                 btn.Draw(EQUIPPABLE_X, _y++, this);
             }
+            */
         }
 
     }

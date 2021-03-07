@@ -72,6 +72,19 @@ namespace NullRPG.Managers
             }
         }
 
+        public static IItem[] GetEquippedItems<T>() where T : IEntityInventory
+        {
+            IItem[] items =
+            {
+                Get<T>()?.CurrentWeapon,
+                Get<T>()?.CurrentHeadItem,
+                Get<T>()?.CurrentBodyItem,
+                Get<T>()?.CurrentLegsItem
+            };
+
+            return items;
+        }
+
 
 
         public static void AddToInventory<T>(IItem item) where T : IEntityInventory

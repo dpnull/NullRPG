@@ -127,13 +127,13 @@ namespace NullRPG.Windows
 
         public class PrintContainer
         {
-            private const int INDEX_OFFSET = 0;
-            private const int NAME_OFFSET = 4;
-            private const int TYPE_OFFSET = 24;
-            private const int DATA_OFFSET = 34;
-            private const int ID_OFFSET = 54;
+            public int YOffset { get; private set; } = 0;
+            public int XOffset { get; private set; } = 0;
+            public int IndexOffset { get; private set; } = 0;
+            public int NameOffset { get; private set; } = 4;
+            public int TypeOffset { get; private set; } = 20;
 
-            private List<PrintContainer> _printable;
+            private readonly List<PrintContainer> _printable;
             public ColoredString Name { get; set; }
             public string Type { get; set; }
             public string Data { get; set; }
@@ -147,8 +147,16 @@ namespace NullRPG.Windows
             }
             public PrintContainer()
             {
-
             }
+
+            public void SetPrintingOffsets(int xOffset, int yOffset, int typeOffset)
+            {
+                YOffset = yOffset;
+                IndexOffset = xOffset;
+                NameOffset = xOffset + 4;
+                TypeOffset = xOffset + typeOffset;
+            }
+
             public void Add(IIndexedKeybinding[] keybindings)
             {
                 int index = 0; // for keybinding index
@@ -188,12 +196,12 @@ namespace NullRPG.Windows
 
             public void Print(SadConsole.Console console)
             {
-                int _y = 3;
+                int _y = YOffset;
                 foreach(var str in _printable)
                 {
-                    str.ButtonIndex.Draw(INDEX_OFFSET, _y, console);
-                    console.Print(NAME_OFFSET, _y, str.Name);
-                    console.Print(TYPE_OFFSET, _y, str.Type);
+                    str.ButtonIndex.Draw(IndexOffset, _y, console);
+                    console.Print(NameOffset, _y, str.Name);
+                    console.Print(TypeOffset, _y, str.Type);
                     //console.Print(DATA_OFFSET, _y, str.Data);
                     //console.Print(ID_OFFSET, _y, str.Id);
                     _y++;
