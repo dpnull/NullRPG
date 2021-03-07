@@ -16,5 +16,10 @@ namespace NullRPG.ItemTypes
         {
             return new MiscItem("Quartz", 50, RarityType.Common);
         }
+
+        public static MiscItem GoldBar()
+        {
+            return new MiscItem("Gold bar", 300, RarityType.Rare);
+        }
     }
 }

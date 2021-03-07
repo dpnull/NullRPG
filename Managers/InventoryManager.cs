@@ -1,5 +1,6 @@
 ﻿using NullRPG.GameObjects;
 using NullRPG.Interfaces;
+using NullRPG.ItemTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,27 +10,49 @@ namespace NullRPG.Managers
 {
     public static class InventoryManager
     {
+        public static readonly List<IEntityInventory> EntityInventories = new List<IEntityInventory>();
         /*
          * Missing checks for when inventory size limit is reached
          */
         public const int DEFAULT_INVENTORY_SIZE = 10;
 
-        public static int GetUniqueSlotId(IEntityInventory inventory)
+        public static int GetUniqueSlotId<T>() where T : IEntityInventory
         {
-            return inventory.GetUniqueSlotId();
+            return Get<T>().GetUniqueSlotId();
         }
 
-        public static void AddSlot<T>(T inventory, ISlot slot) where T : IEntityInventory
+        public static void Add<T>(T entityInventory) where T : IEntityInventory
+        {
+            EntityInventories.Add(entityInventory);
+        }
+
+        public static T Get<T>() where T : IEntityInventory
+        {
+            return EntityInventories.OfType<T>().SingleOrDefault();
+        }
+
+        public static void AddSlot<T>(ISlot slot) where T : IEntityInventory
         {
 
-            if (!inventory.Slots.ContainsKey(slot.ObjectId))
+            if (!Get<T>().Slots.ContainsKey(slot.ObjectId))
             {
-                inventory.Slots.Add(slot.ObjectId, slot);
+                Get<T>().Slots.Add(slot.ObjectId, slot);
             }
         }
 
-        public static void AddToInventory<T>(IEntityInventory inventory, IItem item) where T : IEntityInventory
+        public static void EquipWeapon<T>(int itemObjectId) where T : IEntityInventory
         {
+            var inventory = Get<T>();
+            if (ItemManager.GetItem<IItem>(itemObjectId) != null)
+            {
+                var equippable = ItemManager.GetItem<IItem>(itemObjectId);
+                inventory.CurrentWeapon = (WeaponItem)equippable;
+            }
+        }
+
+        public static void AddToInventory<T>(IItem item) where T : IEntityInventory
+        {
+            var inventory = Get<T>();
             var freeSlot = inventory.Slots.FirstOrDefault(f => !f.Value.Item.Any());
 
             // if true, get the first available slot.
@@ -61,19 +84,20 @@ namespace NullRPG.Managers
             }
         }
 
-        public static void CreateDefault<T>(T inventory) where T : IEntityInventory
+        public static void CreateDefault<T>() where T : IEntityInventory
         {
+            var inventory = Get<PlayerInventory>();
             // create the inventory
             while (inventory.Slots.Count < DEFAULT_INVENTORY_SIZE)
             {   
-                AddSlot(inventory, new Slot(inventory.GetUniqueSlotId()));
+                AddSlot<IEntityInventory>(new Slot(inventory.GetUniqueSlotId()));
             }
         }
 
         // Get an array of T based on the criteria passed, otherwise pass the exact array copy of dictionary.
-        public static T[] GetSlots<T>(IEntityInventory inventory, Func<T, bool> criteria = null) where T : ISlot
+        public static ISlot[] GetSlots<T>(Func<ISlot, bool> criteria = null) where T : IEntityInventory
         {
-            var collection = inventory.Slots.Values.ToArray().OfType<T>();
+            var collection = Get<T>().Slots.Values.ToArray().OfType<ISlot>();
             if (criteria != null)
             {
                 collection = collection.Where(criteria.Invoke);
@@ -99,9 +123,9 @@ namespace NullRPG.Managers
             var removable = inventory.Slots[objectId].Item.First();
             inventory.Slots[objectId].Item.Remove(removable);
             // If the deleted weapon was equipped, change the player's weapon to "None"
-            if (Game.GameSession.Player.CurrentWeapon.ObjectId == objectId)
+            if (Game.GameSession.Player.Inventory.CurrentWeapon.ObjectId == objectId)
             {
-                Game.GameSession.Player.CurrentWeapon = (ItemTypes.WeaponItem)ItemManager.GetItem<IItem>(0);
+                Game.GameSession.Player.Inventory.CurrentWeapon = (ItemTypes.WeaponItem)ItemManager.GetItem<IItem>(0);
             }
         }
     }

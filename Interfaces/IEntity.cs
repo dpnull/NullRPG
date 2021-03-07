@@ -16,6 +16,5 @@ namespace NullRPG.Interfaces
         public int MinDmg { get; set; }
         public int MaxDmg { get; set; }
         public int Defense { get; set; }
-        public WeaponItem CurrentWeapon { get; set; }
     }
 }

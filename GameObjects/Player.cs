@@ -13,22 +13,22 @@ namespace NullRPG.GameObjects
         public int Experience { get; set; }
         public int ExperienceNeeded { get; set; }
 
-        public PlayerInventory PlayerInventory;
-
+        public PlayerInventory Inventory { get; set; }
         public Player() : base("Tianyu", 100, 20, 1)
         {
+            Inventory = new PlayerInventory();
+
             // Probably shouldn't be here
             ItemManager.Add(WeaponItem.None());
 
             Experience = 0;
             ExperienceNeeded = 100;
 
-            CurrentWeapon = (WeaponItem)ItemManager.GetItem<IItem>(0);
-
-            PlayerInventory = new PlayerInventory();
+            Inventory.CurrentWeapon = (WeaponItem)ItemManager.GetItem<IItem>(0);
 
         }
 
+        /*
         public void EquipWeaponViaSlot(int slotObjectId)
         {
             if (InventoryManager.GetSlot<ISlot>(PlayerInventory, slotObjectId).Item.Any())
@@ -37,19 +37,10 @@ namespace NullRPG.GameObjects
                 CurrentWeapon = (WeaponItem)equippable;
             }
         }
+        */
 
-        public void EquipWeapon(int itemObjectId)
-        {
-            if (ItemManager.GetItem<IItem>(itemObjectId) != null)
-            {
-                var equippable = ItemManager.GetItem<IItem>(itemObjectId);
-                CurrentWeapon = (WeaponItem)equippable;
-            }
-        }
 
-        public string GetWeaponName()
-        {
-            return CurrentWeapon?.Name.ToString();
-        }
+
+
     }
 }

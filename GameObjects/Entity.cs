@@ -18,7 +18,6 @@ namespace NullRPG.GameObjects
         public int MinDmg { get; set; }
         public int MaxDmg { get; set; }
         public int Defense { get; set; }
-        public WeaponItem CurrentWeapon { get; set; }
 
         public Entity(string name, int health, int gold, int level)
         {
@@ -32,6 +31,8 @@ namespace NullRPG.GameObjects
             MinDmg = 0;
             MaxDmg = 0;
             Defense = 0;
+
+
         }
     }
 }

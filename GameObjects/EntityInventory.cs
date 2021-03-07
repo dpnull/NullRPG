@@ -1,4 +1,5 @@
 ﻿using NullRPG.Interfaces;
+using NullRPG.ItemTypes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,8 @@ namespace NullRPG.GameObjects
     {
         public Dictionary<int, ISlot> Slots { get; set; }
 
+        public WeaponItem CurrentWeapon { get; set; }
+
         public EntityInventory()
         {
             Slots = new Dictionary<int, ISlot>();
@@ -18,6 +21,10 @@ namespace NullRPG.GameObjects
         public int GetUniqueSlotId()
         {
             return _currentId++;
+        }
+        public string GetWeaponName()
+        {
+            return CurrentWeapon?.Name.ToString();
         }
     }
 }

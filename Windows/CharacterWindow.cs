@@ -91,7 +91,7 @@ namespace NullRPG.Windows
             string damage = $"Attack: {player.MinDmg} / {player.MaxDmg}";
             string gold = $"Gold: {player.Gold}";
 
-            string weapon = $"Current weapon: {player.GetWeaponName()}";
+            string weapon = $"Current weapon: {player.Inventory.GetWeaponName()}";
 
             Print(_x, _y, level); _y++;
             Print(_x, _y, health); _y++;

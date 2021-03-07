@@ -58,9 +58,9 @@ namespace NullRPG.Managers
         public static void Remove(IItem item)
         {
             // Don't remove id 1 which is reveserved for "None" weapon item
-            if (Game.GameSession.Player.CurrentWeapon.ObjectId == item.ObjectId)
+            if (Game.GameSession.Player.Inventory.CurrentWeapon.ObjectId == item.ObjectId)
             {
-                Game.GameSession.Player.EquipWeapon(GetItem<IItem>(0).ObjectId);
+                InventoryManager.EquipWeapon<IEntityInventory>(GetItem<IItem>(0).ObjectId);
             }
             ItemDatabase.Items.Remove(item.ObjectId);
         }

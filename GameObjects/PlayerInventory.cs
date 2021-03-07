@@ -12,9 +12,22 @@ namespace NullRPG.GameObjects
         public PlayerInventory() : base()
         {
             // init default inventory
-            InventoryManager.CreateDefault(this);
+            InventoryManager.Add(this);
 
-            InventoryManager.AddToInventory<IEntityInventory>(this, WeaponItem.Axe());
+            InventoryManager.CreateDefault<PlayerInventory>();
+
+            InventoryManager.AddToInventory<PlayerInventory>(WeaponItem.Axe());
+            InventoryManager.AddToInventory<PlayerInventory>(WeaponItem.Axe());
+            InventoryManager.AddToInventory<PlayerInventory>(WeaponItem.Longsword());
+            InventoryManager.AddToInventory<PlayerInventory>(MiscItem.Quartz());
+            InventoryManager.AddToInventory<PlayerInventory>(MiscItem.Quartz());
+            InventoryManager.AddToInventory<PlayerInventory>(MiscItem.Quartz());
+            InventoryManager.AddToInventory<PlayerInventory>(MiscItem.Quartz());
+            InventoryManager.AddToInventory<PlayerInventory>(MiscItem.Quartz());
+
+
+
+
         }
     }
 }
