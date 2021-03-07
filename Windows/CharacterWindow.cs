@@ -61,7 +61,7 @@ namespace NullRPG.Windows
             var player = EntityManager.Get<Player>(Game.GameSession.Player.ObjectId);
             DrawExperience(player, 0, 3, Width);
             DrawCharacter(player);
-            //DrawEquippable();
+            DrawEquippable();
         }
 
         private void DrawExperience(Player player, int x, int y, int width)
@@ -127,7 +127,7 @@ namespace NullRPG.Windows
 
             IndexedKeybindings = new IndexedKeybindings(bindable.ToArray());
 
-            PrintContainer printable = new PrintContainer(IndexedKeybindings.GetIndexedKeybindings());
+            PrintContainerBase printable = new PrintContainerBase(IndexedKeybindings.GetIndexedKeybindings(), PrintContainerBase.ListType.Equipped);
             printable.SetPrintingOffsets(EQUIPPABLE_X, EQUIPPABLE_Y, 25);
 
             printable.Print(this);

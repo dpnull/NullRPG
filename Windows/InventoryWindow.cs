@@ -124,94 +124,12 @@ namespace NullRPG.Windows
             }
 
             IndexedKeybindings = new IndexedKeybindings(bindable.ToArray());
-            PrintContainer printable = new PrintContainer(IndexedKeybindings.GetIndexedKeybindings());
+            PrintContainerBase printable = new PrintContainerBase(IndexedKeybindings.GetIndexedKeybindings(), PrintContainerBase.ListType.Inventory);
             printable.SetPrintingOffsets(X_OFFSET, Y_OFFSET, TYPE_OFFSET);
 
             printable.Print(this);
         }
 
-        public class PrintContainer
-        {
-            public int YOffset { get; private set; } = 0;
-            public int XOffset { get; private set; } = 0;
-            public int IndexOffset { get; private set; } = 0;
-            public int NameOffset { get; private set; } = 4;
-            public int TypeOffset { get; private set; } = 20;
-
-            private readonly List<PrintContainer> _printable;
-            public ColoredString Name { get; set; }
-            public string Type { get; set; }
-            public string Data { get; set; }
-            public string Id { get; set; }
-            public ButtonIndex ButtonIndex { get; set; }
-
-            public PrintContainer(IIndexedKeybinding[] keybindings)
-            {
-                _printable = new List<PrintContainer>();
-                Add(keybindings);
-            }
-            public PrintContainer()
-            {
-            }
-
-            public void SetPrintingOffsets(int xOffset, int yOffset, int typeOffset)
-            {
-                YOffset = yOffset;
-                IndexOffset = xOffset;
-                NameOffset = xOffset + 4;
-                TypeOffset = xOffset + typeOffset;
-            }
-
-            public void Add(IIndexedKeybinding[] keybindings)
-            {
-                int index = 0; // for keybinding index
-                foreach(var item in keybindings)
-                {
-                    var slotItem = InventoryManager.GetSlot<ISlot>(InventoryManager.Get<PlayerInventory>(), item.Object.ObjectId).Item.FirstOrDefault();
-                    ColoredString itemName = ItemManager.GetItemName<IItem>(slotItem.ObjectId);
-                    
-                    if(slotItem is MiscItem)
-                    {
-                        itemName += $" x{InventoryManager.GetSlot<ISlot>(Game.GameSession.Player.Inventory, item.Object.ObjectId).Item.Count}";
-                    }
-
-                    // temp
-                    if(slotItem.ObjectId == Game.GameSession.Player.Inventory.CurrentWeapon.ObjectId)
-                    {
-                        //itemName.SetBackground(new Color(18,77,7));
-                    }
-
-                    // retrieves the description attribute from the class
-                    string itemType = slotItem?.GetType().GetCustomAttribute<DescriptionAttribute>(false).Description;
-                    string itemId = $"slotId_{InventoryManager.GetSlot<ISlot>(Game.GameSession.Player.Inventory, item.Object.ObjectId).ObjectId}, itemId_{slotItem.ObjectId}";
-
-                    var printableItem = new PrintContainer()
-                    {
-                        Name = itemName,
-                        Type = itemType,
-                        Data = "\0",
-                        Id = "\0",
-                        ButtonIndex = new ButtonIndex(keybindings[index].Keybinding, Color.Green, Color.White, 0, 0, true)
-                    };
-
-                    _printable.Add(printableItem);
-                    index++;
-                }
-            }
-
-            public void Print(SadConsole.Console console)
-            {
-                int _y = YOffset;
-                foreach(var str in _printable)
-                {
-                    str.ButtonIndex.Draw(IndexOffset, _y, console);
-                    console.Print(NameOffset, _y, str.Name);
-                    console.Print(TypeOffset, _y, str.Type);
-                    //console.Print(DATA_OFFSET, _y, str.Data);
-                    //console.Print(ID_OFFSET, _y, str.Id);
-                    _y++;
-                }
-            }
-        }
+       
     }
 }
