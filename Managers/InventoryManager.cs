@@ -51,6 +51,11 @@ namespace NullRPG.Managers
             }
         }
 
+        public static IItem GetCurrentWeapon<T>() where T : IEntityInventory
+        {
+            return Get<T>().CurrentWeapon;
+        }
+
         public static void AddToInventory<T>(IItem item) where T : IEntityInventory
         {
             var inventory = Get<T>();

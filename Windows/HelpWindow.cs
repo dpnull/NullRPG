@@ -49,7 +49,7 @@ namespace NullRPG.Windows
 
         private void DrawButtons()
         {
-            _backBtn = new ButtonString("Back", Microsoft.Xna.Framework.Input.Keys.D1, Color.Green, DefaultForeground, 0, 0, true);
+            _backBtn = new ButtonString(new ColoredString("Back"), Microsoft.Xna.Framework.Input.Keys.D1, Color.Green, DefaultForeground, 0, 0, true);
             _backBtn.Draw(this.GetWindowXCenter() - (_backBtn.GetLength() / 2), this.GetWindowYCenter(), this);
         }
 

@@ -4,6 +4,7 @@ using NullRPG.Managers;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace NullRPG.GameObjects
 {
@@ -24,8 +25,6 @@ namespace NullRPG.GameObjects
             InventoryManager.AddToInventory<PlayerInventory>(MiscItem.Quartz());
             InventoryManager.AddToInventory<PlayerInventory>(MiscItem.Quartz());
             InventoryManager.AddToInventory<PlayerInventory>(MiscItem.Quartz());
-
-
 
 
         }

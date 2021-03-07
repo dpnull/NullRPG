@@ -122,14 +122,14 @@ namespace NullRPG.Windows
 
         private void DrawButtons()
         {
-            _playBtn = new ButtonString("Play", Microsoft.Xna.Framework.Input.Keys.D1, Color.Green, Color.White, 0, 0, true);
+            _playBtn = new ButtonString(new ColoredString("Play"), Microsoft.Xna.Framework.Input.Keys.D1, Color.Green, Color.White, 0, 0, true);
             _playBtn.Draw(this.GetWindowXCenter() - (_playBtn.GetLength() / 2), this.GetWindowYCenter() + 8, this);
 
-            _helpBtn = new ButtonString("Help", Microsoft.Xna.Framework.Input.Keys.D2, Color.Green, DefaultForeground, 0, 0, true);
+            _helpBtn = new ButtonString(new ColoredString("Help"), Microsoft.Xna.Framework.Input.Keys.D2, Color.Green, DefaultForeground, 0, 0, true);
             _helpBtn.DrawNumericOnly(true);
             _helpBtn.Draw(this.GetWindowXCenter() - (_helpBtn.GetLength() / 2), this.GetWindowYCenter() + 9, this);
 
-            _quitBtn = new ButtonString("Quit", Microsoft.Xna.Framework.Input.Keys.D3, Color.Green, DefaultForeground, 0, 0, true);
+            _quitBtn = new ButtonString(new ColoredString("Quit"), Microsoft.Xna.Framework.Input.Keys.D3, Color.Green, DefaultForeground, 0, 0, true);
             _quitBtn.DrawNumericOnly(true);
             _quitBtn.Draw(this.GetWindowXCenter() - (_quitBtn.GetLength() / 2), this.GetWindowYCenter() + 10, this);
         }

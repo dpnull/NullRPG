@@ -17,8 +17,6 @@ namespace NullRPG.Interfaces
         public int MinDmg { get; set; }
         public int MaxDmg { get; set; }
         public int Defense { get; set; }
-        public int Experience { get; set; }
-        public int ExperienceNeeded { get; set; }
         public EntityInventory Inventory { get; set; }
     }
 }

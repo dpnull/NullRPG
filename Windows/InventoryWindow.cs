@@ -40,7 +40,7 @@ namespace NullRPG.Windows
         {
             if (ItemManager.GetItem<IItem>(UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId) is WeaponItem)
             {
-                var btn = new Input.ButtonString("Equip", Keybindings.GetKeybinding(Keybindings.Type.Equip), Constants.Theme.ButtonKeyColor, DefaultForeground,
+                var btn = new Input.ButtonString(new ColoredString("Equip"), Keybindings.GetKeybinding(Keybindings.Type.Equip), Constants.Theme.ButtonKeyColor, DefaultForeground,
                     Constants.Windows.PreviewX, Constants.Windows.PreviewY + Constants.Windows.ItemPreviewHeight - 1);
 
                 btn.Draw(this);

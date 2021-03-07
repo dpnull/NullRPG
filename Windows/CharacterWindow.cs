@@ -9,6 +9,8 @@ using NullRPG.Extensions;
 using NullRPG.Managers;
 using NullRPG.GameObjects;
 using SadConsole.Input;
+using NullRPG.ItemTypes;
+using NullRPG.Input;
 
 namespace NullRPG.Windows
 {
@@ -51,12 +53,13 @@ namespace NullRPG.Windows
 
         private void DrawDetailedStats()
         {
-            var player = EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId);
+            var player = EntityManager.Get<Player>(Game.GameSession.Player.ObjectId);
             DrawExperience(player, 0, 3, Width);
             DrawCharacter(player);
+            DrawEquippable();
         }
 
-        private void DrawExperience(IEntity player, int x, int y, int width)
+        private void DrawExperience(Player player, int x, int y, int width)
         {      
             string bar = "[";
 
@@ -81,7 +84,7 @@ namespace NullRPG.Windows
             Print(this.GetWindowXCenter() - (printableExperience.Length / 2), y + 1, printableExperience);
         }
 
-        private void DrawCharacter(IEntity player)
+        private void DrawCharacter(Player player)
         {
             int _x = 1;
             int _y = 4;
@@ -100,6 +103,18 @@ namespace NullRPG.Windows
             Print(_x, _y, gold); _y += 2;
 
             Print(_x, _y, weapon);
+        }
+
+        private void DrawEquippable()
+        {
+            var weapon = InventoryManager.GetCurrentWeapon<PlayerInventory>();
+
+            ColoredString weaponName = ItemManager.GetItemName<WeaponItem>(weapon.ObjectId);
+
+            var btnWeapon = new ButtonString(weaponName, Microsoft.Xna.Framework.Input.Keys.D1,
+                Constants.Theme.ButtonKeyColor, Constants.Theme.ForegroundColor, 0, 0, true);
+
+            btnWeapon.Draw(2, Height - 4, this);
         }
 
     }
