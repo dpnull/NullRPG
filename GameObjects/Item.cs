@@ -62,5 +62,6 @@ namespace NullRPG.GameObjects
             Enchantment = EnchantmentType.Default;
             UpgradeLevel = 1;
         }
+
     }
 }

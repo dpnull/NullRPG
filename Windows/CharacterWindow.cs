@@ -18,6 +18,8 @@ namespace NullRPG.Windows
     {
         public Console Console => this;
 
+        private const int EQUIPPABLE_X = 1;
+        private const int EQUIPPABLE_Y = Constants.Windows.CharacterHeight - 5;
         public CharacterWindow(int width, int height) : base(width, height)
         {
             Position = new Point(0, 1);
@@ -107,14 +109,43 @@ namespace NullRPG.Windows
 
         private void DrawEquippable()
         {
-            var weapon = InventoryManager.GetCurrentWeapon<PlayerInventory>();
-
+            var weapon = InventoryManager.GetEquippedItem<PlayerInventory>(typeof(WeaponItem));
             ColoredString weaponName = ItemManager.GetItemName<WeaponItem>(weapon.ObjectId);
+
+            var headItem = InventoryManager.GetEquippedItem<PlayerInventory>(typeof(HeadItem));
+            ColoredString headItemName = ItemManager.GetItemName<HeadItem>(headItem.ObjectId);
+
+            var bodyItem = InventoryManager.GetEquippedItem<PlayerInventory>(typeof(BodyItem));
+            ColoredString bodyItemName = ItemManager.GetItemName<BodyItem>(bodyItem.ObjectId);
+
+            var legsItem = InventoryManager.GetEquippedItem<PlayerInventory>(typeof(LegsItem));
+            ColoredString legsItemName = ItemManager.GetItemName<LegsItem>(legsItem.ObjectId);
 
             var btnWeapon = new ButtonString(weaponName, Microsoft.Xna.Framework.Input.Keys.D1,
                 Constants.Theme.ButtonKeyColor, Constants.Theme.ForegroundColor, 0, 0, true);
 
-            btnWeapon.Draw(2, Height - 4, this);
+            var btnHeadItem = new ButtonString(headItemName, Microsoft.Xna.Framework.Input.Keys.D2,
+                Constants.Theme.ButtonKeyColor, Constants.Theme.ForegroundColor, 0, 0, true);
+
+            var btnBodyItem = new ButtonString(bodyItemName, Microsoft.Xna.Framework.Input.Keys.D3,
+                Constants.Theme.ButtonKeyColor, Constants.Theme.ForegroundColor, 0, 0, true);
+
+            var btnLegsItem = new ButtonString(legsItemName, Microsoft.Xna.Framework.Input.Keys.D4,
+                Constants.Theme.ButtonKeyColor, Constants.Theme.ForegroundColor, 0, 0, true);
+
+            ButtonString[] btns =
+            {
+                btnWeapon,
+                btnHeadItem,
+                btnBodyItem,
+                btnLegsItem
+            };
+
+            int _y = EQUIPPABLE_Y;
+            foreach(var btn in btns)
+            {
+                btn.Draw(EQUIPPABLE_X, _y++, this);
+            }
         }
 
     }

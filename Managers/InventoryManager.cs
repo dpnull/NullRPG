@@ -51,10 +51,28 @@ namespace NullRPG.Managers
             }
         }
 
-        public static IItem GetCurrentWeapon<T>() where T : IEntityInventory
+        public static IItem GetEquippedItem<T>(Type itemType) where T : IEntityInventory
         {
-            return Get<T>().CurrentWeapon;
+            if(itemType == typeof(WeaponItem))
+            {
+                return Get<T>().CurrentWeapon;
+            } else if (itemType == typeof(HeadItem))
+            {
+                return Get<T>().CurrentHeadItem;
+            } else if (itemType == typeof(BodyItem))
+            {
+                return Get<T>().CurrentBodyItem;
+            } else if (itemType == typeof(LegsItem))
+            {
+                return Get<T>().CurrentLegsItem;
+            }
+            else
+            {
+                return null;
+            }
         }
+
+
 
         public static void AddToInventory<T>(IItem item) where T : IEntityInventory
         {
