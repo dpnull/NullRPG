@@ -27,7 +27,7 @@ namespace NullRPG.GameObjects
             Inventory.CurrentWeapon = (WeaponItem)ItemManager.GetItem<IItem>(0);
 
         }
-
+ 
         /*
         public void EquipWeaponViaSlot(int slotObjectId)
         {

@@ -43,7 +43,8 @@ namespace NullRPG.Managers
         public static void EquipWeapon<T>(int itemObjectId) where T : IEntityInventory
         {
             var inventory = Get<T>();
-            if (ItemManager.GetItem<IItem>(itemObjectId) != null)
+            var item = ItemManager.GetItem<IItem>(itemObjectId);
+            if (item != null && item is not MiscItem)
             {
                 var equippable = ItemManager.GetItem<IItem>(itemObjectId);
                 inventory.CurrentWeapon = (WeaponItem)equippable;
