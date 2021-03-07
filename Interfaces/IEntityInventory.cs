@@ -11,5 +11,8 @@ namespace NullRPG.Interfaces
 
         public int GetUniqueSlotId();
         public WeaponItem CurrentWeapon { get; set; }
+        public HeadItem CurrentHeadItem { get; set; }
+        public BodyItem CurrentBodyItem { get; set; }
+        public LegsItem CurrentLegsItem { get; set; }
     }
 }

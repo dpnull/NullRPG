@@ -11,6 +11,8 @@ using System.Linq;
 using NullRPG.ItemTypes;
 using NullRPG.Input;
 using NullRPG.GameObjects;
+using System.ComponentModel;
+using System.Reflection;
 
 namespace NullRPG.Windows
 {
@@ -147,7 +149,6 @@ namespace NullRPG.Windows
             {
 
             }
-
             public void Add(IIndexedKeybinding[] keybindings)
             {
                 int index = 0; // for keybinding index
@@ -167,7 +168,8 @@ namespace NullRPG.Windows
                         //itemName.SetBackground(new Color(18,77,7));
                     }
 
-                    string itemType = slotItem is WeaponItem ? "[Weapon]" : slotItem is MiscItem ? "[Misc]" : "UNKNOWN TYPE";
+                    // retrieves the description attribute from the class
+                    string itemType = slotItem?.GetType().GetCustomAttribute<DescriptionAttribute>(false).Description;
                     string itemId = $"slotId_{InventoryManager.GetSlot<ISlot>(Game.GameSession.Player.Inventory, item.Object.ObjectId).ObjectId}, itemId_{slotItem.ObjectId}";
 
                     var printableItem = new PrintContainer()
@@ -192,8 +194,8 @@ namespace NullRPG.Windows
                     str.ButtonIndex.Draw(INDEX_OFFSET, _y, console);
                     console.Print(NAME_OFFSET, _y, str.Name);
                     console.Print(TYPE_OFFSET, _y, str.Type);
-                    console.Print(DATA_OFFSET, _y, str.Data);
-                    console.Print(ID_OFFSET, _y, str.Id);
+                    //console.Print(DATA_OFFSET, _y, str.Data);
+                    //console.Print(ID_OFFSET, _y, str.Id);
                     _y++;
                 }
             }

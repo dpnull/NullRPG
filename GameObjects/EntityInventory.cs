@@ -11,6 +11,9 @@ namespace NullRPG.GameObjects
         public Dictionary<int, ISlot> Slots { get; set; }
 
         public WeaponItem CurrentWeapon { get; set; }
+        public HeadItem CurrentHeadItem { get; set; }
+        public BodyItem CurrentBodyItem { get; set; }
+        public LegsItem CurrentLegsItem { get; set; }
 
         public EntityInventory()
         {

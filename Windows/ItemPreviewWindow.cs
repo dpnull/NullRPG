@@ -10,6 +10,8 @@ using NullRPG.Managers;
 using NullRPG.GameObjects;
 using SadConsole.Effects;
 using NullRPG.ItemTypes;
+using System.ComponentModel;
+using System.Reflection;
 
 namespace NullRPG.Windows
 {
@@ -87,7 +89,7 @@ namespace NullRPG.Windows
 
                     string itemLevel = $"iLvl {item.Level}";
                     string upgradeLevel = $"uLvl {item.UpgradeLevel}";
-                    string itemType = item is WeaponItem ? "[Weapon]" : item is MiscItem ? "[Misc]" : "[UNKNOWN TYPE]";
+                    string itemType = item?.GetType().GetCustomAttribute<DescriptionAttribute>(false).Description;
 
                     // objects to the ordered list for item attributes
                     ColoredString atkData = Extensions.ConsoleExtensions.AttributeString(item.MinDmg, item.MaxDmg, "to attack");

@@ -45,42 +45,22 @@ namespace NullRPG.GameObjects
             Legendary
         }
 
-        public Item(string name, int gold, RarityType rarity, int level = 1, int minDmg = 0, int maxDmg = 0, int defense = 0, bool isUnique = false)
+        public Item(string name, RarityType rarity = RarityType.Common, bool isUnique = false, int level = 1, int gold = 0, int minDmg = 0, int maxDmg = 0, int defense = 0)
         {
             ObjectId = ItemManager.GetUniqueId();
             ItemManager.Add(this);
 
             Name = name;
+            Rarity = rarity;
+            IsUnique = isUnique;
             Level = level;
             Gold = gold;
-            Rarity = rarity;
             MinDmg = minDmg;
             MaxDmg = maxDmg;
             Defense = defense;
-            IsUnique = isUnique;
-            
+
             Enchantment = EnchantmentType.Default;
             UpgradeLevel = 1;
         }
-
-        public Item(string name, int gold, RarityType rarity, bool isUnique = true)
-        {
-            ObjectId = ItemManager.GetUniqueId();
-            ItemManager.Add(this);
-
-            Name = name;
-            Gold = gold;
-            Rarity = rarity;
-            IsUnique = isUnique;
-            Level = 1;
-            MinDmg = 0;
-            MaxDmg = 0;
-            Defense = 0;
-            
-            Enchantment = EnchantmentType.Default;
-            UpgradeLevel = 1;
-
-        }
-        
     }
 }
