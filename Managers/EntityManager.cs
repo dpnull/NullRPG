@@ -18,10 +18,23 @@ namespace NullRPG.Managers
             }
         }
 
+        public static T Get<T>(int objectId) where T : IEntity
+        {
+            var collection = EntityDatabase.Entities.ToArray();
+            foreach(var entity in collection)
+            {
+                return (T)EntityDatabase.Entities.Values.SingleOrDefault(e => e.ObjectId == objectId);
+            }
+
+            return default;          
+        }
+
         // define a constraint to instantiate a generic type
         public static T Create<T>() where T : IEntity, new()
         {
-            T entity = new T();
+            T entity = new();
+
+            Add(entity);
 
             return entity;
         }
@@ -33,7 +46,7 @@ namespace NullRPG.Managers
 
         private static class EntityDatabase
         {
-            public static readonly Dictionary<int, IEntity> Entities = new Dictionary<int, IEntity>();
+            public static readonly Dictionary<int, IEntity> Entities = new();
 
             private static int _currentId;
 

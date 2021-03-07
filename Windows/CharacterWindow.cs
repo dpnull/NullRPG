@@ -20,7 +20,7 @@ namespace NullRPG.Windows
         {
             Position = new Point(0, 1);
 
-            DrawDetailedStats(Game.GameSession.Player);
+            DrawDetailedStats();
 
             Global.CurrentScreen.Children.Add(this);
         }
@@ -29,7 +29,7 @@ namespace NullRPG.Windows
         {
             Clear();
 
-            DrawDetailedStats(Game.GameSession.Player);
+            DrawDetailedStats();
 
             base.Draw(timeElapsed);
         }
@@ -49,14 +49,15 @@ namespace NullRPG.Windows
             return false;
         }
 
-        private void DrawDetailedStats(Player player)
+        private void DrawDetailedStats()
         {
+            var player = EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId);
             DrawExperience(player, 0, 3, Width);
             DrawCharacter(player);
         }
 
-        private void DrawExperience(Player player, int x, int y, int width)
-        {
+        private void DrawExperience(IEntity player, int x, int y, int width)
+        {      
             string bar = "[";
 
             double percent = (double)player.Experience / player.ExperienceNeeded;
@@ -80,7 +81,7 @@ namespace NullRPG.Windows
             Print(this.GetWindowXCenter() - (printableExperience.Length / 2), y + 1, printableExperience);
         }
 
-        private void DrawCharacter(Player player)
+        private void DrawCharacter(IEntity player)
         {
             int _x = 1;
             int _y = 4;

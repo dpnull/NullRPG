@@ -10,10 +10,8 @@ namespace NullRPG.GameObjects
 {
     public class Player : Entity
     {
-        public int Experience { get; set; }
-        public int ExperienceNeeded { get; set; }
 
-        public PlayerInventory Inventory { get; set; }
+        //public PlayerInventory Inventory { get; set; }
         public Player() : base("Tianyu", 100, 20, 1)
         {
             Inventory = new PlayerInventory();
