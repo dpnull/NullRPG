@@ -61,7 +61,7 @@ namespace NullRPG.Windows
             var player = EntityManager.Get<Player>(Game.GameSession.Player.ObjectId);
             DrawExperience(player, 0, 3, Width);
             DrawCharacter(player);
-            DrawEquippable();
+            //DrawEquippable();
         }
 
         private void DrawExperience(Player player, int x, int y, int width)

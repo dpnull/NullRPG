@@ -40,14 +40,16 @@ namespace NullRPG.Managers
             }
         }
 
-        public static void EquipWeapon<T>(int itemObjectId) where T : IEntityInventory
+        public static void EquipItem<T>(int itemObjectId) where T : IEntityInventory
         {
             var inventory = Get<T>();
             var item = ItemManager.GetItem<IItem>(itemObjectId);
-            if (item != null && item is not MiscItem)
+            if(item is not null)
             {
-                var equippable = ItemManager.GetItem<IItem>(itemObjectId);
-                inventory.CurrentWeapon = (WeaponItem)equippable;
+                if (item.GetType() == typeof(WeaponItem)) { inventory.CurrentWeapon = (WeaponItem)item; }
+                else if (item.GetType() == typeof(HeadItem)) { inventory.CurrentHeadItem = (HeadItem)item; } 
+                else if (item.GetType() == typeof(BodyItem)) { inventory.CurrentBodyItem = (BodyItem)item; } 
+                else if (item.GetType() == typeof(LegsItem)) { inventory.CurrentLegsItem = (LegsItem)item; }
             }
         }
 

@@ -27,6 +27,10 @@ namespace NullRPG.Windows
             Global.CurrentScreen.Children.Add(this);
         }
 
+        private const int X_OFFSET = 0;
+        private const int Y_OFFSET = 3;
+        private const int TYPE_OFFSET = 25;
+
         public override void Draw(TimeSpan timeElapsed)
         {
             Clear();
@@ -88,7 +92,7 @@ namespace NullRPG.Windows
         {
             var objectId = UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId;
 
-            InventoryManager.EquipWeapon<IEntityInventory>(objectId);
+            InventoryManager.EquipItem<PlayerInventory>(objectId);
         }
 
         private void DrawInventory()
@@ -121,6 +125,7 @@ namespace NullRPG.Windows
 
             IndexedKeybindings = new IndexedKeybindings(bindable.ToArray());
             PrintContainer printable = new PrintContainer(IndexedKeybindings.GetIndexedKeybindings());
+            printable.SetPrintingOffsets(X_OFFSET, Y_OFFSET, TYPE_OFFSET);
 
             printable.Print(this);
         }
@@ -162,7 +167,7 @@ namespace NullRPG.Windows
                 int index = 0; // for keybinding index
                 foreach(var item in keybindings)
                 {
-                    var slotItem = InventoryManager.GetSlot<ISlot>(Game.GameSession.Player.Inventory, item.Object.ObjectId).Item.FirstOrDefault();
+                    var slotItem = InventoryManager.GetSlot<ISlot>(InventoryManager.Get<PlayerInventory>(), item.Object.ObjectId).Item.FirstOrDefault();
                     ColoredString itemName = ItemManager.GetItemName<IItem>(slotItem.ObjectId);
                     
                     if(slotItem is MiscItem)
