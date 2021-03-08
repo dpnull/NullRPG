@@ -51,6 +51,12 @@ namespace NullRPG.Windows
             }
 
 
+            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Travel)))
+            {
+                OpenTravelWindow();
+                return true;
+            }
+
 
             return false;
         }
@@ -63,6 +69,11 @@ namespace NullRPG.Windows
         private void OpenInventoryWindow()
         {
             this.SwitchFocusMakeVisible(UserInterfaceManager.Get<InventoryWindow>());
+        }
+
+        private void OpenTravelWindow()
+        {
+            this.SwitchFocusMakeVisible(UserInterfaceManager.Get<TravelWindow>());
         }
     }
 }

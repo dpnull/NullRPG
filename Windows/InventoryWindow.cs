@@ -87,7 +87,7 @@ namespace NullRPG.Windows
             return false;
         }
 
-        public void Equip()
+        private static void Equip()
         {
             var objectId = UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId;
 

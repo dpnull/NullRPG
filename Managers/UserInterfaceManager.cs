@@ -51,6 +51,13 @@ namespace NullRPG.Managers
             };
             Add(previewWindow);
 
+            var travelWindow = new TravelWindow(Constants.Windows.TravelWidth, Constants.Windows.TravelHeight)
+            {
+                IsVisible = false,
+                IsFocused = false
+            };
+            Add(travelWindow);
+
             IsInitialized = true;
         }
 

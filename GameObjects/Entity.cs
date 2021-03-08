@@ -45,11 +45,11 @@ namespace NullRPG.GameObjects
                 {
                     _totalMaxDmg += item.MaxDmg;
                 }
-                return _minDmg + _totalMaxDmg;
+                return _maxDmg + _totalMaxDmg;
             }
             set
             {
-                _minDmg = value;
+                _maxDmg = value;
             }
         }
 

@@ -14,7 +14,7 @@ namespace NullRPG.GameObjects
         {
             // init default inventory
             InventoryManager.Add(this);
-
+            
             InventoryManager.CreateDefault<PlayerInventory>();
 
             CurrentWeapon = WeaponItem.None();
