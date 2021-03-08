@@ -68,7 +68,6 @@ namespace NullRPG.Windows
                     var itemPreviewWindow = UserInterfaceManager.Get<ItemPreviewWindow>();
                     itemPreviewWindow.
                         SetObjectForPreview(InventoryManager.GetSlot<ISlot>(Game.GameSession.Player.Inventory, IndexedKeybindings.GetIndexable(key.Index).ObjectId).Item.FirstOrDefault().ObjectId);
-                    itemPreviewWindow.IsVisible = true;
                     return true;
                 }
 

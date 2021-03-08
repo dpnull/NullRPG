@@ -62,12 +62,10 @@ namespace NullRPG.Windows
 
         public void SetObjectForPreview(int objectId)
         {
-            if (ItemManager.GetItem<IItem>(objectId) != null)
+            if (ItemManager.GetItem<IItem>(objectId) != null && ItemManager.GetItem<IItem>(objectId).Name != "None")
             {
                 ObjectId = objectId;
-            } else
-            {
-                throw new System.Exception($"Object with id_{objectId} could not be found.");
+                IsVisible = true;
             }
         }
 
