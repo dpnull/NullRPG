@@ -61,17 +61,33 @@ namespace NullRPG.Extensions
             TypeOffset = xOffset + typeOffset;
         }
 
+        public void RawSetPrintingOffsets(int xOffset, int yOffset, int indexOffset, int nameOffset, int typeOffset)
+        {
+            XOffset = xOffset;
+            YOffset = yOffset;
+            IndexOffset = xOffset + indexOffset;
+            NameOffset = xOffset + nameOffset;
+            TypeOffset = xOffset + typeOffset;
+        }
+
         public void CreateEquipped(IIndexedKeybinding[] keybindings)
         {
             int index = 0;
             var equippedItems = InventoryManager.GetEquippedItems<PlayerInventory>();
             foreach(var item in keybindings)
             {
+                ColoredString prefix = new ColoredString(); 
                 var equippedItem = ItemManager.GetItem<IItem>(equippedItems[index].ObjectId);
+
                 ColoredString itemName = ItemManager.GetItemName<IItem>(equippedItem.ObjectId);
 
-                string itemType = equippedItem?.GetType().GetCustomAttribute<DescriptionAttribute>(false).Description;
-                string itemId = $"slotId_{InventoryManager.GetSlot<ISlot>(Game.GameSession.Player.Inventory, item.Object.ObjectId).ObjectId}, itemId_{equippedItem.ObjectId}";
+                // temporary solution for item type formatting specifically for this window
+                string itemType = equippedItem.GetType() == typeof(WeaponItem) ? "[WEAPON]" :
+                                equippedItem.GetType() == typeof(HeadItem) ? "[HEAD]" :
+                                equippedItem.GetType() == typeof(BodyItem) ? "[BODY]" :
+                                equippedItem.GetType() == typeof(LegsItem) ? "[LEGS]" : "UNKNOWN";
+
+                string itemId = $"itemId_{equippedItem.ObjectId}";
 
                 var printableItem = new PrintContainerBase()
                 {
@@ -101,9 +117,13 @@ namespace NullRPG.Extensions
                 }
 
                 // temp
-                if (slotItem.ObjectId == Game.GameSession.Player.Inventory.CurrentWeapon.ObjectId)
+                if(slotItem is not MiscItem)
                 {
-                    //itemName.SetBackground(new Color(18,77,7));
+                    var equippedItemId = InventoryManager.GetEquippedItem<PlayerInventory>(slotItem.GetType()).ObjectId;
+                    if (slotItem.ObjectId == equippedItemId)
+                    {
+                        itemName.SetBackground(new Color(18, 77, 7));
+                    }
                 }
 
                 // retrieves the description attribute from the class

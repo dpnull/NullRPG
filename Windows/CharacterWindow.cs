@@ -41,8 +41,26 @@ namespace NullRPG.Windows
             base.Draw(timeElapsed);
         }
 
+        public override void OnFocusLost()
+        {
+            UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId = -1;
+        }
+
         public override bool ProcessKeyboard(Keyboard info)
         {
+            foreach (var key in IndexedKeybindings.GetIndexedKeybindings())
+            {
+                if (info.IsKeyPressed(key.Keybinding))
+                {
+
+                    var itemPreviewWindow = UserInterfaceManager.Get<ItemPreviewWindow>();
+                    itemPreviewWindow.
+                        SetObjectForPreview(IndexedKeybindings.GetIndexable(key.Index).ObjectId);
+                    itemPreviewWindow.IsVisible = true;
+                    return true;
+                }
+            }
+
             if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.A))
             {
                 Game.GameSession.Player.Experience += 1;
@@ -97,17 +115,16 @@ namespace NullRPG.Windows
 
             string level = $"Level: {player.Level}";
             string health = $"Health: {player.Health} / {player.MaxHealth}";
-            string damage = $"Attack: {player.MinDmg} / {player.MaxDmg}";
+            string defense = $"Defense: {player.Defense}";
+            string damage = $"Attack: {player.MinDmg} - {player.MaxDmg}";
             string gold = $"Gold: {player.Gold}";
-
-            string weapon = $"Current weapon: {player.Inventory.GetWeaponName()}";
+            
 
             Print(_x, _y, level); _y++;
             Print(_x, _y, health); _y++;
+            Print(_x, _y, defense); _y++;
             Print(_x, _y, damage); _y += 2;
             Print(_x, _y, gold); _y += 2;
-
-            Print(_x, _y, weapon);
         }
 
         private void DrawEquippable()
@@ -128,50 +145,9 @@ namespace NullRPG.Windows
             IndexedKeybindings = new IndexedKeybindings(bindable.ToArray());
 
             PrintContainerBase printable = new PrintContainerBase(IndexedKeybindings.GetIndexedKeybindings(), PrintContainerBase.ListType.Equipped);
-            printable.SetPrintingOffsets(EQUIPPABLE_X, EQUIPPABLE_Y, 25);
+            printable.RawSetPrintingOffsets(EQUIPPABLE_X, EQUIPPABLE_Y, 0, 15, 4);
 
             printable.Print(this);
-
-
-            /*
-            var weapon = InventoryManager.GetEquippedItem<PlayerInventory>(typeof(WeaponItem));
-            ColoredString weaponName = ItemManager.GetItemName<WeaponItem>(weapon.ObjectId);
-
-            var headItem = InventoryManager.GetEquippedItem<PlayerInventory>(typeof(HeadItem));
-            ColoredString headItemName = ItemManager.GetItemName<HeadItem>(headItem.ObjectId);
-
-            var bodyItem = InventoryManager.GetEquippedItem<PlayerInventory>(typeof(BodyItem));
-            ColoredString bodyItemName = ItemManager.GetItemName<BodyItem>(bodyItem.ObjectId);
-
-            var legsItem = InventoryManager.GetEquippedItem<PlayerInventory>(typeof(LegsItem));
-            ColoredString legsItemName = ItemManager.GetItemName<LegsItem>(legsItem.ObjectId);
-
-            var btnWeapon = new ButtonString(weaponName, Microsoft.Xna.Framework.Input.Keys.D1,
-                Constants.Theme.ButtonKeyColor, Constants.Theme.ForegroundColor, 0, 0, true);
-
-            var btnHeadItem = new ButtonString(headItemName, Microsoft.Xna.Framework.Input.Keys.D2,
-                Constants.Theme.ButtonKeyColor, Constants.Theme.ForegroundColor, 0, 0, true);
-
-            var btnBodyItem = new ButtonString(bodyItemName, Microsoft.Xna.Framework.Input.Keys.D3,
-                Constants.Theme.ButtonKeyColor, Constants.Theme.ForegroundColor, 0, 0, true);
-
-            var btnLegsItem = new ButtonString(legsItemName, Microsoft.Xna.Framework.Input.Keys.D4,
-                Constants.Theme.ButtonKeyColor, Constants.Theme.ForegroundColor, 0, 0, true);
-
-            ButtonString[] btns =
-            {
-                btnWeapon,
-                btnHeadItem,
-                btnBodyItem,
-                btnLegsItem
-            };
-
-            int _y = EQUIPPABLE_Y;
-            foreach(var btn in btns)
-            {
-                btn.Draw(EQUIPPABLE_X, _y++, this);
-            }
-            */
         }
 
     }

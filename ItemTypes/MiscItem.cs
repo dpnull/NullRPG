@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace NullRPG.ItemTypes
 {
-    [Description("[MiscItem]")]
+    [Description("[Misc Item]")]
     public class MiscItem : Item
     {
         // In the future, if items should have randomized stats, create a factory then pass the already instantiated objects for the return

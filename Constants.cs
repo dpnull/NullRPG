@@ -31,8 +31,8 @@ namespace NullRPG
 
             public const int ItemPreviewWidth = 40;
             public const int ItemPreviewHeight = 10;
-            public const int PreviewX = InventoryWidth - ItemPreviewWidth - 4;
-            public const int PreviewY = (InventoryHeight - ItemPreviewHeight) / 2;
+            public const int PreviewX = InventoryWidth - ItemPreviewWidth - 1;
+            public const int PreviewY = (InventoryHeight - ItemPreviewHeight) / 2 + 3;
         }
 
         public static class Theme

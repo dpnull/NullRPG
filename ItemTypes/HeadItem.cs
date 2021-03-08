@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace NullRPG.ItemTypes
 {
-    [Description("[HeadItem]")]
+    [Description("[Head Item]")]
     public class HeadItem : Item
     {
         public HeadItem(string name, RarityType rarity, int level, int gold, int defense) :

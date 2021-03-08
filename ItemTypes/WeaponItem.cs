@@ -7,7 +7,7 @@ using System.Text;
 
 namespace NullRPG.ItemTypes
 {
-    [Description("[WeaponItem]")]
+    [Description("[Weapon Item]")]
     public class WeaponItem : Item
     {
         public WeaponItem(string name, Item.RarityType rarity, int level, int gold, int minDmg, int maxDmg)
