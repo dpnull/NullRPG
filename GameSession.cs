@@ -13,8 +13,9 @@ namespace NullRPG
         public World World { get; set; }
         public GameSession()
         {
-            Player = EntityManager.Create<Player>();
             World = new Overworld();
+            Player = EntityManager.Create<Player>();
+            
         }
     }
 }

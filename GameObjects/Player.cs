@@ -1,4 +1,5 @@
-﻿using NullRPG.Interfaces;
+﻿using NullRPG.GameObjects.Worlds;
+using NullRPG.Interfaces;
 using NullRPG.ItemTypes;
 using NullRPG.Managers;
 using System;
@@ -12,6 +13,9 @@ namespace NullRPG.GameObjects
     {
         public int Experience { get; set; }
         public int ExperienceNeeded { get; set; }
+        public World CurrentWorld { get; set; }
+        public Area CurrentArea { get; set; }
+        public Location CurrentLocation { get; set; }
 
         //public PlayerInventory Inventory { get; set; }
         public Player() : base("Tianyu", 100, 20, 1)
@@ -25,6 +29,10 @@ namespace NullRPG.GameObjects
             ExperienceNeeded = 100;
 
             Inventory.CurrentWeapon = (WeaponItem)ItemManager.GetItem<IItem>(0);
+
+            CurrentWorld = WorldManager.Get<Overworld>();
+            CurrentArea = (Area)CurrentWorld.Areas.First().Value;
+            CurrentArea = (Area)WorldManager.GetWorldArea<Overworld>("Hometown");
 
         }
  

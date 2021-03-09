@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NullRPG.GameObjects;
 using NullRPG.GameObjects.Worlds;
+using static NullRPG.Managers.AreaManager;
 
 namespace NullRPG.Managers
 {
@@ -22,12 +23,9 @@ namespace NullRPG.Managers
             world.Areas.Add(area.ObjectId, area);
         }
 
-        public static int GetUniqueAreaId()
-        {
-            return AreaDatabase.GetUniqueId();
-        }
 
-        public static void Add<T>(T world) where T : IWorld
+
+        public static void AddWorld<T>(T world) where T : IWorld
         {
             Worlds.Add(world);
         }
@@ -36,6 +34,38 @@ namespace NullRPG.Managers
         {
             return Worlds.OfType<T>().SingleOrDefault();
         }
+
+        public static IArea GetWorldArea<T>(string areaName) where T : IWorld
+        {
+            var world = Get<T>();
+
+            foreach(var area in world.Areas)
+            {
+                if(area.Value.Name == areaName)
+                {
+                    return AreaManager.Get<IArea>(area.Value.ObjectId);
+                }
+            }
+
+            return default;
+        }
+
+        /*
+        public static IArea GetArea<T>(int objectId) where T : IArea
+        {
+            var collection = AreaManager.GetAreas<IArea>();
+            foreach(var area in collection)
+            {
+                if(area.ObjectId == objectId)
+                {
+                    return AreaManager.Get<IArea>(objectId);
+                }
+                
+            }
+
+            return default;
+        }
+        */
 
         public static IArea[] GetWorldAreas<T>(Func<IArea, bool> criteria = null) where T : IWorld
         {
@@ -47,17 +77,7 @@ namespace NullRPG.Managers
             return collection.ToArray();
         }
 
-        public static class AreaDatabase
-        {
-            public static readonly Dictionary<int, IArea> Areas = new Dictionary<int, IArea>();
 
-            private static int _currentId;
-
-            public static int GetUniqueId()
-            {
-                return _currentId++;
-            }
-        }
 
     }
 }

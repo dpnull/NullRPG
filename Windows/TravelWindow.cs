@@ -59,7 +59,6 @@ namespace NullRPG.Windows
                 }
             }
 
-
             /*
             foreach(var area in areas)
             {

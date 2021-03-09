@@ -16,7 +16,8 @@ namespace NullRPG.GameObjects
 
         public Area(string name)
         {
-            ObjectId = WorldManager.GetUniqueAreaId();
+            ObjectId = AreaManager.GetUniqueAreaId();
+            AreaManager.Add(this);
             Name = name;
             Locations = new Dictionary<int, ILocation>();           
         }

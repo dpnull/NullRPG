@@ -37,7 +37,7 @@ namespace NullRPG.Windows
                 int _y = 0;
                 string s = "    "; // separator of 4 spaces
 
-                string drawable = $"{player.Name}{s}HP: {player.Health} / {player.MaxHealth}{s}Gold: {player.Gold}";
+                string drawable = $"{player.Name}{s}HP: {player.Health} / {player.MaxHealth}{s}Gold: {player.Gold}{s}Area: {player.CurrentArea.Name}";
 
                 this.DrawSeparator(_y, "+", DefaultForeground); _y++;
                 Print(this.GetWindowXCenter() - (drawable.Length / 2), _y, drawable); _y++;
