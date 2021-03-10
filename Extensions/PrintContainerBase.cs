@@ -33,7 +33,8 @@ namespace NullRPG.Extensions
         public enum ListType
         {
             Inventory,
-            Equipped
+            Equipped,
+            Areas
         }
 
         public PrintContainerBase(IIndexedKeybinding[] keybindings, ListType type)
@@ -42,9 +43,12 @@ namespace NullRPG.Extensions
             if(type is ListType.Inventory)
             {
                 CreateInventory(keybindings);
-            } else
+            } else if (type is ListType.Equipped)
             {
                 CreateEquipped(keybindings);
+            } else
+            {
+                CreateAreas(keybindings);
             }
             
         }
@@ -140,6 +144,29 @@ namespace NullRPG.Extensions
                 };
 
                 _printable.Add(printableItem);
+                index++;
+            }
+        }
+
+        public void CreateAreas(IIndexedKeybinding[] keybindings)
+        {
+            int index = 0;
+            foreach (var item in keybindings)
+            {
+                var area = AreaManager.Get<IArea>(item.Object.ObjectId);
+
+                var areaName = new ColoredString(area.Name);
+
+                var printableArea = new PrintContainerBase()
+                {
+                    Name = areaName,
+                    Type = "\0",
+                    Data = "\0",
+                    Id = "\0",
+                    ButtonIndex = new ButtonIndex(keybindings[index].Keybinding, Color.Green, Color.White, 0, 0, true)
+                };
+
+                _printable.Add(printableArea);
                 index++;
             }
         }

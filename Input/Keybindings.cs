@@ -80,7 +80,8 @@ namespace NullRPG
             UpdateVisibility(Type.Travel, UserInterfaceManager.Get<Windows.GameWindow>());
 
             // Cancel button
-            UpdateVisibility(Type.Cancel, UserInterfaceManager.Get<CharacterWindow>().IsVisible || UserInterfaceManager.Get<InventoryWindow>().IsVisible);
+            UpdateVisibility(Type.Cancel, UserInterfaceManager.Get<CharacterWindow>().IsVisible || UserInterfaceManager.Get<InventoryWindow>().IsVisible ||
+                UserInterfaceManager.Get<TravelWindow>().IsVisible);
 
         }
 
@@ -89,7 +90,7 @@ namespace NullRPG
         /// </summary>
         /// <param name="typeName">Binding name (type).</param>
         /// <param name="window">Console to be checked.</param>
-        private void UpdateVisibility(Type typeName, SadConsole.Console window)
+        private static void UpdateVisibility(Type typeName, SadConsole.Console window)
         {
             if (window.IsFocused)
             {

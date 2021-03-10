@@ -24,6 +24,16 @@ namespace NullRPG.GameObjects.Worlds
 
             return area;
         }
+
+        public static OverworldArea Outskirts()
+        {
+            var area = new OverworldArea("Outskirts");
+
+            area.AddLocation(OverworldLocation.Forest());
+            area.AddLocation(OverworldLocation.Cave());
+
+            return area;
+        }
     }
 }
 

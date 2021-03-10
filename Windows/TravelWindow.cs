@@ -19,12 +19,12 @@ namespace NullRPG.Windows
     public class TravelWindow : Console, IUserInterface
     {
         public Console Console => this;
+        private IndexedKeybindings IndexedKeybindings;
 
         public TravelWindow(int width, int height) : base(width, height)
         {
-            Position = new Point(0, 5);
+            Position = new Point(0, 1);
 
-            DefaultBackground = Color.DarkGreen;
 
             Global.CurrentScreen.Children.Add(this);
         }
@@ -40,15 +40,40 @@ namespace NullRPG.Windows
 
         public override bool ProcessKeyboard(Keyboard info)
         {
-            return base.ProcessKeyboard(info);
+            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Cancel)))
+            {
+                this.FullTransition(UserInterfaceManager.Get<GameWindow>());
+            }
+
+            return false;
         }
 
         private void DrawLocations()
         {
-            var world = WorldManager.Get<Overworld>();
+            this.DrawHeader(0, "Travel to area", "+", DefaultForeground);
 
+            var areas = WorldManager.GetWorldAreas<Overworld>();
+            // Initialize keybindings.
+            List<IIndexable> bindable = new List<IIndexable>();
+            // Todo: add checks if player's level is high enough. (not here)
+            // Todo: automate the foreach loop for initializing keybindings?
+            foreach (var area in areas)
+            {
+                if (area != null)
+                {
+                    bindable.Add((IIndexable)area);
+                }
+            }
+            // Todo: automate this too?
+            IndexedKeybindings = new IndexedKeybindings(bindable.ToArray());
+            PrintContainerBase printable = new PrintContainerBase(IndexedKeybindings.GetIndexedKeybindings(), PrintContainerBase.ListType.Areas);
+            printable.SetPrintingOffsets(0, 4, 30);
+
+            printable.Print(this);
+
+            /*
             int _x = 0;
-            int _y = 6;
+            int _y = 3;
 
             foreach(var area in world.Areas)
             {
