@@ -58,6 +58,9 @@ namespace NullRPG.Managers
             };
             Add(travelWindow);
 
+            var messageWindow = new MessageWindow(Constants.Windows.MessageWidth, Constants.Windows.MessageHeight);
+            Add(messageWindow);
+
             // Initialize last so all consoles are instantiated prior to creating keybinding bools for visibility
             var keybindingsWindow = new KeybindingsWindow(Constants.Windows.KeybindingsWidth, Constants.Windows.KeybindingsHeight);
             Add(keybindingsWindow);

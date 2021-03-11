@@ -14,20 +14,25 @@ namespace NullRPG
             public const int TitleWidth = GameWidth;
             public const int TitleHeight = GameHeight - 1;
 
+            public const int KeybindingsWidth = GameWidth;
+            public const int KeybindingsHeight = 3;
+
+            public const int MessageWidth = GameWidth;
+            public const int MessageHeight = 2;
+            public const int MessageX = 0;
+            public const int MessageY = GameHeight - KeybindingsHeight - MessageHeight;
+
             public const int HelpWidth = GameWidth;
             public const int HelpHeight = GameHeight - 1;
 
             public const int StatsWidth = GameWidth;
             public const int StatsHeight = 3;
 
-            public const int KeybindingsWidth = GameWidth;
-            public const int KeybindingsHeight = 3;
-
             public const int CharacterWidth = GameWidth;
-            public const int CharacterHeight = GameHeight - KeybindingsHeight - 1;
+            public const int CharacterHeight = GameHeight - KeybindingsHeight - MessageHeight;
 
             public const int InventoryWidth = GameWidth;
-            public const int InventoryHeight = GameHeight - KeybindingsHeight - 1;
+            public const int InventoryHeight = GameHeight - KeybindingsHeight - MessageHeight;
 
             public const int ItemPreviewWidth = 40;
             public const int ItemPreviewHeight = 10;
@@ -36,6 +41,8 @@ namespace NullRPG
 
             public const int TravelWidth = GameWidth;
             public const int TravelHeight = GameHeight - KeybindingsHeight - 1;
+
+
         }
 
         public static class Theme

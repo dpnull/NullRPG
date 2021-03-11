@@ -90,10 +90,30 @@ namespace NullRPG.Windows
                     string itemType = item?.GetType().GetCustomAttribute<DescriptionAttribute>(false).Description;
 
                     // objects to the ordered list for item attributes
-                    ColoredString atkData = Extensions.ConsoleExtensions.AttributeString(item.MinDmg, item.MaxDmg, "to attack");
-                    ColoredString valueData = new ColoredString($"Value: {item.Gold}");                  
-                    itemData.Add(atkData);
-                    itemData.Add(valueData);
+
+                    if (item.MinDmg != 0 && item.MaxDmg != 0)
+                    {
+                        ColoredString atkData = Extensions.ConsoleExtensions.AttributeString(item.MinDmg, item.MaxDmg, "to attack");
+                        itemData.Add(atkData);
+                    }
+                    if (item.Defense != 0)
+                    {
+                        ColoredString defenseData = Extensions.ConsoleExtensions.AttributeString(item.Defense, "to defense");
+                        itemData.Add(defenseData);
+                    }
+                    if (item.Gold != 0)
+                    {
+                        ColoredString valueData = new($"Value: {item.Gold}");
+                        itemData.Add(valueData);
+                    }
+                    
+
+                    // P_HEALTH = 100;
+                    // P_DEFENSE = 10;
+                    // E_DAMAGE = 20;
+                    // Reduction 
+                    
+                    
 
                     int index = 0;
                     foreach (var str in itemData)

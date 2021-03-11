@@ -48,7 +48,7 @@ namespace NullRPG.Managers
         }
 
         /// <summary>
-        /// 
+        /// Used mainly for manual assignment of areas.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="areaName"></param>
@@ -66,6 +66,21 @@ namespace NullRPG.Managers
             }
 
             return default;
+        }
+
+        public static void TravelEntityToArea<T>(Player player, int areaObjectId) where T : IEntity
+        {
+            var area = (Area)AreaManager.Get<IArea>(areaObjectId);
+            
+            if(player.CurrentArea != area)
+            {
+                player.CurrentArea = area;
+                MessageManager.AddTravelled(area.Name);
+            } else
+            {
+                MessageManager.AddDefault("You are already in this area.");
+            }
+
         }
 
         /*

@@ -40,6 +40,16 @@ namespace NullRPG.Windows
 
         public override bool ProcessKeyboard(Keyboard info)
         {
+            foreach (var key in IndexedKeybindings.GetIndexedKeybindings())
+            {
+                if (info.IsKeyPressed(key.Keybinding))
+                {
+                    var player = EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId); // Todo: make gamesession player less accessible
+                    WorldManager.TravelEntityToArea<IEntity>((Player)player, IndexedKeybindings.GetIndexable(key.Index).ObjectId);
+                    return true;
+                }
+            }
+
             if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Cancel)))
             {
                 this.FullTransition(UserInterfaceManager.Get<GameWindow>());
