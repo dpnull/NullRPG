@@ -1,4 +1,5 @@
 ﻿using NullRPG.Interfaces;
+using SadConsole;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,16 @@ namespace NullRPG.Managers
         {
             var collection = LocationDatabase.Locations.Values.ToArray().OfType<T>();
             return collection.ToArray();
+        }
+
+        public static ColoredString GetLocationName<T>(int objectId) where T : ILocation
+        {
+            var location = GetLocationByObjectId<ILocation>(objectId);
+
+
+            ColoredString locName = new ColoredString(location.Name);
+
+            return locName;
         }
 
         public static class LocationDatabase

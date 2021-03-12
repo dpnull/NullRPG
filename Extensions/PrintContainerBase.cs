@@ -161,6 +161,7 @@ namespace NullRPG.Extensions
 
                 var areaName = new ColoredString(area.Name);
 
+
                 var printableArea = new PrintContainerBase()
                 {
                     Name = areaName,
@@ -182,7 +183,12 @@ namespace NullRPG.Extensions
             {
                 var location = LocationManager.GetLocationByObjectId<ILocation>(item.Object.ObjectId);
 
-                var locationName = new ColoredString(location.Name);
+                ColoredString locationName = LocationManager.GetLocationName<ILocation>(location.ObjectId);
+
+                if (location.ObjectId == Game.GameSession.Player.CurrentLocation.ObjectId)
+                {
+                    locationName.SetBackground(new Color(18, 77, 7));
+                }
 
                 var printableLocation = new PrintContainerBase()
                 {
