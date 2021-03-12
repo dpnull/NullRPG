@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using NullRPG.Windows;
 using System.Linq;
 using System;
+using NullRPG.Windows.Navigation;
 
 namespace NullRPG.Managers
 {
@@ -64,6 +65,12 @@ namespace NullRPG.Managers
             // Initialize last so all consoles are instantiated prior to creating keybinding bools for visibility
             var keybindingsWindow = new KeybindingsWindow(Constants.Windows.KeybindingsWidth, Constants.Windows.KeybindingsHeight);
             Add(keybindingsWindow);
+
+            var generalKeybindingsWindow = new GeneralKeybindingsWindow(Constants.Windows.GeneralKeybindingsWidth, Constants.Windows.GeneralKeybindingsHeight);
+            Add(generalKeybindingsWindow);
+
+            var locationKeybindingsWindow = new LocationKeybindingsWindow(Constants.Windows.LocationKeybindingsWidth, Constants.Windows.LocationKeybindingsHeight);
+            Add(locationKeybindingsWindow);
 
             IsInitialized = true;
         }

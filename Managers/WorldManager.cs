@@ -116,6 +116,12 @@ namespace NullRPG.Managers
             return collection.ToArray();
         }
 
+        public static ILocation[] GetWorldAreaLocations<T>(IArea currentArea) where T : IWorld
+        {
+            var area = AreaManager.Get<IArea>(currentArea.ObjectId);
+
+            return area.Locations.Values.ToArray();
+        }
             
 
     }

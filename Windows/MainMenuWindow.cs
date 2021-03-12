@@ -47,6 +47,7 @@ namespace NullRPG.Windows
 
         public override bool ProcessKeyboard(Keyboard info)
         {
+
             if (info.IsKeyPressed(_playBtn.Key))
             {
                 Start();

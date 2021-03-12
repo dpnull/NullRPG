@@ -44,13 +44,22 @@ namespace NullRPG.Managers
         {
             var inventory = Get<T>();
             var item = ItemManager.GetItem<IItem>(itemObjectId);
-            if(item is not null)
+            var equipped = GetEquippedItems<IEntityInventory>();
+            if (item is not null)
             {
-                if (item.GetType() == typeof(WeaponItem)) { inventory.CurrentWeapon = (WeaponItem)item; }
-                else if (item.GetType() == typeof(HeadItem)) { inventory.CurrentHeadItem = (HeadItem)item; } 
-                else if (item.GetType() == typeof(BodyItem)) { inventory.CurrentBodyItem = (BodyItem)item; } 
-                else if (item.GetType() == typeof(LegsItem)) { inventory.CurrentLegsItem = (LegsItem)item; }
-            }
+                if(equipped.All(i => i.ObjectId != item.ObjectId))
+                {
+                    if (item.GetType() == typeof(WeaponItem)) { inventory.CurrentWeapon = (WeaponItem)item; }
+                    else if (item.GetType() == typeof(HeadItem)) { inventory.CurrentHeadItem = (HeadItem)item; }
+                    else if (item.GetType() == typeof(BodyItem)) { inventory.CurrentBodyItem = (BodyItem)item; }
+                    else if (item.GetType() == typeof(LegsItem)) { inventory.CurrentLegsItem = (LegsItem)item; }
+                    MessageManager.AddItemEquipped(item.Name);
+                }
+                else
+                {
+                    MessageManager.AddDefault("You have already equipped this item.");
+                }
+            } 
         }
 
         public static IItem GetEquippedItem<T>(Type itemType) where T : IEntityInventory

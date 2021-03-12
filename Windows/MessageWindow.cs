@@ -21,7 +21,6 @@ namespace NullRPG.Windows
             Global.CurrentScreen.Children.Add(this);
         }
 
-
         public override void Draw(TimeSpan timeElapsed)
         {
             Clear();

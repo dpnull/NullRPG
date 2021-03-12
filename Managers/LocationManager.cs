@@ -23,6 +23,22 @@ namespace NullRPG.Managers
             }
         }
 
+        public static T Get<T>(int objectId) where T : ILocation
+        {
+            var collection = LocationDatabase.Locations.Values.ToArray();
+            foreach(var item in collection)
+            {
+                return (T)LocationDatabase.Locations.Values.SingleOrDefault(i => i.ObjectId == objectId);
+            }
+            return default;
+        }
+
+        public static T[] GetLocations<T>() where T : ILocation
+        {
+            var collection = LocationDatabase.Locations.Values.ToArray().OfType<T>();
+            return collection.ToArray();
+        }
+
         public static class LocationDatabase
         {
             public static readonly Dictionary<int, ILocation> Locations = new Dictionary<int, ILocation>();

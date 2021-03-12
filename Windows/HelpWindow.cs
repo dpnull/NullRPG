@@ -44,7 +44,7 @@ namespace NullRPG.Windows
 
         private void DrawConfirmation()
         {
-            this.DrawRectangleTitled(0, 0, Width - 2, Height - 10, "+", "-", "|", "|", new ColoredString("IT WORKS"));
+            this.DrawRectangleTitled(0, 0, Width - 2, Height - 10, "+", "-", "|", "|", new ColoredString("IT WORKS"), true);
         }
 
         private void DrawButtons()

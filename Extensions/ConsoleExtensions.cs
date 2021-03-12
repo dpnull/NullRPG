@@ -52,7 +52,7 @@ namespace NullRPG.Extensions
             console.Print(_x, y, button);
         }
 
-        public static void DrawRectangleTitled(this SadConsole.Console console, int x, int y, int width, int height, string cornerGlyph, string horizontalGlyph, string verticalGlyph, string separatorCornerGlyph, SadConsole.ColoredString title)
+        public static void DrawRectangleTitled(this SadConsole.Console console, int x, int y, int width, int height, string cornerGlyph, string horizontalGlyph, string verticalGlyph, string separatorCornerGlyph, SadConsole.ColoredString title, bool centeredTitle)
         {
             int _x;
             int _y;
@@ -97,7 +97,15 @@ namespace NullRPG.Extensions
             console.Print(x + width - 1, y + 2, separatorCornerGlyph);
 
             // draw the box title
-            console.Print((width / 2) - (title.String.Length / 2), y + 1, title);
+            if (centeredTitle)
+            {
+                console.Print((width / 2) - (title.String.Length / 2), y + 1, title);
+            }
+            else
+            {
+                console.Print(2, y + 1, title);
+            }
+            
         }
 
         public static void DrawRectangle(this SadConsole.Console console, int x, int y, int width, int height, string cornerGlyph, string horizontalGlyph, string verticalGlyph)

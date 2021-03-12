@@ -34,7 +34,8 @@ namespace NullRPG.Extensions
         {
             Inventory,
             Equipped,
-            Areas
+            Areas,
+            Locations
         }
 
         public PrintContainerBase(IIndexedKeybinding[] keybindings, ListType type)
@@ -46,9 +47,12 @@ namespace NullRPG.Extensions
             } else if (type is ListType.Equipped)
             {
                 CreateEquipped(keybindings);
-            } else
+            } else if (type is ListType.Locations)
             {
                 CreateAreas(keybindings);
+            } else
+            {
+                CreateLocations(keybindings);
             }
             
         }
@@ -167,6 +171,29 @@ namespace NullRPG.Extensions
                 };
 
                 _printable.Add(printableArea);
+                index++;
+            }
+        }
+
+        public void CreateLocations(IIndexedKeybinding[] keybindings)
+        {
+            int index = 0;
+            foreach(var item in keybindings)
+            {
+                var location = LocationManager.Get<ILocation>(item.Object.ObjectId);
+
+                var locationName = new ColoredString(location.Name);
+
+                var printableLocation = new PrintContainerBase()
+                {
+                    Name = locationName,
+                    Type = "\0",
+                    Data = "\0",
+                    Id = "\0",
+                    ButtonIndex = new ButtonIndex(keybindings[index].Keybinding, Constants.Theme.ButtonKeyColor, Constants.Theme.ForegroundColor, 0, 0, true)
+                };
+
+                _printable.Add(printableLocation);
                 index++;
             }
         }

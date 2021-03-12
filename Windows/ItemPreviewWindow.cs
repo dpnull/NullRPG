@@ -81,7 +81,7 @@ namespace NullRPG.Windows
             
                     ColoredString itemName = ItemManager.GetItemName<IItem>(ObjectId);
                     
-                    this.DrawRectangleTitled(0, 0, Constants.Windows.ItemPreviewWidth - 1, Constants.Windows.ItemPreviewHeight - 1, "+", "-", "|", "|", itemName);
+                    this.DrawRectangleTitled(0, 0, Constants.Windows.ItemPreviewWidth - 1, Constants.Windows.ItemPreviewHeight - 1, "+", "-", "|", "|", itemName, true);
 
                     
 

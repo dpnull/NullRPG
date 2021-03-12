@@ -22,6 +22,7 @@ namespace NullRPG.Input
         {
             var str = new SadConsole.ColoredString("");
             str += KeyString + " " + Name;
+            str.SetBackground(console.DefaultBackground);
 
             console.Print(X, Y, str);
         }
@@ -30,6 +31,7 @@ namespace NullRPG.Input
         {
             var str = new SadConsole.ColoredString("");
             str += KeyString + " " + Name;
+            str.SetBackground(console.DefaultBackground);
 
             console.Print(x, y, str);
         }

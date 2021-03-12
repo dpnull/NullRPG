@@ -83,13 +83,17 @@ namespace NullRPG.Windows
                 Equip();
             }
 
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.U))
+            {
+                Enchant.EnchantSteel(Game.GameSession.Player.Inventory.CurrentWeapon);
+            }
+
             return false;
         }
 
         private static void Equip()
         {
             var objectId = UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId;
-
             InventoryManager.EquipItem<PlayerInventory>(objectId);
         }
 

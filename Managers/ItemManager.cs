@@ -29,7 +29,7 @@ namespace NullRPG.Managers
                 (RarityType.Uncommon, "="),
                 (RarityType.Rare, "+"),
                 (RarityType.VeryRare, "*"),
-                (RarityType.Legendary, "$")
+                (RarityType.Legendary, "**")
                 // todo: add reversing of glyphs 
             };
 

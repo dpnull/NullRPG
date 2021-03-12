@@ -23,7 +23,12 @@ namespace NullRPG.ItemTypes
 
         public static WeaponItem Longsword()
         {
-            return new WeaponItem("Longsword", RarityType.Common, 1, 10, 7, 12);
+            return new WeaponItem("Longsword", RarityType.Uncommon, 1, 10, 7, 12);
+        }
+
+        public static WeaponItem Oliaxe()
+        {
+            return new WeaponItem("Oliaxe", RarityType.Legendary, 1, 10, 30, 45);
         }
     }
 }
