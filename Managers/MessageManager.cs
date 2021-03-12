@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using NullRPG.Interfaces;
 using NullRPG.GameObjects;
 using System.Linq;
+using NullRPG.Windows;
 
 namespace NullRPG
 {
@@ -49,6 +50,8 @@ namespace NullRPG
             {
                 _messages.Dequeue();
             }
+
+            MessageWindow.OnMessageAdded();
         }
 
         public static void AddAndHighlightLast(string message, string toHighlight, Color color)
