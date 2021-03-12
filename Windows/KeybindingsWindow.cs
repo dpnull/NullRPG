@@ -31,19 +31,20 @@ namespace NullRPG.Windows
             var locationKeybindings = UserInterfaceManager.Get<LocationKeybindingsWindow>();
             var characterKeybindings = UserInterfaceManager.Get<CharacterKeybindingsWindow>();
 
+            generalKeybindings.Draw();
+
             if (characterWindow.IsVisible)
             {
                 characterKeybindings.Draw();
             }
             else
             {
-                generalKeybindings.Draw();
+                
                 locationKeybindings.Draw();
             }
 
             characterKeybindings.IsVisible = characterWindow.IsVisible ? true : false;
             locationKeybindings.IsVisible = characterWindow.IsVisible ? false : true;
-            generalKeybindings.IsVisible = characterWindow.IsVisible ? false : true;
 
             
             base.Draw(timeElapsed);

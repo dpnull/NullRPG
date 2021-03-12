@@ -20,6 +20,7 @@ namespace NullRPG.Windows
     {
         public Console Console => this;
 
+
         public CharacterWindow(int width, int height) : base(width, height)
         {
             Position = new Point(0, 1);
@@ -107,9 +108,10 @@ namespace NullRPG.Windows
 
         private void DrawCharacter(Player player)
         {
+            this.DrawHeader(0, $"  {player.Name}'s character overview  ", Constants.Theme.HeaderForegroundColor, Constants.Theme.HeaderBackgroundColor);
+
             int _x = 1;
             int _y = 4;
-            this.DrawHeader(0, $"{player.Name}'s character overview", "-", Color.Green); _y++;
 
             string level = $"Level: {player.Level}";
             string health = $"Health: {player.Health} / {player.MaxHealth}";

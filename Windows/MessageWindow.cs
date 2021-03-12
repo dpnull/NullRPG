@@ -21,7 +21,7 @@ namespace NullRPG.Windows
             Global.CurrentScreen.Children.Add(this);
         }
 
-        static int tickLimit = 200; 
+        static readonly int tickLimit = 200; 
         static int CurrentTick = 0;
         static bool canDraw = false;
         public override void Draw(TimeSpan timeElapsed)

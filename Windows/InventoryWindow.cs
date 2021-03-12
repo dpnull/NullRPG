@@ -99,7 +99,7 @@ namespace NullRPG.Windows
 
         private void DrawInventory()
         {
-            this.DrawHeader(0, $"{Game.GameSession.Player.Name}'s Inventory", "+", DefaultForeground);
+            this.DrawHeader(0, $"  {Game.GameSession.Player.Name}'s inventory overview ", Constants.Theme.HeaderForegroundColor, Constants.Theme.HeaderBackgroundColor);
 
             var inventory = InventoryManager.GetSlots<PlayerInventory>();
             List<IIndexable> bindable = new List<IIndexable>(); // to be used for instantiating indexes and objectid reference

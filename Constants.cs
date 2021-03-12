@@ -70,6 +70,9 @@ namespace NullRPG
 
             public static readonly Color PositiveAttributeColor = Color.LightGreen;
             public static readonly Color NegativeAttributeColor = Color.Red;
+
+            public static readonly Color HeaderForegroundColor = Color.Gold;
+            public static readonly Color HeaderBackgroundColor = Color.Black;
         }
     }
 }

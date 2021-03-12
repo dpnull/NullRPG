@@ -58,7 +58,7 @@ namespace NullRPG.Windows
 
         private void DrawAreas()
         {
-            this.DrawHeader(0, "Travel to area", "+", DefaultForeground);
+            this.DrawHeader(0, $"  Explore the areas around you  ", Constants.Theme.HeaderForegroundColor, Constants.Theme.HeaderBackgroundColor);
 
             var areas = WorldManager.GetWorldAreas<IArea>(Game.GameSession.Player.CurrentWorld.Name);
             // Initialize keybindings.

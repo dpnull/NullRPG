@@ -20,11 +20,21 @@ namespace NullRPG.Extensions
             console.Print(0, y, separator.ToString(), c);
         }
 
-        public static void DrawHeader(this SadConsole.Console console, int y, string title, string corner, Color c)
+        public static void DrawHeaderInsideSeparators(this SadConsole.Console console, int y, string title, string corner, Color c)
         {
             DrawSeparator(console, y, corner, console.DefaultForeground);
             console.Print(console.GetWindowXCenter() - (title.Length / 2), y + 1, title, c);
             DrawSeparator(console, y + 2, corner, console.DefaultForeground);
+        }
+
+        public static void DrawHeader(this SadConsole.Console console, int y, string title, Color foregroundColor, Color backgroundColor)
+        {
+            var str = new SadConsole.ColoredString();
+            str.String = title;
+            str.SetForeground(foregroundColor);
+            str.SetBackground(backgroundColor);
+            console.Print(console.Width / 2 - (str.Count / 2), y, str);
+
         }
 
         // Can be improved
