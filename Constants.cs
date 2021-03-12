@@ -9,6 +9,7 @@ namespace NullRPG
         public const int GameWidth = 80;
         public const int GameHeight = 26;
 
+
         public static class Windows
         {
             public const int TitleWidth = GameWidth;
@@ -29,6 +30,9 @@ namespace NullRPG
             public const int LocationKeybindingsX = KeybindingsWidth - GeneralKeybindingsWidth - LocationKeybindingsWidth;
             public const int LocationKeybindingsY = 0;
 
+            public const int CharacterKeybindingsWidth = GameWidth;
+            public const int CharacterKeybindingsHeight = KeybindingsHeight;
+
             public const int MessageWidth = GameWidth;
             public const int MessageHeight = 2;
             public const int MessageX = 0;
@@ -48,8 +52,8 @@ namespace NullRPG
 
             public const int ItemPreviewWidth = 40;
             public const int ItemPreviewHeight = 10;
-            public const int PreviewX = InventoryWidth - ItemPreviewWidth - 1;
-            public const int PreviewY = (InventoryHeight - ItemPreviewHeight) / 2 + 3;
+            public const int PreviewX = InventoryWidth - ItemPreviewWidth;
+            public const int PreviewY = (InventoryHeight - ItemPreviewHeight) / 2 + 2;
 
             public const int TravelWidth = GameWidth;
             public const int TravelHeight = GameHeight - KeybindingsHeight - 1;

@@ -47,10 +47,10 @@ namespace NullRPG.Extensions
             } else if (type is ListType.Equipped)
             {
                 CreateEquipped(keybindings);
-            } else if (type is ListType.Locations)
+            } else if (type is ListType.Areas)
             {
                 CreateAreas(keybindings);
-            } else
+            } else if (type is ListType.Locations)
             {
                 CreateLocations(keybindings);
             }
@@ -157,7 +157,7 @@ namespace NullRPG.Extensions
             int index = 0;
             foreach (var item in keybindings)
             {
-                var area = AreaManager.Get<IArea>(item.Object.ObjectId);
+                var area = AreaManager.GetAreaByObjectId<IArea>(item.Object.ObjectId);
 
                 var areaName = new ColoredString(area.Name);
 
@@ -180,7 +180,7 @@ namespace NullRPG.Extensions
             int index = 0;
             foreach(var item in keybindings)
             {
-                var location = LocationManager.Get<ILocation>(item.Object.ObjectId);
+                var location = LocationManager.GetLocationByObjectId<ILocation>(item.Object.ObjectId);
 
                 var locationName = new ColoredString(location.Name);
 

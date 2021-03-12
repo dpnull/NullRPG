@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace NullRPG
+namespace NullRPG.Input
 {
     public abstract class ButtonBase
     {

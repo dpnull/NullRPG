@@ -18,5 +18,8 @@ namespace NullRPG.Interfaces
         public int MaxDmg { get; set; }
         public int Defense { get; set; }
         public EntityInventory Inventory { get; set; }
+        public World CurrentWorld { get; set; }
+        public Area CurrentArea { get; set; }
+        public Location CurrentLocation { get; set; }
     }
 }

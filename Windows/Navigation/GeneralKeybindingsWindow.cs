@@ -32,21 +32,19 @@ namespace NullRPG.Windows.Navigation
             this.Parent = UserInterfaceManager.Get<KeybindingsWindow>();
         }
 
-        public override void Draw(TimeSpan timeElapsed)
+        public void Draw()
         {
             Clear();
 
             Keybindings.UpdateKeybindings();
 
             RefractoredDrawKeybindings();
-
-            base.Draw(timeElapsed);
         }
 
         private void RefractoredDrawKeybindings()
         {
             Buttons = new List<ButtonString>();
-            int _x = 1;
+            int _x = 2;
             int _y = 1;
 
             this.DrawBorders(Width, Height, "+", "|", "-", DefaultForeground);

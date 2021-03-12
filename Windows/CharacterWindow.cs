@@ -12,6 +12,7 @@ using SadConsole.Input;
 using NullRPG.ItemTypes;
 using NullRPG.Input;
 using static NullRPG.Windows.InventoryWindow;
+using NullRPG.Windows.Navigation;
 
 namespace NullRPG.Windows
 {
@@ -19,10 +20,6 @@ namespace NullRPG.Windows
     {
         public Console Console => this;
 
-        private const int EQUIPPABLE_X = 1;
-        private const int EQUIPPABLE_Y = Constants.Windows.CharacterHeight - 5;
-
-        private IndexedKeybindings IndexedKeybindings;
         public CharacterWindow(int width, int height) : base(width, height)
         {
             Position = new Point(0, 1);
@@ -48,17 +45,20 @@ namespace NullRPG.Windows
 
         public override bool ProcessKeyboard(Keyboard info)
         {
-            foreach (var key in IndexedKeybindings.GetIndexedKeybindings())
+            if(UserInterfaceManager.Get<CharacterKeybindingsWindow>().IndexedKeybindings != null) // IndexedKeybindings is created after this window becomes visible
             {
-                if (info.IsKeyPressed(key.Keybinding))
+                foreach (var key in UserInterfaceManager.Get<CharacterKeybindingsWindow>().IndexedKeybindings.GetIndexedKeybindings())
                 {
-
-                    var itemPreviewWindow = UserInterfaceManager.Get<ItemPreviewWindow>();
-                    itemPreviewWindow.
-                        SetObjectForPreview(IndexedKeybindings.GetIndexable(key.Index).ObjectId);
-                    return true;
+                    if (info.IsKeyPressed(key.Keybinding))
+                    {
+                        var itemPreviewWindow = UserInterfaceManager.Get<ItemPreviewWindow>();
+                        itemPreviewWindow.
+                            SetObjectForPreview(UserInterfaceManager.Get<CharacterKeybindingsWindow>().IndexedKeybindings.GetIndexable(key.Index).ObjectId);
+                        return true;
+                    }
                 }
             }
+
 
             if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.A))
             {
@@ -78,7 +78,6 @@ namespace NullRPG.Windows
             var player = EntityManager.Get<Player>(Game.GameSession.Player.ObjectId);
             DrawExperience(player, 0, 3, Width);
             DrawCharacter(player);
-            DrawEquippable();
         }
 
         private void DrawExperience(Player player, int x, int y, int width)
@@ -110,7 +109,7 @@ namespace NullRPG.Windows
         {
             int _x = 1;
             int _y = 4;
-            this.DrawHeader(0, $"{player.Name}'s character overview", "+", Color.Green); _y++;
+            this.DrawHeader(0, $"{player.Name}'s character overview", "-", Color.Green); _y++;
 
             string level = $"Level: {player.Level}";
             string health = $"Health: {player.Health} / {player.MaxHealth}";
@@ -125,29 +124,5 @@ namespace NullRPG.Windows
             Print(_x, _y, damage); _y += 2;
             Print(_x, _y, gold); _y += 2;
         }
-
-        private void DrawEquippable()
-        {
-            var equipped = InventoryManager.GetEquippedItems<PlayerInventory>();
-            List<IIndexable> bindable = new List<IIndexable>();
-
-            foreach(var item in equipped)
-            {
-                if (item is null)
-                    continue;
-                else
-                {
-                    bindable.Add((IIndexable)item);
-                }
-            }
-
-            IndexedKeybindings = new IndexedKeybindings(bindable.ToArray());
-
-            PrintContainerBase printable = new PrintContainerBase(IndexedKeybindings.GetIndexedKeybindings(), PrintContainerBase.ListType.Equipped);
-            printable.RawSetPrintingOffsets(EQUIPPABLE_X, EQUIPPABLE_Y, 0, 15, 4);
-
-            printable.Print(this);
-        }
-
     }
 }

@@ -6,6 +6,9 @@ using NullRPG.Managers;
 using SadConsole.Input;
 using NullRPG.Extensions;
 using System;
+using NullRPG.Windows.Navigation;
+using NullRPG.GameObjects;
+using NullRPG.Input;
 
 namespace NullRPG.Windows
 {
@@ -38,6 +41,15 @@ namespace NullRPG.Windows
 
         public override bool ProcessKeyboard(Keyboard info)
         {
+            foreach (var key in UserInterfaceManager.Get<LocationKeybindingsWindow>().IndexedKeybindings.GetIndexedKeybindings())
+            {
+                if (info.IsKeyPressed(key.Keybinding))
+                {
+                    EntityManager.TravelEntityToLocation(Game.GameSession.Player, key.Object.ObjectId);
+                    return true;
+                }
+            }
+
             if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Character)))
             {
                 OpenCharacterWindow();

@@ -9,7 +9,6 @@ namespace NullRPG.Managers
 {
     public static class AreaManager
     {
-
         public static void Add(IArea area)
         {
             if (!AreaDatabase.Areas.ContainsKey(area.ObjectId))
@@ -23,7 +22,7 @@ namespace NullRPG.Managers
             return AreaDatabase.GetUniqueId();
         }
 
-        public static T Get<T>(int objectId) where T : IArea
+        public static T GetAreaByObjectId<T>(int objectId) where T : IArea
         {
             var collection = AreaDatabase.Areas.Values.ToArray();
             foreach (var item in collection)
@@ -34,7 +33,7 @@ namespace NullRPG.Managers
             return default;
         }
 
-        public static T[] GetAreas<T>() where T : IArea
+        public static T[] GetAllAreas<T>() where T : IArea
         {
             var collection = AreaDatabase.Areas.Values.ToArray().OfType<T>();
             return collection.ToArray();

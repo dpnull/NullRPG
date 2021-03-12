@@ -6,7 +6,7 @@ using NullRPG.Interfaces;
 using NullRPG.Managers;
 using System.Linq;
 
-namespace NullRPG
+namespace NullRPG.Input
 {
 
     public class IndexedKeybindings

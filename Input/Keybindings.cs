@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System;
 
 
-namespace NullRPG
+namespace NullRPG.Input
 {
     public class Keybindings
     {

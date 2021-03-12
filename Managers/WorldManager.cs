@@ -20,7 +20,7 @@ namespace NullRPG.Managers
         /// </summary>
         /// <typeparam name="T">World type.</typeparam>
         /// <param name="area">Area to add.</param>
-        public static void AddArea<T>(IArea area) where T : IWorld
+        public static void AddAreaToWorld<T>(IArea area) where T : IWorld
         {
             var world = Get<T>();
 
@@ -47,40 +47,30 @@ namespace NullRPG.Managers
             return Worlds.OfType<T>().SingleOrDefault();
         }
 
+        public static T GetWorldByName<T>(string name) where T : IWorld
+        {
+            return (T)Worlds.SingleOrDefault(w => w.Name == name);
+        }
+
         /// <summary>
         /// Used mainly for manual assignment of areas.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="areaName"></param>
         /// <returns></returns>
-        public static IArea GetWorldArea<T>(string areaName) where T : IWorld
+        public static IArea GetWorldArea(IEntity entity, int objectId)
         {
-            var world = Get<T>();
+            var world = entity.CurrentWorld;
 
             foreach(var area in world.Areas)
             {
-                if(area.Value.Name == areaName)
+                if(area.Value.ObjectId == objectId)
                 {
-                    return AreaManager.Get<IArea>(area.Value.ObjectId);
+                    return AreaManager.GetAreaByObjectId<IArea>(objectId);
                 }
             }
 
             return default;
-        }
-
-        public static void TravelEntityToArea<T>(Player player, int areaObjectId) where T : IEntity
-        {
-            var area = (Area)AreaManager.Get<IArea>(areaObjectId);
-            
-            if(player.CurrentArea != area)
-            {
-                player.CurrentArea = area;
-                MessageManager.AddTravelled(area.Name);
-            } else
-            {
-                MessageManager.AddDefault("You are already in this area.");
-            }
-
         }
 
         /*
@@ -106,9 +96,9 @@ namespace NullRPG.Managers
             /// <typeparam name="T">Object implementing the IWorld interface.</typeparam>
             /// <param name="criteria">The condition to evaluate.</param>
             /// <returns>Returns an array collection of areas from the passed World object.</returns>
-        public static IArea[] GetWorldAreas<T>(Func<IArea, bool> criteria = null) where T : IWorld
+        public static T[] GetWorldAreas<T>(string worldName, Func<T, bool> criteria = null) where T : IArea
         {
-            var collection = Get<T>().Areas.Values.ToArray().OfType<IArea>();
+            var collection = GetWorldByName<IWorld>(worldName).Areas.Values.ToArray().OfType<T>();
             if(criteria != null)
             {
                 collection = collection.Where(criteria.Invoke);
@@ -118,7 +108,7 @@ namespace NullRPG.Managers
 
         public static ILocation[] GetWorldAreaLocations<T>(IArea currentArea) where T : IWorld
         {
-            var area = AreaManager.Get<IArea>(currentArea.ObjectId);
+            var area = AreaManager.GetAreaByObjectId<IArea>(currentArea.ObjectId);
 
             return area.Locations.Values.ToArray();
         }

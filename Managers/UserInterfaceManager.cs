@@ -72,6 +72,12 @@ namespace NullRPG.Managers
             var locationKeybindingsWindow = new LocationKeybindingsWindow(Constants.Windows.LocationKeybindingsWidth, Constants.Windows.LocationKeybindingsHeight);
             Add(locationKeybindingsWindow);
 
+            var characterKeybindingsWindow = new CharacterKeybindingsWindow(Constants.Windows.CharacterKeybindingsWidth, Constants.Windows.CharacterKeybindingsHeight)
+            {
+                IsVisible = false
+            };
+            Add(characterKeybindingsWindow);
+
             IsInitialized = true;
         }
 

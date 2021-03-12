@@ -12,6 +12,9 @@ namespace NullRPG.GameObjects
         private int _minDmg;
         private int _maxDmg;
         private int _defense;
+        public World CurrentWorld { get; set; }
+        public Area CurrentArea { get; set; }
+        public Location CurrentLocation { get; set; }
         public int ObjectId { get; }
         public int Level { get; set; }
         public string Name { get; set; }

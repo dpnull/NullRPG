@@ -18,7 +18,7 @@ namespace NullRPG.GameObjects
         {
             ObjectId = LocationManager.GetUniqueLocationId();
 
-            LocationManager.Add(this);
+            LocationManager.AddLocation(this);
 
             Name = name;
             Level = level;

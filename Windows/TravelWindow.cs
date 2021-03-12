@@ -8,11 +8,9 @@ using Console = SadConsole.Console;
 using NullRPG.Extensions;
 using NullRPG.Managers;
 using NullRPG.GameObjects;
-using SadConsole.Input;
-using NullRPG.ItemTypes;
-using NullRPG.Input;
-using static NullRPG.Windows.InventoryWindow;
 using NullRPG.GameObjects.Worlds;
+using SadConsole.Input;
+using NullRPG.Input;
 
 namespace NullRPG.Windows
 {
@@ -33,7 +31,7 @@ namespace NullRPG.Windows
         {
             Clear();
 
-            DrawLocations();
+            DrawAreas();
 
             base.Draw(timeElapsed);
         }
@@ -45,7 +43,7 @@ namespace NullRPG.Windows
                 if (info.IsKeyPressed(key.Keybinding))
                 {
                     var player = EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId); // Todo: make gamesession player less accessible
-                    WorldManager.TravelEntityToArea<IEntity>((Player)player, IndexedKeybindings.GetIndexable(key.Index).ObjectId);
+                    EntityManager.TravelEntityToArea((Player)player, IndexedKeybindings.GetIndexable(key.Index).ObjectId);
                     return true;
                 }
             }
@@ -58,11 +56,11 @@ namespace NullRPG.Windows
             return false;
         }
 
-        private void DrawLocations()
+        private void DrawAreas()
         {
             this.DrawHeader(0, "Travel to area", "+", DefaultForeground);
 
-            var areas = WorldManager.GetWorldAreas<Overworld>();
+            var areas = WorldManager.GetWorldAreas<IArea>(Game.GameSession.Player.CurrentWorld.Name);
             // Initialize keybindings.
             List<IIndexable> bindable = new List<IIndexable>();
             // Todo: add checks if player's level is high enough. (not here)

@@ -15,7 +15,7 @@ namespace NullRPG.Managers
         }
 
         // called automatically when creating a new item
-        public static void Add(ILocation location)
+        public static void AddLocation(ILocation location)
         {
             if (!LocationDatabase.Locations.ContainsKey(location.ObjectId))
             {
@@ -23,7 +23,7 @@ namespace NullRPG.Managers
             }
         }
 
-        public static T Get<T>(int objectId) where T : ILocation
+        public static T GetLocationByObjectId<T>(int objectId) where T : ILocation
         {
             var collection = LocationDatabase.Locations.Values.ToArray();
             foreach(var item in collection)
@@ -33,7 +33,7 @@ namespace NullRPG.Managers
             return default;
         }
 
-        public static T[] GetLocations<T>() where T : ILocation
+        public static T[] GetAllLocations<T>() where T : ILocation
         {
             var collection = LocationDatabase.Locations.Values.ToArray().OfType<T>();
             return collection.ToArray();

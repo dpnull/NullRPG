@@ -13,9 +13,6 @@ namespace NullRPG.GameObjects
     {
         public int Experience { get; set; }
         public int ExperienceNeeded { get; set; }
-        public World CurrentWorld { get; set; }
-        public Area CurrentArea { get; set; }
-        public Location CurrentLocation { get; set; }
 
         //public PlayerInventory Inventory { get; set; }
         public Player() : base("Tianyu", 100, 20, 1)
@@ -31,8 +28,7 @@ namespace NullRPG.GameObjects
             Inventory.CurrentWeapon = (WeaponItem)ItemManager.GetItem<IItem>(0);
 
             CurrentWorld = WorldManager.Get<Overworld>();
-            CurrentArea = (Area)CurrentWorld.Areas.First().Value;
-            CurrentArea = (Area)WorldManager.GetWorldArea<Overworld>("Hometown");
+            CurrentArea = (Area)AreaManager.GetAreaByObjectId<IArea>(CurrentWorld.Areas.First().Value.ObjectId);
 
         }
  

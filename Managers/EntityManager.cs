@@ -38,6 +38,34 @@ namespace NullRPG.Managers
 
             return entity;
         }
+        public static void TravelEntityToArea(Player player, int objectId)
+        {
+            var area = AreaManager.GetAreaByObjectId<IArea>(objectId);
+
+            if (player.CurrentArea != area)
+            {
+                player.CurrentArea = (Area)area;
+                MessageManager.AddTravelled(area.Name);
+            }
+            else
+            {
+                MessageManager.AddDefault("You are already in this area.");
+            }
+        }
+
+        public static void TravelEntityToLocation(IEntity entity, int objectId)
+        {
+            var location = LocationManager.GetLocationByObjectId<ILocation>(objectId);
+            if (entity.CurrentLocation != location)
+            {
+                entity.CurrentLocation = (Location)location;
+                MessageManager.AddTravelled(location.Name);
+            }
+            else
+            {
+                MessageManager.AddDefault("You are already at this location.");
+            }
+        }
 
         public static int GetUniqueId()
         {
