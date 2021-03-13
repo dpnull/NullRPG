@@ -1,10 +1,5 @@
-﻿using NullRPG.Interfaces;
-using NullRPG.ItemTypes;
+﻿using NullRPG.ItemTypes;
 using NullRPG.Managers;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
 
 namespace NullRPG.GameObjects
 {
@@ -14,7 +9,7 @@ namespace NullRPG.GameObjects
         {
             // init default inventory
             InventoryManager.Add(this);
-            
+
             InventoryManager.CreateDefault<PlayerInventory>();
 
             CurrentWeapon = WeaponItem.None();
@@ -35,11 +30,9 @@ namespace NullRPG.GameObjects
 
             InventoryManager.AddToInventory<PlayerInventory>(WeaponItem.Longsword());
             InventoryManager.AddToInventory<PlayerInventory>(HeadItem.IronHelmet());
-           
+
             InventoryManager.AddToInventory<PlayerInventory>(LegsItem.IronLeggings());
             InventoryManager.AddToInventory<PlayerInventory>(WeaponItem.Oliaxe());
-
-            
         }
     }
 }

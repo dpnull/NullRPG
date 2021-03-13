@@ -1,8 +1,6 @@
 ﻿using NullRPG.Interfaces;
 using NullRPG.ItemTypes;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace NullRPG.GameObjects
 {
@@ -21,10 +19,12 @@ namespace NullRPG.GameObjects
         }
 
         private int _currentId;
+
         public int GetUniqueSlotId()
         {
             return _currentId++;
         }
+
         public string GetWeaponName()
         {
             return CurrentWeapon?.Name.ToString();

@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NullRPG.Interfaces;
-using Microsoft.Xna.Framework;
-using SadConsole;
-using Console = SadConsole.Console;
-using NullRPG.Extensions;
-using NullRPG.Managers;
-using System.Linq;
-using SadConsole.Input;
-using NullRPG.Input;
-using NullRPG.GameObjects.Worlds;
+﻿using NullRPG.Extensions;
 using NullRPG.GameObjects;
+using NullRPG.Input;
+using NullRPG.Interfaces;
+using NullRPG.Managers;
+using System.Collections.Generic;
+using Console = SadConsole.Console;
 
 namespace NullRPG.Windows.Navigation
 {
@@ -56,7 +49,6 @@ namespace NullRPG.Windows.Navigation
             printable.RawSetPrintingOffsets(2, 1, 0, 14, 4);
 
             printable.Print(this);
-
         }
     }
 }

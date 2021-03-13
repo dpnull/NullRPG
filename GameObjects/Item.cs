@@ -1,17 +1,11 @@
 ﻿using NullRPG.Interfaces;
 using NullRPG.Managers;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using SadConsole;
-using Microsoft.Xna.Framework;
 using System.ComponentModel;
 
 namespace NullRPG.GameObjects
 {
     public abstract class Item : IItem, IIndexable
     {
-        
         public int ObjectId { get; set; }
         public string Name { get; set; }
         public int Gold { get; set; }
@@ -35,12 +29,16 @@ namespace NullRPG.GameObjects
         {
             [Description("Common")]
             Common,
+
             [Description("Uncommon")]
             Uncommon,
+
             [Description("Rare")]
             Rare,
+
             [Description("Ultra Rare")]
             VeryRare,
+
             [Description("Legendary")]
             Legendary
         }
@@ -62,6 +60,5 @@ namespace NullRPG.GameObjects
             Enchantment = EnchantmentType.Default;
             UpgradeLevel = 1;
         }
-
     }
 }

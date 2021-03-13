@@ -4,7 +4,6 @@ using NullRPG.ItemTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace NullRPG.Managers
 {
@@ -33,7 +32,6 @@ namespace NullRPG.Managers
 
         public static void AddSlot<T>(ISlot slot) where T : IEntityInventory
         {
-
             if (!Get<T>().Slots.ContainsKey(slot.ObjectId))
             {
                 Get<T>().Slots.Add(slot.ObjectId, slot);
@@ -47,7 +45,7 @@ namespace NullRPG.Managers
             var equipped = GetEquippedItems<IEntityInventory>();
             if (item is not null)
             {
-                if(equipped.All(i => i.ObjectId != item.ObjectId))
+                if (equipped.All(i => i.ObjectId != item.ObjectId))
                 {
                     if (item.GetType() == typeof(WeaponItem)) { inventory.CurrentWeapon = (WeaponItem)item; }
                     else if (item.GetType() == typeof(HeadItem)) { inventory.CurrentHeadItem = (HeadItem)item; }
@@ -59,21 +57,24 @@ namespace NullRPG.Managers
                 {
                     MessageManager.AddDefault("You have already equipped this item.");
                 }
-            } 
+            }
         }
 
         public static IItem GetEquippedItem<T>(Type itemType) where T : IEntityInventory
         {
-            if(itemType == typeof(WeaponItem))
+            if (itemType == typeof(WeaponItem))
             {
                 return Get<T>().CurrentWeapon;
-            } else if (itemType == typeof(HeadItem))
+            }
+            else if (itemType == typeof(HeadItem))
             {
                 return Get<T>().CurrentHeadItem;
-            } else if (itemType == typeof(BodyItem))
+            }
+            else if (itemType == typeof(BodyItem))
             {
                 return Get<T>().CurrentBodyItem;
-            } else if (itemType == typeof(LegsItem))
+            }
+            else if (itemType == typeof(LegsItem))
             {
                 return Get<T>().CurrentLegsItem;
             }
@@ -95,8 +96,6 @@ namespace NullRPG.Managers
 
             return items;
         }
-
-
 
         public static void AddToInventory<T>(IItem item) where T : IEntityInventory
         {
@@ -137,7 +136,7 @@ namespace NullRPG.Managers
             var inventory = Get<PlayerInventory>();
             // create the inventory
             while (inventory.Slots.Count < DEFAULT_INVENTORY_SIZE)
-            {   
+            {
                 AddSlot<IEntityInventory>(new Slot(inventory.GetUniqueSlotId()));
             }
         }
@@ -150,7 +149,6 @@ namespace NullRPG.Managers
             {
                 collection = collection.Where(criteria.Invoke);
             }
-
 
             return collection.ToArray();
         }

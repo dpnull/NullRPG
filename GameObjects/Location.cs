@@ -1,10 +1,5 @@
 ﻿using NullRPG.Interfaces;
 using NullRPG.Managers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NullRPG.GameObjects
 {
@@ -24,7 +19,6 @@ namespace NullRPG.GameObjects
             Name = name;
             MinLevel = minLevel;
             MaxLevel = maxLevel;
-        
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NullRPG.GameObjects;
+﻿using NullRPG.GameObjects;
 using NullRPG.GameObjects.Worlds;
 using NullRPG.Managers;
 
@@ -11,11 +8,11 @@ namespace NullRPG
     {
         public Player Player { get; set; }
         public World World { get; set; }
+
         public GameSession()
         {
             World = new Overworld();
             Player = EntityManager.Create<Player>();
-            
         }
     }
 }

@@ -2,10 +2,7 @@
 using NullRPG.Interfaces;
 using NullRPG.ItemTypes;
 using NullRPG.Managers;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace NullRPG.GameObjects
 {
@@ -30,9 +27,8 @@ namespace NullRPG.GameObjects
             CurrentWorld = WorldManager.Get<Overworld>();
             CurrentArea = (Area)AreaManager.GetAreaByObjectId<IArea>(CurrentWorld.Areas.First().Value.ObjectId);
             CurrentLocation = (Location)LocationManager.GetLocationByObjectId<ILocation>(CurrentArea.Locations.First().Value.ObjectId);
-
         }
- 
+
         /*
         public void EquipWeaponViaSlot(int slotObjectId)
         {
@@ -43,9 +39,5 @@ namespace NullRPG.GameObjects
             }
         }
         */
-
-
-
-
     }
 }

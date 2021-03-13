@@ -1,6 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace NullRPG.Extensions
@@ -34,7 +32,6 @@ namespace NullRPG.Extensions
             str.SetForeground(foregroundColor);
             str.SetBackground(backgroundColor);
             console.Print(console.Width / 2 - (str.Count / 2), y, str);
-
         }
 
         // Can be improved
@@ -115,7 +112,6 @@ namespace NullRPG.Extensions
             {
                 console.Print(2, y + 1, title);
             }
-            
         }
 
         public static void DrawRectangle(this SadConsole.Console console, int x, int y, int width, int height, string cornerGlyph, string horizontalGlyph, string verticalGlyph)
@@ -184,10 +180,11 @@ namespace NullRPG.Extensions
 
         public static SadConsole.ColoredString AttributeString(int value1, int value2, string attribute)
         {
-            if(value1 == 0 && value2 == 0)
+            if (value1 == 0 && value2 == 0)
             {
                 return null;
-            } else
+            }
+            else
             {
                 // currently draws everything as a positive value
                 var pVal = Constants.Theme.PositiveAttributeColor;

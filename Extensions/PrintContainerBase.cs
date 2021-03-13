@@ -5,13 +5,10 @@ using NullRPG.Interfaces;
 using NullRPG.ItemTypes;
 using NullRPG.Managers;
 using SadConsole;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NullRPG.Extensions
 {
@@ -41,20 +38,22 @@ namespace NullRPG.Extensions
         public PrintContainerBase(IIndexedKeybinding[] keybindings, ListType type)
         {
             _printable = new List<PrintContainerBase>();
-            if(type is ListType.Inventory)
+            if (type is ListType.Inventory)
             {
                 CreateInventory(keybindings);
-            } else if (type is ListType.Equipped)
+            }
+            else if (type is ListType.Equipped)
             {
                 CreateEquipped(keybindings);
-            } else if (type is ListType.Areas)
+            }
+            else if (type is ListType.Areas)
             {
                 CreateAreas(keybindings);
-            } else if (type is ListType.Locations)
+            }
+            else if (type is ListType.Locations)
             {
                 CreateLocations(keybindings);
             }
-            
         }
 
         public PrintContainerBase()
@@ -82,9 +81,9 @@ namespace NullRPG.Extensions
         {
             int index = 0;
             var equippedItems = InventoryManager.GetEquippedItems<PlayerInventory>();
-            foreach(var item in keybindings)
+            foreach (var item in keybindings)
             {
-                ColoredString prefix = new ColoredString(); 
+                ColoredString prefix = new ColoredString();
                 var equippedItem = ItemManager.GetItem<IItem>(equippedItems[index].ObjectId);
 
                 ColoredString itemName = ItemManager.GetItemName<IItem>(equippedItem.ObjectId);
@@ -125,7 +124,7 @@ namespace NullRPG.Extensions
                 }
 
                 // temp
-                if(slotItem is not MiscItem)
+                if (slotItem is not MiscItem)
                 {
                     var equippedItemId = InventoryManager.GetEquippedItem<PlayerInventory>(slotItem.GetType()).ObjectId;
                     if (slotItem.ObjectId == equippedItemId)
@@ -161,11 +160,10 @@ namespace NullRPG.Extensions
 
                 var areaName = new ColoredString(area.Name);
 
-
                 var printableArea = new PrintContainerBase()
                 {
                     Name = areaName,
-                    Type = area.MinLevel==0&&area.MaxLevel==0? "\0" : $"<{area.MinLevel} - {area.MaxLevel}>",
+                    Type = area.MinLevel == 0 && area.MaxLevel == 0 ? "\0" : $"<{area.MinLevel} - {area.MaxLevel}>",
                     Data = "\0",
                     Id = "\0",
                     ButtonIndex = new ButtonIndex(keybindings[index].Keybinding, Color.Green, Color.White, 0, 0, true)
@@ -179,7 +177,7 @@ namespace NullRPG.Extensions
         public void CreateLocations(IIndexedKeybinding[] keybindings)
         {
             int index = 0;
-            foreach(var item in keybindings)
+            foreach (var item in keybindings)
             {
                 var location = LocationManager.GetLocationByObjectId<ILocation>(item.Object.ObjectId);
 
@@ -193,7 +191,7 @@ namespace NullRPG.Extensions
                 var printableLocation = new PrintContainerBase()
                 {
                     Name = locationName,
-                    Type = location.MinLevel==0&&location.MaxLevel==0? "\0" : $"<{location.MinLevel} - {location.MaxLevel}>",
+                    Type = location.MinLevel == 0 && location.MaxLevel == 0 ? "\0" : $"<{location.MinLevel} - {location.MaxLevel}>",
                     Data = "\0",
                     Id = "\0",
                     ButtonIndex = new ButtonIndex(keybindings[index].Keybinding, Constants.Theme.ButtonKeyColor, Constants.Theme.ForegroundColor, 0, 0, true)

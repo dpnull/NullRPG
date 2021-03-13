@@ -1,26 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NullRPG.Interfaces;
-using Microsoft.Xna.Framework;
-using SadConsole;
-using Console = SadConsole.Console;
+﻿using Microsoft.Xna.Framework;
 using NullRPG.Extensions;
-using NullRPG.Managers;
 using NullRPG.GameObjects;
-using SadConsole.Input;
-using NullRPG.ItemTypes;
 using NullRPG.Input;
-using static NullRPG.Windows.InventoryWindow;
+using NullRPG.Interfaces;
+using NullRPG.Managers;
 using NullRPG.Windows.Navigation;
+using SadConsole;
+using SadConsole.Input;
+using System;
+using Console = SadConsole.Console;
 
 namespace NullRPG.Windows
 {
     public class CharacterWindow : Console, IUserInterface
     {
-        public Console Console => this;
-
-
         public CharacterWindow(int width, int height) : base(width, height)
         {
             Position = new Point(0, 1);
@@ -29,6 +22,8 @@ namespace NullRPG.Windows
 
             Global.CurrentScreen.Children.Add(this);
         }
+
+        public Console Console => this;
 
         public override void Draw(TimeSpan timeElapsed)
         {
@@ -46,7 +41,7 @@ namespace NullRPG.Windows
 
         public override bool ProcessKeyboard(Keyboard info)
         {
-            if(UserInterfaceManager.Get<CharacterKeybindingsWindow>().IndexedKeybindings != null) // IndexedKeybindings is created after this window becomes visible
+            if (UserInterfaceManager.Get<CharacterKeybindingsWindow>().IndexedKeybindings != null) // IndexedKeybindings is created after this window becomes visible
             {
                 foreach (var key in UserInterfaceManager.Get<CharacterKeybindingsWindow>().IndexedKeybindings.GetIndexedKeybindings())
                 {
@@ -59,7 +54,6 @@ namespace NullRPG.Windows
                     }
                 }
             }
-
 
             if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.A))
             {
@@ -74,6 +68,26 @@ namespace NullRPG.Windows
             return false;
         }
 
+        private void DrawCharacter(Player player)
+        {
+            this.DrawHeader(0, $"  {player.Name}'s character overview  ", Constants.Theme.HeaderForegroundColor, Constants.Theme.HeaderBackgroundColor);
+
+            int _x = 1;
+            int _y = 4;
+
+            string level = $"Level: {player.Level}";
+            string health = $"Health: {player.Health} / {player.MaxHealth}";
+            string defense = $"Defense: {player.Defense}";
+            string damage = $"Attack: {player.MinDmg} - {player.MaxDmg}";
+            string gold = $"Gold: {player.Gold}";
+
+            Print(_x, _y, level); _y++;
+            Print(_x, _y, health); _y++;
+            Print(_x, _y, defense); _y++;
+            Print(_x, _y, damage); _y += 2;
+            Print(_x, _y, gold); _y += 2;
+        }
+
         private void DrawDetailedStats()
         {
             var player = EntityManager.Get<Player>(Game.GameSession.Player.ObjectId);
@@ -82,7 +96,7 @@ namespace NullRPG.Windows
         }
 
         private void DrawExperience(Player player, int x, int y, int width)
-        {      
+        {
             string bar = "[";
 
             double percent = (double)player.Experience / player.ExperienceNeeded;
@@ -104,27 +118,6 @@ namespace NullRPG.Windows
             Print(x, y, bar);
             string printableExperience = $"EXP: {player.Experience} / {player.ExperienceNeeded}";
             Print(this.GetWindowXCenter() - (printableExperience.Length / 2), y + 1, printableExperience);
-        }
-
-        private void DrawCharacter(Player player)
-        {
-            this.DrawHeader(0, $"  {player.Name}'s character overview  ", Constants.Theme.HeaderForegroundColor, Constants.Theme.HeaderBackgroundColor);
-
-            int _x = 1;
-            int _y = 4;
-
-            string level = $"Level: {player.Level}";
-            string health = $"Health: {player.Health} / {player.MaxHealth}";
-            string defense = $"Defense: {player.Defense}";
-            string damage = $"Attack: {player.MinDmg} - {player.MaxDmg}";
-            string gold = $"Gold: {player.Gold}";
-            
-
-            Print(_x, _y, level); _y++;
-            Print(_x, _y, health); _y++;
-            Print(_x, _y, defense); _y++;
-            Print(_x, _y, damage); _y += 2;
-            Print(_x, _y, gold); _y += 2;
         }
     }
 }

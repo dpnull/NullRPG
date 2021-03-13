@@ -1,9 +1,8 @@
 ﻿using NullRPG.Interfaces;
-using System.Collections.Generic;
 using NullRPG.Windows;
-using System.Linq;
-using System;
 using NullRPG.Windows.Navigation;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NullRPG.Managers
 {
@@ -43,7 +42,6 @@ namespace NullRPG.Managers
                 IsFocused = false
             };
             Add(inventoryWindow);
-
 
             var previewWindow = new ItemPreviewWindow(Constants.Windows.ItemPreviewWidth, Constants.Windows.ItemPreviewHeight)
             {
@@ -100,7 +98,8 @@ namespace NullRPG.Managers
             if (criteria)
             {
                 window.Console.IsVisible = false;
-            } else
+            }
+            else
             {
                 window.Console.IsVisible = true;
             }
@@ -136,7 +135,7 @@ namespace NullRPG.Managers
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="userInterface"></param>
@@ -144,8 +143,5 @@ namespace NullRPG.Managers
         {
             Interfaces.Remove(userInterface);
         }
-
     }
-
-
 }

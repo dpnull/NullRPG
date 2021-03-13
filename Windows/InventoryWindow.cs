@@ -1,25 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using NullRPG.Interfaces;
-using Microsoft.Xna.Framework;
-using SadConsole;
-using Console = SadConsole.Console;
+﻿using Microsoft.Xna.Framework;
 using NullRPG.Extensions;
-using NullRPG.Managers;
-using SadConsole.Input;
-using System.Linq;
-using NullRPG.ItemTypes;
-using NullRPG.Input;
 using NullRPG.GameObjects;
-using System.ComponentModel;
-using System.Reflection;
+using NullRPG.Input;
+using NullRPG.Interfaces;
+using NullRPG.ItemTypes;
+using NullRPG.Managers;
+using SadConsole;
+using SadConsole.Input;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Console = SadConsole.Console;
 
 namespace NullRPG.Windows
 {
-    class InventoryWindow : Console, IUserInterface
+    internal class InventoryWindow : Console, IUserInterface
     {
         private IndexedKeybindings IndexedKeybindings;
         public Console Console => this;
+
         public InventoryWindow(int width, int height) : base(width, height)
         {
             Position = new Point(0, 1);
@@ -64,7 +63,6 @@ namespace NullRPG.Windows
             {
                 if (info.IsKeyPressed(key.Keybinding))
                 {
-                    
                     var itemPreviewWindow = UserInterfaceManager.Get<ItemPreviewWindow>();
                     itemPreviewWindow.
                         SetObjectForPreview(InventoryManager.GetSlot<ISlot>(Game.GameSession.Player.Inventory, IndexedKeybindings.GetIndexable(key.Index).ObjectId).Item.FirstOrDefault().ObjectId);
@@ -104,8 +102,7 @@ namespace NullRPG.Windows
             var inventory = InventoryManager.GetSlots<PlayerInventory>();
             List<IIndexable> bindable = new List<IIndexable>(); // to be used for instantiating indexes and objectid reference
 
-
-            foreach(var slot in inventory)
+            foreach (var slot in inventory)
             {
                 if (!slot.Item.Any())
                     continue;
@@ -131,7 +128,5 @@ namespace NullRPG.Windows
 
             printable.Print(this);
         }
-
-       
     }
 }

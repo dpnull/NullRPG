@@ -9,7 +9,6 @@ namespace NullRPG.ItemTypes
         // In the future, if items should have randomized stats, create a factory then pass the already instantiated objects for the return
         public MiscItem(string name, RarityType rarity, bool isUnique, int level, int gold) : base(name, rarity, isUnique, level, gold)
         {
-
         }
 
         public static MiscItem Quartz()

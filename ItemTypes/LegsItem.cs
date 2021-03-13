@@ -9,8 +9,8 @@ namespace NullRPG.ItemTypes
         public LegsItem(string name, RarityType rarity, int level, int gold, int defense) :
             base(name, rarity, true, level, gold, 0, 0, defense)
         {
-
         }
+
         public static LegsItem None()
         {
             return new LegsItem("None", RarityType.Common, 0, 0, 0);

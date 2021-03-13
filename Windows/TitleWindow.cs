@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework;
-using SadConsole;
-using Console = SadConsole.Console;
+﻿using Microsoft.Xna.Framework;
+using NullRPG.Extensions;
+using NullRPG.Input;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
-using System.Linq;
-using NullRPG.Extensions;
+using SadConsole;
 using SadConsole.Input;
-using NullRPG.Input;
+using System;
+using System.Linq;
+using Console = SadConsole.Console;
 
 namespace NullRPG.Windows
 {
@@ -68,11 +66,11 @@ namespace NullRPG.Windows
             Print(Width - (Constants.Build.Length), Height - 1, Constants.Build);
 
             string[] titleFragments = @"
-                       .-.                 _    
-                      /   \              _/ \  
+                       .-.                 _
+                      /   \              _/ \
          _        .--'\/\_ \            /    \      ___
-        / \_    _/ ^      \/\ __       /\/\  /\  __/   \  
-       /    \  /    .'   _/  /  \     /    \/  \/ .`'\_/\    
+        / \_    _/ ^      \/\ __       /\/\  /\  __/   \
+       /    \  /    .'   _/  /  \     /    \/  \/ .`'\_/\
       /\/\  /\/ :' __  ^/  ^/    `--./.'  ^  `-.\ _    _:\ _
      /    \/  \  _/  \-' __/.' ^ _   \_   .'\   _/ \ .  __/ \
    /\  .-   `. \/     \ / -.   _/ \ -. `_/   \ /    `._/  ^  \
@@ -82,9 +80,9 @@ namespace NullRPG.Windows
 .Replace("\r", string.Empty).Split('\n');
 
             string[] gameNameFragments = @"
-  _   _ _    _ _      _      _____  _____   _____ 
+  _   _ _    _ _      _      _____  _____   _____
  | \ | | |  | | |    | |    |  __ \|  __ \ / ____|
- |  \| | |  | | |    | |    | |__) | |__) | |  __ 
+ |  \| | |  | | |    | |    | |__) | |__) | |  __
  | . ` | |  | | |    | |    |  _  /|  ___/| | |_ |
  | |\  | |__| | |____| |____| | \ \| |    | |__| |
  |_| \_|\____/|______|______|_|  \_\_|     \_____|
@@ -102,7 +100,6 @@ namespace NullRPG.Windows
                     Print(gStartPosX + x, gStartPosY + y + 1, new ColoredGlyph(titleFragments[y][x], Color.White, Color.Transparent));
                 }
             }
-
 
             int tStartPosX = (Constants.GameWidth / 2) - (gameNameFragments.OrderByDescending(a => a.Length).First().Length / 2);
             int tStartPosY = this.GetWindowYCenter() - 1;
@@ -137,11 +134,12 @@ namespace NullRPG.Windows
         public static TitleWindow Show()
         {
             var titleWindow = UserInterfaceManager.Get<TitleWindow>();
-            if(titleWindow == null)
+            if (titleWindow == null)
             {
                 titleWindow = new TitleWindow(Constants.Windows.TitleWidth, Constants.Windows.TitleHeight);
                 UserInterfaceManager.Add(titleWindow);
-            } else
+            }
+            else
             {
                 titleWindow.IsVisible = true;
                 titleWindow.IsFocused = true;
@@ -158,12 +156,13 @@ namespace NullRPG.Windows
         private void OpenHelpWindow()
         {
             var helpWindow = UserInterfaceManager.Get<HelpWindow>();
-            if(helpWindow == null)
+            if (helpWindow == null)
             {
                 helpWindow = new HelpWindow(Constants.Windows.HelpWidth, Constants.Windows.HelpHeight);
                 UserInterfaceManager.Add(helpWindow);
                 this.FullTransition(helpWindow);
-            } else
+            }
+            else
             {
                 this.FullTransition(helpWindow);
             }

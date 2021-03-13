@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NullRPG.Interfaces;
-using Microsoft.Xna.Framework;
-using SadConsole;
-using Console = SadConsole.Console;
-using NullRPG.Managers;
-using SadConsole.Input;
+﻿using Microsoft.Xna.Framework;
 using NullRPG.Extensions;
+using NullRPG.Interfaces;
+using SadConsole;
+using System;
+using Console = SadConsole.Console;
+
 namespace NullRPG.Windows
 {
     public class MessageWindow : Console, IUserInterface
@@ -21,9 +18,10 @@ namespace NullRPG.Windows
             Global.CurrentScreen.Children.Add(this);
         }
 
-        static readonly int tickLimit = 200; 
-        static int CurrentTick = 0;
-        static bool canDraw = false;
+        private static readonly int tickLimit = 200;
+        private static int CurrentTick = 0;
+        private static bool canDraw = false;
+
         public override void Draw(TimeSpan timeElapsed)
         {
             // temporary solution to clearing notification
@@ -33,9 +31,9 @@ namespace NullRPG.Windows
                 MessageManager.Draw(this, 1, 1);
                 canDraw = false;
             }
-            
+
             CurrentTick++;
-            if(CurrentTick >= tickLimit)
+            if (CurrentTick >= tickLimit)
             {
                 Clear();
             }

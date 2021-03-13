@@ -1,9 +1,5 @@
 ﻿using NullRPG.GameObjects;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
-
 
 namespace NullRPG.ItemTypes
 {
@@ -13,7 +9,6 @@ namespace NullRPG.ItemTypes
         public WeaponItem(string name, Item.RarityType rarity, int level, int gold, int minDmg, int maxDmg)
             : base(name, rarity, true, level, gold, minDmg, maxDmg)
         {
-
         }
 
         public static WeaponItem None()

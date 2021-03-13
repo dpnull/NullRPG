@@ -1,14 +1,13 @@
-﻿using NullRPG.Interfaces;
-using Microsoft.Xna.Framework;
-using SadConsole;
-using Console = SadConsole.Console;
-using NullRPG.Managers;
-using SadConsole.Input;
+﻿using Microsoft.Xna.Framework;
 using NullRPG.Extensions;
-using System;
-using NullRPG.Windows.Navigation;
-using NullRPG.GameObjects;
 using NullRPG.Input;
+using NullRPG.Interfaces;
+using NullRPG.Managers;
+using NullRPG.Windows.Navigation;
+using SadConsole;
+using SadConsole.Input;
+using System;
+using Console = SadConsole.Console;
 
 namespace NullRPG.Windows
 {
@@ -21,7 +20,6 @@ namespace NullRPG.Windows
 
         public GameWindow(int width, int height) : base(width, height)
         {
-
             // print game title at the top
             ColoredString tStr = new ColoredString($"  {Constants.GameTitle}  ");
             tStr.SetForeground(Color.White);
@@ -62,17 +60,15 @@ namespace NullRPG.Windows
                 return true;
             }
 
-
             if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Travel)))
             {
                 OpenTravelWindow();
                 return true;
             }
 
-
             return false;
         }
-        
+
         private void OpenCharacterWindow()
         {
             this.SwitchFocusMakeVisible(UserInterfaceManager.Get<CharacterWindow>());

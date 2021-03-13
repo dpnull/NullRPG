@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NullRPG.Interfaces;
-using Microsoft.Xna.Framework;
-using SadConsole;
-using Console = SadConsole.Console;
+﻿using Microsoft.Xna.Framework;
 using NullRPG.Extensions;
-using NullRPG.Managers;
-using System.Linq;
-using SadConsole.Input;
 using NullRPG.Input;
+using NullRPG.Interfaces;
+using NullRPG.Managers;
+using SadConsole;
+using System.Collections.Generic;
+using Console = SadConsole.Console;
 
 namespace NullRPG.Windows.Navigation
 {
@@ -17,7 +13,7 @@ namespace NullRPG.Windows.Navigation
     {
         public Console Console => this;
 
-        Keybindings Keybindings = new Keybindings();
+        private Keybindings Keybindings = new Keybindings();
 
         public List<ButtonString> Buttons { get; set; }
 
@@ -49,7 +45,7 @@ namespace NullRPG.Windows.Navigation
 
             this.DrawBorders(Width, Height, "+", "|", "-", DefaultForeground);
 
-            for(int i = 0; i < Keybindings.GetKeybindings().Count; i++)
+            for (int i = 0; i < Keybindings.GetKeybindings().Count; i++)
             {
                 if (!Keybindings.GetKeybindings()[i].IsVisible) // don't iterate through hidden keybindings
                 {
@@ -62,7 +58,7 @@ namespace NullRPG.Windows.Navigation
                 _y++;
             }
 
-            foreach(var btn in Buttons)
+            foreach (var btn in Buttons)
             {
                 btn.Draw(this);
             }
@@ -75,7 +71,6 @@ namespace NullRPG.Windows.Navigation
 
         public void OnDraw()
         {
-
         }
     }
 }

@@ -1,17 +1,13 @@
-﻿using NullRPG.Interfaces;
+﻿using Microsoft.Xna.Framework;
+using NullRPG.Extensions;
+using NullRPG.Interfaces;
+using NullRPG.Managers;
+using SadConsole;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework;
-using SadConsole;
-using Console = SadConsole.Console;
-using NullRPG.Extensions;
-using NullRPG.Managers;
-using NullRPG.GameObjects;
-using SadConsole.Effects;
-using NullRPG.ItemTypes;
 using System.ComponentModel;
 using System.Reflection;
+using Console = SadConsole.Console;
 
 namespace NullRPG.Windows
 {
@@ -21,6 +17,7 @@ namespace NullRPG.Windows
         {
             // decrements at the end account for the border
             public const int ITEM_ID_X = 2;
+
             public const int ITEM_ID_Y = 1;
 
             public const int ITEM_NAME_X = Constants.Windows.ItemPreviewWidth / 2 - 1;
@@ -38,7 +35,6 @@ namespace NullRPG.Windows
             public const int ITEM_TYPE_X = Constants.Windows.ItemPreviewWidth / 2 - 1;
             public const int ITEM_TYPE_Y = Constants.Windows.ItemPreviewHeight - 2;
         }
-
 
         public Console Console { get; set; }
 
@@ -73,17 +69,15 @@ namespace NullRPG.Windows
         {
             if (ObjectId != -1)
             {
-                if(ItemManager.GetItem<IItem>(ObjectId) != null)
+                if (ItemManager.GetItem<IItem>(ObjectId) != null)
                 {
                     List<ColoredString> itemData = new List<ColoredString>();
 
                     var item = ItemManager.GetItem<IItem>(ObjectId);
-            
-                    ColoredString itemName = ItemManager.GetItemName<IItem>(ObjectId);
-                    
-                    this.DrawRectangleTitled(0, 0, Constants.Windows.ItemPreviewWidth - 1, Constants.Windows.ItemPreviewHeight - 1, "+", "-", "|", "|", itemName, true);
 
-                    
+                    ColoredString itemName = ItemManager.GetItemName<IItem>(ObjectId);
+
+                    this.DrawRectangleTitled(0, 0, Constants.Windows.ItemPreviewWidth - 1, Constants.Windows.ItemPreviewHeight - 1, "+", "-", "|", "|", itemName, true);
 
                     string itemLevel = $"iLvl {item.Level}";
                     string upgradeLevel = $"uLvl {item.UpgradeLevel}";
@@ -106,14 +100,11 @@ namespace NullRPG.Windows
                         ColoredString valueData = new($"Value: {item.Gold}");
                         itemData.Add(valueData);
                     }
-                    
 
                     // P_HEALTH = 100;
                     // P_DEFENSE = 10;
                     // E_DAMAGE = 20;
-                    // Reduction 
-                    
-                    
+                    // Reduction
 
                     int index = 0;
                     foreach (var str in itemData)
@@ -129,7 +120,6 @@ namespace NullRPG.Windows
                     Print(Coords.UPGRADE_LEVEL_X - upgradeLevel.Length, Coords.UPGRADE_LEVEL_Y, upgradeLevel);
                     Print(Coords.ITEM_TYPE_X - (itemType.Length / 2), Coords.ITEM_TYPE_Y, itemType);
 
-
                     // unused currently
                     // string itemId = item.ObjectId.ToString();
                     // string itemData = $"{item.MinDmg} - {item.MaxDmg}";
@@ -139,7 +129,6 @@ namespace NullRPG.Windows
                 {
                     throw new System.Exception($"Could not find ObjectId_{ObjectId}.");
                 }
-        
             }
         }
     }

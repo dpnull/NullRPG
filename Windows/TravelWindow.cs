@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NullRPG.Interfaces;
-using Microsoft.Xna.Framework;
-using SadConsole;
-using Console = SadConsole.Console;
+﻿using Microsoft.Xna.Framework;
 using NullRPG.Extensions;
-using NullRPG.Managers;
 using NullRPG.GameObjects;
-using NullRPG.GameObjects.Worlds;
-using SadConsole.Input;
 using NullRPG.Input;
+using NullRPG.Interfaces;
+using NullRPG.Managers;
+using SadConsole;
+using SadConsole.Input;
+using System;
+using System.Collections.Generic;
+using Console = SadConsole.Console;
 
 namespace NullRPG.Windows
 {
@@ -22,7 +20,6 @@ namespace NullRPG.Windows
         public TravelWindow(int width, int height) : base(width, height)
         {
             Position = new Point(0, 1);
-
 
             Global.CurrentScreen.Children.Add(this);
         }
@@ -97,7 +94,6 @@ namespace NullRPG.Windows
             {
                 foreach (var loc in area.Locations)
                 {
-                    
                     Print(_x, _y++, $"areaId_{loc.Key} | Area name: {area.Name} | locId_{loc.Value.ObjectId} | Loc name: {loc.Value.Name} | lvl: {loc.Value.Level}");
                 }
             }*/

@@ -1,12 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Input;
 using NullRPG.Managers;
-using System.Collections.Generic;
-using System.Linq;
 using NullRPG.Windows;
-using System.ComponentModel;
 using System;
-
+using System.Collections.Generic;
 
 namespace NullRPG.Input
 {
@@ -32,7 +28,6 @@ namespace NullRPG.Input
         public Keys Key { get; set; }
         public bool IsVisible { get; set; }
 
-
         public void CreateKeybindings()
         {
             _keybindings = new List<Keybindings>();
@@ -50,7 +45,6 @@ namespace NullRPG.Input
 
             // Inventory window
             AddKeybinding(Type.Equip, Keys.E, false);
-
         }
 
         /// <summary>
@@ -73,7 +67,6 @@ namespace NullRPG.Input
         // Can become redundant if replaced with event listeners for visibility.
         public void UpdateKeybindings()
         {
-
             // Game Window
             UpdateVisibility(Type.Character, UserInterfaceManager.Get<Windows.GameWindow>());
             UpdateVisibility(Type.Inventory, UserInterfaceManager.Get<Windows.GameWindow>());
@@ -82,7 +75,6 @@ namespace NullRPG.Input
             // Cancel button
             UpdateVisibility(Type.Cancel, UserInterfaceManager.Get<CharacterWindow>().IsVisible || UserInterfaceManager.Get<InventoryWindow>().IsVisible ||
                 UserInterfaceManager.Get<TravelWindow>().IsVisible);
-
         }
 
         /// <summary>
@@ -102,7 +94,6 @@ namespace NullRPG.Input
             }
         }
 
-        
         // Allows for passing multiple windows visibilites.
         private void UpdateVisibility(Type typeName, bool visibility)
         {
@@ -121,7 +112,7 @@ namespace NullRPG.Input
                 }
             }
         }
-        
+
         /// <summary>
         /// Retrieve a keybinding object using passed type name.
         /// </summary>
@@ -169,7 +160,6 @@ namespace NullRPG.Input
             }
 
             throw new System.Exception($"Keybinding with type name {typeName} does not exit.");
-
         }
 
         public static string GetNumericKeyName(Keys key)
@@ -212,7 +202,5 @@ namespace NullRPG.Input
 
             return "\0";
         }
-
-
     }
 }

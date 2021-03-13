@@ -1,10 +1,7 @@
 ﻿using NullRPG.Interfaces;
 using NullRPG.Managers;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NullRPG.GameObjects
 {
@@ -17,10 +14,10 @@ namespace NullRPG.GameObjects
         {
             Name = name;
             Areas = new Dictionary<int, IArea>();
-            
         }
 
         private int _currentId;
+
         public int GetUniqueAreaId()
         {
             return _currentId++;
@@ -30,7 +27,7 @@ namespace NullRPG.GameObjects
         {
             var areas = WorldManager.GetWorldAreas<Area>(Name).ToArray();
 
-            foreach(var area in areas)
+            foreach (var area in areas)
             {
                 var locations = WorldManager.GetWorldAreaLocations<IWorld>(area).ToArray();
 

@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NullRPG.GameObjects.Worlds
+﻿namespace NullRPG.GameObjects.Worlds
 {
     public class OverworldLocation : Location
     {
         public OverworldLocation(string name, int minLevel = 0, int maxLevel = 0) : base(name, minLevel, maxLevel)
         {
-
         }
 
         public static OverworldLocation Blacksmith()

@@ -1,17 +1,14 @@
-﻿using NullRPG.Interfaces;
-using System;
+﻿using Microsoft.Xna.Framework;
+using NullRPG.Interfaces;
+using SadConsole;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using SadConsole;
 using static NullRPG.GameObjects.Item;
-using Microsoft.Xna.Framework;
 
 namespace NullRPG.Managers
 {
     public static class ItemManager
     {
-
         public static Dictionary<RarityType, string> RarityGlyphs = InitializeRarityGlyphsDictionary();
 
         public static int GetUniqueId()
@@ -30,7 +27,7 @@ namespace NullRPG.Managers
                 (RarityType.Rare, "+"),
                 (RarityType.VeryRare, "*"),
                 (RarityType.Legendary, "**")
-                // todo: add reversing of glyphs 
+                // todo: add reversing of glyphs
             };
 
             foreach (var glyph in rarityGlyphs)
@@ -86,7 +83,6 @@ namespace NullRPG.Managers
         {
             var item = GetItem<T>(objectId);
 
-
             ColoredString lRarityGlyph = new ColoredString(GetRarityGlyph(item.Rarity));
             ColoredString rRarityGlyph = new ColoredString(GetRarityGlyph(item.Rarity));
             Color c = item.Enchantment == EnchantmentType.Fire ? Color.OrangeRed : item.Enchantment == EnchantmentType.Steel ? Color.LightSlateGray : Color.White;
@@ -95,12 +91,12 @@ namespace NullRPG.Managers
             if (item.Enchantment != EnchantmentType.Default)
             {
                 return lRarityGlyph + prefix + " " + suffix + rRarityGlyph;
-            } else
+            }
+            else
             {
                 return lRarityGlyph + suffix + rRarityGlyph;
             }
         }
-
     }
 
     public static class ItemDatabase

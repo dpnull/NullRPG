@@ -1,8 +1,5 @@
 ﻿using NullRPG.Interfaces;
-using NullRPG.Managers;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace NullRPG.GameObjects
 {
@@ -16,6 +13,5 @@ namespace NullRPG.GameObjects
             Item = new List<IItem>();
             ObjectId = objectId;
         }
-
     }
 }

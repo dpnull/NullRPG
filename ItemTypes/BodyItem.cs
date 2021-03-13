@@ -9,7 +9,6 @@ namespace NullRPG.ItemTypes
         public BodyItem(string name, RarityType rarity, int level, int gold, int defense) :
             base(name, rarity, true, level, gold, 0, 0, defense)
         {
-
         }
 
         public static BodyItem None()

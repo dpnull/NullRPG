@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NullRPG.Interfaces;
-using Microsoft.Xna.Framework;
-using SadConsole;
-using Console = SadConsole.Console;
+﻿using Microsoft.Xna.Framework;
 using NullRPG.Extensions;
-using NullRPG.Managers;
-using System.Linq;
-using SadConsole.Input;
-using NullRPG.Input;
 using NullRPG.GameObjects.Worlds;
+using NullRPG.Input;
+using NullRPG.Interfaces;
+using NullRPG.Managers;
+using System.Collections.Generic;
+using Console = SadConsole.Console;
 
 namespace NullRPG.Windows.Navigation
 {
@@ -18,6 +13,7 @@ namespace NullRPG.Windows.Navigation
     {
         public Console Console => this;
         public IndexedKeybindings IndexedKeybindings { get; private set; }
+
         public LocationKeybindingsWindow(int width, int height) : base(width, height)
         {
             Position = new Point(Constants.Windows.LocationKeybindingsX, Constants.Windows.LocationKeybindingsY);
@@ -40,7 +36,7 @@ namespace NullRPG.Windows.Navigation
 
             List<IIndexable> bindable = new List<IIndexable>();
 
-            foreach(var location in locations)
+            foreach (var location in locations)
             {
                 if (location != null)
                 {

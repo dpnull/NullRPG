@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+
 namespace NullRPG
 {
     public static class Constants
@@ -9,12 +10,11 @@ namespace NullRPG
         public const int GameWidth = 80;
         public const int GameHeight = 26;
 
-
         public static class Windows
         {
             public const int TitleWidth = GameWidth;
             public const int TitleHeight = GameHeight - 1;
-            
+
             public const int KeybindingsWidth = GameWidth;
             public const int KeybindingsHeight = 8;
             public const int KeybindingsX = 0;
@@ -57,8 +57,6 @@ namespace NullRPG
 
             public const int TravelWidth = GameWidth;
             public const int TravelHeight = GameHeight - KeybindingsHeight - 1;
-
-
         }
 
         public static class Theme

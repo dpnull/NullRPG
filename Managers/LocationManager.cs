@@ -1,10 +1,7 @@
 ﻿using NullRPG.Interfaces;
 using SadConsole;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NullRPG.Managers
 {
@@ -27,7 +24,7 @@ namespace NullRPG.Managers
         public static T GetLocationByObjectId<T>(int objectId) where T : ILocation
         {
             var collection = LocationDatabase.Locations.Values.ToArray();
-            foreach(var item in collection)
+            foreach (var item in collection)
             {
                 return (T)LocationDatabase.Locations.Values.SingleOrDefault(i => i.ObjectId == objectId);
             }
@@ -43,7 +40,6 @@ namespace NullRPG.Managers
         public static ColoredString GetLocationName<T>(int objectId) where T : ILocation
         {
             var location = GetLocationByObjectId<ILocation>(objectId);
-
 
             ColoredString locName = new ColoredString(location.Name);
 

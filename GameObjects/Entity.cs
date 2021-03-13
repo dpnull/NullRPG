@@ -1,9 +1,5 @@
 ﻿using NullRPG.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using NullRPG.Managers;
-using NullRPG.ItemTypes;
 
 namespace NullRPG.GameObjects
 {
@@ -21,6 +17,7 @@ namespace NullRPG.GameObjects
         public int Health { get; set; }
         public int MaxHealth { get; set; }
         public int Gold { get; set; }
+
         public int MinDmg
         {
             get
@@ -38,6 +35,7 @@ namespace NullRPG.GameObjects
                 _minDmg = value;
             }
         }
+
         public int MaxDmg
         {
             get
@@ -89,6 +87,5 @@ namespace NullRPG.GameObjects
             MaxDmg = 0;
             Defense = 0;
         }
-  
     }
 }

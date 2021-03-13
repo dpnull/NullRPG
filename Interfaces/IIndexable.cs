@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NullRPG.Interfaces
+﻿namespace NullRPG.Interfaces
 {
     public interface IIndexable
     {

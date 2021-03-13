@@ -1,14 +1,8 @@
-﻿using NullRPG.GameObjects;
-using System;
+﻿using NullRPG.Interfaces;
 using System.Collections.Generic;
-using System.Text;
-using NullRPG.Interfaces;
-using NullRPG.Managers;
-using System.Linq;
 
 namespace NullRPG.Input
 {
-
     public class IndexedKeybindings
     {
         public Dictionary<int, Microsoft.Xna.Framework.Input.Keys> IndexedKeybindingsDictionary = new Dictionary<int, Microsoft.Xna.Framework.Input.Keys>();
@@ -46,7 +40,6 @@ namespace NullRPG.Input
 
         // Initialize keybinding objects for inventory by using the passed items array.
 
-
         // New Dictionary of index ints and Keys
         // where index corresponds to D keys
         // then use the dictionary to initialize objects starting from i = 0 where passed object is assigned to the index for later reference
@@ -55,11 +48,11 @@ namespace NullRPG.Input
         private void Initialize(IIndexable[] indexableArr)
         {
             int index = 0;
-            foreach(var item in indexableArr)
+            foreach (var item in indexableArr)
             {
                 var indexable = item;
                 AddIndexedKeybinding<IndexedInventoryKeybinding>(index, GetIndexedKeybinding(index), indexable); // temporary solution for i
-                index++;        
+                index++;
             }
         }
 
@@ -84,8 +77,8 @@ namespace NullRPG.Input
 
         public IIndexable GetIndexable(int index)
         {
-            if(index < _indexedKeybindings.Count)
-                if(_indexedKeybindings[index] != null)
+            if (index < _indexedKeybindings.Count)
+                if (_indexedKeybindings[index] != null)
                     return _indexedKeybindings[index].Object;
             throw new System.Exception($"No indexed keybinding exists at index_{index}.");
         }
@@ -125,6 +118,7 @@ namespace NullRPG.Input
             return false;
         }
     }
+
     public class IndexedInventoryKeybinding : IIndexedKeybinding
     {
         public int Index { get; set; }
@@ -134,6 +128,7 @@ namespace NullRPG.Input
         {
             return Index++;
         }
+
         public Microsoft.Xna.Framework.Input.Keys Keybinding { get; set; }
         public IIndexable Object { get; set; }
     }

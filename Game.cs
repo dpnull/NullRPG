@@ -1,13 +1,12 @@
-﻿using NullRPG.Windows;
-using NullRPG.Managers;
-using Microsoft.Xna.Framework;
-using SadConsole;
-using Console = SadConsole.Console;
+﻿using Microsoft.Xna.Framework;
 using NullRPG.Interfaces;
+using NullRPG.Managers;
+using NullRPG.Windows;
+using SadConsole;
 
 namespace NullRPG
 {
-    class Game
+    internal class Game
     {
         public static GameSession GameSession { get; set; }
         public static TitleWindow TitleWindow { get; private set; }
@@ -31,14 +30,13 @@ namespace NullRPG
 
         private static void Update(GameTime gameTime)
         {
-            if(UserInterfaceManager.IsInitialized == true)
+            if (UserInterfaceManager.IsInitialized == true)
                 UserInterfaceManager.AutoVisiblity();
         }
 
         public static void Reset()
         {
             UserInterfaceManager.IsInitialized = false;
-
 
             // perhaps add window exceptions
             foreach (var window in UserInterfaceManager.GetAll<IUserInterface>())
@@ -49,7 +47,6 @@ namespace NullRPG
 
         private static void Init()
         {
-
             GameSession = new GameSession();
 
             // Shows the main menu
@@ -58,5 +55,4 @@ namespace NullRPG
             Global.CurrentScreen.IsFocused = true;
         }
     }
-
 }

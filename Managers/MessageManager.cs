@@ -1,13 +1,10 @@
-﻿using SadConsole;
-using System;
-using Console = SadConsole.Console;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework;
-using NullRPG.Interfaces;
+﻿using Microsoft.Xna.Framework;
 using NullRPG.GameObjects;
-using System.Linq;
+using NullRPG.Interfaces;
 using NullRPG.Windows;
+using SadConsole;
+using System.Collections.Generic;
+using Console = SadConsole.Console;
 
 namespace NullRPG
 {

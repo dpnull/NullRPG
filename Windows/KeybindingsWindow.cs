@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.Xna.Framework;
 using NullRPG.Interfaces;
-using Microsoft.Xna.Framework;
-using SadConsole;
-using Console = SadConsole.Console;
-using NullRPG.Extensions;
 using NullRPG.Managers;
-using System.Linq;
-using SadConsole.Input;
-using NullRPG.Input;
 using NullRPG.Windows.Navigation;
+using SadConsole;
+using System;
+using Console = SadConsole.Console;
 
 namespace NullRPG.Windows
 {
     public class KeybindingsWindow : Console, IUserInterface
     {
         public Console Console => this;
+
         public KeybindingsWindow(int width, int height) : base(width, height)
         {
             Position = new Point(Constants.Windows.KeybindingsX, Constants.Windows.KeybindingsY);
@@ -39,16 +34,13 @@ namespace NullRPG.Windows
             }
             else
             {
-                
                 locationKeybindings.Draw();
             }
 
             characterKeybindings.IsVisible = characterWindow.IsVisible ? true : false;
             locationKeybindings.IsVisible = characterWindow.IsVisible ? false : true;
 
-            
             base.Draw(timeElapsed);
         }
-
     }
 }

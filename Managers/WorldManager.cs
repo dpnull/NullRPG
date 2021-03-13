@@ -2,11 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NullRPG.GameObjects;
-using NullRPG.GameObjects.Worlds;
-using static NullRPG.Managers.AreaManager;
 
 namespace NullRPG.Managers
 {
@@ -38,7 +33,7 @@ namespace NullRPG.Managers
         }
 
         /// <summary>
-        /// Retrevies IWorld from 
+        /// Retrevies IWorld from
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
@@ -62,9 +57,9 @@ namespace NullRPG.Managers
         {
             var world = entity.CurrentWorld;
 
-            foreach(var area in world.Areas)
+            foreach (var area in world.Areas)
             {
-                if(area.Value.ObjectId == objectId)
+                if (area.Value.ObjectId == objectId)
                 {
                     return AreaManager.GetAreaByObjectId<IArea>(objectId);
                 }
@@ -83,23 +78,22 @@ namespace NullRPG.Managers
                 {
                     return AreaManager.Get<IArea>(objectId);
                 }
-                
             }
 
             return default;
         }
         */
 
-            /// <summary>
-            /// Creates an IArea array of the passed type based on the criteria provided. If none are provided, returns all areas from the collection.
-            /// </summary>
-            /// <typeparam name="T">Object implementing the IWorld interface.</typeparam>
-            /// <param name="criteria">The condition to evaluate.</param>
-            /// <returns>Returns an array collection of areas from the passed World object.</returns>
+        /// <summary>
+        /// Creates an IArea array of the passed type based on the criteria provided. If none are provided, returns all areas from the collection.
+        /// </summary>
+        /// <typeparam name="T">Object implementing the IWorld interface.</typeparam>
+        /// <param name="criteria">The condition to evaluate.</param>
+        /// <returns>Returns an array collection of areas from the passed World object.</returns>
         public static T[] GetWorldAreas<T>(string worldName, Func<T, bool> criteria = null) where T : IArea
         {
             var collection = GetWorldByName<IWorld>(worldName).Areas.Values.ToArray().OfType<T>();
-            if(criteria != null)
+            if (criteria != null)
             {
                 collection = collection.Where(criteria.Invoke);
             }
@@ -112,7 +106,5 @@ namespace NullRPG.Managers
 
             return area.Locations.Values.ToArray();
         }
-            
-
     }
 }

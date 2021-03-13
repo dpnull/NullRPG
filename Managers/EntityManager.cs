@@ -1,8 +1,6 @@
 ﻿using NullRPG.GameObjects;
 using NullRPG.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace NullRPG.Managers
@@ -21,12 +19,12 @@ namespace NullRPG.Managers
         public static T Get<T>(int objectId) where T : IEntity
         {
             var collection = EntityDatabase.Entities.ToArray();
-            foreach(var entity in collection)
+            foreach (var entity in collection)
             {
                 return (T)EntityDatabase.Entities.Values.SingleOrDefault(e => e.ObjectId == objectId);
             }
 
-            return default;          
+            return default;
         }
 
         // define a constraint to instantiate a generic type
@@ -38,6 +36,7 @@ namespace NullRPG.Managers
 
             return entity;
         }
+
         public static void TravelEntityToArea(Player player, int objectId)
         {
             var area = AreaManager.GetAreaByObjectId<IArea>(objectId);
