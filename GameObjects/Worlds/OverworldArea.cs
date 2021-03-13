@@ -12,7 +12,6 @@ namespace NullRPG.GameObjects.Worlds
     {
         public OverworldArea(string name) : base(name)
         {
-
         }
 
         public static OverworldArea Hometown()
@@ -34,6 +33,8 @@ namespace NullRPG.GameObjects.Worlds
 
             return area;
         }
+
+
     }
 }
 

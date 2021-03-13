@@ -165,7 +165,7 @@ namespace NullRPG.Extensions
                 var printableArea = new PrintContainerBase()
                 {
                     Name = areaName,
-                    Type = "\0",
+                    Type = $"Level {area.MinLevel} - {area.MaxLevel}",
                     Data = "\0",
                     Id = "\0",
                     ButtonIndex = new ButtonIndex(keybindings[index].Keybinding, Color.Green, Color.White, 0, 0, true)

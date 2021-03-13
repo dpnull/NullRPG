@@ -12,6 +12,8 @@ namespace NullRPG.GameObjects
     {
         public int ObjectId { get; set; }
         public string Name { get; set; }
+        public int MinLevel { get; set; }
+        public int MaxLevel { get; set; }
         public Dictionary<int, ILocation> Locations { get; set; }
 
         public Area(string name)
@@ -19,12 +21,16 @@ namespace NullRPG.GameObjects
             ObjectId = AreaManager.GetUniqueAreaId();
             AreaManager.Add(this);
             Name = name;
-            Locations = new Dictionary<int, ILocation>();           
+            Locations = new Dictionary<int, ILocation>();
+
         }
 
         public void AddLocation(ILocation location)
         {
             Locations.Add(location.ObjectId, location);
         }
+
+
+
     }
 }

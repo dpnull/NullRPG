@@ -16,7 +16,8 @@ namespace NullRPG.GameObjects.Worlds
 
             WorldManager.AddAreaToWorld<Overworld>(OverworldArea.Hometown());
             WorldManager.AddAreaToWorld<Overworld>(OverworldArea.Outskirts());
-     
+
+            SetLevels();
         }
     }
 }

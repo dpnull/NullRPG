@@ -75,7 +75,7 @@ namespace NullRPG.Windows
             // Todo: automate this too?
             IndexedKeybindings = new IndexedKeybindings(bindable.ToArray());
             PrintContainerBase printable = new PrintContainerBase(IndexedKeybindings.GetIndexedKeybindings(), PrintContainerBase.ListType.Areas);
-            printable.SetPrintingOffsets(0, 4, 30);
+            printable.SetPrintingOffsets(0, 4, 15);
 
             printable.Print(this);
 
