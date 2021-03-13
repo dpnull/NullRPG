@@ -50,7 +50,7 @@ namespace NullRPG.Windows.Navigation
 
             IndexedKeybindings = new IndexedKeybindings(bindable.ToArray());
             PrintContainerBase printable = new PrintContainerBase(IndexedKeybindings.GetIndexedKeybindings(), PrintContainerBase.ListType.Locations);
-            printable.SetPrintingOffsets(1, 1, 30);
+            printable.SetPrintingOffsets(1, 1, Width - 10);
 
             printable.Print(this);
 

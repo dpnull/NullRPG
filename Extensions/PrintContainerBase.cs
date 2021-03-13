@@ -165,7 +165,7 @@ namespace NullRPG.Extensions
                 var printableArea = new PrintContainerBase()
                 {
                     Name = areaName,
-                    Type = $"Level {area.MinLevel} - {area.MaxLevel}",
+                    Type = area.MinLevel==0&&area.MaxLevel==0? "\0" : $"<{area.MinLevel} - {area.MaxLevel}>",
                     Data = "\0",
                     Id = "\0",
                     ButtonIndex = new ButtonIndex(keybindings[index].Keybinding, Color.Green, Color.White, 0, 0, true)
@@ -193,7 +193,7 @@ namespace NullRPG.Extensions
                 var printableLocation = new PrintContainerBase()
                 {
                     Name = locationName,
-                    Type = "\0",
+                    Type = location.MinLevel==0&&location.MaxLevel==0? "\0" : $"<{location.MinLevel} - {location.MaxLevel}>",
                     Data = "\0",
                     Id = "\0",
                     ButtonIndex = new ButtonIndex(keybindings[index].Keybinding, Constants.Theme.ButtonKeyColor, Constants.Theme.ForegroundColor, 0, 0, true)

@@ -57,9 +57,6 @@ namespace NullRPG.Windows.Navigation
 
             printable.Print(this);
 
-            var cancelBtn = new ButtonString(new ColoredString(Keybindings.GetKeybindingName(Keybindings.Type.Cancel)),
-                Keybindings.GetKeybinding(Keybindings.Type.Cancel), Constants.Theme.ButtonKeyColor, DefaultForeground, 2, Height - 2, false);
-            cancelBtn.Draw(this);
         }
     }
 }
