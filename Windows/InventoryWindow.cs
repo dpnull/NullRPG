@@ -16,9 +16,10 @@ namespace NullRPG.Windows
 {
     internal class InventoryWindow : Console, IUserInterface
     {
+        private const int TYPE_OFFSET = 25;
+        private const int X_OFFSET = 0;
+        private const int Y_OFFSET = 3;
         private IndexedKeybindings IndexedKeybindings;
-        public Console Console => this;
-
         public InventoryWindow(int width, int height) : base(width, height)
         {
             Position = new Point(0, 1);
@@ -26,10 +27,7 @@ namespace NullRPG.Windows
             Global.CurrentScreen.Children.Add(this);
         }
 
-        private const int X_OFFSET = 0;
-        private const int Y_OFFSET = 3;
-        private const int TYPE_OFFSET = 25;
-
+        public Console Console => this;
         public override void Draw(TimeSpan timeElapsed)
         {
             Clear();
@@ -39,17 +37,6 @@ namespace NullRPG.Windows
             DrawEquipButton();
 
             base.Draw(timeElapsed);
-        }
-
-        private void DrawEquipButton()
-        {
-            if (ItemManager.GetItem<IItem>(UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId) is WeaponItem)
-            {
-                var btn = new Input.ButtonString(new ColoredString("Equip"), Keybindings.GetKeybinding(Keybindings.Type.Equip), Constants.Theme.ButtonKeyColor, DefaultForeground,
-                    Constants.Windows.PreviewX, Constants.Windows.PreviewY + Constants.Windows.ItemPreviewHeight - 1);
-
-                btn.Draw(this);
-            }
         }
 
         public override void OnFocusLost()
@@ -95,6 +82,17 @@ namespace NullRPG.Windows
             InventoryManager.EquipItem<PlayerInventory>(objectId);
         }
 
+        private void DrawEquipButton()
+        {
+            if (ItemManager.GetItem<IItem>(UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId) is WeaponItem)
+            {
+                var btn = new Input.ButtonString(new ColoredString("Equip"), Keybindings.GetKeybinding(Keybindings.Type.Equip), Constants.Theme.ButtonKeyColor, DefaultForeground,
+                    Constants.Windows.PreviewX, Constants.Windows.PreviewY + Constants.Windows.ItemPreviewHeight - 1);
+
+                btn.Draw(this);
+            }
+        }
+
         private void DrawInventory()
         {
             this.DrawHeader(0, $"  {Game.GameSession.Player.Name}'s inventory overview ", Constants.Theme.HeaderForegroundColor, Constants.Theme.HeaderBackgroundColor);
@@ -107,8 +105,8 @@ namespace NullRPG.Windows
                 if (!slot.Item.Any())
                     continue;
                 else
-                {
                     if (slot.Item != null)
+                {
                     {
                         if (slot.Item.Any<IItem>(i => i.IsUnique))
                         {

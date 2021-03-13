@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using NullRPG.Extensions;
+using NullRPG.GameObjects;
 using NullRPG.GameObjects.Worlds;
 using NullRPG.Input;
 using NullRPG.Interfaces;
@@ -9,10 +10,10 @@ using Console = SadConsole.Console;
 
 namespace NullRPG.Windows.Navigation
 {
-    public class LocationKeybindingsWindow : Console, IUserInterface
+    public class LocationKeybindingsWindow : BaseKeybindingsWindow, IUserInterface
     {
-        public Console Console => this;
-        public IndexedKeybindings IndexedKeybindings { get; private set; }
+        public new Console Console => this;
+        public new IndexedKeybindings IndexedKeybindings { get; private set; }
 
         public LocationKeybindingsWindow(int width, int height) : base(width, height)
         {
@@ -25,7 +26,32 @@ namespace NullRPG.Windows.Navigation
         {
             Clear();
 
+            DrawNewKeybindings();
+
             DrawKeybindings();
+        }
+
+
+        private void DrawNewKeybindings()
+        {
+            dynamic[] locations = GetDrawableKeybindingsObjects<IDrawableKeybinding>(WorldManager.GetWorldAreaLocations<Overworld>(Game.GameSession.Player.CurrentArea));
+            List<IIndexable> bindable = new List<IIndexable>();
+
+            foreach (var location in locations)
+            {
+                if (location != null)
+                {
+                    bindable.Add((IIndexable)location);
+                }
+            }
+
+            IndexedKeybindings = new IndexedKeybindings(bindable.ToArray());
+            PrintContainerBase printable = new PrintContainerBase(IndexedKeybindings.GetIndexedKeybindings(), PrintContainerBase.ListType.Locations);
+            printable.SetPrintingOffsets(1, 1, Width - 10);
+
+            printable.Print(this);
+
+            this.DrawSeparator(Height - 1, "-", DefaultForeground);
         }
 
         private void DrawKeybindings()

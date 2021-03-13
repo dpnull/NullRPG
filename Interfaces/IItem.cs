@@ -2,7 +2,7 @@
 
 namespace NullRPG.Interfaces
 {
-    public interface IItem
+    public interface IItem : IDrawableKeybinding
     {
         int ObjectId { get; set; }
         string Name { get; set; }

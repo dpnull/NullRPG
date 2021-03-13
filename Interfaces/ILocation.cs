@@ -1,6 +1,6 @@
 ﻿namespace NullRPG.Interfaces
 {
-    public interface ILocation
+    public interface ILocation : IDrawableKeybinding
     {
         public int ObjectId { get; set; }
         public string Name { get; set; }
