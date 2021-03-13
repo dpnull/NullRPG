@@ -44,13 +44,13 @@ namespace NullRPG.Windows.Navigation
             return default;
         }
 
-        public dynamic[] GetDrawableKeybindingsObjects<T>(IDrawableKeybinding[] drawableKeybindings) where T : IDrawableKeybinding
+        public T[] GetDrawableKeybindingsObjects<T>(IDrawableKeybinding[] drawableKeybindings) where T : IDrawableKeybinding
         {
-            dynamic[] collection = new dynamic[drawableKeybindings.Length];
+            T[] collection = new T[drawableKeybindings.Length];
 
             for(int i = 0; i < collection.Length; i++)
             {
-                collection[i] = GetDrawableKeybindingObject(drawableKeybindings[i]);
+                collection[i] = (T)GetDrawableKeybindingObject(drawableKeybindings[i]);
             }
             return collection;
         }
