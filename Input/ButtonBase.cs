@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using NullRPG.Interfaces;
+using NullRPG.Managers;
 
 namespace NullRPG.Input
 {
@@ -39,7 +41,7 @@ namespace NullRPG.Input
         {
             if (IsNumeric)
             {
-                return Keybindings.GetNumericKeyName(Key);
+                return KeybindingManager.GetKeyNameNumeric(Key);
             }
             else
             {

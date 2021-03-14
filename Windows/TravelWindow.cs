@@ -15,7 +15,7 @@ namespace NullRPG.Windows
     public class TravelWindow : Console, IUserInterface
     {
         public Console Console => this;
-        private IndexedKeybindings IndexedKeybindings;
+        public IIndexedKeybinding[] IndexedKeybindings { get; private set; }
 
         public TravelWindow(int width, int height) : base(width, height)
         {
@@ -35,17 +35,17 @@ namespace NullRPG.Windows
 
         public override bool ProcessKeyboard(Keyboard info)
         {
-            foreach (var key in IndexedKeybindings.GetIndexedKeybindings())
+            foreach (var keybinding in IndexedKeybindings)
             {
-                if (info.IsKeyPressed(key.Keybinding))
+                if (info.IsKeyPressed(keybinding.Key))
                 {
                     var player = EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId); // Todo: make gamesession player less accessible
-                    EntityManager.TravelEntityToArea((Player)player, IndexedKeybindings.GetIndexable(key.Index).ObjectId);
+                    EntityManager.TravelEntityToArea((Player)player, keybinding.ObjectId);
                     return true;
                 }
             }
 
-            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Cancel)))
+            if (info.IsKeyPressed(KeybindingManager.GetKeybinding<IKeybinding>(Keybinding.Keybindings.Back)))
             {
                 this.FullTransition(UserInterfaceManager.Get<GameWindow>());
             }
@@ -70,8 +70,8 @@ namespace NullRPG.Windows
                 }
             }
             // Todo: automate this too?
-            IndexedKeybindings = new IndexedKeybindings(bindable.ToArray());
-            PrintContainerBase printable = new PrintContainerBase(IndexedKeybindings.GetIndexedKeybindings(), PrintContainerBase.ListType.Areas);
+            IndexedKeybindings = IndexedKeybindingsManager.CreateIndexedKeybindings<IIndexedKeybinding>(bindable);
+            PrintContainerBase printable = new PrintContainerBase(IndexedKeybindings, PrintContainerBase.ListType.Areas);
             printable.SetPrintingOffsets(0, 4, 15);
 
             printable.Print(this);

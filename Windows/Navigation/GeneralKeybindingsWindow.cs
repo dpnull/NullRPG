@@ -13,7 +13,7 @@ namespace NullRPG.Windows.Navigation
     {
         public Console Console => this;
 
-        private Keybindings Keybindings = new Keybindings();
+        public IKeybinding[] Keybindings { get; private set; }
 
         public List<ButtonString> Buttons { get; set; }
 
@@ -21,8 +21,10 @@ namespace NullRPG.Windows.Navigation
         {
             Position = new Point(Constants.Windows.GeneralKeybindingsX, Constants.Windows.GeneralKeybindingsY);
 
+            KeybindingManager.Initialize();
+
             Initialize();
-            Keybindings.UpdateKeybindings();
+            KeybindingManager.UpdateKeybindings();
             RefractoredDrawKeybindings();
 
             this.Parent = UserInterfaceManager.Get<KeybindingsWindow>();
@@ -32,7 +34,8 @@ namespace NullRPG.Windows.Navigation
         {
             Clear();
 
-            Keybindings.UpdateKeybindings();
+            Keybindings = KeybindingManager.GetCategoryKeybindings<IKeybinding>(Keybinding.Category.General);
+            KeybindingManager.UpdateKeybindings();
 
             RefractoredDrawKeybindings();
         }
@@ -45,14 +48,14 @@ namespace NullRPG.Windows.Navigation
 
             this.DrawBorders(Width, Height, "+", "|", "-", DefaultForeground);
 
-            for (int i = 0; i < Keybindings.GetKeybindings().Count; i++)
+            for (int i = 0; i < Keybindings.Length; i++)
             {
-                if (!Keybindings.GetKeybindings()[i].IsVisible) // don't iterate through hidden keybindings
+                if (!Keybindings[i].IsVisible) // don't iterate through hidden keybindings
                 {
                     continue;
                 }
 
-                var btn = new ButtonString(new ColoredString(Keybindings.GetKeybindings()[i].TypeName.ToString()), Keybindings.GetKeybindings()[i].Key, Color.Green, DefaultForeground, _x, _y);
+                var btn = new ButtonString(new ColoredString(Keybindings[i].Name.ToString()), Keybindings[i].Key, Color.Green, DefaultForeground, _x, _y);
                 Buttons.Add(btn);
 
                 _y++;
@@ -66,7 +69,7 @@ namespace NullRPG.Windows.Navigation
 
         public void Initialize()
         {
-            Keybindings.CreateKeybindings();
+            Keybindings = KeybindingManager.GetCategoryKeybindings<IKeybinding>(Keybinding.Category.General);
         }
 
         public void OnDraw()

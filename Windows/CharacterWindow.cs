@@ -43,13 +43,13 @@ namespace NullRPG.Windows
         {
             if (UserInterfaceManager.Get<CharacterKeybindingsWindow>().IndexedKeybindings != null) // IndexedKeybindings is created after this window becomes visible
             {
-                foreach (var key in UserInterfaceManager.Get<CharacterKeybindingsWindow>().IndexedKeybindings.GetIndexedKeybindings())
+                foreach (var keybinding in UserInterfaceManager.Get<CharacterKeybindingsWindow>().IndexedKeybindings)
                 {
-                    if (info.IsKeyPressed(key.Keybinding))
+                    if (info.IsKeyPressed(keybinding.Key))
                     {
                         var itemPreviewWindow = UserInterfaceManager.Get<ItemPreviewWindow>();
                         itemPreviewWindow.
-                            SetObjectForPreview(UserInterfaceManager.Get<CharacterKeybindingsWindow>().IndexedKeybindings.GetIndexable(key.Index).ObjectId);
+                            SetObjectForPreview(keybinding.ObjectId);
                         return true;
                     }
                 }
@@ -60,7 +60,7 @@ namespace NullRPG.Windows
                 Game.GameSession.Player.Experience += 1;
             }
 
-            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Cancel)))
+            if (info.IsKeyPressed(KeybindingManager.GetKeybinding<IKeybinding>(Keybinding.Keybindings.Back)))
             {
                 this.FullTransition(UserInterfaceManager.Get<GameWindow>());
             }

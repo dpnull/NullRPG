@@ -2,10 +2,9 @@
 
 namespace NullRPG.Interfaces
 {
-    public interface IIndexedKeybinding
+    public interface IIndexedKeybinding : IIndexable
     {
         int Index { get; set; }
-        Keys Keybinding { get; set; }
-        IIndexable Object { get; set; }
+        Keys Key { get; set; }
     }
 }

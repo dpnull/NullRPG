@@ -13,7 +13,7 @@ namespace NullRPG.Windows.Navigation
     public class LocationKeybindingsWindow : BaseKeybindingsWindow, IUserInterface
     {
         public new Console Console => this;
-        public new IndexedKeybindings IndexedKeybindings { get; private set; }
+        public IIndexedKeybinding[] IndexedKeybindings { get; private set; }
 
         public LocationKeybindingsWindow(int width, int height) : base(width, height)
         {
@@ -46,8 +46,8 @@ namespace NullRPG.Windows.Navigation
                 }
             }
 
-            IndexedKeybindings = new IndexedKeybindings(bindable.ToArray());
-            PrintContainerBase printable = new PrintContainerBase(IndexedKeybindings.GetIndexedKeybindings(), PrintContainerBase.ListType.Locations);
+            IndexedKeybindings = IndexedKeybindingsManager.CreateIndexedKeybindings<IIndexedKeybinding>(bindable);
+            PrintContainerBase printable = new PrintContainerBase(IndexedKeybindings, PrintContainerBase.ListType.Locations);
             printable.SetPrintingOffsets(1, 1, Width - 10);
 
             printable.Print(this);

@@ -102,7 +102,7 @@ namespace NullRPG.Extensions
                     Type = itemType,
                     Data = "\0",
                     Id = "\0",
-                    ButtonIndex = new ButtonIndex(keybindings[index].Keybinding, Color.Green, Color.White, 0, 0, true)
+                    ButtonIndex = new ButtonIndex(keybindings[index].Key, Color.Green, Color.White, 0, 0, true)
                 };
 
                 _printable.Add(printableItem);
@@ -115,12 +115,12 @@ namespace NullRPG.Extensions
             int index = 0; // for keybinding index
             foreach (var item in keybindings)
             {
-                var slotItem = InventoryManager.GetSlot<ISlot>(InventoryManager.Get<PlayerInventory>(), item.Object.ObjectId).Item.FirstOrDefault();
+                var slotItem = InventoryManager.GetSlot<ISlot>(InventoryManager.Get<PlayerInventory>(), item.ObjectId).Item.FirstOrDefault();
                 ColoredString itemName = ItemManager.GetItemName<IItem>(slotItem.ObjectId);
 
                 if (slotItem is MiscItem)
                 {
-                    itemName += $" x{InventoryManager.GetSlot<ISlot>(Game.GameSession.Player.Inventory, item.Object.ObjectId).Item.Count}";
+                    itemName += $" x{InventoryManager.GetSlot<ISlot>(Game.GameSession.Player.Inventory, item.ObjectId).Item.Count}";
                 }
 
                 // temp
@@ -135,7 +135,7 @@ namespace NullRPG.Extensions
 
                 // retrieves the description attribute from the class
                 string itemType = slotItem?.GetType().GetCustomAttribute<DescriptionAttribute>(false).Description;
-                string itemId = $"slotId_{InventoryManager.GetSlot<ISlot>(Game.GameSession.Player.Inventory, item.Object.ObjectId).ObjectId}, itemId_{slotItem.ObjectId}";
+                string itemId = $"slotId_{InventoryManager.GetSlot<ISlot>(Game.GameSession.Player.Inventory, item.ObjectId).ObjectId}, itemId_{slotItem.ObjectId}";
 
                 var printableItem = new PrintContainerBase()
                 {
@@ -143,7 +143,7 @@ namespace NullRPG.Extensions
                     Type = itemType,
                     Data = "\0",
                     Id = "\0",
-                    ButtonIndex = new ButtonIndex(keybindings[index].Keybinding, Color.Green, Color.White, 0, 0, true)
+                    ButtonIndex = new ButtonIndex(keybindings[index].Key, Color.Green, Color.White, 0, 0, true)
                 };
 
                 _printable.Add(printableItem);
@@ -156,7 +156,7 @@ namespace NullRPG.Extensions
             int index = 0;
             foreach (var item in keybindings)
             {
-                var area = AreaManager.GetAreaByObjectId<IArea>(item.Object.ObjectId);
+                var area = AreaManager.GetAreaByObjectId<IArea>(item.ObjectId);
 
                 var areaName = new ColoredString(area.Name);
 
@@ -166,7 +166,7 @@ namespace NullRPG.Extensions
                     Type = area.MinLevel == 0 && area.MaxLevel == 0 ? "\0" : $"<{area.MinLevel} - {area.MaxLevel}>",
                     Data = "\0",
                     Id = "\0",
-                    ButtonIndex = new ButtonIndex(keybindings[index].Keybinding, Color.Green, Color.White, 0, 0, true)
+                    ButtonIndex = new ButtonIndex(keybindings[index].Key, Color.Green, Color.White, 0, 0, true)
                 };
 
                 _printable.Add(printableArea);
@@ -179,7 +179,7 @@ namespace NullRPG.Extensions
             int index = 0;
             foreach (var item in keybindings)
             {
-                var location = LocationManager.GetLocationByObjectId<ILocation>(item.Object.ObjectId);
+                var location = LocationManager.GetLocationByObjectId<ILocation>(item.ObjectId);
 
                 ColoredString locationName = LocationManager.GetLocationName<ILocation>(location.ObjectId);
 
@@ -194,7 +194,7 @@ namespace NullRPG.Extensions
                     Type = location.MinLevel == 0 && location.MaxLevel == 0 ? "\0" : $"<{location.MinLevel} - {location.MaxLevel}>",
                     Data = "\0",
                     Id = "\0",
-                    ButtonIndex = new ButtonIndex(keybindings[index].Keybinding, Constants.Theme.ButtonKeyColor, Constants.Theme.ForegroundColor, 0, 0, true)
+                    ButtonIndex = new ButtonIndex(keybindings[index].Key, Constants.Theme.ButtonKeyColor, Constants.Theme.ForegroundColor, 0, 0, true)
                 };
 
                 _printable.Add(printableLocation);

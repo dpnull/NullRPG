@@ -16,7 +16,6 @@ namespace NullRPG.Windows.Navigation
     public abstract class BaseKeybindingsWindow : Console, IUserInterface
     {
         public Console Console => this;
-        public IndexedKeybindings IndexedKeybindings { get; private set; }
 
         public BaseKeybindingsWindow(int width, int height) : base(width, height)
         {

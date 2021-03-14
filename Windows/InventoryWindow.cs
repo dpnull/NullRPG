@@ -10,6 +10,7 @@ using SadConsole.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static NullRPG.Input.Keybinding;
 using Console = SadConsole.Console;
 
 namespace NullRPG.Windows
@@ -19,7 +20,7 @@ namespace NullRPG.Windows
         private const int TYPE_OFFSET = 25;
         private const int X_OFFSET = 0;
         private const int Y_OFFSET = 3;
-        private IndexedKeybindings IndexedKeybindings;
+        public IIndexedKeybinding[] IndexedKeybindings { get; private set; }
         public InventoryWindow(int width, int height) : base(width, height)
         {
             Position = new Point(0, 1);
@@ -46,13 +47,15 @@ namespace NullRPG.Windows
 
         public override bool ProcessKeyboard(Keyboard info)
         {
-            foreach (var key in IndexedKeybindings.GetIndexedKeybindings())
+
+
+            foreach (var keybinding in IndexedKeybindings)
             {
-                if (info.IsKeyPressed(key.Keybinding))
+                if (info.IsKeyPressed(keybinding.Key))
                 {
                     var itemPreviewWindow = UserInterfaceManager.Get<ItemPreviewWindow>();
                     itemPreviewWindow.
-                        SetObjectForPreview(InventoryManager.GetSlot<ISlot>(Game.GameSession.Player.Inventory, IndexedKeybindings.GetIndexable(key.Index).ObjectId).Item.FirstOrDefault().ObjectId);
+                        SetObjectForPreview(InventoryManager.GetSlot<ISlot>(Game.GameSession.Player.Inventory, keybinding.ObjectId).Item.FirstOrDefault().ObjectId);
                     return true;
                 }
             }
@@ -62,7 +65,7 @@ namespace NullRPG.Windows
                 TestChopping();
             }
 
-            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Cancel)))
+            if (info.IsKeyPressed(KeybindingManager.GetKeybinding<IKeybinding>(Keybindings.Back)))
             {
                 this.FullTransition(UserInterfaceManager.Get<GameWindow>());
                 return true;
@@ -103,7 +106,7 @@ namespace NullRPG.Windows
         {
             if (ItemManager.GetItem<IItem>(UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId) is WeaponItem)
             {
-                var btn = new Input.ButtonString(new ColoredString("Equip"), Keybindings.GetKeybinding(Keybindings.Type.Equip), Constants.Theme.ButtonKeyColor, DefaultForeground,
+                var btn = new Input.ButtonString(new ColoredString("Equip"), KeybindingManager.GetKeybinding<IKeybinding>(Keybindings.Equip), Constants.Theme.ButtonKeyColor, DefaultForeground,
                     Constants.Windows.PreviewX, Constants.Windows.PreviewY + Constants.Windows.ItemPreviewHeight - 1);
 
                 btn.Draw(this);
@@ -137,8 +140,8 @@ namespace NullRPG.Windows
                 }
             }
 
-            IndexedKeybindings = new IndexedKeybindings(bindable.ToArray());
-            PrintContainerBase printable = new PrintContainerBase(IndexedKeybindings.GetIndexedKeybindings(), PrintContainerBase.ListType.Inventory);
+            IndexedKeybindings = IndexedKeybindingsManager.CreateIndexedKeybindings<IIndexedKeybinding>(bindable);
+            PrintContainerBase printable = new PrintContainerBase(IndexedKeybindings, PrintContainerBase.ListType.Inventory);
             printable.SetPrintingOffsets(X_OFFSET, Y_OFFSET, TYPE_OFFSET);
 
             printable.Print(this);

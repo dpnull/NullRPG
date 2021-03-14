@@ -2,9 +2,8 @@
 
 namespace NullRPG.Interfaces
 {
-    public interface ISlot
+    public interface ISlot : IIndexable
     {
-        public int ObjectId { get; set; }
         public List<IItem> Item { get; set; }
     }
 }

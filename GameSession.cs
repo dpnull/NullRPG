@@ -12,6 +12,7 @@ namespace NullRPG
 
         public GameSession()
         {
+            IndexedKeybindingsManager.Initialize();
             // Probably shouldn't be here
             ItemManager.Add(WeaponItem.None());
             World = new Overworld();

@@ -40,34 +40,38 @@ namespace NullRPG.Windows
         public override bool ProcessKeyboard(Keyboard info)
         {
             // TODO: SOMETIMES THROWS NULL REFERENCE
-            foreach (var key in UserInterfaceManager.Get<LocationKeybindingsWindow>().IndexedKeybindings.GetIndexedKeybindings())
+            if (UserInterfaceManager.Get<LocationKeybindingsWindow>().IndexedKeybindings != null)
             {
-                if (info.IsKeyPressed(key.Keybinding))
+                foreach (var keybinding in UserInterfaceManager.Get<LocationKeybindingsWindow>().IndexedKeybindings)
                 {
-                    EntityManager.TravelEntityToLocation(Game.GameSession.Player, key.Object.ObjectId);
-                    return true;
+                    if (info.IsKeyPressed(keybinding.Key))
+                    {
+                        EntityManager.TravelEntityToLocation(Game.GameSession.Player, keybinding.ObjectId);
+                        return true;
+                    }
                 }
             }
 
-            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Character)))
+
+            if (info.IsKeyPressed(KeybindingManager.GetKeybinding<IKeybinding>(Keybinding.Keybindings.Character)))
             {
                 OpenCharacterWindow();
                 return true;
             }
 
-            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Inventory)))
+            if (info.IsKeyPressed(KeybindingManager.GetKeybinding<IKeybinding>(Keybinding.Keybindings.Inventory)))
             {
                 OpenInventoryWindow();
                 return true;
             }
 
-            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Travel)))
+            if (info.IsKeyPressed(KeybindingManager.GetKeybinding<IKeybinding>(Keybinding.Keybindings.Travel)))
             {
                 OpenTravelWindow();
                 return true;
             }
 
-            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Chop)))
+            if (info.IsKeyPressed(KeybindingManager.GetKeybinding<IKeybinding>(Keybinding.Keybindings.Chop)))
             {
                 OpenChoppingWindow();
             }
