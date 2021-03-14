@@ -24,7 +24,7 @@ namespace NullRPG.Windows.Navigation
             KeybindingManager.Initialize();
 
             Initialize();
-            KeybindingManager.UpdateKeybindings();
+
             RefractoredDrawKeybindings();
 
             this.Parent = UserInterfaceManager.Get<KeybindingsWindow>();

@@ -32,7 +32,6 @@ namespace NullRPG.Windows
         public override void Draw(TimeSpan timeElapsed)
         {
             Clear();
-
             DrawInventory();
 
             DrawEquipButton();
@@ -44,7 +43,6 @@ namespace NullRPG.Windows
         {
             UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId = -1;
         }
-
         public override bool ProcessKeyboard(Keyboard info)
         {
 
@@ -106,7 +104,7 @@ namespace NullRPG.Windows
         {
             if (ItemManager.GetItem<IItem>(UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId) is WeaponItem)
             {
-                var btn = new Input.ButtonString(new ColoredString("Equip"), KeybindingManager.GetKeybinding<IKeybinding>(Keybindings.Equip), Constants.Theme.ButtonKeyColor, DefaultForeground,
+                var btn = new Input.ButtonString(new ColoredString("Equip"), Microsoft.Xna.Framework.Input.Keys.E, Constants.Theme.ButtonKeyColor, DefaultForeground,
                     Constants.Windows.PreviewX, Constants.Windows.PreviewY + Constants.Windows.ItemPreviewHeight - 1);
 
                 btn.Draw(this);

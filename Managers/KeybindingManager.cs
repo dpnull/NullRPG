@@ -1,14 +1,11 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using NullRPG.Input;
 using NullRPG.Interfaces;
+using NullRPG.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static NullRPG.Input.Keybinding;
-using NullRPG.Managers;
-using NullRPG.Windows;
 
 namespace NullRPG.Managers
 {
@@ -36,22 +33,19 @@ namespace NullRPG.Managers
         public static void UpdateKeybindings()
         {
             /*
-             
+
              TODO:
              Keybindings should be assignable to windows and then iterate through assigned keybindings to the windows to update visibility and accessbility.
-             
+
              */
-            UpdateVisibility(Keybindings.Travel, UserInterfaceManager.Get<GameWindow>());
-            UpdateVisibility(Keybindings.Inventory, UserInterfaceManager.Get<GameWindow>());
-            UpdateVisibility(Keybindings.Character, UserInterfaceManager.Get<GameWindow>());
+            UpdateVisibility(Keybindings.Travel, UserInterfaceManager.Get<GameWindow>().IsFocused);
+            UpdateVisibility(Keybindings.Inventory, UserInterfaceManager.Get<GameWindow>().IsFocused);
+            UpdateVisibility(Keybindings.Character, UserInterfaceManager.Get<GameWindow>().IsFocused);
 
             UpdateVisibility(Keybindings.Back,
                 UserInterfaceManager.Get<CharacterWindow>().IsVisible ||
-                UserInterfaceManager.Get<TravelWindow>().IsVisible ||
+                UserInterfaceManager.Get<TravelWindow>().IsVisible || 
                 UserInterfaceManager.Get<InventoryWindow>().IsVisible);
-
-            // temporary
-            UpdateVisibility(Keybindings.Chop, Game.GameSession.Player.CurrentLocation.Name == "Forest");
         }
 
         private static void UpdateVisibility(Keybindings keybinding, IUserInterface window)
@@ -61,7 +55,7 @@ namespace NullRPG.Managers
             _keybinding.IsVisible = window.Console.IsVisible;
         }
 
-        private static void UpdateVisibility(Keybindings keybinding, bool condition)
+        public static void UpdateVisibility(Keybindings keybinding, bool condition)
         {
             var _keybinding = Get<IKeybinding>(keybinding);
 
@@ -95,7 +89,14 @@ namespace NullRPG.Managers
 
         public static Keys GetKeybinding<T>(Keybindings keybinding) where T : IKeybinding
         {
-            return Get<T>(keybinding).Key;
+            var _keybinding = Get<T>(keybinding);
+
+            if (_keybinding.IsVisible)
+            {
+                return _keybinding.Key;
+            }
+            else
+                return default;
         }
 
         public static string GetName<T>(Keybindings keybinding) where T : IKeybinding
@@ -103,6 +104,7 @@ namespace NullRPG.Managers
             return Get<T>(keybinding).Name.ToString();
         }
 
+        // Returns a string for the XNA key enum after deleting letters. Used for retrieving only the number from numerical keys.
         public static string GetKeyNameNumeric<T>(Keybindings keybinding) where T : IKeybinding
         {
             var _keybinding = Get<T>(keybinding);
@@ -122,7 +124,6 @@ namespace NullRPG.Managers
         // TEMPORARY **************
         public static string GetKeyNameNumeric(Keys key)
         {
-
             string str = String.Empty;
             for (int i = 0; i < key.ToString().Length; i++)
             {

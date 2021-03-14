@@ -7,6 +7,7 @@ using NullRPG.Windows.Navigation;
 using SadConsole;
 using SadConsole.Input;
 using System;
+using static NullRPG.Input.Keybinding;
 using Console = SadConsole.Console;
 
 namespace NullRPG.Windows
@@ -34,7 +35,15 @@ namespace NullRPG.Windows
 
         public override void Update(TimeSpan timeElapsed)
         {
+            UpdateKeybindingVisibility();
+
             base.Update(timeElapsed);
+        }
+
+        private void UpdateKeybindingVisibility()
+        {
+            KeybindingManager.UpdateVisibility(Keybindings.Chop, WorldObjectManager.ContainsWorldObject(Game.GameSession.Player.CurrentLocation,
+                GameObjects.WorldObjectBase.Objects.Tree) && this.IsFocused);
         }
 
         public override bool ProcessKeyboard(Keyboard info)
@@ -101,7 +110,6 @@ namespace NullRPG.Windows
             {
                 this.SwitchFocusMakeVisible(UserInterfaceManager.Get<ChoppingWindow>());
             }
- 
         }
     }
 }

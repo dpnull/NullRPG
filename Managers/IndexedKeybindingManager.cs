@@ -23,6 +23,7 @@ namespace NullRPG.Managers
             IsInitialized = true;
         }
 
+        // Assigns XNA keys to ints 0 - 9.
         private static void InitializeIndexedKeybindingsKeys()
         {
             (int, Microsoft.Xna.Framework.Input.Keys)[] _indexedKeybindingKeys = new (int, Microsoft.Xna.Framework.Input.Keys)[]
@@ -45,12 +46,14 @@ namespace NullRPG.Managers
             }
         }
 
+        // Returns XNA key from dictionary where key is equal to passed index.
         private static Keys GetIndexedKeybindingKey(int index)
         {
             if (IndexedKeybindingKeys.TryGetValue(index, out Microsoft.Xna.Framework.Input.Keys value)) return value;
             throw new System.Exception($"No keybinding defined with index: {index}");
         }
 
+        // Deprecated
         public static Keys[] GetIndexedKeybindingsKeys<T>(T[] indexableArr) where T : IIndexedKeybinding
         {
             Keys[] keysArr = new Keys[indexableArr.Length];
@@ -62,6 +65,7 @@ namespace NullRPG.Managers
             return keysArr;
         }
 
+        // Creates and returns an array of indexed keybindings
         public static IIndexedKeybinding[] CreateIndexedKeybindings<T>(List<IIndexable> indexableArr) where T : IIndexedKeybinding
         {
             var collection = new IndexedKeybindings(indexableArr.ToArray());
@@ -69,6 +73,7 @@ namespace NullRPG.Managers
             return collection._indexedKeybindings.ToArray();
         }
 
+        // Helper class for creating an array of indexed keybindings.
         private class IndexedKeybindings
         {
             // add automatic indexer?
