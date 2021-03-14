@@ -20,5 +20,10 @@ namespace NullRPG.ItemTypes
         {
             return new MiscItem("Gold bar", RarityType.Rare, false, 1, 70);
         }
+
+        public static MiscItem BirchnutRawLog()
+        {
+            return new MiscItem("Birchnut raw log", RarityType.Common, false, 1, 5);
+        }
     }
 }

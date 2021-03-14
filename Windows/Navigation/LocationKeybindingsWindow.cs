@@ -34,7 +34,7 @@ namespace NullRPG.Windows.Navigation
 
         private void DrawNewKeybindings()
         {
-            dynamic[] locations = GetDrawableKeybindingsObjects<IDrawableKeybinding>(WorldManager.GetWorldAreaLocations<Overworld>(Game.GameSession.Player.CurrentArea));
+            IDrawableKeybinding[] locations = GetDrawableKeybindingsObjects<IDrawableKeybinding>(WorldManager.GetWorldAreaLocations<Overworld>(Game.GameSession.Player.CurrentArea));
             // MERGE BELOW WITH ABOVE?
             List<IIndexable> bindable = new List<IIndexable>();
 
