@@ -12,9 +12,9 @@ namespace NullRPG.GameObjects
         public int MinLevel { get; set; }
         public int MaxLevel { get; set; }
 
-        public IWorldObject[] WorldObjects { get; set; }
+        public List<IWorldObject> WorldObjects { get; set; }
 
-        public Location(string name, IWorldObject[] worldObjects, int minLevel, int maxLevel)
+        public Location(string name, List<IWorldObject> worldObjects, int minLevel, int maxLevel)
         {
             ObjectId = LocationManager.GetUniqueLocationId();
 
@@ -24,7 +24,8 @@ namespace NullRPG.GameObjects
             MinLevel = minLevel;
             MaxLevel = maxLevel;
 
-            WorldObjects = worldObjects;
+            WorldObjects = worldObjects ?? (new());
+            
         }
 
     }

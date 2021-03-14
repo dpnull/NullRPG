@@ -33,21 +33,42 @@ namespace NullRPG.Managers
             return default;
         }
 
+        public static T[] GetLocationWorldObjectsByObjectType<T>(ILocation location, WorldObjectBase.Objects objectType) where T : IWorldObject
+        {
+            var collection = GetLocationWorldObjects<T>(location).Where(o => o.ObjectType == objectType).ToArray().OfType<T>();
+            return collection.ToArray();
+        }
+
         public static bool ContainsWorldObject<T>(T location, WorldObjectBase.Objects objectType) where T : ILocation
         {
-            var collection = LocationManager.GetLocationByObjectId<T>(location.ObjectId);
-            if (collection.WorldObjects != null)
+            var collection = LocationManager.GetLocationByObjectId<T>(location.ObjectId).WorldObjects;
+            if(collection != null)
             {
-                foreach (var worldObject in collection.WorldObjects)
+                foreach (var worldObject in collection)
                 {
-                    if (worldObject.ObjectType == objectType)
+                    if (worldObject != null)
                     {
-                        return true;
+                        if (worldObject.ObjectType == objectType)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
 
+
             return false;
+        }
+
+        public static T[] GetLocationWorldObjects<T>(ILocation location) where T : IWorldObject
+        {
+            if (LocationManager.GetLocationByObjectId<ILocation>(location.ObjectId).WorldObjects != null)
+            {
+                var collection = LocationManager.GetLocationByObjectId<ILocation>(location.ObjectId).WorldObjects.ToArray().OfType<T>();
+                return collection.ToArray();
+            }
+
+            return default;
         }
 
         public static class WorldObjectDatabase

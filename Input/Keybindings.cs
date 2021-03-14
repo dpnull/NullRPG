@@ -49,7 +49,7 @@ namespace NullRPG.Input
             AddKeybinding(Type.Equip, Keys.E, false);
 
             // Location specific
-            AddKeybinding(Type.Chop, Keys.C, false);
+            AddKeybinding(Type.Chop, Keys.H, false);
         }
 
         /// <summary>

@@ -9,6 +9,7 @@ namespace NullRPG.Interfaces
 {
     public interface IWorldObject
     {
+        public string Name { get; set; }
         public int ObjectId { get; set; }
         public List<IItem> Items { get; set; }
         public Objects ObjectType { get; set; }

@@ -8,6 +8,6 @@ namespace NullRPG.Interfaces
         public string Name { get; set; }
         public int MinLevel { get; set; }
         public int MaxLevel { get; set; }
-        public IWorldObject[] WorldObjects { get; set; }
+        public List<IWorldObject> WorldObjects { get; set; }
     }
 }

@@ -18,11 +18,13 @@ namespace NullRPG.GameObjects
 
         public enum Objects
         {
+            None,
             Tree
         }
 
         public enum ObjectActions
         {
+            None,
             Chop
         }
 

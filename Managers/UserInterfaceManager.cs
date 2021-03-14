@@ -70,6 +70,14 @@ namespace NullRPG.Managers
             var locationKeybindingsWindow = new LocationKeybindingsWindow(Constants.Windows.LocationKeybindingsWidth, Constants.Windows.LocationKeybindingsHeight);
             Add(locationKeybindingsWindow);
 
+            // Action windows
+            var choppingWindow = new ChoppingWindow(Constants.Windows.Actions.ChoppingWidth, Constants.Windows.Actions.ChoppingHeight)
+            {
+                IsVisible = false,
+                IsFocused = false
+            };
+            Add(choppingWindow);
+
             var characterKeybindingsWindow = new CharacterKeybindingsWindow(Constants.Windows.CharacterKeybindingsWidth, Constants.Windows.CharacterKeybindingsHeight)
             {
                 IsVisible = false

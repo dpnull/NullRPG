@@ -6,7 +6,7 @@ namespace NullRPG.GameObjects.Worlds
 {
     public class OverworldLocation : Location
     {
-        public OverworldLocation(string name, IWorldObject[] worldObjects, int minLevel = 0, int maxLevel = 0) : base(name, worldObjects, minLevel, maxLevel)
+        public OverworldLocation(string name, List<IWorldObject> worldObjects, int minLevel = 0, int maxLevel = 0) : base(name, worldObjects, minLevel, maxLevel)
         {
         }
 
@@ -22,7 +22,7 @@ namespace NullRPG.GameObjects.Worlds
 
         public static OverworldLocation Forest()
         {
-            return new OverworldLocation("Forest", new IWorldObject[] { TreeObject.Birchnut() });
+            return new OverworldLocation("Forest", new List<IWorldObject> { TreeObject.Birchnut() });
         }
 
         public static OverworldLocation Cave()

@@ -12,6 +12,14 @@ namespace NullRPG
 
         public static class Windows
         {
+            public static class Actions
+            {
+                public const int ChoppingWidth = GameWidth;
+                public const int ChoppingHeight = GameHeight - KeybindingsHeight - MessageHeight;
+                public const int ChoppingX = 0;
+                public const int ChoppingY = 0;
+            }
+
             public const int TitleWidth = GameWidth;
             public const int TitleHeight = GameHeight - 1;
 

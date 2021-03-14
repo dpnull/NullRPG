@@ -44,6 +44,7 @@ namespace NullRPG.Managers
             if (player.CurrentArea != area)
             {
                 player.CurrentArea = (Area)area;
+                player.CurrentLocation = (Location)area.Locations.Values.FirstOrDefault();
                 MessageManager.AddTravelled(area.Name);
             }
             else

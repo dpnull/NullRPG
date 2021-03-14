@@ -39,6 +39,7 @@ namespace NullRPG.Windows
 
         public override bool ProcessKeyboard(Keyboard info)
         {
+            // TODO: SOMETIMES THROWS NULL REFERENCE
             foreach (var key in UserInterfaceManager.Get<LocationKeybindingsWindow>().IndexedKeybindings.GetIndexedKeybindings())
             {
                 if (info.IsKeyPressed(key.Keybinding))
@@ -66,6 +67,11 @@ namespace NullRPG.Windows
                 return true;
             }
 
+            if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Chop)))
+            {
+                OpenChoppingWindow();
+            }
+
             return false;
         }
 
@@ -82,6 +88,16 @@ namespace NullRPG.Windows
         private void OpenTravelWindow()
         {
             this.SwitchFocusMakeVisible(UserInterfaceManager.Get<TravelWindow>());
+        }
+
+        private void OpenChoppingWindow()
+        {
+            var player = EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId);
+            if (WorldObjectManager.ContainsWorldObject<ILocation>(player.CurrentLocation, GameObjects.WorldObjectBase.Objects.Tree))
+            {
+                this.SwitchFocusMakeVisible(UserInterfaceManager.Get<ChoppingWindow>());
+            }
+ 
         }
     }
 }
