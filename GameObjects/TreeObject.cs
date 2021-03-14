@@ -10,14 +10,14 @@ namespace NullRPG.GameObjects
 {
     public class TreeObject : WorldObjectBase
     {
-        public TreeObject(string name, IItem[] items, Objects objectType, ObjectActions objectActionType) : base(name, items, objectType, objectActionType)
+        public TreeObject(string name, List<IItem> items, Objects objectType, ObjectActions objectActionType) : base(name, items, objectType, objectActionType)
         {
 
         }
 
         public static TreeObject Birchnut()
         {
-            return new TreeObject("Birchnut", new IItem[] { MiscItem.BirchnutRawLog() }, Objects.Tree, ObjectActions.Chop);
+            return new TreeObject("Birchnut", new List<IItem> { MiscItem.BirchnutRawLog() }, Objects.Tree, ObjectActions.Chop);
         }
     }
 }

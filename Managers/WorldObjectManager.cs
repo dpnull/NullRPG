@@ -1,4 +1,5 @@
-﻿using NullRPG.Interfaces;
+﻿using NullRPG.GameObjects;
+using NullRPG.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,23 @@ namespace NullRPG.Managers
                 return (T)WorldObjectDatabase.WorldObjects.Values.SingleOrDefault(i => i.ObjectId == objectId);
             }
             return default;
+        }
+
+        public static bool ContainsWorldObject<T>(T location, WorldObjectBase.Objects objectType) where T : ILocation
+        {
+            var collection = LocationManager.GetLocationByObjectId<T>(location.ObjectId);
+            if (collection.WorldObjects != null)
+            {
+                foreach (var worldObject in collection.WorldObjects)
+                {
+                    if (worldObject.ObjectType == objectType)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         public static class WorldObjectDatabase

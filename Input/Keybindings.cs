@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Input;
+using NullRPG.Interfaces;
 using NullRPG.Managers;
 using NullRPG.Windows;
 using System;
@@ -21,7 +22,8 @@ namespace NullRPG.Input
             Drop,
             Equipment,
             Miscellaneous,
-            Cancel
+            Cancel,
+            Chop
         }
 
         public Type TypeName { get; set; }
@@ -45,6 +47,9 @@ namespace NullRPG.Input
 
             // Inventory window
             AddKeybinding(Type.Equip, Keys.E, false);
+
+            // Location specific
+            AddKeybinding(Type.Chop, Keys.C, false);
         }
 
         /// <summary>
@@ -75,6 +80,9 @@ namespace NullRPG.Input
             // Cancel button
             UpdateVisibility(Type.Cancel, UserInterfaceManager.Get<CharacterWindow>().IsVisible || UserInterfaceManager.Get<InventoryWindow>().IsVisible ||
                 UserInterfaceManager.Get<TravelWindow>().IsVisible);
+
+            // Location specific
+            UpdateVisibility(Type.Chop, WorldObjectManager.ContainsWorldObject<ILocation>(Game.GameSession.Player.CurrentLocation, GameObjects.WorldObjectBase.Objects.Tree));
         }
 
         /// <summary>

@@ -16,9 +16,6 @@ namespace NullRPG.GameObjects
         {
             Inventory = new PlayerInventory();
 
-            // Probably shouldn't be here
-            ItemManager.Add(WeaponItem.None());
-
             Experience = 0;
             ExperienceNeeded = 100;
 

@@ -12,7 +12,7 @@ namespace NullRPG.GameObjects
     {
         public int ObjectId { get; set; }
         public string Name { get; set; }
-        public IItem[] Items { get; set; }
+        public List<IItem> Items { get; set; }
         public Objects ObjectType { get; set; }
         public ObjectActions ObjectActionType { get; set; }
 
@@ -26,7 +26,7 @@ namespace NullRPG.GameObjects
             Chop
         }
 
-        public WorldObjectBase(string name, IItem[] items, Objects objectType, ObjectActions objectActionType)
+        public WorldObjectBase(string name, List<IItem> items, Objects objectType, ObjectActions objectActionType)
         {
             ObjectId = WorldObjectManager.GetUniqueWorldObjectId();
             WorldObjectManager.AddWorldObject(this);

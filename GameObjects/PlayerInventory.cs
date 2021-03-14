@@ -27,12 +27,6 @@ namespace NullRPG.GameObjects
             InventoryManager.AddToInventory<PlayerInventory>(MiscItem.Quartz());
             InventoryManager.AddToInventory<PlayerInventory>(MiscItem.Quartz());
             InventoryManager.AddToInventory<PlayerInventory>(MiscItem.Quartz());
-
-            InventoryManager.AddToInventory<PlayerInventory>(WeaponItem.Longsword());
-            InventoryManager.AddToInventory<PlayerInventory>(HeadItem.IronHelmet());
-
-            InventoryManager.AddToInventory<PlayerInventory>(LegsItem.IronLeggings());
-            InventoryManager.AddToInventory<PlayerInventory>(WeaponItem.Oliaxe());
         }
     }
 }

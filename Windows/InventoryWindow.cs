@@ -57,6 +57,11 @@ namespace NullRPG.Windows
                 }
             }
 
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.P))
+            {
+                TestChopping();
+            }
+
             if (info.IsKeyPressed(Keybindings.GetKeybinding(Keybindings.Type.Cancel)))
             {
                 this.FullTransition(UserInterfaceManager.Get<GameWindow>());
@@ -74,6 +79,18 @@ namespace NullRPG.Windows
             }
 
             return false;
+        }
+
+        private void TestChopping()
+        {
+            var player = Game.GameSession.Player;
+            var currentLocation = LocationManager.GetLocationByObjectId<ILocation>(player.CurrentLocation.ObjectId);
+
+            if(currentLocation.Name == "Forest")
+            {
+                var itemToAdd = currentLocation.WorldObjects.FirstOrDefault().Items.FirstOrDefault();
+                InventoryManager.AddToInventory<PlayerInventory>(itemToAdd);
+            }
         }
 
         private static void Equip()

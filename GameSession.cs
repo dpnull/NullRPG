@@ -1,5 +1,6 @@
 ﻿using NullRPG.GameObjects;
 using NullRPG.GameObjects.Worlds;
+using NullRPG.ItemTypes;
 using NullRPG.Managers;
 
 namespace NullRPG
@@ -11,6 +12,8 @@ namespace NullRPG
 
         public GameSession()
         {
+            // Probably shouldn't be here
+            ItemManager.Add(WeaponItem.None());
             World = new Overworld();
             Player = EntityManager.Create<Player>();
         }

@@ -10,6 +10,7 @@ namespace NullRPG.Managers
     public static class InventoryManager
     {
         public static readonly List<IEntityInventory> EntityInventories = new List<IEntityInventory>();
+
         /*
          * Missing checks for when inventory size limit is reached
          */
@@ -43,7 +44,7 @@ namespace NullRPG.Managers
             var inventory = Get<T>();
             var item = ItemManager.GetItem<IItem>(itemObjectId);
             var equipped = GetEquippedItems<IEntityInventory>();
-            if (item is not null)
+            if (item is not null && item is not MiscItem)
             {
                 if (equipped.All(i => i.ObjectId != item.ObjectId))
                 {
