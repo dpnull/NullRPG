@@ -1,4 +1,5 @@
-﻿using NullRPG.Interfaces;
+﻿using NullRPG.GameObjects.WorldObjects;
+using NullRPG.Interfaces;
 using System.Collections.Generic;
 
 namespace NullRPG.GameObjects.Worlds

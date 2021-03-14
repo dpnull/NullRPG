@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NullRPG.GameObjects
+namespace NullRPG.GameObjects.WorldObjects
 {
     public class TreeObject : WorldObjectBase
     {
