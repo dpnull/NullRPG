@@ -25,6 +25,7 @@ namespace NullRPG.Windows
             var generalKeybindings = UserInterfaceManager.Get<GeneralKeybindingsWindow>();
             var locationKeybindings = UserInterfaceManager.Get<LocationKeybindingsWindow>();
             var characterKeybindings = UserInterfaceManager.Get<CharacterKeybindingsWindow>();
+            var actionKeybindings = UserInterfaceManager.Get<ActionKeybindingsWindow>();
 
             generalKeybindings.Draw();
 
@@ -35,6 +36,7 @@ namespace NullRPG.Windows
             else
             {
                 locationKeybindings.Draw();
+                actionKeybindings.Draw();
             }
 
             characterKeybindings.IsVisible = characterWindow.IsVisible ? true : false;

@@ -26,34 +26,9 @@ namespace NullRPG.Windows.Navigation
         {
             Clear();
 
-            DrawNewKeybindings();
-
             DrawKeybindings();
         }
 
-
-        private void DrawNewKeybindings()
-        {
-            IDrawableKeybinding[] locations = GetDrawableKeybindingsObjects<IDrawableKeybinding>(WorldManager.GetWorldAreaLocations<Overworld>(Game.GameSession.Player.CurrentArea));
-            // MERGE BELOW WITH ABOVE?
-            List<IIndexable> bindable = new List<IIndexable>();
-
-            foreach (var location in locations)
-            {
-                if (location != null)
-                {
-                    bindable.Add((IIndexable)location);
-                }
-            }
-
-            IndexedKeybindings = new IndexedKeybindings(bindable.ToArray());
-            PrintContainerBase printable = new PrintContainerBase(IndexedKeybindings.GetIndexedKeybindings(), PrintContainerBase.ListType.Locations);
-            printable.SetPrintingOffsets(1, 1, Width - 10);
-
-            printable.Print(this);
-
-            this.DrawSeparator(Height - 1, "-", DefaultForeground);
-        }
 
         private void DrawKeybindings()
         {

@@ -17,7 +17,7 @@ namespace NullRPG
                 public const int ChoppingWidth = GameWidth;
                 public const int ChoppingHeight = GameHeight - KeybindingsHeight - MessageHeight;
                 public const int ChoppingX = 0;
-                public const int ChoppingY = 0;
+                public const int ChoppingY = 4;
             }
 
             public const int TitleWidth = GameWidth;
@@ -28,18 +28,23 @@ namespace NullRPG
             public const int KeybindingsX = 0;
             public const int KeybindingsY = GameHeight - KeybindingsHeight;
 
-            public const int GeneralKeybindingsWidth = GameWidth / 3;
+            public const int GeneralKeybindingsWidth = 20;
             public const int GeneralKeybindingsHeight = KeybindingsHeight;
             public const int GeneralKeybindingsX = KeybindingsWidth - GeneralKeybindingsWidth;
             public const int GeneralKeybindingsY = 0;
 
-            public const int LocationKeybindingsWidth = GameWidth / 3;
+            public const int LocationKeybindingsWidth = (KeybindingsWidth - 20) / 2;
             public const int LocationKeybindingsHeight = KeybindingsHeight;
             public const int LocationKeybindingsX = KeybindingsWidth - GeneralKeybindingsWidth - LocationKeybindingsWidth;
             public const int LocationKeybindingsY = 0;
 
             public const int CharacterKeybindingsWidth = GameWidth;
             public const int CharacterKeybindingsHeight = KeybindingsHeight;
+
+            public const int ActionKeybindingsWidth = (KeybindingsWidth - 20) / 2;
+            public const int ActionKeybindingsHeight = KeybindingsHeight;
+            public const int ActionKeybindingsX = 0;
+            public const int ActionKeybindingsY = 0;
 
             public const int MessageWidth = GameWidth;
             public const int MessageHeight = 2;
