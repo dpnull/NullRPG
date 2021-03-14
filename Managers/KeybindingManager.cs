@@ -45,7 +45,8 @@ namespace NullRPG.Managers
             UpdateVisibility(Keybindings.Back,
                 UserInterfaceManager.Get<CharacterWindow>().IsVisible ||
                 UserInterfaceManager.Get<TravelWindow>().IsVisible || 
-                UserInterfaceManager.Get<InventoryWindow>().IsVisible);
+                UserInterfaceManager.Get<InventoryWindow>().IsVisible ||
+                UserInterfaceManager.Get<ChoppingWindow>().IsVisible);
         }
 
         private static void UpdateVisibility(Keybindings keybinding, IUserInterface window)

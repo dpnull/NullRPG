@@ -9,6 +9,7 @@ using SadConsole;
 using SadConsole.Input;
 using System;
 using Console = SadConsole.Console;
+using System.Linq;
 
 namespace NullRPG.Windows
 {
@@ -24,9 +25,29 @@ namespace NullRPG.Windows
 
         public override void Draw(TimeSpan timeElapsed)
         {
+            Clear();
+
             DrawChopping();
 
             base.Draw(timeElapsed);
+        }
+
+        public override bool ProcessKeyboard(Keyboard info)
+        {
+
+
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.H))
+            {
+                ChopWood();
+                return true;
+            }
+
+            if (info.IsKeyPressed(KeybindingManager.GetKeybinding<IKeybinding>(Keybinding.Keybindings.Back)))
+            {
+                this.FullTransition(UserInterfaceManager.Get<GameWindow>());
+            }
+
+            return false;
         }
 
         private void DrawChopping()
@@ -41,6 +62,24 @@ namespace NullRPG.Windows
             foreach(var tree in treeObjects)
             {
                 Print(_x, _y, tree.Name); _y++;
+            }
+
+            Print(_x, _y, $"Press H to chop wood.");
+        }
+
+        private static void ChopWood()
+        {
+            var player = Game.GameSession.Player;
+            var currentLocation = LocationManager.GetLocationByObjectId<ILocation>(player.CurrentLocation.ObjectId);
+
+            if (WorldObjectManager.ContainsWorldObject(currentLocation, WorldObjectBase.Objects.Tree))
+            {
+                var tree = WorldObjectManager.GetLocationWorldObjectsByObjectType<IWorldObject>(currentLocation, WorldObjectBase.Objects.Tree).FirstOrDefault();
+
+                var reward = tree.Items.FirstOrDefault();
+
+                InventoryManager.AddToInventory<PlayerInventory>(reward);
+                MessageManager.AddItemObtained(reward.Name, 1);
             }
         }
     }

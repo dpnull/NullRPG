@@ -17,7 +17,7 @@ namespace NullRPG.Input
             Character,
             Back,
             Equip,
-            Chop
+            Chop,
         }
 
         public enum Category

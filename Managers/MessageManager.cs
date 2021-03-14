@@ -72,6 +72,11 @@ namespace NullRPG
             AddAndHighlightLast("You have equipped ", itemName, Color.LightGreen);
         }
 
+        public static void AddItemObtained(string itemName, int quantity)
+        {
+            AddAndHighlightLast($"You have obtained {quantity}", itemName, Color.LightGreen);
+        }
+
         public static void AddTravelled(string locationName)
         {
             AddAndHighlightLast("Arrived at ", locationName, Color.LightGreen);
