@@ -13,19 +13,21 @@ namespace NullRPG.GameObjects
         public int MinDmg { get; set; }
         public int MaxDmg { get; set; }
         public int Defense { get; set; }
-        public RarityType Rarity { get; set; }
-        public EnchantmentType Enchantment { get; set; }
+        public int Durability { get; set; }
+        public int MaxDurability { get; set; }
+        public Rarities Rarity { get; set; }
+        public Enchantments Enchantment { get; set; }
         public int UpgradeLevel { get; set; }
         public bool IsUnique { get; set; }
 
-        public enum EnchantmentType
+        public enum Enchantments
         {
             Default,
             Fire,
             Steel
         }
 
-        public enum RarityType
+        public enum Rarities
         {
             [Description("Common")]
             Common,
@@ -43,7 +45,7 @@ namespace NullRPG.GameObjects
             Legendary
         }
 
-        public Item(string name, RarityType rarity = RarityType.Common, bool isUnique = false, int level = 1, int gold = 0, int minDmg = 0, int maxDmg = 0, int defense = 0)
+        public Item(string name, Rarities rarity = Rarities.Common, bool isUnique = false, int level = 1, int gold = 0, int durability = 0, int minDmg = 0, int maxDmg = 0, int defense = 0)
         {
             ObjectId = ItemManager.GetUniqueId();
             ItemManager.Add(this);
@@ -56,8 +58,10 @@ namespace NullRPG.GameObjects
             MinDmg = minDmg;
             MaxDmg = maxDmg;
             Defense = defense;
+            Durability = durability;
+            MaxDurability = durability;
 
-            Enchantment = EnchantmentType.Default;
+            Enchantment = Enchantments.Default;
             UpgradeLevel = 1;
         }
     }

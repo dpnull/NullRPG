@@ -27,11 +27,11 @@ namespace NullRPG.GameObjects
 
         public static void EnchantSteel(IItem weapon)
         {
-            if (weapon.Enchantment == Item.EnchantmentType.Default)
+            if (weapon.Enchantment == Item.Enchantments.Default)
             {
                 UpgradeSteel(weapon);
             }
-            else if (weapon.Enchantment == Item.EnchantmentType.Steel && weapon.UpgradeLevel < 10)
+            else if (weapon.Enchantment == Item.Enchantments.Steel && weapon.UpgradeLevel < 10)
             {
                 UpgradeSteel(weapon);
             }
@@ -39,9 +39,9 @@ namespace NullRPG.GameObjects
 
         private static class SteelType
         {
-            public static Item.EnchantmentType SetToSteelType()
+            public static Item.Enchantments SetToSteelType()
             {
-                return Item.EnchantmentType.Steel;
+                return Item.Enchantments.Steel;
             }
 
             public static int UpgradeMinDmg(int minDmg)

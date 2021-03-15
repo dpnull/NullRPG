@@ -9,24 +9,24 @@ namespace NullRPG.Managers
 {
     public static class ItemManager
     {
-        public static Dictionary<RarityType, string> RarityGlyphs = InitializeRarityGlyphsDictionary();
+        public static Dictionary<Rarities, string> RarityGlyphs = InitializeRarityGlyphsDictionary();
 
         public static int GetUniqueId()
         {
             return ItemDatabase.GetUniqueId();
         }
 
-        public static Dictionary<RarityType, string> InitializeRarityGlyphsDictionary()
+        public static Dictionary<Rarities, string> InitializeRarityGlyphsDictionary()
         {
-            var dictionary = new Dictionary<RarityType, string>();
+            var dictionary = new Dictionary<Rarities, string>();
 
-            (RarityType, string)[] rarityGlyphs = new (RarityType, string)[]
+            (Rarities, string)[] rarityGlyphs = new (Rarities, string)[]
             {
-                (RarityType.Common, "-"),
-                (RarityType.Uncommon, "="),
-                (RarityType.Rare, "+"),
-                (RarityType.VeryRare, "*"),
-                (RarityType.Legendary, "**")
+                (Rarities.Common, "-"),
+                (Rarities.Uncommon, "="),
+                (Rarities.Rare, "+"),
+                (Rarities.VeryRare, "*"),
+                (Rarities.Legendary, "**")
                 // todo: add reversing of glyphs
             };
 
@@ -38,7 +38,7 @@ namespace NullRPG.Managers
             return dictionary;
         }
 
-        public static string GetRarityGlyph(RarityType rarity)
+        public static string GetRarityGlyph(Rarities rarity)
         {
             return RarityGlyphs.TryGetValue(rarity, out string value) ? value : null;
         }
@@ -85,10 +85,10 @@ namespace NullRPG.Managers
 
             ColoredString lRarityGlyph = new ColoredString(GetRarityGlyph(item.Rarity));
             ColoredString rRarityGlyph = new ColoredString(GetRarityGlyph(item.Rarity));
-            Color c = item.Enchantment == EnchantmentType.Fire ? Color.OrangeRed : item.Enchantment == EnchantmentType.Steel ? Color.LightSlateGray : Color.White;
+            Color c = item.Enchantment == Enchantments.Fire ? Color.OrangeRed : item.Enchantment == Enchantments.Steel ? Color.LightSlateGray : Color.White;
             ColoredString prefix = new ColoredString($"{item.Enchantment}", c, Constants.Theme.BackgroundColor);
             ColoredString suffix = new ColoredString($"{item.Name}", Constants.Theme.ForegroundColor, Constants.Theme.BackgroundColor);
-            if (item.Enchantment != EnchantmentType.Default)
+            if (item.Enchantment != Enchantments.Default)
             {
                 return lRarityGlyph + prefix + " " + suffix + rRarityGlyph;
             }

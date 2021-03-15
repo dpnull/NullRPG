@@ -6,19 +6,19 @@ namespace NullRPG.ItemTypes
     [Description("[Legs Item]")]
     public class LegsItem : Item
     {
-        public LegsItem(string name, RarityType rarity, int level, int gold, int defense) :
+        public LegsItem(string name, Rarities rarity, int level, int durability, int gold, int defense) :
             base(name, rarity, true, level, gold, 0, 0, defense)
         {
         }
 
         public static LegsItem None()
         {
-            return new LegsItem("None", RarityType.Common, 0, 0, 0);
+            return new LegsItem("None", Rarities.Common, 0, 0, 0, 0);
         }
 
         public static LegsItem IronLeggings()
         {
-            return new LegsItem("Iron Leggins", RarityType.Common, 1, 10, 5);
+            return new LegsItem("Iron Leggins", Rarities.Common, 1, 100, 10, 5);
         }
     }
 }
