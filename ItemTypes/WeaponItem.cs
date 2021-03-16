@@ -7,7 +7,7 @@ namespace NullRPG.ItemTypes
     public class WeaponItem : Item
     {
         public WeaponItem(string name, Item.Rarities rarity, int level, int durability, int gold, int minDmg, int maxDmg)
-            : base(name, rarity, true, level, gold, minDmg, maxDmg)
+            : base(name, rarity, true, level, gold, durability, minDmg, maxDmg)
         {
         }
 
