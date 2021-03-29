@@ -9,7 +9,7 @@ using Console = SadConsole.Console;
 
 namespace NullRPG.Windows.Navigation
 {
-    public class GeneralKeybindingsWindow : Console, IUserInterface, IKeybindingsWindow
+    public class GeneralKeybindingsWindow : Console, IUserInterface
     {
         public Console Console => this;
 
@@ -19,7 +19,7 @@ namespace NullRPG.Windows.Navigation
 
         public GeneralKeybindingsWindow(int width, int height) : base(width, height)
         {
-            Position = new Point(Constants.Windows.GeneralKeybindingsX, Constants.Windows.GeneralKeybindingsY);
+            Position = new Point(Constants.Windows.Keybindings.GeneralX, Constants.Windows.Keybindings.GeneralY);
 
             KeybindingManager.Initialize();
 
@@ -29,7 +29,6 @@ namespace NullRPG.Windows.Navigation
 
             this.Parent = UserInterfaceManager.Get<KeybindingsWindow>();
         }
-
         public void Draw()
         {
             Clear();

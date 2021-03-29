@@ -1,22 +1,30 @@
-﻿using NullRPG.GameObjects;
-using NullRPG.GameObjects.Worlds;
-using NullRPG.ItemTypes;
+﻿using NullRPG.GameObjects.Entity;
+using NullRPG.GameObjects.Items.Armors.Head;
+using NullRPG.GameObjects.Items.Weapons;
+using NullRPG.Interfaces;
 using NullRPG.Managers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace NullRPG
 {
     public class GameSession
     {
-        public Player Player { get; set; }
-        public World World { get; set; }
+        public PlayerInventory PlayerInventory { get; set; }
 
         public GameSession()
         {
-            IndexedKeybindingsManager.Initialize();
-            // Probably shouldn't be here
-            ItemManager.Add(WeaponItem.None());
-            World = new Overworld();
-            Player = EntityManager.Create<Player>();
+            Longsword longsword = new Longsword();
+            IronHelmet ironHelmet = new IronHelmet();
+
+            PlayerInventory = new PlayerInventory();
+            ItemManager.CreateItems();
+
+            PlayerInventory.WeaponSlot = longsword;
+            PlayerInventory.HeadSlot = ironHelmet;
         }
     }
 }

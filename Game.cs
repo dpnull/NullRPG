@@ -6,11 +6,10 @@ using SadConsole;
 
 namespace NullRPG
 {
-    internal class Game
+    class Game
     {
+        public static MainMenuWindow MainMenuWindow { get; private set; }
         public static GameSession GameSession { get; set; }
-        public static TitleWindow TitleWindow { get; private set; }
-
         private static void Main()
         {
             SadConsole.Settings.ResizeMode = Settings.WindowResizeOptions.Stretch;
@@ -30,8 +29,6 @@ namespace NullRPG
 
         private static void Update(GameTime gameTime)
         {
-            if (UserInterfaceManager.IsInitialized == true)
-                UserInterfaceManager.AutoVisiblity();
         }
 
         public static void Reset()
@@ -49,8 +46,7 @@ namespace NullRPG
         {
             GameSession = new GameSession();
 
-            // Shows the main menu
-            TitleWindow = TitleWindow.Show();
+            MainMenuWindow = MainMenuWindow.Show();
 
             Global.CurrentScreen.IsFocused = true;
         }

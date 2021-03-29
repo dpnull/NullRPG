@@ -1,28 +1,27 @@
-﻿using Microsoft.Xna.Framework;
-using NullRPG.Extensions;
-using NullRPG.Input;
-using NullRPG.Interfaces;
-using NullRPG.Managers;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Console = SadConsole.Console;
 using SadConsole;
 using SadConsole.Input;
-using System;
-using System.Linq;
-using Console = SadConsole.Console;
+using Microsoft.Xna.Framework;
+using NullRPG.Interfaces;
+using NullRPG.Extensions;
+using NullRPG.Managers;
+using NullRPG.Input;
 
 namespace NullRPG.Windows
 {
-    public class MainMenuWindow : Console, IUserInterface
+    class MainMenuWindow : Console, IUserInterface
     {
         private ButtonString _playBtn;
-        private ButtonString _helpBtn;
         private ButtonString _quitBtn;
-
         public Console Console
         {
             get { return this; }
         }
-
-        public HelpWindow HelpWindow { get; private set; }
 
         public MainMenuWindow(int width, int height) : base(width, height)
         {
@@ -51,19 +50,13 @@ namespace NullRPG.Windows
                 return true;
             }
 
-            if (info.IsKeyPressed(_helpBtn.Key))
-            {
-                OpenHelpWindow();
-                return true;
-            }
-
             return false;
         }
 
         private void DrawGameTitle()
         {
             Print(0, 0, "EARLY TESTING");
-            Print(Width - (Constants.Build.Length), Height - 1, Constants.Build);
+            Print(Width - (Constants.GameBuildVersion.Length), Height - 1, Constants.GameBuildVersion);
 
             string[] titleFragments = @"
                        .-.                 _
@@ -104,8 +97,8 @@ namespace NullRPG.Windows
             int tStartPosX = (Constants.GameWidth / 2) - (gameNameFragments.OrderByDescending(a => a.Length).First().Length / 2);
             int tStartPosY = this.GetWindowYCenter() - 1;
 
-            this.DrawSeparator(tStartPosY + 8, "+", DefaultForeground);
-            this.DrawSeparator(tStartPosY, "+", DefaultForeground);
+            this.DrawSeparator(tStartPosY + 8, "+", Constants.Theme.DefaultForeground);
+            this.DrawSeparator(tStartPosY, "+", Constants.Theme.DefaultForeground);
 
             // Print game name fragments
             for (int y = 0; y < gameNameFragments.Length; y++)
@@ -122,37 +115,34 @@ namespace NullRPG.Windows
             _playBtn = new ButtonString(new ColoredString("Play"), Microsoft.Xna.Framework.Input.Keys.D1, Color.Green, Color.White, 0, 0, true);
             _playBtn.Draw(this.GetWindowXCenter() - (_playBtn.GetLength() / 2), this.GetWindowYCenter() + 8, this);
 
-            _helpBtn = new ButtonString(new ColoredString("Help"), Microsoft.Xna.Framework.Input.Keys.D2, Color.Green, DefaultForeground, 0, 0, true);
-            _helpBtn.DrawNumericOnly(true);
-            _helpBtn.Draw(this.GetWindowXCenter() - (_helpBtn.GetLength() / 2), this.GetWindowYCenter() + 9, this);
-
-            _quitBtn = new ButtonString(new ColoredString("Quit"), Microsoft.Xna.Framework.Input.Keys.D3, Color.Green, DefaultForeground, 0, 0, true);
+            _quitBtn = new ButtonString(new ColoredString("Quit"), Microsoft.Xna.Framework.Input.Keys.D2, Color.Green, DefaultForeground, 0, 0, true);
             _quitBtn.DrawNumericOnly(true);
-            _quitBtn.Draw(this.GetWindowXCenter() - (_quitBtn.GetLength() / 2), this.GetWindowYCenter() + 10, this);
+            _quitBtn.Draw(this.GetWindowXCenter() - (_quitBtn.GetLength() / 2), this.GetWindowYCenter() + 9, this);
         }
 
         public static MainMenuWindow Show()
         {
-            var titleWindow = UserInterfaceManager.Get<MainMenuWindow>();
-            if (titleWindow == null)
+            var mainMenuWindow = UserInterfaceManager.Get<MainMenuWindow>();
+            if (mainMenuWindow == null)
             {
-                titleWindow = new MainMenuWindow(Constants.Windows.TitleWidth, Constants.Windows.TitleHeight);
-                UserInterfaceManager.Add(titleWindow);
+                mainMenuWindow = new MainMenuWindow(Constants.Windows.MainMenuWidth, Constants.Windows.MainMenuHeight);
+                UserInterfaceManager.Add(mainMenuWindow);
             }
             else
             {
-                titleWindow.IsVisible = true;
-                titleWindow.IsFocused = true;
+                mainMenuWindow.IsVisible = true;
+                mainMenuWindow.IsFocused = true;
             }
 
-            titleWindow.IsVisible = true;
-            titleWindow.IsFocused = true;
+            mainMenuWindow.IsVisible = true;
+            mainMenuWindow.IsFocused = true;
 
-            Global.CurrentScreen = titleWindow;
+            Global.CurrentScreen = mainMenuWindow;
 
-            return titleWindow;
+            return mainMenuWindow;
         }
 
+        /*
         private void OpenHelpWindow()
         {
             var helpWindow = UserInterfaceManager.Get<HelpWindow>();
@@ -166,7 +156,7 @@ namespace NullRPG.Windows
             {
                 this.FullTransition(helpWindow);
             }
-        }
+        }*/
 
         private void Start()
         {

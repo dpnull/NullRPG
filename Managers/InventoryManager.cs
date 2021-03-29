@@ -1,9 +1,10 @@
-﻿using NullRPG.GameObjects;
-using NullRPG.Interfaces;
-using NullRPG.ItemTypes;
+﻿using NullRPG.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using NullRPG.GameObjects.Abstracts;
 
 namespace NullRPG.Managers
 {
@@ -36,143 +37,6 @@ namespace NullRPG.Managers
             if (!Get<T>().Slots.ContainsKey(slot.ObjectId))
             {
                 Get<T>().Slots.Add(slot.ObjectId, slot);
-            }
-        }
-
-        public static void EquipItem<T>(int itemObjectId) where T : IEntityInventory
-        {
-            var inventory = Get<T>();
-            var item = ItemManager.GetItem<IItem>(itemObjectId);
-            var equipped = GetEquippedItems<IEntityInventory>();
-            if (item is not null && item is not MiscItem)
-            {
-                if (equipped.All(i => i.ObjectId != item.ObjectId))
-                {
-                    if (item.GetType() == typeof(WeaponItem)) { inventory.CurrentWeapon = (WeaponItem)item; }
-                    else if (item.GetType() == typeof(HeadItem)) { inventory.CurrentHeadItem = (HeadItem)item; }
-                    else if (item.GetType() == typeof(BodyItem)) { inventory.CurrentBodyItem = (BodyItem)item; }
-                    else if (item.GetType() == typeof(LegsItem)) { inventory.CurrentLegsItem = (LegsItem)item; }
-                    MessageManager.AddItemEquipped(item.Name);
-                }
-                else
-                {
-                    MessageManager.AddDefault("You have already equipped this item.");
-                }
-            }
-        }
-
-        public static IItem GetEquippedItem<T>(Type itemType) where T : IEntityInventory
-        {
-            if (itemType == typeof(WeaponItem))
-            {
-                return Get<T>().CurrentWeapon;
-            }
-            else if (itemType == typeof(HeadItem))
-            {
-                return Get<T>().CurrentHeadItem;
-            }
-            else if (itemType == typeof(BodyItem))
-            {
-                return Get<T>().CurrentBodyItem;
-            }
-            else if (itemType == typeof(LegsItem))
-            {
-                return Get<T>().CurrentLegsItem;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public static IItem[] GetEquippedItems<T>() where T : IEntityInventory
-        {
-            IItem[] items =
-            {
-                Get<T>()?.CurrentWeapon,
-                Get<T>()?.CurrentHeadItem,
-                Get<T>()?.CurrentBodyItem,
-                Get<T>()?.CurrentLegsItem
-            };
-
-            return items;
-        }
-
-        public static void AddToInventory<T>(IItem item) where T : IEntityInventory
-        {
-            var inventory = Get<T>();
-            var freeSlot = inventory.Slots.FirstOrDefault(f => !f.Value.Item.Any());
-
-            // if true, get the first available slot.
-            if (item.IsUnique)
-            {
-                inventory.Slots[freeSlot.Key].Item.Add(item);
-            }
-            else
-            {
-                // get the first slot with matching item name to passed item in the item list and add it.
-                if (inventory.Slots.Values.Any(i => i.Item.Any(j => j.Name.ToString() == item.Name.ToString())))
-                {
-                    foreach (var slot in inventory.Slots)
-                    {
-                        if (slot.Value.Item.Any(i => i.Name.ToString() == item.Name.ToString()))
-                        {
-                            slot.Value.Item.Add(item);
-                        }
-                    }
-                }
-                else
-                {
-                    // If no existing non-unique item in the slots exists, use up the next available slot.
-                    if (freeSlot.Value.Item.All(i => i.Name.ToString() != item.Name.ToString()))
-                    {
-                        inventory.Slots[freeSlot.Key].Item.Add(item);
-                    }
-                }
-            }
-        }
-
-        public static void CreateDefault<T>() where T : IEntityInventory
-        {
-            var inventory = Get<PlayerInventory>();
-            // create the inventory
-            while (inventory.Slots.Count < DEFAULT_INVENTORY_SIZE)
-            {
-                AddSlot<IEntityInventory>(new Slot(inventory.GetUniqueSlotId()));
-            }
-        }
-
-        // Get an array of T based on the criteria passed, otherwise pass the exact array copy of dictionary.
-        public static ISlot[] GetSlots<T>(Func<ISlot, bool> criteria = null) where T : IEntityInventory
-        {
-            var collection = Get<T>().Slots.Values.ToArray().OfType<ISlot>();
-            if (criteria != null)
-            {
-                collection = collection.Where(criteria.Invoke);
-            }
-
-            return collection.ToArray();
-        }
-
-        public static T GetSlot<T>(IEntityInventory inventory, int objectId) where T : ISlot
-        {
-            var collection = inventory.Slots.ToArray();
-            foreach (var item in collection)
-            {
-                return (T)inventory.Slots.Values.SingleOrDefault(i => i.ObjectId == objectId);
-            }
-
-            return default;
-        }
-
-        public static void RemoveSlotItem(IEntityInventory inventory, int objectId)
-        {
-            var removable = inventory.Slots[objectId].Item.First();
-            inventory.Slots[objectId].Item.Remove(removable);
-            // If the deleted weapon was equipped, change the player's weapon to "None"
-            if (Game.GameSession.Player.Inventory.CurrentWeapon.ObjectId == objectId)
-            {
-                Game.GameSession.Player.Inventory.CurrentWeapon = (ItemTypes.WeaponItem)ItemManager.GetItem<IItem>(0);
             }
         }
     }

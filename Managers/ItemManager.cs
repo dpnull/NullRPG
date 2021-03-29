@@ -1,49 +1,26 @@
-﻿using Microsoft.Xna.Framework;
+﻿using NullRPG.GameObjects.Items.Armors.Head;
+using NullRPG.GameObjects.Items.Weapons;
 using NullRPG.Interfaces;
-using SadConsole;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using static NullRPG.GameObjects.Item;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace NullRPG.Managers
 {
     public static class ItemManager
     {
-        public static Dictionary<Rarities, string> RarityGlyphs = InitializeRarityGlyphsDictionary();
-
         public static int GetUniqueId()
         {
             return ItemDatabase.GetUniqueId();
         }
 
-        public static Dictionary<Rarities, string> InitializeRarityGlyphsDictionary()
+        public static void CreateItems()
         {
-            var dictionary = new Dictionary<Rarities, string>();
 
-            (Rarities, string)[] rarityGlyphs = new (Rarities, string)[]
-            {
-                (Rarities.Common, "-"),
-                (Rarities.Uncommon, "="),
-                (Rarities.Rare, "+"),
-                (Rarities.VeryRare, "*"),
-                (Rarities.Legendary, "**")
-                // todo: add reversing of glyphs
-            };
-
-            foreach (var glyph in rarityGlyphs)
-            {
-                dictionary.Add(glyph.Item1, glyph.Item2);
-            }
-
-            return dictionary;
         }
 
-        public static string GetRarityGlyph(Rarities rarity)
-        {
-            return RarityGlyphs.TryGetValue(rarity, out string value) ? value : null;
-        }
-
-        // called automatically when creating a new item
         public static void Add(IItem item)
         {
             if (!ItemDatabase.Items.ContainsKey(item.ObjectId))
@@ -52,25 +29,9 @@ namespace NullRPG.Managers
             }
         }
 
-        public static void Remove(IItem item)
-        {
-            // Don't remove id 1 which is reveserved for "None" weapon item
-            if (Game.GameSession.Player.Inventory.CurrentWeapon.ObjectId == item.ObjectId)
-            {
-                InventoryManager.EquipItem<IEntityInventory>(GetItem<IItem>(0).ObjectId);
-            }
-            ItemDatabase.Items.Remove(item.ObjectId);
-        }
-
-        public static T[] GetItems<T>() where T : IItem
-        {
-            var collection = ItemDatabase.Items.Values.ToArray().OfType<T>();
-            return collection.ToArray();
-        }
-
         public static T GetItem<T>(int objectId) where T : IItem
         {
-            var collection = ItemDatabase.Items.Values.ToArray();
+            var collection = ItemDatabase.Items.Values.ToArray().OfType<T>();
             foreach (var item in collection)
             {
                 return (T)ItemDatabase.Items.Values.SingleOrDefault(i => i.ObjectId == objectId);
@@ -79,35 +40,16 @@ namespace NullRPG.Managers
             return default;
         }
 
-        public static ColoredString GetItemName<T>(int objectId) where T : IItem
+        public static class ItemDatabase
         {
-            var item = GetItem<T>(objectId);
+            public static readonly Dictionary<int, IItem> Items = new Dictionary<int, IItem>();
 
-            ColoredString lRarityGlyph = new ColoredString(GetRarityGlyph(item.Rarity));
-            ColoredString rRarityGlyph = new ColoredString(GetRarityGlyph(item.Rarity));
-            Color c = item.Enchantment == Enchantments.Fire ? Color.OrangeRed : item.Enchantment == Enchantments.Steel ? Color.LightSlateGray : Color.White;
-            ColoredString prefix = new ColoredString($"{item.Enchantment}", c, Constants.Theme.BackgroundColor);
-            ColoredString suffix = new ColoredString($"{item.Name}", Constants.Theme.ForegroundColor, Constants.Theme.BackgroundColor);
-            if (item.Enchantment != Enchantments.Default)
+            private static int _currentId;
+
+            public static int GetUniqueId()
             {
-                return lRarityGlyph + prefix + " " + suffix + rRarityGlyph;
+                return _currentId++;
             }
-            else
-            {
-                return lRarityGlyph + suffix + rRarityGlyph;
-            }
-        }
-    }
-
-    public static class ItemDatabase
-    {
-        public static readonly Dictionary<int, IItem> Items = new Dictionary<int, IItem>();
-
-        private static int _currentId;
-
-        public static int GetUniqueId()
-        {
-            return _currentId++;
         }
     }
 }

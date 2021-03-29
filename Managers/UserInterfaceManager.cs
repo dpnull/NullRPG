@@ -1,8 +1,9 @@
-﻿using NullRPG.Interfaces;
-using NullRPG.Windows;
-using NullRPG.Windows.Navigation;
+﻿using Microsoft.Xna.Framework;
+using NullRPG.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using NullRPG.Windows;
+using NullRPG.Windows.Navigation;
 
 namespace NullRPG.Managers
 {
@@ -16,25 +17,15 @@ namespace NullRPG.Managers
         /// <summary>
         /// Instantiate windows upon launch.
         /// </summary>
+        
         public static void Initialize()
         {
-            var gameWindow = new GameWindow(Constants.GameWidth, Constants.GameHeight)
-            {
-                IsFocused = true,
-                IsVisible = true
-            };
-
+            var gameWindow = new Windows.GameWindow(Constants.Windows.GameWindowWidth, Constants.Windows.GameWindowHeight);
             Add(gameWindow);
 
-            var characterWindow = new CharacterWindow(Constants.Windows.CharacterWidth, Constants.Windows.CharacterHeight)
-            {
-                IsVisible = false,
-                IsFocused = false
-            };
-            Add(characterWindow);
-
-            var statsWindow = new StatsWindow(Constants.Windows.StatsWidth, Constants.Windows.StatsHeight);
-            Add(statsWindow);
+            // Initialize last so all consoles are instantiated prior to creating keybinding bools for visibility
+            var keybindingsWindow = new KeybindingsWindow(Constants.Windows.KeybindingsWidth, Constants.Windows.KeybindingsHeight);
+            Add(keybindingsWindow);
 
             var inventoryWindow = new InventoryWindow(Constants.Windows.InventoryWidth, Constants.Windows.InventoryHeight)
             {
@@ -43,79 +34,10 @@ namespace NullRPG.Managers
             };
             Add(inventoryWindow);
 
-            var previewWindow = new ItemPreviewWindow(Constants.Windows.ItemPreviewWidth, Constants.Windows.ItemPreviewHeight)
-            {
-                IsVisible = false,
-                IsFocused = false
-            };
-            Add(previewWindow);
-
-            var travelWindow = new TravelWindow(Constants.Windows.TravelWidth, Constants.Windows.TravelHeight)
-            {
-                IsVisible = false,
-                IsFocused = false
-            };
-            Add(travelWindow);
-
-            var messageWindow = new MessageWindow(Constants.Windows.MessageWidth, Constants.Windows.MessageHeight);
-            Add(messageWindow);
-
-            // Initialize last so all consoles are instantiated prior to creating keybinding bools for visibility
-            var keybindingsWindow = new KeybindingsWindow(Constants.Windows.KeybindingsWidth, Constants.Windows.KeybindingsHeight);
-            Add(keybindingsWindow);
-
-            var generalKeybindingsWindow = new GeneralKeybindingsWindow(Constants.Windows.GeneralKeybindingsWidth, Constants.Windows.GeneralKeybindingsHeight);
+            var generalKeybindingsWindow = new GeneralKeybindingsWindow(Constants.Windows.Keybindings.GeneralWidth, Constants.Windows.Keybindings.GeneralHeight);
             Add(generalKeybindingsWindow);
-
-            var locationKeybindingsWindow = new LocationKeybindingsWindow(Constants.Windows.LocationKeybindingsWidth, Constants.Windows.LocationKeybindingsHeight);
-            Add(locationKeybindingsWindow);
-
-            var actionKeybindingsWindow = new ActionKeybindingsWindow(Constants.Windows.ActionKeybindingsWidth, Constants.Windows.ActionKeybindingsHeight);
-            Add(actionKeybindingsWindow);
-
-
-            // Action windows
-            var choppingWindow = new ChoppingWindow(Constants.Windows.Actions.ChoppingWidth, Constants.Windows.Actions.ChoppingHeight)
-            {
-                IsVisible = false,
-                IsFocused = false
-            };
-            Add(choppingWindow);
-
-            var characterKeybindingsWindow = new CharacterKeybindingsWindow(Constants.Windows.CharacterKeybindingsWidth, Constants.Windows.CharacterKeybindingsHeight)
-            {
-                IsVisible = false
-            };
-            Add(characterKeybindingsWindow);
-
-            IsInitialized = true;
         }
 
-        /// <summary>
-        /// Handles visibility of target window based on visibility of other windows
-        /// </summary>
-        public static void AutoVisiblity()
-        {
-            CheckVisibility(Get<StatsWindow>(), Get<CharacterWindow>().IsVisible || Get<InventoryWindow>().IsVisible ||
-                Get<TravelWindow>().IsVisible);
-        }
-
-        /// <summary>
-        /// Sets visibility for the window based on the criteria.
-        /// </summary>
-        /// <param name="window">The target window.</param>
-        /// <param name="criteria">Criteria for visibility.</param>
-        private static void CheckVisibility(IUserInterface window, bool criteria)
-        {
-            if (criteria)
-            {
-                window.Console.IsVisible = false;
-            }
-            else
-            {
-                window.Console.IsVisible = true;
-            }
-        }
 
         /// <summary>
         /// Adds a window to the list of user interfaces.

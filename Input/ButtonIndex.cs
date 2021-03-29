@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
+
 namespace NullRPG.Input
 {
     public class ButtonIndex : ButtonBase
@@ -19,9 +20,9 @@ namespace NullRPG.Input
 
         private SadConsole.ColoredString FormatKeyDisplay()
         {
-            var lBracketGlyph = new SadConsole.ColoredString("[", NameColor, Constants.Theme.BackgroundColor);
-            var rBracketGlyph = new SadConsole.ColoredString("]", NameColor, Constants.Theme.BackgroundColor);
-            var keyStr = new SadConsole.ColoredString(KeyToString(), KeyColor, Constants.Theme.BackgroundColor);
+            var lBracketGlyph = new SadConsole.ColoredString("[", NameColor, Constants.Theme.DefaultBackground);
+            var rBracketGlyph = new SadConsole.ColoredString("]", NameColor, Constants.Theme.DefaultBackground);
+            var keyStr = new SadConsole.ColoredString(KeyToString(), KeyColor, Constants.Theme.DefaultBackground);
 
             return lBracketGlyph + keyStr + rBracketGlyph;
         }
@@ -33,9 +34,9 @@ namespace NullRPG.Input
 
         public virtual void Draw(int x, int y, SadConsole.Console console)
         {
-            var lBracketGlyph = new SadConsole.ColoredString("[", NameColor, Constants.Theme.BackgroundColor);
-            var rBracketGlyph = new SadConsole.ColoredString("]", NameColor, Constants.Theme.BackgroundColor);
-            var keyString = new SadConsole.ColoredString(KeyToString(), KeyColor, Constants.Theme.BackgroundColor);
+            var lBracketGlyph = new SadConsole.ColoredString("[", NameColor, Constants.Theme.DefaultBackground);
+            var rBracketGlyph = new SadConsole.ColoredString("]", NameColor, Constants.Theme.DefaultBackground);
+            var keyString = new SadConsole.ColoredString(KeyToString(), KeyColor, Constants.Theme.DefaultBackground);
 
             var key = new SadConsole.ColoredString("");
             key += lBracketGlyph + keyString + rBracketGlyph;

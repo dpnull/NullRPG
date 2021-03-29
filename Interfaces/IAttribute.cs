@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace NullRPG.Interfaces
 {
-    public interface IUserInterface
+    public interface IAttribute
     {
-        SadConsole.Console Console { get; }
+        IItem Source { get; set; }
+        void ReceiveMessage<T>(T message);
     }
 }

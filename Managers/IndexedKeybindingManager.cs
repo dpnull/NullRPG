@@ -88,7 +88,7 @@ namespace NullRPG.Managers
                     AddIndexedKeybinding<IIndexedKeybinding>(index, indexable.ObjectId);
                     index++;
                 }
-                
+
             }
 
             public void AddIndexedKeybinding<T>(int index, int indexableObjectId) where T : IIndexedKeybinding

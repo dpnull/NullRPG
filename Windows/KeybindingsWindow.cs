@@ -21,26 +21,10 @@ namespace NullRPG.Windows
 
         public override void Draw(TimeSpan timeElapsed)
         {
-            var characterWindow = UserInterfaceManager.Get<CharacterWindow>();
+
             var generalKeybindings = UserInterfaceManager.Get<GeneralKeybindingsWindow>();
-            var locationKeybindings = UserInterfaceManager.Get<LocationKeybindingsWindow>();
-            var characterKeybindings = UserInterfaceManager.Get<CharacterKeybindingsWindow>();
-            var actionKeybindings = UserInterfaceManager.Get<ActionKeybindingsWindow>();
 
             generalKeybindings.Draw();
-
-            if (characterWindow.IsVisible)
-            {
-                characterKeybindings.Draw();
-            }
-            else
-            {
-                locationKeybindings.Draw();
-                actionKeybindings.Draw();
-            }
-
-            characterKeybindings.IsVisible = characterWindow.IsVisible ? true : false;
-            locationKeybindings.IsVisible = characterWindow.IsVisible ? false : true;
 
             base.Draw(timeElapsed);
         }

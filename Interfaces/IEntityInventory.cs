@@ -1,5 +1,8 @@
-﻿using NullRPG.ItemTypes;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace NullRPG.Interfaces
 {
@@ -7,11 +10,9 @@ namespace NullRPG.Interfaces
     {
         public Dictionary<int, ISlot> Slots { get; set; }
 
+        public IItem WeaponSlot { get; set; }
+        public IItem HeadSlot { get; set; }
         public int GetUniqueSlotId();
 
-        public WeaponItem CurrentWeapon { get; set; }
-        public HeadItem CurrentHeadItem { get; set; }
-        public BodyItem CurrentBodyItem { get; set; }
-        public LegsItem CurrentLegsItem { get; set; }
     }
 }
