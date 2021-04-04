@@ -12,6 +12,8 @@ namespace NullRPG.GameObjects.Items.Armors.Head
     {
         public IronHelmet() : base("Iron Helmet", Enums.ArmorTypes.Head)
         {
+            Value = 10;
+
             ArmorAttribute ironHelmetAttribute = new ArmorAttribute(this);
             Components.Add(ironHelmetAttribute);
             ArmorMessage ironHelmetMessage = new ArmorMessage(4);

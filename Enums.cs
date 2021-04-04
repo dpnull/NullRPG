@@ -21,13 +21,14 @@ namespace NullRPG
             HeadArmor,
             ChestArmor,
             LegsArmor,
-            Sword
+            Sword,
         }
 
         public enum ItemTypes
         {
             Weapon,
-            Armor
+            Armor,
+            Misc
         }
 
         public enum ArmorTypes

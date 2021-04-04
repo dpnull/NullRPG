@@ -12,6 +12,8 @@ namespace NullRPG.GameObjects.Items.Weapons
     {
         public Longsword() : base("Longsword")
         {
+            Value = 10;
+
             WeaponAttribute longswordAttribute = new WeaponAttribute(this);
             Components.Add(longswordAttribute);
             WeaponMessage longswordMessage = new WeaponMessage(7, 10);

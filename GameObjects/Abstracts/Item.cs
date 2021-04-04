@@ -13,7 +13,7 @@ namespace NullRPG.GameObjects.Abstracts
         public int ObjectId { get; set; }
         public string Name { get; set; } = "\0";
         public Enums.ItemTypes ItemType { get; set; }
-        //public int Value { get; set; } = 0;
+        public int Value { get; set; } = 0;
         //public bool CanEquip { get; set; } = false;
         //public bool CanStack { get; set; } = false;
         public List<IAttribute> Components { get; set; } = new List<IAttribute>();
@@ -23,8 +23,8 @@ namespace NullRPG.GameObjects.Abstracts
             ObjectId = ItemManager.GetUniqueId();
             ItemManager.Add(this);
             
-
             Name = name;
+            ItemType = itemType;
         }
 
         public void ReceiveMessage<T>(T message)

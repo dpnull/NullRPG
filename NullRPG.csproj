@@ -10,8 +10,4 @@
     <PackageReference Include="SadConsole" Version="8.99.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="GameObjects\Abstracts\ArmorTypes\" />
-  </ItemGroup>
-
 </Project>
