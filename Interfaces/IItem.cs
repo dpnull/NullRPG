@@ -15,7 +15,6 @@ namespace NullRPG.Interfaces
         //bool CanEquip { get; set; }
         //bool CanStack { get; set; }
         public List<IAttribute> Components { get; set; }
-
         void ReceiveMessage<T>(T message);
         public T GetAttribute<T>() where T : IAttribute;
     }

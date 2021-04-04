@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace NullRPG.GameObjects.Items.Weapons
 {
-    public class Longsword : Item
+    public class Longsword : Weapon
     {
-        public Longsword() : base("Longsword", Enums.ItemTypes.Weapon)
+        public Longsword() : base("Longsword")
         {
             WeaponAttribute longswordAttribute = new WeaponAttribute(this);
             Components.Add(longswordAttribute);

@@ -8,6 +8,21 @@ namespace NullRPG
 {
     public static class Enums
     {
+        public enum InventorySlotTypes
+        {
+            Weapon,
+            Head,
+            Chest,
+            Legs
+        }
+
+        public enum ItemSubTypes
+        {
+            HeadArmor,
+            ChestArmor,
+            LegsArmor,
+        }
+
         public enum ItemTypes
         {
             Weapon,
