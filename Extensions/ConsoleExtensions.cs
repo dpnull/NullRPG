@@ -75,5 +75,103 @@ namespace NullRPG.Extensions
 
             SadConsole.Global.CurrentScreen = transition;
         }
+
+        public static void DrawRectangleTitled(this SadConsole.Console console, int x, int y, int width, int height, string cornerGlyph, string horizontalGlyph, string verticalGlyph, string separatorCornerGlyph, SadConsole.ColoredString title, bool centeredTitle)
+        {
+            int _x;
+            int _y;
+
+            // top
+            for (_x = x + 1; _x < (x + width) - 1; _x++)
+            {
+                console.Print(_x, y, horizontalGlyph);
+            }
+            // draw top corners
+            console.Print(x, y, cornerGlyph);
+            console.Print(x + width - 1, y, cornerGlyph);
+
+            // bottom
+            for (_x = x + 1; _x < (x + width) - 1; _x++)
+            {
+                console.Print(_x, height + y, horizontalGlyph);
+            }
+            // draw bottom corners
+            console.Print(x, height + y, cornerGlyph);
+            console.Print(x + width - 1, height + y, cornerGlyph);
+
+            // left
+            for (_y = y + 1; _y < (y + height); _y++)
+            {
+                console.Print(x, _y, verticalGlyph);
+            }
+
+            // right
+            for (_y = y + 1; _y < (y + height); _y++)
+            {
+                console.Print(x + width - 1, _y, verticalGlyph);
+            }
+
+            // draw title separator. simply draws on top of already drawn glyphs
+            for (_x = x + 1; _x < (x + width) - 1; _x++)
+            {
+                console.Print(_x, y + 2, horizontalGlyph);
+            }
+            // draw separator corners
+            console.Print(x, y + 2, separatorCornerGlyph);
+            console.Print(x + width - 1, y + 2, separatorCornerGlyph);
+
+            // draw the box title
+            if (centeredTitle)
+            {
+                console.Print((width / 2) - (title.String.Length / 2), y + 1, title);
+            }
+            else
+            {
+                console.Print(2, y + 1, title);
+            }
+        }
+
+        public static SadConsole.ColoredString AttributeString(int value1, int value2, string attribute)
+        {
+            if (value1 == 0 && value2 == 0)
+            {
+                return null;
+            }
+            else
+            {
+                // currently draws everything as a positive value
+                var pVal = Constants.Theme.PositiveAttributeColor;
+                var cBg = Constants.Theme.BackgroundColor;
+                var cFg = Constants.Theme.ForegroundColor;
+
+                var val1 = new SadConsole.ColoredString(value1.ToString(), pVal, cBg);
+                var val2 = new SadConsole.ColoredString(value2.ToString(), pVal, cBg);
+                var att = new SadConsole.ColoredString(attribute, cFg, cBg);
+
+                var separator = new SadConsole.ColoredString(" - ", cFg, cBg);
+
+                var str = new SadConsole.ColoredString("+ ", cFg, cBg);
+
+                return str + val1 + separator + val2 + " " + att;
+            }
+        }
+
+        public static SadConsole.ColoredString AttributeString(int value, string attribute)
+        {
+            // currently draws everything as a positive value
+            var pVal = Constants.Theme.PositiveAttributeColor;
+            var nVal = Constants.Theme.NegativeAttributeColor;
+            var cBg = Constants.Theme.BackgroundColor;
+            var cFg = Constants.Theme.ForegroundColor;
+
+            var val = new SadConsole.ColoredString(value.ToString());
+            var att = new SadConsole.ColoredString(attribute, cFg, cBg);
+
+            val.SetForeground(value > 0 ? pVal : nVal);
+
+            var str = new SadConsole.ColoredString("+ ", cFg, cBg);
+
+            return str + val + " " + att;
+        }
     }
 }

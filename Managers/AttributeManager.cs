@@ -20,5 +20,20 @@ namespace NullRPG.Managers
             var item = ItemManager.GetItem<IItem>(objectId);
         }
 
+        /// <summary>
+        /// Returns true if passed item contains component of type T.
+        /// </summary>
+        /// <typeparam name="T">IAttribute type parameter.</typeparam>
+        /// <param name="objectId">Item object id.</param>
+        /// <returns></returns>
+        public static bool ContainsAttribute<T>(int objectId) where T : IAttribute
+        {
+            var item = ItemManager.GetItem<IItem>(objectId);
+
+            if (item.Components.OfType<T>().Any())
+                return true;
+            return false;
+        }
+
     }
 }

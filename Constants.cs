@@ -43,11 +43,27 @@ namespace NullRPG
 
             public const int InventoryWidth = GameWidth;
             public const int InventoryHeight = GameHeight - KeybindingsHeight;
+
+            public const int ItemPreviewWidth = 40;
+            public const int ItemPreviewHeight = 10;
+                        public const int PreviewX = InventoryWidth - ItemPreviewWidth;
+            public const int PreviewY = (InventoryHeight - ItemPreviewHeight) / 2 + 2;
         }
         public static class Theme
         {
             public static Color DefaultForeground = Color.White;
             public static Color DefaultBackground = Color.Black;
+
+            public static readonly Color BackgroundColor = Color.Black;
+            public static readonly Color ForegroundColor = Color.White;
+
+            public static readonly Color ButtonKeyColor = Color.Green;
+
+            public static readonly Color PositiveAttributeColor = Color.LightGreen;
+            public static readonly Color NegativeAttributeColor = Color.Red;
+
+            public static readonly Color HeaderForegroundColor = Color.Gold;
+            public static readonly Color HeaderBackgroundColor = Color.Black;
         }
     }
 }
