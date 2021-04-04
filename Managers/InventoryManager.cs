@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using NullRPG.GameObjects.Abstracts;
 using NullRPG.GameObjects.Attributes;
+using NullRPG.GameObjects.Entity;
+using NullRPG.GameObjects;
 
 namespace NullRPG.Managers
 {
@@ -17,6 +19,16 @@ namespace NullRPG.Managers
          * Missing checks for when inventory size limit is reached
          */
         public const int DEFAULT_INVENTORY_SIZE = 10;
+
+        public static void CreateDefault<T>() where T : IEntityInventory
+        {
+            var inventory = Get<PlayerInventory>();
+            // create the inventory
+            while (inventory.Slots.Count < DEFAULT_INVENTORY_SIZE)
+            {
+                AddSlot<IEntityInventory>(new Slot(inventory.GetUniqueSlotId()));
+            }
+        }
 
         public static int GetUniqueSlotId<T>() where T : IEntityInventory
         {
@@ -31,6 +43,29 @@ namespace NullRPG.Managers
         public static T Get<T>() where T : IEntityInventory
         {
             return EntityInventories.OfType<T>().SingleOrDefault();
+        }
+
+        public static T GetSlot<T>(IEntityInventory inventory, int objectId) where T : ISlot
+        {
+            var collection = inventory.Slots.ToArray();
+            foreach (var item in collection)
+            {
+                return (T)inventory.Slots.Values.SingleOrDefault(i => i.ObjectId == objectId);
+            }
+
+            return default;
+        }
+
+        // Get an array of T based on the criteria passed, otherwise pass the exact array copy of dictionary.
+        public static ISlot[] GetSlots<T>(Func<ISlot, bool> criteria = null) where T : IEntityInventory
+        {
+            var collection = Get<T>().Slots.Values.ToArray().OfType<ISlot>();
+            if (criteria != null)
+            {
+                collection = collection.Where(criteria.Invoke);
+            }
+
+            return collection.ToArray();
         }
 
         public static void AddSlot<T>(ISlot slot) where T : IEntityInventory
@@ -63,6 +98,36 @@ namespace NullRPG.Managers
                 }
             }
         }
+
+        public static void AddToInventory<T>(IItem item) where T : IEntityInventory
+        {
+            var inventory = Get<T>();
+            var freeSlot = inventory.Slots.FirstOrDefault(f => !f.Value.Item.Any());
+            inventory.Slots[freeSlot.Key].Item.Add(item);
+            /*
+            // if true, gets the first available slot
+            // get the first slot with matching item name to passed item in the item list and add it.
+            if (inventory.Slots.Values.Any(i => i.Item.Any(j => j.Name.ToString() == item.Name.ToString())))
+            {
+                foreach (var slot in inventory.Slots)
+                {
+                    if (slot.Value.Item.Any(i => i.Name.ToString() == item.Name.ToString()))
+                    {
+                        slot.Value.Item.Add(item);
+                    }
+                }
+            }
+            else
+            {
+                // If no existing non-unique item in the slots exists, use up the next available slot.
+                if (freeSlot.Value.Item.All(i => i.Name.ToString() != item.Name.ToString()))
+                {
+                    inventory.Slots[freeSlot.Key].Item.Add(item);
+                }
+            }
+            */
+        }
+
         public static IItem GetEquippedItem<T>(Enums.InventorySlotTypes slotType) where T : IEntityInventory
         {
             if (slotType == Enums.InventorySlotTypes.Weapon)

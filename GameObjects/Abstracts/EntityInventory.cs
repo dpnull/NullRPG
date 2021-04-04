@@ -1,4 +1,5 @@
-﻿using NullRPG.Interfaces;
+﻿using NullRPG.GameObjects.Items.Armors.Head;
+using NullRPG.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,8 @@ namespace NullRPG.GameObjects.Abstracts
     public abstract class EntityInventory : IEntityInventory
     {
         public Dictionary<int, ISlot> Slots { get; set; }
-        public IItem WeaponSlot { get; set; }
-        public IItem HeadSlot { get; set; }
+        public IItem WeaponSlot { get; set; } = new None();
+        public IItem HeadSlot { get; set; } = new None();
 
         public EntityInventory()
         {

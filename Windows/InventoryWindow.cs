@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using NullRPG.Draw;
 using NullRPG.Extensions;
 using NullRPG.GameObjects.Attributes;
+using NullRPG.GameObjects.Entity;
 using NullRPG.Input;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
@@ -28,7 +30,7 @@ namespace NullRPG.Windows
         {
             Clear();
 
-            DrawCurrentWeapon();
+            DrawInventory();
             
             base.Draw(timeElapsed);
         }
@@ -49,6 +51,29 @@ namespace NullRPG.Windows
             var defense = armor.GetAttribute<ArmorAttribute>().Defense;
 
             Print(0, 9, defense.ToString());
+        }
+
+        private void DrawInventory()
+        {
+            var inventory = InventoryManager.GetSlots<PlayerInventory>();
+            List<IIndexable> bindable = new();
+
+            foreach(var slot in inventory)
+            {
+                if (!slot.Item.Any())
+                    continue;
+                else
+                    if(slot.Item != null)
+                {
+                    bindable.Add(slot);
+                }
+            }
+
+            IndexedKeybindings = IndexedKeybindingsManager.CreateIndexedKeybindings<IIndexedKeybinding>(bindable);
+            PrintContainerInventory printable = new PrintContainerInventory(IndexedKeybindings);
+
+            printable.Draw(this, 4);
+
         }
 
     }

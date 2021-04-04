@@ -1,6 +1,7 @@
 ﻿using NullRPG.GameObjects.Items.Armors.Head;
 using NullRPG.GameObjects.Items.Weapons;
 using NullRPG.Interfaces;
+using SadConsole;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,6 @@ namespace NullRPG.Managers
         public static int GetUniqueId()
         {
             return ItemDatabase.GetUniqueId();
-        }
-
-        public static void CreateItems()
-        {
-
         }
 
         public static void Add(IItem item)
@@ -39,6 +35,7 @@ namespace NullRPG.Managers
 
             return default;
         }
+   
 
         public static class ItemDatabase
         {

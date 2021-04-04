@@ -8,15 +8,14 @@ using System.Threading.Tasks;
 
 namespace NullRPG.GameObjects.Items.Weapons
 {
-    public class Longsword : Weapon
+    public class None : Weapon
     {
-        public Longsword() : base("Longsword")
+        public None() : base("None")
         {
-            WeaponAttribute longswordAttribute = new WeaponAttribute(this);
-            Components.Add(longswordAttribute);
-            WeaponMessage longswordMessage = new WeaponMessage(7, 10);
-            ReceiveMessage(longswordMessage);
-
+            WeaponAttribute att = new WeaponAttribute(this);
+            Components.Add(att);
+            WeaponMessage msg = new WeaponMessage(0, 0);
+            ReceiveMessage(msg);
             ItemSubTypeAttribute longswordSubType = new ItemSubTypeAttribute(this);
             Components.Add(longswordSubType);
             ItemSubTypeMessage longswordItemSubType = new ItemSubTypeMessage(Enums.ItemSubTypes.Sword);

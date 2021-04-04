@@ -8,13 +8,13 @@ using NullRPG.GameObjects.Attributes;
 
 namespace NullRPG.GameObjects.Items.Armors.Head
 {
-    public class IronHelmet : Armor
+    public class None : Armor
     {
-        public IronHelmet() : base("Iron Helmet", Enums.ArmorTypes.Head)
+        public None() : base("None", Enums.ArmorTypes.Head)
         {
             ArmorAttribute ironHelmetAttribute = new ArmorAttribute(this);
             Components.Add(ironHelmetAttribute);
-            ArmorMessage ironHelmetMessage = new ArmorMessage(4);
+            ArmorMessage ironHelmetMessage = new ArmorMessage(0);
             ReceiveMessage(ironHelmetMessage);
             ItemSubTypeAttribute longswordSubType = new ItemSubTypeAttribute(this);
             Components.Add(longswordSubType);

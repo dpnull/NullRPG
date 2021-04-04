@@ -17,14 +17,8 @@ namespace NullRPG
 
         public GameSession()
         {
-            Longsword longsword = new Longsword();
-            IronHelmet ironHelmet = new IronHelmet();
-
+            IndexedKeybindingsManager.Initialize();
             PlayerInventory = new PlayerInventory();
-            ItemManager.CreateItems();
-
-            PlayerInventory.WeaponSlot = longsword;
-            PlayerInventory.HeadSlot = ironHelmet;
         }
     }
 }
