@@ -27,7 +27,7 @@ namespace NullRPG.Managers
 
         public static T GetItem<T>(int objectId) where T : IItem
         {
-            var collection = ItemDatabase.Items.Values.ToArray().OfType<T>();
+            var collection = ItemDatabase.Items.Values.ToArray();
             foreach (var item in collection)
             {
                 return (T)ItemDatabase.Items.Values.SingleOrDefault(i => i.ObjectId == objectId);

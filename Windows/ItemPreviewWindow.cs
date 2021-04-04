@@ -42,6 +42,10 @@ namespace NullRPG.Windows
         public Console Console { get; }
         public ItemPreviewWindow(int width, int height) : base(width, height)
         {
+            DefaultBackground = Color.DarkBlue;
+
+            
+
             Position = new Point(Constants.Windows.PreviewX, Constants.Windows.PreviewY);
 
             Global.CurrentScreen.Children.Add(this);
@@ -50,11 +54,15 @@ namespace NullRPG.Windows
         {
             Clear();
 
+            DrawItem();
+
+            Print(0, 5, $"POID: {ObjectId}");
+
             base.Draw(timeElapsed);
         }
 
         public void SetObjectForPreview(int objectId)
-        {
+        {   
             if (ItemManager.GetItem<IItem>(objectId) != null && ItemManager.GetItem<IItem>(objectId).Name != "None")
             {
                 ObjectId = objectId;
@@ -103,13 +111,15 @@ namespace NullRPG.Windows
                         if (str != null)
                         {
                             Print(Coords.ITEM_DATA_X, Coords.ITEM_DATA_Y + index++, str);
+  
                         }
                     }
 
                     Print(Coords.ITEM_NAME_X - (itemName.Count / 2), Coords.ITEM_NAME_Y, itemName);
-                    
-
-
+                }
+                else
+                {
+                    throw new System.Exception($"Could not find ObjectId_{ObjectId}.");
                 }
             }
         }

@@ -20,8 +20,9 @@ namespace NullRPG.GameObjects.Abstracts
 
         public Item(string name, Enums.ItemTypes itemType)
         {
-            ItemManager.Add(this);
             ObjectId = ItemManager.GetUniqueId();
+            ItemManager.Add(this);
+            
 
             Name = name;
         }

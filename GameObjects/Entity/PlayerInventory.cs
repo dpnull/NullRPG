@@ -17,6 +17,13 @@ namespace NullRPG.GameObjects.Entity
             InventoryManager.Add(this);
             InventoryManager.CreateDefault<PlayerInventory>();
 
+            WeaponSlot = new Items.Weapons.None();
+            HeadSlot = new Items.Armors.Head.None();
+
+
+            InventoryManager.AddToInventory<PlayerInventory>(new Longsword());
+            InventoryManager.AddToInventory<PlayerInventory>(new Longsword());
+            InventoryManager.AddToInventory<PlayerInventory>(new IronHelmet());
             InventoryManager.AddToInventory<PlayerInventory>(new Longsword());
             InventoryManager.AddToInventory<PlayerInventory>(new Longsword());
             InventoryManager.AddToInventory<PlayerInventory>(new IronHelmet());

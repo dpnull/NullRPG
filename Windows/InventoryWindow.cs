@@ -35,6 +35,28 @@ namespace NullRPG.Windows
             base.Draw(timeElapsed);
         }
 
+        public override bool ProcessKeyboard(Keyboard info)
+        {
+            foreach (var keybinding in IndexedKeybindings)
+            {
+                if (info.IsKeyPressed(keybinding.Key))
+                {
+                    var itemPreviewWindow = UserInterfaceManager.Get<ItemPreviewWindow>();
+                    itemPreviewWindow.
+                        SetObjectForPreview(InventoryManager.GetSlot<ISlot>(InventoryManager.Get<PlayerInventory>(), keybinding.ObjectId).Item.FirstOrDefault().ObjectId);
+                    return true;
+                }
+            }
+
+            if (info.IsKeyPressed(KeybindingManager.GetKeybinding<IKeybinding>(Keybindings.Back)))
+            {
+                this.FullTransition(UserInterfaceManager.Get<GameWindow>());
+                return true;
+            }
+
+            return false;
+        }
+
         private void DrawCurrentWeapon()
         {
             var weapon = Game.GameSession.PlayerInventory.WeaponSlot;

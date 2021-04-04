@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using NullRPG.GameObjects.Attributes;
 using NullRPG.GameObjects.Entity;
+using NullRPG.Input;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
 using SadConsole;
@@ -21,18 +22,23 @@ namespace NullRPG.Draw
 
         public void CreateEquipped(IIndexedKeybinding[] keybindings)
         {
+            int _index = 0;
             foreach(var item in keybindings)
             {
                 var slotItem = InventoryManager.GetSlot<ISlot>(InventoryManager.Get<PlayerInventory>(), item.ObjectId).Item.FirstOrDefault();
                 ColoredString itemName = new ColoredString(slotItem.Name);
 
-                PrintContainerValue itemNameVal = new PrintContainerValue(itemName, 0);
+                PrintContainerValue itemNameVal = new PrintContainerValue(itemName, 4);
 
                 // checks if item id matches equipped item id
                 if(slotItem.ObjectId == InventoryManager.GetEquippedItem<PlayerInventory>(Enums.InventorySlotTypes.Head).ObjectId)
                 {
                     itemName.SetBackground(new Color(18, 77, 7));
                 }
+
+                Button = new ButtonIndex(keybindings[_index].Key, Color.Green, Color.White, 0, 0, true);
+                _index++;
+                PrintContainerValue buttonValue = new PrintContainerValue(new ColoredString(Button.Key.ToString()), 0);
 
                 string itemType = slotItem?.GetAttribute<ItemSubTypeAttribute>().ItemSubType.ToString();
 
@@ -42,7 +48,7 @@ namespace NullRPG.Draw
 
                 PrintContainerValue itemIdVal = new PrintContainerValue(new ColoredString(itemId), 30);
 
-                PrintContainerItem containerItem = new PrintContainerItem(new List<PrintContainerValue> { itemNameVal, itemTypeVal, itemIdVal });
+                PrintContainerItem containerItem = new PrintContainerItem(new List<PrintContainerValue> { buttonValue, itemNameVal, itemTypeVal, itemIdVal });
                 ContainerItems.Add(containerItem);
             }
         }
