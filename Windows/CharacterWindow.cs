@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using NullRPG.Extensions;
 using NullRPG.GameObjects;
+using NullRPG.GameObjects.Entity;
 using NullRPG.Input;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
@@ -48,7 +49,11 @@ namespace NullRPG.Windows
 
         private void DrawCharacter()
         {
-            
+            var player = EntityManager.Get<Player>(Game.GameSession.Player.ObjectId);
+            //var inventory = InventoryManager.GetInventory<IEntityInventory>(player.)
+
+            Print(0, 1, player.Name);
+
 
         }
 

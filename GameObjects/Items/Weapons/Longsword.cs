@@ -1,5 +1,5 @@
 ﻿using NullRPG.GameObjects.Abstracts;
-using NullRPG.GameObjects.Components.ItemComponents;
+using NullRPG.GameObjects.Components.Item;
 using System;
 using System.Collections.Generic;
 using System.Linq;

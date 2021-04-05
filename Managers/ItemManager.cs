@@ -17,7 +17,7 @@ namespace NullRPG.Managers
             return ItemDatabase.GetUniqueId();
         }
 
-        public static void Add(IItem item)
+        public static void Add<T>(T item) where T : IItem
         {
             if (!ItemDatabase.Items.ContainsKey(item.ObjectId))
             {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NullRPG.GameObjects.Components.ItemComponents;
+using NullRPG.GameObjects.Components.Item;
 
 namespace NullRPG.Managers
 {
@@ -26,7 +26,7 @@ namespace NullRPG.Managers
         /// <typeparam name="T">IComponent type parameter.</typeparam>
         /// <param name="objectId">Item object id.</param>
         /// <returns></returns>
-        public static bool ContainsComponent<T>(int objectId) where T : IComponent
+        public static bool ContainsComponent<T>(int objectId) where T : IItemComponent
         {
             var item = ItemManager.GetItem<IItem>(objectId);
 

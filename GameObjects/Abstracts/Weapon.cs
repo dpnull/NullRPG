@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NullRPG.GameObjects.Abstracts
 {
-    public abstract class Weapon : Item
+    public abstract class Weapon : BaseItem
     {
         public Weapon(string name) : base(name, Enums.ItemCategories.Weapon)
         {

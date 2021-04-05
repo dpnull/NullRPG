@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NullRPG.GameObjects.Components.ItemComponents
+namespace NullRPG.GameObjects.Components.Item
 {
-    class ItemTypeComponent : IComponent
+    class ItemTypeComponent : IItemComponent
     {
         public List<Enums.ItemTypes> ItemTypes { get; private set; } = new List<Enums.ItemTypes>();
         public IItem Source { get; set; }

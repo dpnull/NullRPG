@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NullRPG.GameObjects.Components.ItemComponents
+namespace NullRPG.GameObjects.Components.Item
 {
     class ArmorComponentValue
     {

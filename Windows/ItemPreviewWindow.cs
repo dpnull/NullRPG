@@ -9,7 +9,7 @@ using NullRPG.Extensions;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
 using SadConsole;
-using NullRPG.GameObjects.Components.ItemComponents;
+using NullRPG.GameObjects.Components.Item;
 
 namespace NullRPG.Windows
 {

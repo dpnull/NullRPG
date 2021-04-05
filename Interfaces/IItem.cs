@@ -14,8 +14,8 @@ namespace NullRPG.Interfaces
         int Value { get; set; }
         //bool CanEquip { get; set; }
         bool IsStackable { get; set; }
-        public List<IComponent> Components { get; set; }
+        public List<IItemComponent> Components { get; set; }
         void ReceiveComponentValue<T>(T message);
-        public T GetComponent<T>() where T : IComponent;
+        public T GetComponent<T>() where T : IItemComponent;
     }
 }

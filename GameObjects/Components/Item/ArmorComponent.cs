@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NullRPG.GameObjects.Components.ItemComponents
+namespace NullRPG.GameObjects.Components.Item
 {
-    public class ArmorComponent : IComponent
+    public class ArmorComponent : IItemComponent
     {
         public int Defense { get; private set; }
 

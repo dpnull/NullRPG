@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NullRPG.GameObjects.Components.ItemComponents
+namespace NullRPG.GameObjects.Components.Item
 {
-    public class WeaponComponent : IComponent
+    public class WeaponComponent : IItemComponent
     {
         public int MinDamage { get; private set; }
         public int MaxDamage { get; private set; }

@@ -8,6 +8,7 @@ namespace NullRPG.Interfaces
 {
     public interface IEntityInventory
     {
+        int ObjectId { get; set; }
         public Dictionary<int, ISlot> Slots { get; set; }
 
         public IItem WeaponSlot { get; set; }

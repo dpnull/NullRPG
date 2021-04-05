@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using NullRPG.Draw;
 using NullRPG.Extensions;
-using NullRPG.GameObjects.Components.ItemComponents;
+using NullRPG.GameObjects.Components.Item;
 using NullRPG.GameObjects.Entity;
 using NullRPG.Input;
 using NullRPG.Interfaces;
@@ -50,7 +50,7 @@ namespace NullRPG.Windows
                 {
                     var itemPreviewWindow = UserInterfaceManager.Get<ItemPreviewWindow>();
                     itemPreviewWindow.
-                        SetObjectForPreview(InventoryManager.GetSlot<ISlot>(InventoryManager.Get<PlayerInventory>(), keybinding.ObjectId).Item.FirstOrDefault().ObjectId);
+                        SetObjectForPreview(InventoryManager.GetInventorySlot<ISlot>(Game.GameSession.Player, keybinding.ObjectId).Item.FirstOrDefault().ObjectId);
                     return true;
                 }
             }
@@ -64,8 +64,11 @@ namespace NullRPG.Windows
             return false;
         }
 
+        /*
         private void DrawCurrentWeapon()
         {
+            var inven
+
             var weapon = Game.GameSession.PlayerInventory.WeaponSlot;
 
             var minDmg = weapon.GetComponent<WeaponComponent>().MinDamage;
@@ -81,10 +84,11 @@ namespace NullRPG.Windows
 
             Print(0, 9, defense.ToString());
         }
+        */
 
         private void DrawInventory()
         {
-            var inventory = InventoryManager.GetSlots<PlayerInventory>();
+            var inventory = InventoryManager.GetSlots(Game.GameSession.Player);
             List<IIndexable> bindable = new();
 
             foreach(var slot in inventory)
@@ -99,7 +103,7 @@ namespace NullRPG.Windows
             }
 
             IndexedKeybindings = IndexedKeybindingsManager.CreateIndexedKeybindings<IIndexedKeybinding>(bindable);
-            PrintContainerInventory printable = new PrintContainerInventory(IndexedKeybindings);
+            PrintContainerInventory printable = new PrintContainerInventory(InventoryManager.GetEntityInventory(Game.GameSession.Player), IndexedKeybindings);
 
             printable.Draw(this, 4);
 

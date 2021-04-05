@@ -1,5 +1,6 @@
 ﻿using NullRPG.GameObjects.Entity;
 using NullRPG.GameObjects.Items.Armors.Head;
+using NullRPG.GameObjects.Items.Misc;
 using NullRPG.GameObjects.Items.Weapons;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
@@ -13,12 +14,13 @@ namespace NullRPG
 {
     public class GameSession
     {
-        public PlayerInventory PlayerInventory { get; set; }
-
+        public Player Player { get; private set; }
         public GameSession()
         {
             IndexedKeybindingsManager.Initialize();
-            PlayerInventory = new PlayerInventory();
+            Player = EntityManager.Create<Player>();
+
+
         }
     }
 }

@@ -2,6 +2,7 @@
 using NullRPG.GameObjects.Items.Armors.Head;
 using NullRPG.GameObjects.Items.Misc;
 using NullRPG.GameObjects.Items.Weapons;
+using NullRPG.Interfaces;
 using NullRPG.Managers;
 using System;
 using System.Collections.Generic;
@@ -15,22 +16,10 @@ namespace NullRPG.GameObjects.Entity
     {
         public PlayerInventory() : base()
         {
-            InventoryManager.Add(this);
-            InventoryManager.CreateDefault<PlayerInventory>();
+            InventoryManager.CreateDefault(this);
 
             WeaponSlot = new Items.Weapons.None();
             HeadSlot = new Items.Armors.Head.None();
-
-
-            InventoryManager.AddToInventory<PlayerInventory>(new Longsword());
-            InventoryManager.AddToInventory<PlayerInventory>(new Longsword());
-            InventoryManager.AddToInventory<PlayerInventory>(new IronHelmet());
-            InventoryManager.AddToInventory<PlayerInventory>(new Longsword());
-            InventoryManager.AddToInventory<PlayerInventory>(new Longsword());
-            InventoryManager.AddToInventory<PlayerInventory>(new IronHelmet());
-            InventoryManager.AddToInventory<PlayerInventory>(new Birchwood());
-            InventoryManager.AddToInventory<PlayerInventory>(new Birchwood());
-            InventoryManager.AddToInventory<PlayerInventory>(new Birchwood());
 
         }
     }

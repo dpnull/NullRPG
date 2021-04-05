@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NullRPG.GameObjects.Abstracts
 {
-    public abstract class Item : IItem
+    public abstract class BaseItem : IItem
     {
         /*
          Note: the first item sub type attribute will always be displayed for the item on the preview.
@@ -20,9 +20,9 @@ namespace NullRPG.GameObjects.Abstracts
         public bool IsStackable { get; set; } = false;
         //public bool CanEquip { get; set; } = false;
         //public bool CanStack { get; set; } = false;
-        public List<IComponent> Components { get; set; } = new List<IComponent>();
+        public List<IItemComponent> Components { get; set; } = new List<IItemComponent>();
 
-        public Item(string name, Enums.ItemCategories itemType)
+        public BaseItem(string name, Enums.ItemCategories itemType)
         {
             ObjectId = ItemManager.GetUniqueId();
             ItemManager.Add(this);
@@ -31,15 +31,15 @@ namespace NullRPG.GameObjects.Abstracts
             ItemType = itemType;
         }
 
-        public void ReceiveComponentValue<T>(T message)
+        public void ReceiveComponentValue<T>(T value)
         {
-            foreach (IComponent attribute in Components)
+            foreach (IItemComponent component in Components)
             {
-                attribute.ReceiveValue<T>(message);
+                component.ReceiveValue<T>(value);
             }
         }
 
-        public T GetComponent<T>() where T : IComponent
+        public T GetComponent<T>() where T : IItemComponent
         {
             return Components.OfType<T>().FirstOrDefault();
         }

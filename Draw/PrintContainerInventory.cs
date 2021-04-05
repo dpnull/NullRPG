@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using NullRPG.GameObjects.Components.ItemComponents;
+using NullRPG.GameObjects.Components.Item;
 using NullRPG.GameObjects.Entity;
 using NullRPG.Input;
 using NullRPG.Interfaces;
@@ -15,23 +15,23 @@ namespace NullRPG.Draw
 {
     public class PrintContainerInventory : PrintContainerBase
     {
-        public PrintContainerInventory(IIndexedKeybinding[] keybindings) : base(keybindings)
+        public PrintContainerInventory(IEntityInventory inventory, IIndexedKeybinding[] keybindings) : base(keybindings)
         {
-            CreateEquipped(keybindings);
+            CreateEquipped(inventory, keybindings);
         }
 
-        public void CreateEquipped(IIndexedKeybinding[] keybindings)
+        public void CreateEquipped(IEntityInventory inventory, IIndexedKeybinding[] keybindings)
         {
             int _index = 0;
             foreach(var item in keybindings)
             {
-                var slotItem = InventoryManager.GetSlot<ISlot>(InventoryManager.Get<PlayerInventory>(), item.ObjectId).Item.FirstOrDefault();
+                var slotItem = InventoryManager.GetInventorySlot<ISlot>(Game.GameSession.Player, item.ObjectId).Item.FirstOrDefault();
                 ColoredString itemName = new ColoredString(slotItem.Name);
 
                 PrintContainerValue itemNameVal = new PrintContainerValue(itemName, 4);
 
                 // checks if item id matches equipped item id
-                if(slotItem.ObjectId == InventoryManager.GetEquippedItem<PlayerInventory>(Enums.InventorySlotTypes.Head).ObjectId)
+                if(slotItem.ObjectId == InventoryManager.GetEquippedItem<IEntityInventory>(inventory, Enums.InventorySlotTypes.Head).ObjectId)
                 {
                     itemName.SetBackground(new Color(18, 77, 7));
                 }
@@ -49,7 +49,7 @@ namespace NullRPG.Draw
                 PrintContainerValue itemIdVal = new PrintContainerValue(new ColoredString(itemId), 30);
 
                 PrintContainerValue quantity;
-                var slot = InventoryManager.GetSlot<ISlot>(InventoryManager.Get<PlayerInventory>(), item.ObjectId);
+                var slot = InventoryManager.GetInventorySlot<ISlot>(Game.GameSession.Player, item.ObjectId);
                 if (slot.Item.FirstOrDefault().IsStackable)
                 {
                     quantity = new PrintContainerValue(new ColoredString($"count: {slot.Item.Count}"), 50);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NullRPG.Interfaces
 {
-    public interface IComponent
+    public interface IItemComponent
     {
         IItem Source { get; set; }
         void ReceiveValue<T>(T value);
