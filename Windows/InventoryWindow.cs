@@ -35,6 +35,13 @@ namespace NullRPG.Windows
             base.Draw(timeElapsed);
         }
 
+        public override void OnFocusLost()
+        {
+            UserInterfaceManager.Get<ItemPreviewWindow>().SetObjectForPreview(-1);
+
+            base.OnFocusLost();
+        }
+
         public override bool ProcessKeyboard(Keyboard info)
         {
             foreach (var keybinding in IndexedKeybindings)

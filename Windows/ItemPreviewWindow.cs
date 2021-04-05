@@ -62,11 +62,16 @@ namespace NullRPG.Windows
         }
 
         public void SetObjectForPreview(int objectId)
-        {   
+        {
             if (ItemManager.GetItem<IItem>(objectId) != null && ItemManager.GetItem<IItem>(objectId).Name != "None")
             {
                 ObjectId = objectId;
                 IsVisible = true;
+            }
+            else
+            {
+                ObjectId = objectId;
+                IsVisible = false;
             }
         }
 
