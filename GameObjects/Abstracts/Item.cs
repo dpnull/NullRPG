@@ -15,14 +15,14 @@ namespace NullRPG.GameObjects.Abstracts
          */
         public int ObjectId { get; set; }
         public string Name { get; set; } = "\0";
-        public Enums.ItemTypes ItemType { get; set; }
+        public Enums.ItemCategories ItemType { get; set; }
         public int Value { get; set; } = 0;
         public bool IsStackable { get; set; } = false;
         //public bool CanEquip { get; set; } = false;
         //public bool CanStack { get; set; } = false;
-        public List<IAttribute> Components { get; set; } = new List<IAttribute>();
+        public List<IComponent> Components { get; set; } = new List<IComponent>();
 
-        public Item(string name, Enums.ItemTypes itemType)
+        public Item(string name, Enums.ItemCategories itemType)
         {
             ObjectId = ItemManager.GetUniqueId();
             ItemManager.Add(this);
@@ -31,15 +31,15 @@ namespace NullRPG.GameObjects.Abstracts
             ItemType = itemType;
         }
 
-        public void ReceiveMessage<T>(T message)
+        public void ReceiveComponentValue<T>(T message)
         {
-            foreach (IAttribute attribute in Components)
+            foreach (IComponent attribute in Components)
             {
-                attribute.ReceiveMessage<T>(message);
+                attribute.ReceiveValue<T>(message);
             }
         }
 
-        public T GetAttribute<T>() where T : IAttribute
+        public T GetComponent<T>() where T : IComponent
         {
             return Components.OfType<T>().FirstOrDefault();
         }

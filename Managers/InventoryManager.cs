@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NullRPG.GameObjects.Abstracts;
-using NullRPG.GameObjects.Attributes;
+using NullRPG.GameObjects.Components.ItemComponents;
 using NullRPG.GameObjects.Entity;
 using NullRPG.GameObjects;
 
@@ -85,16 +85,16 @@ namespace NullRPG.Managers
             {
                 if (equipped.All(i => i.ObjectId != item.ObjectId))
                 {
-                    if (item.ItemType is Enums.ItemTypes.Weapon) { inventory.WeaponSlot = item; }
-                    else if (AttributeManager.ContainsItemSubType<IItem>(item, Enums.ItemSubTypes.HeadArmor))
+                    if (item.ItemType is Enums.ItemCategories.Weapon) { inventory.WeaponSlot = item; }
+                    else if (ComponentManager.ContainsItemSubType<IItem>(item, Enums.ItemTypes.HeadArmor))
                     {
                         inventory.HeadSlot = item;
                     }
-                    //MessageManager.AddItemEquipped(item.Name);
+                    //ComponentValueManager.AddItemEquipped(item.Name);
                 }
                 else
                 {
-                    //MessageManager.AddDefault("You have already equipped this item.");
+                    //ComponentValueManager.AddDefault("You have already equipped this item.");
                 }
             }
         }

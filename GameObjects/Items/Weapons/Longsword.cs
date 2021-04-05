@@ -1,5 +1,5 @@
 ﻿using NullRPG.GameObjects.Abstracts;
-using NullRPG.GameObjects.Attributes;
+using NullRPG.GameObjects.Components.ItemComponents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,15 +14,15 @@ namespace NullRPG.GameObjects.Items.Weapons
         {
             Value = 10;
 
-            WeaponAttribute longswordAttribute = new WeaponAttribute(this);
-            Components.Add(longswordAttribute);
-            WeaponMessage longswordMessage = new WeaponMessage(7, 10);
-            ReceiveMessage(longswordMessage);
+            WeaponComponent longswordComponent = new WeaponComponent(this);
+            Components.Add(longswordComponent);
+            WeaponComponentValue longswordComponentValue = new WeaponComponentValue(7, 10);
+            ReceiveComponentValue(longswordComponentValue);
 
-            ItemSubTypeAttribute longswordSubType = new ItemSubTypeAttribute(this);
+            ItemTypeComponent longswordSubType = new ItemTypeComponent(this);
             Components.Add(longswordSubType);
-            ItemSubTypeMessage longswordItemSubType = new ItemSubTypeMessage(Enums.ItemSubTypes.Sword);
-            ReceiveMessage(longswordItemSubType);
+            ItemTypeComponentValue longswordItemSubType = new ItemTypeComponentValue(Enums.ItemTypes.Sword);
+            ReceiveComponentValue(longswordItemSubType);
         }
     }
 }

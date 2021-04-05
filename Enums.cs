@@ -16,7 +16,7 @@ namespace NullRPG
             Legs
         }
 
-        public enum ItemSubTypes
+        public enum ItemTypes
         {
             HeadArmor,
             ChestArmor,
@@ -27,7 +27,7 @@ namespace NullRPG
         }
 
         // Uncertain whether this is necessary and can be replaced with something else
-        public enum ItemTypes
+        public enum ItemCategories
         {
             Weapon,
             Armor,

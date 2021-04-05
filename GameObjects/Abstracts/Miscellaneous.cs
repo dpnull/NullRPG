@@ -8,7 +8,7 @@ namespace NullRPG.GameObjects.Abstracts
 {
     public class Miscellaneous : Item
     {
-        public Miscellaneous(string name) : base(name, Enums.ItemTypes.Misc)
+        public Miscellaneous(string name) : base(name, Enums.ItemCategories.Misc)
         {
             IsStackable = true;
         }

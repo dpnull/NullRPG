@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using NullRPG.Draw;
 using NullRPG.Extensions;
-using NullRPG.GameObjects.Attributes;
+using NullRPG.GameObjects.Components.ItemComponents;
 using NullRPG.GameObjects.Entity;
 using NullRPG.Input;
 using NullRPG.Interfaces;
@@ -68,8 +68,8 @@ namespace NullRPG.Windows
         {
             var weapon = Game.GameSession.PlayerInventory.WeaponSlot;
 
-            var minDmg = weapon.GetAttribute<WeaponAttribute>().MinDamage;
-            var maxDmg = weapon.GetAttribute<WeaponAttribute>().MaxDamage;
+            var minDmg = weapon.GetComponent<WeaponComponent>().MinDamage;
+            var maxDmg = weapon.GetComponent<WeaponComponent>().MaxDamage;
 
             Print(0, 4, weapon.Name);
             Print(0, 5, $"{minDmg} - {maxDmg}");
@@ -77,7 +77,7 @@ namespace NullRPG.Windows
 
             var armor = Game.GameSession.PlayerInventory.HeadSlot;
 
-            var defense = armor.GetAttribute<ArmorAttribute>().Defense;
+            var defense = armor.GetComponent<ArmorComponent>().Defense;
 
             Print(0, 9, defense.ToString());
         }

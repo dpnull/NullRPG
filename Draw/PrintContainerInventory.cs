@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using NullRPG.GameObjects.Attributes;
+using NullRPG.GameObjects.Components.ItemComponents;
 using NullRPG.GameObjects.Entity;
 using NullRPG.Input;
 using NullRPG.Interfaces;
@@ -40,7 +40,7 @@ namespace NullRPG.Draw
                 _index++;
                 PrintContainerValue buttonValue = new PrintContainerValue(new ColoredString(Button.Key.ToString()), 0);
 
-                string itemType = slotItem.GetAttribute<ItemSubTypeAttribute>().ItemSubTypes.FirstOrDefault().ToString();
+                string itemType = slotItem.GetComponent<ItemTypeComponent>().ItemTypes.FirstOrDefault().ToString();
 
                 PrintContainerValue itemTypeVal = new PrintContainerValue(new ColoredString(itemType), 20);
 

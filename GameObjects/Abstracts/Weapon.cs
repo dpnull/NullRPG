@@ -8,7 +8,7 @@ namespace NullRPG.GameObjects.Abstracts
 {
     public abstract class Weapon : Item
     {
-        public Weapon(string name) : base(name, Enums.ItemTypes.Weapon)
+        public Weapon(string name) : base(name, Enums.ItemCategories.Weapon)
         {
 
         }

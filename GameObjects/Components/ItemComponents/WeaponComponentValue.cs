@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NullRPG.GameObjects.Attributes
+namespace NullRPG.GameObjects.Components.ItemComponents
 {
-    public class WeaponMessage
+    public class WeaponComponentValue
     {
         public int MinDamage;
         public int MaxDamage;
 
-        public WeaponMessage(int minDamage, int maxDamage)
+        public WeaponComponentValue(int minDamage, int maxDamage)
         {
             MinDamage = minDamage;
             MaxDamage = maxDamage;

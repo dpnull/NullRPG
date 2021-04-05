@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NullRPG.GameObjects.Attributes;
+using NullRPG.GameObjects.Components.ItemComponents;
 
 namespace NullRPG.GameObjects.Items.Misc
 {
@@ -14,13 +14,13 @@ namespace NullRPG.GameObjects.Items.Misc
         {
             Value = 5;
 
-            ItemSubTypeAttribute birchwoodAtt = new ItemSubTypeAttribute(this);
+            ItemTypeComponent birchwoodAtt = new ItemTypeComponent(this);
             Components.Add(birchwoodAtt);
 
-            ItemSubTypeMessage birchwoodMsg = new ItemSubTypeMessage(Enums.ItemSubTypes.Misc);
-            ReceiveMessage(birchwoodMsg);
-            ItemSubTypeMessage birchwoodMsg2 = new ItemSubTypeMessage(Enums.ItemSubTypes.Material);
-            ReceiveMessage(birchwoodMsg2);
+            ItemTypeComponentValue birchwoodMsg = new ItemTypeComponentValue(Enums.ItemTypes.Misc);
+            ReceiveComponentValue(birchwoodMsg);
+            ItemTypeComponentValue birchwoodMsg2 = new ItemTypeComponentValue(Enums.ItemTypes.Material);
+            ReceiveComponentValue(birchwoodMsg2);
 
         }
     }

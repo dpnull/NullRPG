@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NullRPG.GameObjects.Attributes
+namespace NullRPG.GameObjects.Components.ItemComponents
 {
-    class ArmorMessage
+    class ArmorComponentValue
     {
         public int Defense;
-        public ArmorMessage(int defense)
+        public ArmorComponentValue(int defense)
         {
             Defense = defense;
         }

@@ -5,24 +5,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NullRPG.GameObjects.Attributes
+namespace NullRPG.GameObjects.Components.ItemComponents
 {
-    public class ArmorAttribute : IAttribute
+    public class ArmorComponent : IComponent
     {
         public int Defense { get; private set; }
 
         public IItem Source { get; set; }
-        public ArmorAttribute(IItem source)
+        public ArmorComponent(IItem source)
         {
             Source = source;
         }
 
-        public void ReceiveMessage<T>(T message)
+        public void ReceiveValue<T>(T value)
         {
-            ArmorMessage armorMessage = message as ArmorMessage;
-            if (armorMessage != null)
+            ArmorComponentValue armorValue = value as ArmorComponentValue;
+            if (armorValue != null)
             {
-                Defense = armorMessage.Defense;
+                Defense = armorValue.Defense;
             }
         }
     }

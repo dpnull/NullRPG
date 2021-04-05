@@ -9,13 +9,13 @@ namespace NullRPG.Interfaces
     public interface IItem
     {
         int ObjectId { get; set; }
-        Enums.ItemTypes ItemType { get; set; }
+        Enums.ItemCategories ItemType { get; set; }
         string Name { get; set; }
         int Value { get; set; }
         //bool CanEquip { get; set; }
         bool IsStackable { get; set; }
-        public List<IAttribute> Components { get; set; }
-        void ReceiveMessage<T>(T message);
-        public T GetAttribute<T>() where T : IAttribute;
+        public List<IComponent> Components { get; set; }
+        void ReceiveComponentValue<T>(T message);
+        public T GetComponent<T>() where T : IComponent;
     }
 }

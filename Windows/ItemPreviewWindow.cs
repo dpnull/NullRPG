@@ -9,7 +9,7 @@ using NullRPG.Extensions;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
 using SadConsole;
-using NullRPG.GameObjects.Attributes;
+using NullRPG.GameObjects.Components.ItemComponents;
 
 namespace NullRPG.Windows
 {
@@ -89,23 +89,23 @@ namespace NullRPG.Windows
 
                     this.DrawRectangleTitled(0, 0, Constants.Windows.ItemPreviewWidth - 1, Constants.Windows.ItemPreviewHeight - 1, "+", "-", "|", "|", itemName, true);
 
-                    if (AttributeManager.ContainsAttribute<WeaponAttribute>(item.ObjectId))
+                    if (ComponentManager.ContainsComponent<WeaponComponent>(item.ObjectId))
                     {
-                        int minDmg = item.GetAttribute<WeaponAttribute>().MinDamage;
-                        int maxDmg = item.GetAttribute<WeaponAttribute>().MaxDamage;
+                        int minDmg = item.GetComponent<WeaponComponent>().MinDamage;
+                        int maxDmg = item.GetComponent<WeaponComponent>().MaxDamage;
 
                         ColoredString atkData = Extensions.ConsoleExtensions.AttributeString(minDmg, maxDmg, "to attack");
                         itemData.Add(atkData);
                     }
-                    if (AttributeManager.ContainsAttribute<ArmorAttribute>(item.ObjectId))
+                    if (ComponentManager.ContainsComponent<ArmorComponent>(item.ObjectId))
                     {
-                        int defense = item.GetAttribute<ArmorAttribute>().Defense;
+                        int defense = item.GetComponent<ArmorComponent>().Defense;
                         ColoredString defenseData = Extensions.ConsoleExtensions.AttributeString(defense, "to defense");
                         itemData.Add(defenseData);
                     }
-                    if (AttributeManager.ContainsAttribute<ItemSubTypeAttribute>(item.ObjectId))
+                    if (ComponentManager.ContainsComponent<ItemTypeComponent>(item.ObjectId))
                     {
-                        string itemType = item.GetAttribute<ItemSubTypeAttribute>().ItemSubTypes.ToString();
+                        string itemType = item.GetComponent<ItemTypeComponent>().ItemTypes.ToString();
                         
                         Print(Coords.ITEM_TYPE_X - (itemType.Length / 2), Coords.ITEM_TYPE_Y, itemType);
                     }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NullRPG.GameObjects.Attributes;
+using NullRPG.GameObjects.Components.ItemComponents;
 
 namespace NullRPG.GameObjects.Items.Armors.Head
 {
@@ -12,14 +12,14 @@ namespace NullRPG.GameObjects.Items.Armors.Head
     {
         public None() : base("None", Enums.ArmorTypes.Head)
         {
-            ArmorAttribute ironHelmetAttribute = new ArmorAttribute(this);
-            Components.Add(ironHelmetAttribute);
-            ArmorMessage ironHelmetMessage = new ArmorMessage(0);
-            ReceiveMessage(ironHelmetMessage);
-            ItemSubTypeAttribute longswordSubType = new ItemSubTypeAttribute(this);
+            ArmorComponent ironHelmetComponent = new ArmorComponent(this);
+            Components.Add(ironHelmetComponent);
+            ArmorComponentValue ironHelmetComponentValue = new ArmorComponentValue(0);
+            ReceiveComponentValue(ironHelmetComponentValue);
+            ItemTypeComponent longswordSubType = new ItemTypeComponent(this);
             Components.Add(longswordSubType);
-            ItemSubTypeMessage longswordItemSubType = new ItemSubTypeMessage(Enums.ItemSubTypes.HeadArmor);
-            ReceiveMessage(longswordItemSubType);
+            ItemTypeComponentValue longswordItemSubType = new ItemTypeComponentValue(Enums.ItemTypes.HeadArmor);
+            ReceiveComponentValue(longswordItemSubType);
             
         }
     }
