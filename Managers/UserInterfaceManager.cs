@@ -42,6 +42,13 @@ namespace NullRPG.Managers
             Add(itemPreviewWindow);
 
 
+            var characterWindow = new CharacterWindow(Constants.Windows.CharacterWidth, Constants.Windows.CharacterHeight)
+            {
+                IsVisible = false,
+                IsFocused = false
+            };
+            Add(characterWindow);
+
             var generalKeybindingsWindow = new GeneralKeybindingsWindow(Constants.Windows.Keybindings.GeneralWidth, Constants.Windows.Keybindings.GeneralHeight);
             Add(generalKeybindingsWindow);
 

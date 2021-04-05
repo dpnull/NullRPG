@@ -44,6 +44,9 @@ namespace NullRPG
             public const int InventoryWidth = GameWidth;
             public const int InventoryHeight = GameHeight - KeybindingsHeight;
 
+            public const int CharacterWidth = GameWidth;
+            public const int CharacterHeight = GameHeight - KeybindingsHeight;
+
             public const int ItemPreviewWidth = 40;
             public const int ItemPreviewHeight = 10;
                         public const int PreviewX = InventoryWidth - ItemPreviewWidth;

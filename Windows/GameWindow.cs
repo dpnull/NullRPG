@@ -43,6 +43,12 @@ namespace NullRPG.Windows
                 return true;
             }
 
+            if (info.IsKeyPressed(KeybindingManager.GetKeybinding<IKeybinding>(Keybinding.Keybindings.Character)))
+            {
+                OpenCharacterWindow();
+                return true;
+            }
+
 
             return false;
         }
@@ -50,6 +56,11 @@ namespace NullRPG.Windows
         private void OpenInventoryWindow()
         {
             this.SwitchFocusMakeVisible(UserInterfaceManager.Get<InventoryWindow>());
+        }
+        
+        private void OpenCharacterWindow()
+        {
+            this.SwitchFocusMakeVisible(UserInterfaceManager.Get<CharacterWindow>());
         }
     }
 }

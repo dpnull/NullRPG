@@ -42,7 +42,8 @@ namespace NullRPG.Managers
             UpdateVisibility(Keybindings.Inventory, UserInterfaceManager.Get<GameWindow>().IsFocused);
             UpdateVisibility(Keybindings.Character, UserInterfaceManager.Get<GameWindow>().IsFocused);
 
-            UpdateVisibility(Keybindings.Back, UserInterfaceManager.Get<InventoryWindow>().IsVisible);
+            UpdateVisibility(Keybindings.Back, UserInterfaceManager.Get<InventoryWindow>().IsVisible ||
+                UserInterfaceManager.Get<CharacterWindow>().IsVisible);
 
             /*
             UpdateVisibility(Keybindings.Back,
