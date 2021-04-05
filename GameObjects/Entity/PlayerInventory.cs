@@ -1,5 +1,6 @@
 ﻿using NullRPG.GameObjects.Abstracts;
 using NullRPG.GameObjects.Items.Armors.Head;
+using NullRPG.GameObjects.Items.Misc;
 using NullRPG.GameObjects.Items.Weapons;
 using NullRPG.Managers;
 using System;
@@ -27,6 +28,9 @@ namespace NullRPG.GameObjects.Entity
             InventoryManager.AddToInventory<PlayerInventory>(new Longsword());
             InventoryManager.AddToInventory<PlayerInventory>(new Longsword());
             InventoryManager.AddToInventory<PlayerInventory>(new IronHelmet());
+            InventoryManager.AddToInventory<PlayerInventory>(new Birchwood());
+            InventoryManager.AddToInventory<PlayerInventory>(new Birchwood());
+            InventoryManager.AddToInventory<PlayerInventory>(new Birchwood());
 
         }
     }

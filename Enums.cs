@@ -22,8 +22,11 @@ namespace NullRPG
             ChestArmor,
             LegsArmor,
             Sword,
+            Material,
+            Misc
         }
 
+        // Uncertain whether this is necessary and can be replaced with something else
         public enum ItemTypes
         {
             Weapon,

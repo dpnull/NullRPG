@@ -13,6 +13,15 @@ namespace NullRPG.GameObjects.Items.Misc
         public Birchwood() : base("Birchwood")
         {
             Value = 5;
+
+            ItemSubTypeAttribute birchwoodAtt = new ItemSubTypeAttribute(this);
+            Components.Add(birchwoodAtt);
+
+            ItemSubTypeMessage birchwoodMsg = new ItemSubTypeMessage(Enums.ItemSubTypes.Misc);
+            ReceiveMessage(birchwoodMsg);
+            ItemSubTypeMessage birchwoodMsg2 = new ItemSubTypeMessage(Enums.ItemSubTypes.Material);
+            ReceiveMessage(birchwoodMsg2);
+
         }
     }
 }

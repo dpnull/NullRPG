@@ -10,10 +10,14 @@ namespace NullRPG.GameObjects.Abstracts
 {
     public abstract class Item : IItem
     {
+        /*
+         Note: the first item sub type attribute will always be displayed for the item on the preview.
+         */
         public int ObjectId { get; set; }
         public string Name { get; set; } = "\0";
         public Enums.ItemTypes ItemType { get; set; }
         public int Value { get; set; } = 0;
+        public bool IsStackable { get; set; } = false;
         //public bool CanEquip { get; set; } = false;
         //public bool CanStack { get; set; } = false;
         public List<IAttribute> Components { get; set; } = new List<IAttribute>();

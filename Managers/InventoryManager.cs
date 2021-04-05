@@ -86,7 +86,7 @@ namespace NullRPG.Managers
                 if (equipped.All(i => i.ObjectId != item.ObjectId))
                 {
                     if (item.ItemType is Enums.ItemTypes.Weapon) { inventory.WeaponSlot = item; }
-                    else if (AttributeManager.GetItemSubType(item) == AttributeManager.GetItemSubType(inventory.HeadSlot))
+                    else if (AttributeManager.ContainsItemSubType<IItem>(item, Enums.ItemSubTypes.HeadArmor))
                     {
                         inventory.HeadSlot = item;
                     }
@@ -103,29 +103,34 @@ namespace NullRPG.Managers
         {
             var inventory = Get<T>();
             var freeSlot = inventory.Slots.FirstOrDefault(f => !f.Value.Item.Any());
-            inventory.Slots[freeSlot.Key].Item.Add(item);
-            /*
-            // if true, gets the first available slot
-            // get the first slot with matching item name to passed item in the item list and add it.
-            if (inventory.Slots.Values.Any(i => i.Item.Any(j => j.Name.ToString() == item.Name.ToString())))
+
+            // if true, get the first available slot.
+            if (!item.IsStackable)
             {
-                foreach (var slot in inventory.Slots)
-                {
-                    if (slot.Value.Item.Any(i => i.Name.ToString() == item.Name.ToString()))
-                    {
-                        slot.Value.Item.Add(item);
-                    }
-                }
+                inventory.Slots[freeSlot.Key].Item.Add(item);
             }
             else
             {
-                // If no existing non-unique item in the slots exists, use up the next available slot.
-                if (freeSlot.Value.Item.All(i => i.Name.ToString() != item.Name.ToString()))
+                // get the first slot with matching item name to passed item in the item list and add it.
+                if (inventory.Slots.Values.Any(i => i.Item.Any(j => j.Name.ToString() == item.Name.ToString())))
                 {
-                    inventory.Slots[freeSlot.Key].Item.Add(item);
+                    foreach (var slot in inventory.Slots)
+                    {
+                        if (slot.Value.Item.Any(i => i.Name.ToString() == item.Name.ToString()))
+                        {
+                            slot.Value.Item.Add(item);
+                        }
+                    }
+                }
+                else
+                {
+                    // If no existing non-unique item in the slots exists, use up the next available slot.
+                    if (freeSlot.Value.Item.All(i => i.Name.ToString() != item.Name.ToString()))
+                    {
+                        inventory.Slots[freeSlot.Key].Item.Add(item);
+                    }
                 }
             }
-            */
         }
 
         public static IItem GetEquippedItem<T>(Enums.InventorySlotTypes slotType) where T : IEntityInventory

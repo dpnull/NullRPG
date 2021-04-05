@@ -40,7 +40,7 @@ namespace NullRPG.Draw
                 _index++;
                 PrintContainerValue buttonValue = new PrintContainerValue(new ColoredString(Button.Key.ToString()), 0);
 
-                string itemType = slotItem?.GetAttribute<ItemSubTypeAttribute>().ItemSubType.ToString();
+                string itemType = slotItem.GetAttribute<ItemSubTypeAttribute>().ItemSubTypes.FirstOrDefault().ToString();
 
                 PrintContainerValue itemTypeVal = new PrintContainerValue(new ColoredString(itemType), 20);
 
@@ -48,7 +48,10 @@ namespace NullRPG.Draw
 
                 PrintContainerValue itemIdVal = new PrintContainerValue(new ColoredString(itemId), 30);
 
-                PrintContainerItem containerItem = new PrintContainerItem(new List<PrintContainerValue> { buttonValue, itemNameVal, itemTypeVal, itemIdVal });
+                PrintContainerValue quantity = new PrintContainerValue(new ColoredString
+                    ($"count: {InventoryManager.GetSlot<ISlot>(InventoryManager.Get<PlayerInventory>(), item.ObjectId).Item.Count.ToString()}"), 50);
+
+                PrintContainerItem containerItem = new PrintContainerItem(new List<PrintContainerValue> { buttonValue, itemNameVal, itemTypeVal, itemIdVal, quantity });
                 ContainerItems.Add(containerItem);
             }
         }

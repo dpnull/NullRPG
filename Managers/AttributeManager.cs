@@ -11,9 +11,9 @@ namespace NullRPG.Managers
 {
     public static class AttributeManager
     {
-        public static Enums.ItemSubTypes GetItemSubType<T>(T item) where T : IItem
+        public static Enums.ItemSubTypes[] GetItemSubTypes<T>(T item) where T : IItem
         {
-            return ItemManager.GetItem<T>(item.ObjectId).GetAttribute<ItemSubTypeAttribute>().ItemSubType;
+            return ItemManager.GetItem<T>(item.ObjectId).GetAttribute<ItemSubTypeAttribute>().ItemSubTypes.ToArray();
         }
         public static void PrintWeapon<T>(int objectId, T attributeType)
         {
@@ -33,6 +33,12 @@ namespace NullRPG.Managers
             if (item.Components.OfType<T>().Any())
                 return true;
             return false;
+        }
+
+        public static bool ContainsItemSubType<T>(T item, Enums.ItemSubTypes itemSubType) where T : IItem
+        {
+            return true && GetItemSubTypes(item).Contains(itemSubType);
+
         }
 
     }

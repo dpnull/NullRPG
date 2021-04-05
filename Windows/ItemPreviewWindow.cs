@@ -100,7 +100,7 @@ namespace NullRPG.Windows
                     }
                     if (AttributeManager.ContainsAttribute<ItemSubTypeAttribute>(item.ObjectId))
                     {
-                        string itemType = item.GetAttribute<ItemSubTypeAttribute>().ItemSubType.ToString();
+                        string itemType = item.GetAttribute<ItemSubTypeAttribute>().ItemSubTypes.ToString();
                         
                         Print(Coords.ITEM_TYPE_X - (itemType.Length / 2), Coords.ITEM_TYPE_Y, itemType);
                     }
