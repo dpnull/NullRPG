@@ -48,8 +48,15 @@ namespace NullRPG.Draw
 
                 PrintContainerValue itemIdVal = new PrintContainerValue(new ColoredString(itemId), 30);
 
-                PrintContainerValue quantity = new PrintContainerValue(new ColoredString
-                    ($"count: {InventoryManager.GetSlot<ISlot>(InventoryManager.Get<PlayerInventory>(), item.ObjectId).Item.Count.ToString()}"), 50);
+                PrintContainerValue quantity;
+                var slot = InventoryManager.GetSlot<ISlot>(InventoryManager.Get<PlayerInventory>(), item.ObjectId);
+                if (slot.Item.FirstOrDefault().IsStackable)
+                {
+                    quantity = new PrintContainerValue(new ColoredString($"count: {slot.Item.Count}"), 50);
+                } else
+                {
+                    quantity = new PrintContainerValue(new ColoredString($"\0"), 50); // temporary
+                }
 
                 PrintContainerItem containerItem = new PrintContainerItem(new List<PrintContainerValue> { buttonValue, itemNameVal, itemTypeVal, itemIdVal, quantity });
                 ContainerItems.Add(containerItem);
