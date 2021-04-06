@@ -13,6 +13,7 @@ namespace NullRPG.Draw
     {
         public int XOffset { get; set; } = 0;
         public int YOffset { get; set; } = 0;
+        // X offsets
         public int NameOffset { get; set; } = 0;
         public int IndexOffset { get; set; } = 0;
         public int TypeOffset { get; set; } = 0;
@@ -28,23 +29,6 @@ namespace NullRPG.Draw
         public PrintContainerBase(IIndexedKeybinding[] keybindings)
         {
             Keybindings = keybindings;
-        }
-
-        public enum ListType
-        {
-            Inventory,
-            Equipped,
-            Areas,
-            Locations
-        }
-
-        public void RawSetPrintingOffsets(int xOffset, int yOffset, int indexOffset, int nameOffset, int typeOffset)
-        {
-            XOffset = xOffset;
-            YOffset = yOffset;
-            IndexOffset = xOffset + indexOffset;
-            NameOffset = xOffset + nameOffset;
-            TypeOffset = xOffset + typeOffset;
         }
     }
 }

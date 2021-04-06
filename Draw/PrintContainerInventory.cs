@@ -15,11 +15,21 @@ namespace NullRPG.Draw
 {
     public class PrintContainerInventory : PrintContainerBase
     {
+        /// <summary>
+        /// Create an automated container for drawing of an entity inventory.
+        /// </summary>
+        /// <param name="inventory">Entity inventory.</param>
+        /// <param name="keybindings">An already instatiated keybindings array.</param>
         public PrintContainerInventory(IEntityInventory inventory, IIndexedKeybinding[] keybindings) : base(keybindings)
         {
             CreateEquipped(inventory, keybindings);
         }
 
+        /// <summary>
+        /// Build a dynamic drawing method for the passed objects of type IEntityInventory.
+        /// </summary>
+        /// <param name="inventory">Passed entity inventory from the constructor.</param>
+        /// <param name="keybindings">Passed keybindings array from the constructor.</param>
         public void CreateEquipped(IEntityInventory inventory, IIndexedKeybinding[] keybindings)
         {
             int _index = 0;
@@ -63,6 +73,11 @@ namespace NullRPG.Draw
             }
         }
 
+        /// <summary>
+        /// Draw the container.
+        /// </summary>
+        /// <param name="console">Console window to be drawn from.</param>
+        /// <param name="y">Starting y coordinate.</param>
         public void Draw(SadConsole.Console console, int y = 0)
         {
             int _y = y;

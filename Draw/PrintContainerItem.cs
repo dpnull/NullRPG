@@ -11,6 +11,10 @@ namespace NullRPG.Draw
     {
         public List<PrintContainerValue> ItemValues { get; set; } = new List<PrintContainerValue>();
 
+        /// <summary>
+        /// Create a single value object 
+        /// </summary>
+        /// <param name="values"></param>
         public PrintContainerItem(IEnumerable<PrintContainerValue> values)
         {
             foreach (var value in values)
