@@ -87,6 +87,8 @@ namespace NullRPG.Windows
 
         private void DrawInventory()
         {
+            this.DrawHeader(1, "Character inventory", Constants.Theme.HeaderForegroundColor, Constants.Theme.HeaderBackgroundColor);
+
             var inventory = InventoryManager.GetSlots(Game.GameSession.Player);
             List<IIndexable> bindable = new();
 

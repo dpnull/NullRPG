@@ -55,5 +55,10 @@ namespace NullRPG.Input
                 return Key.ToString();
             }
         }
+
+        public virtual SadConsole.ColoredString GetButtonToString()
+        {
+            return null;
+        }
     }
 }

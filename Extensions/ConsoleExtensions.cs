@@ -128,6 +128,15 @@ namespace NullRPG.Extensions
             }
         }
 
+        public static void DrawHeader(this SadConsole.Console console, int y, string title, Color foregroundColor, Color backgroundColor)
+        {
+            var str = new SadConsole.ColoredString();
+            str.String = title;
+            str.SetForeground(foregroundColor);
+            str.SetBackground(backgroundColor);
+            console.Print(console.Width / 2 - (str.Count / 2), y, str);
+        }
+
         public static SadConsole.ColoredString AttributeString(int value1, int value2, string attribute)
         {
             if (value1 == 0 && value2 == 0)

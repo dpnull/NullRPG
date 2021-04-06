@@ -32,28 +32,31 @@ namespace NullRPG.Draw
             foreach (var item in keybindings)
             {
                 var slotItem = InventoryManager.GetInventorySlot<ISlot>(Game.GameSession.Player, item.ObjectId).Item.FirstOrDefault();
+
+                // Name
                 ColoredString itemName = new ColoredString(slotItem.Name);
-
                 PrintContainerValue itemNameVal = new PrintContainerValue(itemName, 4);
-
                 // checks if item id matches equipped item id
                 if (slotItem.ObjectId == InventoryManager.GetEquippedItem<IEntityInventory>(inventory, Enums.InventorySlotTypes.Head).ObjectId)
                 {
                     itemName.SetBackground(new Color(18, 77, 7));
                 }
-
+                
+                // Button
                 Button = new ButtonIndex(keybindings[_index].Key, Color.Green, Color.White, 0, 0, true);
                 _index++;
-                PrintContainerValue buttonValue = new PrintContainerValue(new ColoredString(Button.Key.ToString()), 0);
+                Button.DrawNumericOnly(true);
+                PrintContainerValue buttonValue = new PrintContainerValue(Button.GetButtonToString(), 0);
 
+                // Item type
                 string itemType = slotItem.GetComponent<ItemTypeComponent>().ItemTypes.FirstOrDefault().ToString();
-
                 PrintContainerValue itemTypeVal = new PrintContainerValue(new ColoredString(itemType), 20);
 
+                // Item id
                 string itemId = $"slotId_{item.ObjectId}  itemId_{slotItem.ObjectId}";
-
                 PrintContainerValue itemIdVal = new PrintContainerValue(new ColoredString(itemId), 30);
 
+                // Quantity
                 PrintContainerValue quantity;
                 var slot = InventoryManager.GetInventorySlot<ISlot>(Game.GameSession.Player, item.ObjectId);
                 if (slot.Item.FirstOrDefault().IsStackable)

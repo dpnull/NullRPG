@@ -6,6 +6,9 @@ namespace NullRPG.Input
 {
     public class ButtonString : ButtonIndex
     {
+        /// <summary>
+        /// This needs to be cleaned up 
+        /// </summary>
         public ColoredString Name { get; set; }
 
         public override int GetLength()
@@ -34,6 +37,15 @@ namespace NullRPG.Input
             str.SetBackground(console.DefaultBackground);
 
             console.Print(x, y, str);
+        }
+
+        public override ColoredString GetButtonToString()
+        {
+            var str = new SadConsole.ColoredString("");
+            str += KeyString + " " + Name;
+            str.SetBackground(Constants.Theme.DefaultBackground);
+
+            return str;
         }
     }
 }

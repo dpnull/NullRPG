@@ -52,12 +52,20 @@ namespace NullRPG.Windows
         {
             var player = EntityManager.Get<Player>(Game.GameSession.Player.ObjectId);
 
-            Print(0, 1, player.Name);
-
             var playerStats = player.GetComponent<EntityComponent>();
 
-            Print(0, 2, playerStats.Health.ToString());
-            Print(0, 3, playerStats.Gold.ToString());
+            var name = $"+ {player.Name}'s overview +";
+            var health = $"Health: {playerStats.Health} - {playerStats.MaxHealth}";           
+            var defense = $"Defense: {playerStats.Defense}";
+            var gold = $"Gold: {playerStats.Gold}";
+
+            string[] printable = { name, health, defense, gold };
+            int _x = 1;
+            int _y = 4;
+            foreach(var p in printable)
+            {
+                Print(_x, _y, p); _y++;
+            }
         }
     }
 }

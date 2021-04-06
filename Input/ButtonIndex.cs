@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using SadConsole;
 
 namespace NullRPG.Input
 {
@@ -41,6 +42,18 @@ namespace NullRPG.Input
             key += lBracketGlyph + keyString + rBracketGlyph;
 
             console.Print(x, y, key);
+        }
+
+        public override ColoredString GetButtonToString()
+        {
+            var lBracketGlyph = new SadConsole.ColoredString("[", NameColor, Constants.Theme.DefaultBackground);
+            var rBracketGlyph = new SadConsole.ColoredString("]", NameColor, Constants.Theme.DefaultBackground);
+            var keyString = new SadConsole.ColoredString(KeyToString(), KeyColor, Constants.Theme.DefaultBackground);
+
+            var key = new SadConsole.ColoredString("");
+            key += lBracketGlyph + keyString + rBracketGlyph;
+
+            return key;
         }
     }
 }
