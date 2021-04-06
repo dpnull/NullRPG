@@ -1,4 +1,6 @@
-﻿namespace NullRPG
+﻿using System.ComponentModel;
+
+namespace NullRPG
 {
     public static class Enums
     {
@@ -12,11 +14,17 @@
 
         public enum ItemTypes
         {
+            [Description("Head")]
             HeadArmor,
+            [Description("Chest")]
             ChestArmor,
+            [Description("Head")]
             LegsArmor,
+            [Description("Sword")]
             Sword,
+            [Description("Material")]
             Material,
+            [Description("Misc")]
             Misc
         }
 

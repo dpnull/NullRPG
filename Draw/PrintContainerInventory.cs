@@ -6,6 +6,9 @@ using NullRPG.Managers;
 using SadConsole;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.ComponentModel;
+using NullRPG.Extensions;
 
 namespace NullRPG.Draw
 {
@@ -49,7 +52,7 @@ namespace NullRPG.Draw
                 PrintContainerValue buttonValue = new PrintContainerValue(Button.GetButtonToString(), 0);
 
                 // Item type
-                string itemType = slotItem.GetComponent<ItemTypeComponent>().ItemTypes.FirstOrDefault().ToString();
+                string itemType = slotItem.GetComponent<ItemTypeComponent>().ItemTypes.FirstOrDefault().ToName();
                 PrintContainerValue itemTypeVal = new PrintContainerValue(new ColoredString(itemType), 20);
 
                 // Item id
