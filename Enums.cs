@@ -14,17 +14,17 @@ namespace NullRPG
 
         public enum ItemTypes
         {
-            [Description("Head")]
+            [Description("[Head]")]
             HeadArmor,
-            [Description("Chest")]
+            [Description("[Chest]")]
             ChestArmor,
-            [Description("Head")]
+            [Description("[Legs]")]
             LegsArmor,
-            [Description("Sword")]
+            [Description("[Sword]")]
             Sword,
-            [Description("Material")]
+            [Description("[Material]")]
             Material,
-            [Description("Misc")]
+            [Description("[Misc]")]
             Misc
         }
 
