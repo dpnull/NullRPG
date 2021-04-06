@@ -1,16 +1,13 @@
 ﻿using NullRPG.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NullRPG.GameObjects.Components.Item
 {
-    class ItemTypeComponent : IItemComponent
+    internal class ItemTypeComponent : IItemComponent
     {
         public List<Enums.ItemTypes> ItemTypes { get; private set; } = new List<Enums.ItemTypes>();
         public IItem Source { get; set; }
+
         public ItemTypeComponent(IItem source)
         {
             Source = source;
@@ -24,6 +21,5 @@ namespace NullRPG.GameObjects.Components.Item
                 ItemTypes.Add(itemTypeValue.ItemType);
             }
         }
-
     }
 }

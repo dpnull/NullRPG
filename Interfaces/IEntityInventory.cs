@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace NullRPG.Interfaces
 {
@@ -13,7 +9,7 @@ namespace NullRPG.Interfaces
 
         public IItem WeaponSlot { get; set; }
         public IItem HeadSlot { get; set; }
-        public int GetUniqueSlotId();
 
+        public int GetUniqueSlotId();
     }
 }

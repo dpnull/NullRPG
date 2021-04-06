@@ -1,15 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using NullRPG.GameObjects.Components.Item;
-using NullRPG.GameObjects.Entity;
 using NullRPG.Input;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
 using SadConsole;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NullRPG.Draw
 {
@@ -33,7 +29,7 @@ namespace NullRPG.Draw
         public void CreateEquipped(IEntityInventory inventory, IIndexedKeybinding[] keybindings)
         {
             int _index = 0;
-            foreach(var item in keybindings)
+            foreach (var item in keybindings)
             {
                 var slotItem = InventoryManager.GetInventorySlot<ISlot>(Game.GameSession.Player, item.ObjectId).Item.FirstOrDefault();
                 ColoredString itemName = new ColoredString(slotItem.Name);
@@ -41,7 +37,7 @@ namespace NullRPG.Draw
                 PrintContainerValue itemNameVal = new PrintContainerValue(itemName, 4);
 
                 // checks if item id matches equipped item id
-                if(slotItem.ObjectId == InventoryManager.GetEquippedItem<IEntityInventory>(inventory, Enums.InventorySlotTypes.Head).ObjectId)
+                if (slotItem.ObjectId == InventoryManager.GetEquippedItem<IEntityInventory>(inventory, Enums.InventorySlotTypes.Head).ObjectId)
                 {
                     itemName.SetBackground(new Color(18, 77, 7));
                 }
@@ -63,7 +59,8 @@ namespace NullRPG.Draw
                 if (slot.Item.FirstOrDefault().IsStackable)
                 {
                     quantity = new PrintContainerValue(new ColoredString($"count: {slot.Item.Count}"), 50);
-                } else
+                }
+                else
                 {
                     quantity = new PrintContainerValue(new ColoredString($"\0"), 50); // temporary
                 }
@@ -81,9 +78,9 @@ namespace NullRPG.Draw
         public void Draw(SadConsole.Console console, int y = 0)
         {
             int _y = y;
-            foreach(var item in ContainerItems)
+            foreach (var item in ContainerItems)
             {
-                foreach(var value in item.ItemValues)
+                foreach (var value in item.ItemValues)
                 {
                     console.Print(value.Offset, _y, value.ColoredString);
                 }

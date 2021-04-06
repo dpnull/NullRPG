@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Console = SadConsole.Console;
-using SadConsole;
-using SadConsole.Input;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using NullRPG.Extensions;
+using NullRPG.Input;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
-using NullRPG.Input;
-using NullRPG.Extensions;
+using SadConsole;
+using SadConsole.Input;
+using Console = SadConsole.Console;
 
 namespace NullRPG.Windows
 {
@@ -49,7 +44,6 @@ namespace NullRPG.Windows
                 return true;
             }
 
-
             return false;
         }
 
@@ -57,7 +51,7 @@ namespace NullRPG.Windows
         {
             this.SwitchFocusMakeVisible(UserInterfaceManager.Get<InventoryWindow>());
         }
-        
+
         private void OpenCharacterWindow()
         {
             this.SwitchFocusMakeVisible(UserInterfaceManager.Get<CharacterWindow>());

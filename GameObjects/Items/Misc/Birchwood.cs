@@ -1,9 +1,4 @@
 ﻿using NullRPG.GameObjects.Abstracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NullRPG.GameObjects.Components.Item;
 
 namespace NullRPG.GameObjects.Items.Misc
@@ -21,7 +16,6 @@ namespace NullRPG.GameObjects.Items.Misc
             ReceiveComponentValue(birchwoodMsg);
             ItemTypeComponentValue birchwoodMsg2 = new ItemTypeComponentValue(Enums.ItemTypes.Material);
             ReceiveComponentValue(birchwoodMsg2);
-
         }
     }
 }

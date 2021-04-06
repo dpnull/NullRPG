@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-
 namespace NullRPG.Input
 {
     public class ButtonIndex : ButtonBase

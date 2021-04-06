@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace NullRPG
 {
@@ -23,7 +18,6 @@ namespace NullRPG
                 public const int GeneralHeight = KeybindingsHeight;
                 public const int GeneralX = KeybindingsWidth - GeneralWidth;
                 public const int GeneralY = 0;
-
             }
 
             public const int KeybindingsWidth = GameWidth;
@@ -49,9 +43,10 @@ namespace NullRPG
 
             public const int ItemPreviewWidth = 40;
             public const int ItemPreviewHeight = 10;
-                        public const int PreviewX = InventoryWidth - ItemPreviewWidth;
+            public const int PreviewX = InventoryWidth - ItemPreviewWidth;
             public const int PreviewY = (InventoryHeight - ItemPreviewHeight) / 2 + 2;
         }
+
         public static class Theme
         {
             public static Color DefaultForeground = Color.White;

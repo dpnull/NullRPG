@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace NullRPG.Interfaces
 {
@@ -11,12 +7,14 @@ namespace NullRPG.Interfaces
         int ObjectId { get; set; }
         public string Name { get; set; }
         public List<IEntityComponent> Components { get; set; }
+
         /// <summary>
         /// Replace the IEntityComponent values to the new values from the IEntityComponentValue object.
         /// </summary>
         /// <typeparam name="T">A type that inherits from the IEntityComponent interface.</typeparam>
         /// <param name="value">A type that inherits from the IEntityComponentValue interface.</param>
         void ReceiveComponentValue<T>(T value);
+
         /// <summary>
         /// Retrieve an IEntityComponent of the passed type from the list of Components.
         /// </summary>

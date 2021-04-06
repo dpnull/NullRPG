@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Console = SadConsole.Console;
+﻿using Microsoft.Xna.Framework;
+using NullRPG.Extensions;
+using NullRPG.Input;
+using NullRPG.Interfaces;
+using NullRPG.Managers;
 using SadConsole;
 using SadConsole.Input;
-using Microsoft.Xna.Framework;
-using NullRPG.Interfaces;
-using NullRPG.Extensions;
-using NullRPG.Managers;
-using NullRPG.Input;
+using System;
+using System.Linq;
+using Console = SadConsole.Console;
 
 namespace NullRPG.Windows
 {
-    class MainMenuWindow : Console, IUserInterface
+    internal class MainMenuWindow : Console, IUserInterface
     {
         private ButtonString _playBtn;
         private ButtonString _quitBtn;
+
         public Console Console
         {
             get { return this; }

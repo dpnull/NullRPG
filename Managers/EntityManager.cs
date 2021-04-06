@@ -1,9 +1,6 @@
 ﻿using NullRPG.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NullRPG.Managers
 {
@@ -19,7 +16,7 @@ namespace NullRPG.Managers
         }
 
         /// <summary>
-        /// Returns 
+        /// Returns
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="objectId"></param>

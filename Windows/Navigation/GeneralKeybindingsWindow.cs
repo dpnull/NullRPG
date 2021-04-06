@@ -29,6 +29,7 @@ namespace NullRPG.Windows.Navigation
 
             this.Parent = UserInterfaceManager.Get<KeybindingsWindow>();
         }
+
         public void Draw()
         {
             Clear();

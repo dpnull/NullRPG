@@ -1,9 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using NullRPG.Interfaces;
-using System.Collections.Generic;
-using System.Linq;
+﻿using NullRPG.Interfaces;
 using NullRPG.Windows;
 using NullRPG.Windows.Navigation;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NullRPG.Managers
 {
@@ -17,7 +16,7 @@ namespace NullRPG.Managers
         /// <summary>
         /// Instantiate windows upon launch.
         /// </summary>
-        
+
         public static void Initialize()
         {
             var gameWindow = new Windows.GameWindow(Constants.Windows.GameWindowWidth, Constants.Windows.GameWindowHeight);
@@ -41,7 +40,6 @@ namespace NullRPG.Managers
             };
             Add(itemPreviewWindow);
 
-
             var characterWindow = new CharacterWindow(Constants.Windows.CharacterWidth, Constants.Windows.CharacterHeight)
             {
                 IsVisible = false,
@@ -51,10 +49,7 @@ namespace NullRPG.Managers
 
             var generalKeybindingsWindow = new GeneralKeybindingsWindow(Constants.Windows.Keybindings.GeneralWidth, Constants.Windows.Keybindings.GeneralHeight);
             Add(generalKeybindingsWindow);
-
-
         }
-
 
         /// <summary>
         /// Adds a window to the list of user interfaces.

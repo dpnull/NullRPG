@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using NullRPG.Draw;
 using NullRPG.Extensions;
-using NullRPG.GameObjects.Components.Item;
-using NullRPG.GameObjects.Entity;
-using NullRPG.Input;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
 using SadConsole;
@@ -20,18 +17,20 @@ namespace NullRPG.Windows
     {
         public Console Console => this;
         public IIndexedKeybinding[] IndexedKeybindings { get; private set; }
+
         public InventoryWindow(int width, int height) : base(width, height)
         {
             Position = new Point(0, 1);
 
             Global.CurrentScreen.Children.Add(this);
         }
+
         public override void Draw(TimeSpan timeElapsed)
         {
             Clear();
 
             DrawInventory();
-            
+
             base.Draw(timeElapsed);
         }
 
@@ -91,12 +90,12 @@ namespace NullRPG.Windows
             var inventory = InventoryManager.GetSlots(Game.GameSession.Player);
             List<IIndexable> bindable = new();
 
-            foreach(var slot in inventory)
+            foreach (var slot in inventory)
             {
                 if (!slot.Item.Any())
                     continue;
                 else
-                    if(slot.Item != null)
+                    if (slot.Item != null)
                 {
                     bindable.Add(slot);
                 }
@@ -106,8 +105,6 @@ namespace NullRPG.Windows
             PrintContainerInventory printable = new PrintContainerInventory(InventoryManager.GetEntityInventory(Game.GameSession.Player), IndexedKeybindings);
 
             printable.Draw(this, 4);
-
         }
-
     }
 }

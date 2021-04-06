@@ -1,12 +1,6 @@
-﻿using NullRPG.GameObjects.Items.Armors.Head;
-using NullRPG.GameObjects.Items.Weapons;
-using NullRPG.Interfaces;
-using SadConsole;
-using System;
+﻿using NullRPG.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NullRPG.Managers
 {
@@ -40,7 +34,6 @@ namespace NullRPG.Managers
 
             return default;
         }
-   
 
         public static class ItemDatabase
         {

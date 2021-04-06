@@ -6,10 +6,11 @@ using SadConsole;
 
 namespace NullRPG
 {
-    class Game
+    internal class Game
     {
         public static MainMenuWindow MainMenuWindow { get; private set; }
         public static GameSession GameSession { get; set; }
+
         private static void Main()
         {
             SadConsole.Settings.ResizeMode = Settings.WindowResizeOptions.Stretch;

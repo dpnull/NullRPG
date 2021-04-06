@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using NullRPG.Interfaces;
 using NullRPG.Managers;
 
 namespace NullRPG.Input
@@ -40,6 +39,7 @@ namespace NullRPG.Input
                 IsNumeric = false;
             }
         }
+
         /// <summary>
         /// Convert XNA key to string.
         /// </summary>

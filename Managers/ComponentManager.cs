@@ -1,11 +1,7 @@
-﻿using NullRPG.GameObjects.Items.Weapons;
+﻿using NullRPG.GameObjects.Components.Item;
 using NullRPG.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NullRPG.GameObjects.Components.Item;
 
 namespace NullRPG.Managers
 {
@@ -47,8 +43,6 @@ namespace NullRPG.Managers
         public static bool ContainsItemSubType<T>(T item, Enums.ItemTypes itemSubType) where T : IItem
         {
             return true && GetItemSubTypes(item).Contains(itemSubType);
-
         }
-
     }
 }

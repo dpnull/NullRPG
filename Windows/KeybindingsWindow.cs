@@ -21,7 +21,6 @@ namespace NullRPG.Windows
 
         public override void Draw(TimeSpan timeElapsed)
         {
-
             var generalKeybindings = UserInterfaceManager.Get<GeneralKeybindingsWindow>();
 
             generalKeybindings.Draw();

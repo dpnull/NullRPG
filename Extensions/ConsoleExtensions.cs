@@ -1,8 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Text;
-using Console = SadConsole.Console;
-using SadConsole;
-using SadConsole.Input;
 
 namespace NullRPG.Extensions
 {

@@ -1,10 +1,5 @@
 ﻿using NullRPG.GameObjects.Abstracts;
 using NullRPG.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NullRPG.GameObjects.Components.Entity
 {
@@ -12,10 +7,12 @@ namespace NullRPG.GameObjects.Components.Entity
     {
         public EntityInventory Inventory { get; set; }
         public IEntity Source { get; set; }
+
         public InventoryComponent(IEntity source)
         {
             Source = source;
         }
+
         public void ReceiveValue<T>(T value)
         {
             InventoryComponentValue inventoryValue = value as InventoryComponentValue;

@@ -1,9 +1,4 @@
 ﻿using NullRPG.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NullRPG.GameObjects.Components.Item
 {
@@ -12,6 +7,7 @@ namespace NullRPG.GameObjects.Components.Item
         public int Defense { get; private set; }
 
         public IItem Source { get; set; }
+
         public ArmorComponent(IItem source)
         {
             Source = source;

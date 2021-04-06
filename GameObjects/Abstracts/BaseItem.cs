@@ -1,10 +1,7 @@
 ﻿using NullRPG.Interfaces;
 using NullRPG.Managers;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NullRPG.GameObjects.Abstracts
 {
@@ -18,6 +15,7 @@ namespace NullRPG.GameObjects.Abstracts
         public Enums.ItemCategories ItemCategory { get; set; }
         public int Value { get; set; } = 0;
         public bool IsStackable { get; set; } = false;
+
         //public bool CanEquip { get; set; } = false;
         //public bool CanStack { get; set; } = false;
         public List<IItemComponent> Components { get; set; } = new List<IItemComponent>();
@@ -31,7 +29,7 @@ namespace NullRPG.GameObjects.Abstracts
         {
             ObjectId = ItemManager.GetUniqueId();
             ItemManager.Add(this);
-            
+
             Name = name;
             ItemCategory = itemCategory;
         }

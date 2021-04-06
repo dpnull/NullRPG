@@ -1,20 +1,14 @@
-﻿using NullRPG.Interfaces;
+﻿using NullRPG.GameObjects;
+using NullRPG.GameObjects.Components.Entity;
+using NullRPG.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NullRPG.GameObjects.Abstracts;
-using NullRPG.GameObjects.Components.Item;
-using NullRPG.GameObjects.Entity;
-using NullRPG.GameObjects;
-using NullRPG.GameObjects.Components.Entity;
 
 namespace NullRPG.Managers
 {
     public static class InventoryManager
     {
-
         /*
          * Missing checks for when inventory size limit is reached
          */
@@ -109,6 +103,7 @@ namespace NullRPG.Managers
 
             return default;
         }
+
         /// <summary>
         /// Get an array of IEntity based on the criteria passed, otherwise pass the exact array copy of dictionary.
         /// </summary>
@@ -141,7 +136,7 @@ namespace NullRPG.Managers
                 GetInventoryByObjectId<T>(inventory.ObjectId).Slots.Add(slot.ObjectId, slot);
             }
         }
-        
+
         public static void EquipItem<T>(T inventory, int itemObjectId) where T : IEntityInventory
         {
             var item = ItemManager.GetItem<IItem>(itemObjectId);

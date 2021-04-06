@@ -1,11 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using NullRPG.Input;
 using NullRPG.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NullRPG.Managers
 {
@@ -14,6 +10,7 @@ namespace NullRPG.Managers
         private static readonly Dictionary<int, Keys> IndexedKeybindingKeys = new Dictionary<int, Keys>();
 
         public static bool IsInitialized { get; set; }
+
         public static void Initialize()
         {
             IsInitialized = false;
@@ -89,7 +86,6 @@ namespace NullRPG.Managers
                     AddIndexedKeybinding<IIndexedKeybinding>(index, indexable.ObjectId);
                     index++;
                 }
-
             }
 
             public void AddIndexedKeybinding<T>(int index, int indexableObjectId) where T : IIndexedKeybinding

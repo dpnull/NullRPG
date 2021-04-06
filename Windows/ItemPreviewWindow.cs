@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Console = SadConsole.Console;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using NullRPG.Extensions;
+using NullRPG.GameObjects.Components.Item;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
 using SadConsole;
-using NullRPG.GameObjects.Components.Item;
+using System;
+using System.Collections.Generic;
+using Console = SadConsole.Console;
 
 namespace NullRPG.Windows
 {
@@ -40,16 +37,16 @@ namespace NullRPG.Windows
 
         public int ObjectId { get; set; } = -1;
         public Console Console { get; }
+
         public ItemPreviewWindow(int width, int height) : base(width, height)
         {
             DefaultBackground = Color.DarkBlue;
-
-            
 
             Position = new Point(Constants.Windows.PreviewX, Constants.Windows.PreviewY);
 
             Global.CurrentScreen.Children.Add(this);
         }
+
         public override void Draw(TimeSpan timeElapsed)
         {
             Clear();
@@ -106,7 +103,7 @@ namespace NullRPG.Windows
                     if (ComponentManager.ContainsComponent<ItemTypeComponent>(item.ObjectId))
                     {
                         string itemType = item.GetComponent<ItemTypeComponent>().ItemTypes.ToString();
-                        
+
                         Print(Coords.ITEM_TYPE_X - (itemType.Length / 2), Coords.ITEM_TYPE_Y, itemType);
                     }
 
@@ -116,7 +113,6 @@ namespace NullRPG.Windows
                         if (str != null)
                         {
                             Print(Coords.ITEM_DATA_X, Coords.ITEM_DATA_Y + index++, str);
-  
                         }
                     }
 

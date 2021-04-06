@@ -1,12 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using NullRPG.Extensions;
-using NullRPG.GameObjects;
 using NullRPG.GameObjects.Components.Entity;
 using NullRPG.GameObjects.Entity;
 using NullRPG.Input;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
-using NullRPG.Windows.Navigation;
 using SadConsole;
 using SadConsole.Input;
 using System;
@@ -40,11 +38,10 @@ namespace NullRPG.Windows
 
         public override bool ProcessKeyboard(Keyboard info)
         {
-
             if (info.IsKeyPressed(KeybindingManager.GetKeybinding<IKeybinding>(Keybinding.Keybindings.Back)))
             {
                 this.FullTransition(UserInterfaceManager.Get<Windows.GameWindow>());
-                
+
                 return true;
             }
 
@@ -62,6 +59,5 @@ namespace NullRPG.Windows
             Print(0, 2, playerStats.Health.ToString());
             Print(0, 3, playerStats.Gold.ToString());
         }
-
     }
 }

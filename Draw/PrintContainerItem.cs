@@ -1,9 +1,4 @@
-﻿using SadConsole;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace NullRPG.Draw
 {
@@ -12,7 +7,7 @@ namespace NullRPG.Draw
         public List<PrintContainerValue> ItemValues { get; set; } = new List<PrintContainerValue>();
 
         /// <summary>
-        /// Create a single value object 
+        /// Create a single value object
         /// </summary>
         /// <param name="values"></param>
         public PrintContainerItem(IEnumerable<PrintContainerValue> values)
@@ -22,6 +17,5 @@ namespace NullRPG.Draw
                 ItemValues.Add(value);
             }
         }
-
     }
 }
