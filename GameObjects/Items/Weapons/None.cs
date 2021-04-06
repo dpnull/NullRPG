@@ -15,6 +15,11 @@ namespace NullRPG.GameObjects.Items.Weapons
             Components.Add(longswordSubType);
             ItemTypeComponentValue longswordItemSubType = new ItemTypeComponentValue(Enums.ItemTypes.Sword);
             ReceiveComponentValue(longswordItemSubType);
+
+            ItemPropertyComponent longswordProperty = new ItemPropertyComponent(this);
+            Components.Add(longswordProperty);
+            ItemPropertyComponentValue longswordPropertyValue = new ItemPropertyComponentValue(Enums.ItemProperties.Equippable);
+            ReceiveComponentValue(longswordPropertyValue);
         }
     }
 }

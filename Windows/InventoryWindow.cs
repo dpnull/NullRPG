@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using NullRPG.Draw;
 using NullRPG.Extensions;
+using NullRPG.GameObjects.Components.Item;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
 using SadConsole;
@@ -30,6 +31,8 @@ namespace NullRPG.Windows
             Clear();
 
             DrawInventory();
+
+            DrawEquipButton();
 
             base.Draw(timeElapsed);
         }
@@ -84,6 +87,25 @@ namespace NullRPG.Windows
             Print(0, 9, defense.ToString());
         }
         */
+
+        private void DrawEquipButton()
+        {
+            if (UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId != -1)
+            {
+                var item = ItemManager.GetItem<IItem>(UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId);
+                if (ComponentManager.ContainsComponent<ItemPropertyComponent>(item.ObjectId))
+                {
+                    if (ComponentManager.ContainsItemProperty(item, Enums.ItemProperties.Equippable))
+                    {
+                        var equipBtn = new Input.ButtonString(new ColoredString("Equip"), Microsoft.Xna.Framework.Input.Keys.E,
+                            Constants.Theme.ButtonKeyColor, DefaultForeground,
+                            Constants.Windows.PreviewX, Constants.Windows.PreviewY + Constants.Windows.ItemPreviewHeight - 1);
+
+                        equipBtn.Draw(this);
+                    }
+                }
+            }
+        }
 
         private void DrawInventory()
         {

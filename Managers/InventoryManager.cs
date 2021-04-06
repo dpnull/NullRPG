@@ -195,28 +195,17 @@ namespace NullRPG.Managers
 
         public static IItem GetEquippedItem<T>(T inventory, Enums.InventorySlotTypes slotType) where T : IEntityInventory
         {
-            if (slotType == Enums.InventorySlotTypes.Weapon)
+            switch (slotType)
             {
-                return GetInventoryByObjectId<T>(inventory.ObjectId).WeaponSlot;
+                case Enums.InventorySlotTypes.Weapon:
+                    return GetInventoryByObjectId<T>(inventory.ObjectId).WeaponSlot;
+                case Enums.InventorySlotTypes.Head:
+                    return GetInventoryByObjectId<T>(inventory.ObjectId).HeadSlot;
+                default:
+                    break; // should do more
             }
-            else if (slotType == Enums.InventorySlotTypes.Head)
-            {
-                return GetInventoryByObjectId<T>(inventory.ObjectId).HeadSlot;
-            }
-            /*
-            else if (itemType == typeof(BodyItem))
-            {
-                return Get<T>().CurrentBodyItem;
-            }
-            else if (itemType == typeof(LegsItem))
-            {
-                return Get<T>().CurrentLegsItem;
-            }
-            */
-            else
-            {
-                return null;
-            }
+
+            return default; // should do more
         }
 
         public static IItem[] GetEquippedItems<T>(T inventory) where T : IEntityInventory

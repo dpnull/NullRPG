@@ -18,6 +18,16 @@ namespace NullRPG.Managers
             return ItemManager.GetItem<T>(item.ObjectId).GetComponent<ItemTypeComponent>().ItemTypes.ToArray();
         }
 
+        public static Enums.ItemProperties[] GetItemProperties<T>(T item) where T : IItem
+        {
+            var property = ItemManager.GetItem<T>(item.ObjectId).GetComponent<ItemPropertyComponent>().ItemProperties.ToArray();
+            if (property != null)
+            {
+                return property;
+            }
+            return default;
+        }
+
         /// <summary>
         /// Returns true if passed item contains component of type T.
         /// </summary>
@@ -43,6 +53,11 @@ namespace NullRPG.Managers
         public static bool ContainsItemSubType<T>(T item, Enums.ItemTypes itemSubType) where T : IItem
         {
             return true && GetItemSubTypes(item).Contains(itemSubType);
+        }
+
+        public static bool ContainsItemProperty<T>(T item, Enums.ItemProperties itemProperty) where T : IItem
+        {
+            return true && GetItemProperties(item).Contains(itemProperty);
         }
     }
 }

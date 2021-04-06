@@ -25,8 +25,18 @@ namespace NullRPG
             [Description("[Material]")]
             Material,
             [Description("[Misc]")]
-            Misc
+            Misc,
         }
+
+        public enum ItemProperties
+        {
+            Equippable,
+            Enchantable,
+        }
+        /*
+         * 
+         * 
+         */
 
         // Uncertain whether this is necessary and can be replaced with something else
         public enum ItemCategories
