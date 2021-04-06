@@ -1,5 +1,6 @@
 ﻿using NullRPG.GameObjects;
 using NullRPG.GameObjects.Components.Entity;
+using NullRPG.GameObjects.Components.Item;
 using NullRPG.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -140,21 +141,25 @@ namespace NullRPG.Managers
         public static void EquipItem<T>(T inventory, int itemObjectId) where T : IEntityInventory
         {
             var item = ItemManager.GetItem<IItem>(itemObjectId);
-            var equipped = GetEquippedItems<IEntityInventory>(inventory);
-            if (item is not null /*&& item is not MiscItem*/)
+            var equipped = GetEquippedItems(inventory);
+            if (item is not null)
             {
-                if (equipped.All(i => i.ObjectId != item.ObjectId))
+                if(ComponentManager.ContainsComponent<ItemPropertyComponent>(item.ObjectId) && ComponentManager.ContainsItemProperty(item, Enums.ItemProperties.Equippable))
                 {
-                    if (item.ItemCategory is Enums.ItemCategories.Weapon) { inventory.WeaponSlot = item; }
-                    else if (ComponentManager.ContainsItemSubType<IItem>(item, Enums.ItemTypes.HeadArmor))
+                    if (equipped.All(i => i.ObjectId != item.ObjectId))
                     {
-                        inventory.HeadSlot = item;
+                        if (item.ItemCategory is Enums.ItemCategories.Weapon) { inventory.WeaponSlot = item; }
+                        else if (ComponentManager.ContainsItemSubType<IItem>(item, Enums.ItemTypes.HeadArmor))
+                        {
+                            inventory.HeadSlot = item;
+                        }
+                        //ComponentValueManager.AddItemEquipped(item.Name);
                     }
-                    //ComponentValueManager.AddItemEquipped(item.Name);
-                }
-                else
-                {
-                    //ComponentValueManager.AddDefault("You have already equipped this item.");
+                    else
+                    {
+                        //ComponentValueManager.AddDefault("You have already equipped this item.");
+                    }
+                    // TODO: Add message log message displaying that this item cannot be equipped.
                 }
             }
         }

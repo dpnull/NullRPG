@@ -63,30 +63,20 @@ namespace NullRPG.Windows
                 return true;
             }
 
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.E))
+            {
+                EquipItem();
+                return true;
+            }
+
             return false;
         }
 
-        /*
-        private void DrawCurrentWeapon()
+        private void EquipItem()
         {
-            var inven
-
-            var weapon = Game.GameSession.PlayerInventory.WeaponSlot;
-
-            var minDmg = weapon.GetComponent<WeaponComponent>().MinDamage;
-            var maxDmg = weapon.GetComponent<WeaponComponent>().MaxDamage;
-
-            Print(0, 4, weapon.Name);
-            Print(0, 5, $"{minDmg} - {maxDmg}");
-            Print(0, 7, weapon.ItemType.ToString());
-
-            var armor = Game.GameSession.PlayerInventory.HeadSlot;
-
-            var defense = armor.GetComponent<ArmorComponent>().Defense;
-
-            Print(0, 9, defense.ToString());
+            var objectId = UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId;
+            InventoryManager.EquipItem(InventoryManager.GetEntityInventory(Game.GameSession.Player), objectId);
         }
-        */
 
         private void DrawEquipButton()
         {

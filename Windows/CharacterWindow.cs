@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using NullRPG.Extensions;
 using NullRPG.GameObjects.Components.Entity;
+using NullRPG.GameObjects.Components.Item;
 using NullRPG.GameObjects.Entity;
 using NullRPG.Input;
 using NullRPG.Interfaces;
@@ -66,6 +67,14 @@ namespace NullRPG.Windows
             {
                 Print(_x, _y, p); _y++;
             }
+
+            var currentWeapon = InventoryManager.GetEntityInventory(player).WeaponSlot;
+
+            var weaponName = $"+ {currentWeapon.Name} +";
+            var weaponDmg = $"Atk: {currentWeapon.GetComponent<WeaponComponent>().MinDamage} - {currentWeapon.GetComponent<WeaponComponent>().MaxDamage}";
+
+            Print(_x, _y, weaponName); _y++;
+            Print(_x, _y, weaponDmg);
         }
     }
 }
