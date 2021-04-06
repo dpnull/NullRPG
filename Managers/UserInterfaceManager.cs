@@ -33,7 +33,7 @@ namespace NullRPG.Managers
             };
             Add(inventoryWindow);
 
-            var itemPreviewWindow = new ItemPreviewWindow(Constants.Windows.KeybindingsWidth, Constants.Windows.KeybindingsHeight)
+            var itemPreviewWindow = new ItemPreviewWindow(Constants.Windows.ItemPreviewWidth, Constants.Windows.ItemPreviewHeight)
             {
                 IsVisible = false,
                 IsFocused = false
