@@ -23,7 +23,10 @@ namespace NullRPG.Managers
             IsInitialized = true;
         }
 
-        // Assigns XNA keys to ints 0 - 9.
+        /// <summary>
+        /// Create a temporary array, assign XNA keys to integers 0 - 9 with corresponding numeric keybindings
+        /// and populate IndexedKeybindingsKeys dictionary.
+        /// </summary>
         private static void InitializeIndexedKeybindingsKeys()
         {
             (int, Microsoft.Xna.Framework.Input.Keys)[] _indexedKeybindingKeys = new (int, Microsoft.Xna.Framework.Input.Keys)[]
@@ -46,26 +49,24 @@ namespace NullRPG.Managers
             }
         }
 
-        // Returns XNA key from dictionary where key is equal to passed index.
+        /// <summary>
+        /// Gets a XNA key from dictionary where the IndexedKeybindingKey dictionary key
+        /// is equal to the passed index.
+        /// </summary>
+        /// <param name="index">An index integer corresponding to the desired numeric key.</param>
+        /// <returns>A XNA key.</returns>
         private static Keys GetIndexedKeybindingKey(int index)
         {
             if (IndexedKeybindingKeys.TryGetValue(index, out Microsoft.Xna.Framework.Input.Keys value)) return value;
             throw new System.Exception($"No keybinding defined with index: {index}");
         }
 
-        // Deprecated
-        public static Keys[] GetIndexedKeybindingsKeys<T>(T[] indexableArr) where T : IIndexedKeybinding
-        {
-            Keys[] keysArr = new Keys[indexableArr.Length];
-            for (int i = 0; i < keysArr.Length; i++)
-            {
-                keysArr[i] = indexableArr[i].Key;
-            }
-
-            return keysArr;
-        }
-
-        // Creates and returns an array of indexed keybindings
+        /// <summary>
+        /// Creates and returns an array of indexed keybindings
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="indexableArr"></param>
+        /// <returns></returns>
         public static IIndexedKeybinding[] CreateIndexedKeybindings<T>(List<IIndexable> indexableArr) where T : IIndexedKeybinding
         {
             var collection = new IndexedKeybindings(indexableArr.ToArray());

@@ -18,6 +18,12 @@ namespace NullRPG.Managers
             }
         }
 
+        /// <summary>
+        /// Returns 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="objectId"></param>
+        /// <returns></returns>
         public static T Get<T>(int objectId) where T : IEntity
         {
             var collection = EntityDatabase.Entities.ToArray();

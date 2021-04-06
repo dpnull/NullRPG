@@ -25,6 +25,11 @@ namespace NullRPG.Managers
             }
         }
 
+        /// <summary>
+        /// Searches the ItemDatabase for an IItem object matching the passed objectId.
+        /// </summary>
+        /// <typeparam name="T">A type that inherits from IItem interface.</typeparam>
+        /// <returns>An IItem object with matching objectId.</returns>
         public static T GetItem<T>(int objectId) where T : IItem
         {
             var collection = ItemDatabase.Items.Values.ToArray();

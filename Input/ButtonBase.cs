@@ -25,6 +25,10 @@ namespace NullRPG.Input
             IsNumeric = isNumeric;
         }
 
+        /// <summary>
+        /// Set the button to only draw numeric variant.
+        /// </summary>
+        /// <param name="b">Condition for drawing.</param>
         public void DrawNumericOnly(bool b)
         {
             if (b)
@@ -36,7 +40,10 @@ namespace NullRPG.Input
                 IsNumeric = false;
             }
         }
-
+        /// <summary>
+        /// Convert XNA key to string.
+        /// </summary>
+        /// <returns>Returns XNA key string.</returns>
         public string KeyToString()
         {
             if (IsNumeric)

@@ -14,6 +14,10 @@ namespace NullRPG.GameObjects.Abstracts
         public string Name { get; set; }
         public List<IEntityComponent> Components { get; set; } = new List<IEntityComponent>();
 
+        /// <summary>
+        /// Create a new instance of an entity with a unique id.
+        /// </summary>
+        /// <param name="name">A name for the entity.</param>
         public BaseEntity(string name)
         {
             Name = name;
@@ -24,6 +28,7 @@ namespace NullRPG.GameObjects.Abstracts
         {
             return Components.OfType<T>().FirstOrDefault();
         }
+
 
         public void ReceiveComponentValue<T>(T value)
         {
