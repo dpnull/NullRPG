@@ -14,8 +14,9 @@ namespace NullRPG.GameObjects.Abstracts
         public string Name { get; set; }
         public List<IEntityComponent> Components { get; set; } = new List<IEntityComponent>();
 
-        public BaseEntity()
+        public BaseEntity(string name)
         {
+            Name = name;
             ObjectId = EntityManager.GetUniqueId();
         }
 

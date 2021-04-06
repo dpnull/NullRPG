@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using NullRPG.Extensions;
 using NullRPG.GameObjects;
+using NullRPG.GameObjects.Components.Entity;
 using NullRPG.GameObjects.Entity;
 using NullRPG.Input;
 using NullRPG.Interfaces;
@@ -16,6 +17,7 @@ namespace NullRPG.Windows
     public class CharacterWindow : Console, IUserInterface
     {
         public Console Console { get; }
+        public object AttributeManager { get; private set; }
 
         public CharacterWindow(int width, int height) : base(width, height)
         {
@@ -26,6 +28,8 @@ namespace NullRPG.Windows
 
         public override void Draw(TimeSpan timeElapsed)
         {
+            DrawCharacter();
+
             base.Draw(timeElapsed);
         }
 
@@ -50,11 +54,13 @@ namespace NullRPG.Windows
         private void DrawCharacter()
         {
             var player = EntityManager.Get<Player>(Game.GameSession.Player.ObjectId);
-            //var inventory = InventoryManager.GetInventory<IEntityInventory>(player.)
 
             Print(0, 1, player.Name);
 
+            var playerStats = player.GetComponent<EntityComponent>();
 
+            Print(0, 2, playerStats.Health.ToString());
+            Print(0, 3, playerStats.Gold.ToString());
         }
 
     }

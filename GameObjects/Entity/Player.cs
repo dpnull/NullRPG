@@ -14,7 +14,7 @@ namespace NullRPG.GameObjects.Entity
 {
     public class Player : BaseEntity
     {
-        public Player() : base()
+        public Player() : base("Dom")
         {
             EntityComponent entity = new EntityComponent(this);
             Components.Add(entity);
