@@ -5,7 +5,7 @@ namespace NullRPG
     public static class Constants
     {
         public const string GameTitle = "NullRPG";
-        public const string GameBuildVersion = "28032021";
+        public const string GameBuildVersion = "07042021";
 
         public const int GameWidth = 80;
         public const int GameHeight = 26;
