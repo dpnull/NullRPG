@@ -25,19 +25,15 @@ namespace NullRPG.GameObjects.Abstracts
             ReceiveComponentValue(armorTypeValue);
         }
 
-        private static Enums.ItemTypes GetItemType(ArmorTypeWrapper armorType)
+        public Enums.ItemTypes GetItemType(ArmorTypeWrapper armorType)
         {
-            switch (armorType)
+            return armorType switch
             {
-                case ArmorTypeWrapper.Head:
-                    return Enums.ItemTypes.HeadArmor;
-                case ArmorTypeWrapper.Chest:
-                    return Enums.ItemTypes.ChestArmor;
-                case ArmorTypeWrapper.Legs:
-                    return Enums.ItemTypes.LegsArmor;
-                default:
-                    throw new System.Exception($"{nameof(armorType)} is invalid.");
-            }
+                ArmorTypeWrapper.Head => Enums.ItemTypes.HeadArmor,
+                ArmorTypeWrapper.Chest => Enums.ItemTypes.ChestArmor,
+                ArmorTypeWrapper.Legs => Enums.ItemTypes.LegsArmor,
+                _ => throw new System.Exception($"{nameof(armorType)} is invalid."),
+            };
         }
     }
 } 

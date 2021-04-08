@@ -1,8 +1,8 @@
 ﻿using NullRPG.GameObjects.Abstracts;
 using NullRPG.GameObjects.Components.Entity;
-using NullRPG.GameObjects.Items.Armors.Head;
+using NullRPG.GameObjects.Items.Armors;
 using NullRPG.GameObjects.Items.Misc;
-using NullRPG.GameObjects.Items.Weapons;
+using NullRPG.GameObjects.Items;
 using NullRPG.Managers;
 
 namespace NullRPG.GameObjects.Entity
@@ -21,15 +21,9 @@ namespace NullRPG.GameObjects.Entity
             InventoryComponentValue inventoryValue = new InventoryComponentValue(new PlayerInventory());
             ReceiveComponentValue(inventoryValue);
 
-            InventoryManager.AddToInventory(this, new Sword());
-            InventoryManager.AddToInventory(this, new Sword());
-            InventoryManager.AddToInventory(this, new Birchwood());
-            InventoryManager.AddToInventory(this, new Birchwood());
-            InventoryManager.AddToInventory(this, new Birchwood());
-            InventoryManager.AddToInventory(this, new Birchwood());
-            InventoryManager.AddToInventory(this, new Birchwood());
-            InventoryManager.AddToInventory(this, new Helmet());
-            InventoryManager.AddToInventory(this, new Helmet());
+            InventoryManager.AddToInventory(this, Misc.Birchwood());
+            InventoryManager.AddToInventory(this, Misc.Birchwood());
+            InventoryManager.AddToInventory(this, Misc.Birchwood());
         }
     }
 }

@@ -9,7 +9,8 @@ namespace NullRPG.Interfaces
 
         public IItem WeaponSlot { get; set; }
         public IItem HeadSlot { get; set; }
-
+        public IItem ChestSlot { get; set; }
+        public IItem LegsSlot { get; set; }
         public int GetUniqueSlotId();
     }
 }

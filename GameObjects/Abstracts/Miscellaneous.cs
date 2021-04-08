@@ -1,31 +1,41 @@
-﻿namespace NullRPG.GameObjects.Abstracts
+﻿using NullRPG.GameObjects.Components.Item;
+
+namespace NullRPG.GameObjects.Abstracts
 {
     public class Miscellaneous : BaseItem
     {
         public enum MiscTypeWrapper
         {
-            Misc,
             Material
         }
 
-        public Miscellaneous(string name, int value, ) : base(Enums.ItemCategories.Misc, name, value)
+        public Miscellaneous(string name, int value) : base(Enums.ItemCategories.Misc, name, value)
         {
             IsStackable = true;
 
             Value = 5;
 
-            ItemTypeComponent birchwoodAtt = new ItemTypeComponent(this);
-            Components.Add(birchwoodAtt);
+            ItemTypeComponent miscTypeComponent = new ItemTypeComponent(this);
+            Components.Add(miscTypeComponent);
 
-            ItemTypeComponentValue birchwoodMsg = new ItemTypeComponentValue(Enums.ItemTypes.Misc);
-            ReceiveComponentValue(birchwoodMsg);
-            ItemTypeComponentValue birchwoodMsg2 = new ItemTypeComponentValue(Enums.ItemTypes.Material);
-            ReceiveComponentValue(birchwoodMsg2);
+            ItemTypeComponentValue miscTypeComponentValue = new ItemTypeComponentValue(Enums.ItemTypes.Sword);
+            ReceiveComponentValue(miscTypeComponentValue);
+
         }
 
-        public static Enums.ItemTypes GetItemType()
+        public void AddItemType(MiscTypeWrapper miscType)
         {
+            ItemTypeComponentValue newTypeComponent = new ItemTypeComponentValue(GetItemType(miscType));
+            ReceiveComponentValue(newTypeComponent);
+        }
 
+        public static Enums.ItemTypes GetItemType(MiscTypeWrapper miscType)
+        {
+            return miscType switch
+            {
+                MiscTypeWrapper.Material => Enums.ItemTypes.Material,
+                _ => throw new System.Exception($"{nameof(miscType)} is invalid."),
+            };
         }
 
         
