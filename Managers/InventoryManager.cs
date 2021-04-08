@@ -149,9 +149,17 @@ namespace NullRPG.Managers
                     if (equipped.All(i => i.ObjectId != item.ObjectId))
                     {
                         if (item.ItemCategory is Enums.ItemCategories.Weapon) { inventory.WeaponSlot = item; }
-                        else if (ComponentManager.ContainsItemSubType<IItem>(item, Enums.ItemTypes.HeadArmor))
+                        else if (ComponentManager.ContainsItemType<IItem>(item, Enums.ItemTypes.HeadArmor))
                         {
                             inventory.HeadSlot = item;
+                        }
+                        else if (ComponentManager.ContainsItemType(item, Enums.ItemTypes.ChestArmor))
+                        {
+                            inventory.ChestSlot = item;
+                        }
+                        else if (ComponentManager.ContainsItemType(item, Enums.ItemTypes.LegsArmor))
+                        {
+                            inventory.LegsSlot = item;
                         }
                         //ComponentValueManager.AddItemEquipped(item.Name);
                     }

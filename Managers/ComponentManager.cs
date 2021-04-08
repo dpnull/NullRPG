@@ -50,7 +50,7 @@ namespace NullRPG.Managers
         /// <param name="item">An object that inherits from IItem interface.</param>
         /// <param name="itemSubType">A named constant from ItemTypes enum.</param>
         /// <returns>Returns true if IItem object contains the passed itemSubType.</returns>
-        public static bool ContainsItemSubType<T>(T item, Enums.ItemTypes itemSubType) where T : IItem
+        public static bool ContainsItemType<T>(T item, Enums.ItemTypes itemSubType) where T : IItem
         {
             return true && GetItemSubTypes(item).Contains(itemSubType);
         }

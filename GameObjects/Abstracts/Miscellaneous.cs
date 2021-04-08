@@ -18,7 +18,7 @@ namespace NullRPG.GameObjects.Abstracts
             ItemTypeComponent miscTypeComponent = new ItemTypeComponent(this);
             Components.Add(miscTypeComponent);
 
-            ItemTypeComponentValue miscTypeComponentValue = new ItemTypeComponentValue(Enums.ItemTypes.Sword);
+            ItemTypeComponentValue miscTypeComponentValue = new ItemTypeComponentValue(Enums.ItemTypes.Misc);
             ReceiveComponentValue(miscTypeComponentValue);
 
         }

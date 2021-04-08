@@ -23,6 +23,12 @@ namespace NullRPG.GameObjects.Abstracts
             Components.Add(armorSubType);
             ItemTypeComponentValue armorTypeValue = new ItemTypeComponentValue(GetItemType(armorType));
             ReceiveComponentValue(armorTypeValue);
+
+            // Currently by default all armor items are equippable
+            ItemPropertyComponent armorProperty = new ItemPropertyComponent(this);
+            Components.Add(armorProperty);
+            ItemPropertyComponentValue armorPropertyValue = new ItemPropertyComponentValue(Enums.ItemProperties.Equippable);
+            ReceiveComponentValue(armorPropertyValue);
         }
 
         public Enums.ItemTypes GetItemType(ArmorTypeWrapper armorType)

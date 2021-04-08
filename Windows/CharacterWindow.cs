@@ -74,7 +74,15 @@ namespace NullRPG.Windows
             var weaponDmg = $"Atk: {currentWeapon.GetComponent<WeaponComponent>().MinDamage} - {currentWeapon.GetComponent<WeaponComponent>().MaxDamage}";
 
             Print(_x, _y, weaponName); _y++;
-            Print(_x, _y, weaponDmg);
+            Print(_x, _y, weaponDmg); _y++;
+
+            var currentHead = InventoryManager.GetEntityInventory(player).HeadSlot;
+
+            var headName = $"+ {currentHead.Name} +";
+            var headDefense = $"Def: {currentHead.GetComponent<ArmorComponent>().Defense}";
+
+            Print(_x, _y, headName); _y++;
+            Print(_x, _y, headDefense);
         }
     }
 }

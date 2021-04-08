@@ -10,10 +10,10 @@ namespace NullRPG.GameObjects.Entity
         {
             InventoryManager.CreateDefault(this);
 
-            WeaponSlot = Sword.Longsword();
-            HeadSlot = Items.Armors.Helmet.IronHelmet();
+            WeaponSlot = Sword.None();
+            HeadSlot = Items.Armors.Helmet.None();
             ChestSlot = Items.Armors.Chest.IronChestplate();
-            LegsSlot
+            LegsSlot = Items.Armors.Legs.IronLeggings();
         }
     }
 }

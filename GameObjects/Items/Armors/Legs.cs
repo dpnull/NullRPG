@@ -14,7 +14,7 @@ namespace NullRPG.GameObjects.Items.Armors
 
         }
 
-        public static Legs IronLeggins()
+        public static Legs IronLeggings()
         {
             return new Legs("Iron Leggings", 5, 9);
         }

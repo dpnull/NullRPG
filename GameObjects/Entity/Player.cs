@@ -24,6 +24,11 @@ namespace NullRPG.GameObjects.Entity
             InventoryManager.AddToInventory(this, Misc.Birchwood());
             InventoryManager.AddToInventory(this, Misc.Birchwood());
             InventoryManager.AddToInventory(this, Misc.Birchwood());
+
+            InventoryManager.AddToInventory(this, Items.Armors.Helmet.IronHelmet());
+            InventoryManager.AddToInventory(this, Items.Armors.Chest.IronChestplate());
+            InventoryManager.AddToInventory(this, Items.Armors.Legs.IronLeggings());
+            InventoryManager.AddToInventory(this, Items.Weapons.Sword.Longsword());
         }
     }
 }
