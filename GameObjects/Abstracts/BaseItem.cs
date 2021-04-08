@@ -11,9 +11,9 @@ namespace NullRPG.GameObjects.Abstracts
          Note: the first item sub type attribute will always be displayed for the item on the preview.
          */
         public int ObjectId { get; set; }
-        public string Name { get; set; } = "\0";
+        public string Name { get; set; }
         public Enums.ItemCategories ItemCategory { get; set; }
-        public int Value { get; set; } = 0;
+        public int Value { get; set; }
         public bool IsStackable { get; set; } = false;
 
         //public bool CanEquip { get; set; } = false;
@@ -32,6 +32,7 @@ namespace NullRPG.GameObjects.Abstracts
 
             Name = name;
             ItemCategory = itemCategory;
+            Value = value;
         }
 
         public void ReceiveComponentValue<T>(T value)

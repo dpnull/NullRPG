@@ -6,6 +6,7 @@ using NullRPG.Managers;
 using SadConsole;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Console = SadConsole.Console;
 
 namespace NullRPG.Windows
@@ -64,26 +65,10 @@ namespace NullRPG.Windows
                     ColoredString itemName = new ColoredString(item.Name);
 
                     this.DrawRectangleTitled(0, 0, Constants.Windows.ItemPreviewWidth - 1, Constants.Windows.ItemPreviewHeight - 1, "+", "-", "|", "|", itemName, true);
-                    if (ComponentManager.ContainsComponent<WeaponComponent>(item.ObjectId))
-                    {
-                        int minDmg = item.GetComponent<WeaponComponent>().MinDamage;
-                        int maxDmg = item.GetComponent<WeaponComponent>().MaxDamage;
 
-                        ColoredString atkData = Extensions.ConsoleExtensions.AttributeString(minDmg, maxDmg, "to attack");
-                        itemData.Add(atkData);
-                    }
-                    if (ComponentManager.ContainsComponent<ArmorComponent>(item.ObjectId))
-                    {
-                        int defense = item.GetComponent<ArmorComponent>().Defense;
-                        ColoredString defenseData = Extensions.ConsoleExtensions.AttributeString(defense, "to defense");
-                        itemData.Add(defenseData);
-                    }
-                    if (ComponentManager.ContainsComponent<ItemTypeComponent>(item.ObjectId))
-                    {
-                        string itemType = item.GetComponent<ItemTypeComponent>().ItemTypes.ToString();
-
-                        //Print(Coords.ITEM_TYPE_X - (itemType.Length / 2), Coords.ITEM_TYPE_Y, itemType);
-                    }
+                    DrawWeaponComponent(item, itemData);
+                    DrawArmorComponent(item, itemData);
+                    DrawItemTypeComponent(item, itemData);
 
                     ColoredString value = new ColoredString($"Value: {item.Value}");
                     itemData.Add(value);
@@ -103,6 +88,45 @@ namespace NullRPG.Windows
                 {
                     throw new System.Exception($"Could not find ObjectId_{ObjectId}.");
                 }
+            }
+        }
+
+        private void DrawWeaponComponent(IItem item, List<ColoredString> itemData)
+        {
+            if (ComponentManager.ContainsComponent<WeaponComponent>(item.ObjectId))
+            {
+                var weaponComponent = item.GetComponent<WeaponComponent>();
+
+                int minDmg = weaponComponent.MinDamage;
+                int maxDmg = weaponComponent.MaxDamage;
+
+                ColoredString atkData = Extensions.ConsoleExtensions.AttributeString(minDmg, maxDmg, "to attack");
+                itemData.Add(atkData);
+            }
+        }
+
+        private void DrawArmorComponent(IItem item, List<ColoredString> itemData)
+        {
+            if (ComponentManager.ContainsComponent<ArmorComponent>(item.ObjectId))
+            {
+                var armorComponent = item.GetComponent<ArmorComponent>();
+
+                var defense = armorComponent.Defense;
+
+                ColoredString defenseData = Extensions.ConsoleExtensions.AttributeString(defense, "to defense");
+                itemData.Add(defenseData);
+            }
+        }
+
+        private void DrawItemTypeComponent(IItem item, List<ColoredString> itemData)
+        {
+            if (ComponentManager.ContainsComponent<ItemTypeComponent>(item.ObjectId))
+            {
+                var itemTypeComponent = item.GetComponent<ItemTypeComponent>();
+
+                var itemType = item.GetComponent<ItemTypeComponent>().ItemTypes.FirstOrDefault().ToString();
+
+                itemData.Add(new ColoredString(itemType));
             }
         }
     }
