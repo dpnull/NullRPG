@@ -21,15 +21,15 @@ namespace NullRPG.GameObjects.Entity
             InventoryComponentValue inventoryValue = new InventoryComponentValue(new PlayerInventory());
             ReceiveComponentValue(inventoryValue);
 
-            InventoryManager.AddToInventory(this, new Longsword());
-            InventoryManager.AddToInventory(this, new Longsword());
+            InventoryManager.AddToInventory(this, new Sword());
+            InventoryManager.AddToInventory(this, new Sword());
             InventoryManager.AddToInventory(this, new Birchwood());
             InventoryManager.AddToInventory(this, new Birchwood());
             InventoryManager.AddToInventory(this, new Birchwood());
             InventoryManager.AddToInventory(this, new Birchwood());
             InventoryManager.AddToInventory(this, new Birchwood());
-            InventoryManager.AddToInventory(this, new IronHelmet());
-            InventoryManager.AddToInventory(this, new IronHelmet());
+            InventoryManager.AddToInventory(this, new Helmet());
+            InventoryManager.AddToInventory(this, new Helmet());
         }
     }
 }

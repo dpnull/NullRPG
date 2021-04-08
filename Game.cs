@@ -17,7 +17,7 @@ namespace NullRPG
 
             // Setup the engine and create the main window.
             SadConsole.Game.Create(Constants.GameWidth, Constants.GameHeight);
-
+    
             // Hook the start event so we can add consoles to the system.
             SadConsole.Game.OnInitialize = Init;
             // Hook the update event so we can check for key presses.

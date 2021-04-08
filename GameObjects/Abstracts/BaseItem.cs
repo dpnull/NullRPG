@@ -25,7 +25,7 @@ namespace NullRPG.GameObjects.Abstracts
         /// </summary>
         /// <param name="name">A name for the item.</param>
         /// <param name="itemCategory">A named constant from ItemCategories enum.</param>
-        public BaseItem(string name, Enums.ItemCategories itemCategory)
+        public BaseItem(Enums.ItemCategories itemCategory, string name = "\0", int value = 0)
         {
             ObjectId = ItemManager.GetUniqueId();
             ItemManager.Add(this);
