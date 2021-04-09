@@ -83,6 +83,14 @@ namespace NullRPG.Windows
 
             Print(_x, _y, headName); _y++;
             Print(_x, _y, headDefense);
+
+            var body = InventoryManager.GetEntityInventory(player).ChestSlot;
+
+            var bodyName = $"body armor: {body.Name}";
+            var bodyDef = $"body def {body.GetComponent<ArmorComponent>().Defense}";
+
+            Print(_x, _y, bodyName); _y++;
+            Print(_x, _y, bodyDef); 
         }
     }
 }

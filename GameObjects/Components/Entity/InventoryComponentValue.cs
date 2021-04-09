@@ -4,7 +4,7 @@ namespace NullRPG.GameObjects.Components.Entity
 {
     public class InventoryComponentValue
     {
-        public EntityInventory Inventory { get; set; }
+        public EntityInventory Inventory;
 
         public InventoryComponentValue(EntityInventory inventory)
         {

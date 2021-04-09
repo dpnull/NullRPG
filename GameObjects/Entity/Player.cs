@@ -21,6 +21,10 @@ namespace NullRPG.GameObjects.Entity
             InventoryComponentValue inventoryValue = new InventoryComponentValue(new PlayerInventory());
             ReceiveComponentValue(inventoryValue);
 
+            PositionComponent position = new PositionComponent(this);
+            Components.Add(position);
+            PositionComponentValue positionValue = new PositionComponentValue(LocationManager.GetLocationName<Locations.OutskirtsLocations.Forest>)
+
             InventoryManager.AddToInventory(this, Misc.Birchwood());
             InventoryManager.AddToInventory(this, Misc.Birchwood());
             InventoryManager.AddToInventory(this, Misc.Birchwood());

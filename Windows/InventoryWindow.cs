@@ -65,7 +65,7 @@ namespace NullRPG.Windows
 
             if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.E))
             {
-                EquipItem();
+                    EquipItem();
                 return true;
             }
 
@@ -76,6 +76,7 @@ namespace NullRPG.Windows
         {
             var objectId = UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId;
             InventoryManager.EquipItem(InventoryManager.GetEntityInventory(Game.GameSession.Player), objectId);
+            
         }
 
         private void DrawEquipButton()

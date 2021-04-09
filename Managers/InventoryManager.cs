@@ -161,11 +161,11 @@ namespace NullRPG.Managers
                         {
                             inventory.LegsSlot = item;
                         }
-                        //ComponentValueManager.AddItemEquipped(item.Name);
+                        MessageManager.AddItemEquipped(item.Name);
                     }
                     else
                     {
-                        //ComponentValueManager.AddDefault("You have already equipped this item.");
+                        MessageManager.AddMessage("You are already wearing this item. [???]");
                     }
                     // TODO: Add message log message displaying that this item cannot be equipped.
                 }

@@ -73,6 +73,41 @@ namespace NullRPG.Extensions
             SadConsole.Global.CurrentScreen = transition;
         }
 
+        public static void DrawRectangle(this SadConsole.Console console, int x, int y, int width, int height, string cornerGlyph, string horizontalGlyph, string verticalGlyph)
+        {
+            int _x;
+            int _y;
+
+            // top
+            for (_x = x + 1; _x < (x + width) - 1; _x++)
+            {
+                console.Print(_x, y, horizontalGlyph);
+            }
+            // draw top corners
+            console.Print(x, y, cornerGlyph);
+            console.Print(x + width - 1, y, cornerGlyph);
+
+            // bottom
+            for (_x = x + 1; _x < (x + width) - 1; _x++)
+            {
+                console.Print(_x, height + y, horizontalGlyph);
+            }
+            // draw bottom corners
+            console.Print(x, height + y, cornerGlyph);
+            console.Print(x + width - 1, height + y, cornerGlyph);
+
+            // left
+            for (_y = y + 1; _y < (y + height); _y++)
+            {
+                console.Print(x, _y, verticalGlyph);
+            }
+
+            // right
+            for (_y = y + 1; _y < (y + height); _y++)
+            {
+                console.Print(x + width - 1, _y, verticalGlyph);
+            }
+        }
         public static void DrawRectangleTitled(this SadConsole.Console console, int x, int y, int width, int height, string cornerGlyph, string horizontalGlyph, string verticalGlyph, string separatorCornerGlyph, SadConsole.ColoredString title, bool centeredTitle)
         {
             int _x;

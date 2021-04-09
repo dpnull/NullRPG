@@ -32,7 +32,21 @@ namespace NullRPG.Managers
             return default;
         }
 
-        // define a constraint to instantiate a generic type
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity"></param>
+        /// <param name="location"></param>
+        public static void AddEntityToLocation<T>(T entity, ILocation location) where T : IEntity
+        {
+            var worlds = WorldManager.GetWorlds();
+            foreach(var world in worlds)
+            {
+               // if(world.Areas.)
+            }
+        }
+
         public static T Create<T>() where T : IEntity, new()
         {
             T entity = new();
