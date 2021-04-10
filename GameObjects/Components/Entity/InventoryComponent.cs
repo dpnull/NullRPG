@@ -16,7 +16,11 @@ namespace NullRPG.GameObjects.Components.Entity
         public void ReceiveValue<T>(T value)
         {
             InventoryComponentValue inventoryValue = value as InventoryComponentValue;
-            Inventory = inventoryValue.Inventory;
+            if (inventoryValue != null)
+            {
+                Inventory = inventoryValue.Inventory;
+            }
+            
         }
     }
 }

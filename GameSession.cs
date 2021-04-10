@@ -9,6 +9,8 @@ namespace NullRPG
 
         public GameSession()
         {
+            WorldManager.AddWorld(new GameObjects.Worlds.Overworld());
+
             IndexedKeybindingsManager.Initialize();
             Player = EntityManager.Create<Player>();
         }

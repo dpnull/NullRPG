@@ -52,6 +52,9 @@ namespace NullRPG.Managers
 
             var messageWindow = new MessageWindow(Constants.Windows.MessageWidth, Constants.Windows.MessageHeight);
             Add(messageWindow);
+
+            var statWindow = new StatWindow(Constants.Windows.StatWidth, Constants.Windows.StatHeight);
+            Add(statWindow);
         }
 
         /// <summary>

@@ -13,7 +13,7 @@ namespace NullRPG.GameObjects.Components.Entity
         public IArea Area;
         public IWorld World;
 
-        public PositionComponentValue(ILocation location, IArea area, IWorld world)
+        public PositionComponentValue(IWorld world, IArea area, ILocation location)
         {
             World = world;
             Area = area;

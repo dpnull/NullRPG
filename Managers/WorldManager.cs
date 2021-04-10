@@ -1,4 +1,5 @@
-﻿using NullRPG.Interfaces;
+﻿using NullRPG.GameObjects.Components.Entity;
+using NullRPG.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,17 @@ namespace NullRPG.Managers
             {
                 world.Areas.Add(area.ObjectId, area);
             }
+        }
+
+        public static T GetEntityWorld<T>(IEntity entity) where T : IWorld
+        {
+            if (ComponentManager.ContainsEntityComponent<PositionComponent>(entity.ObjectId))
+            {
+                var world = entity.GetComponent<PositionComponent>().World;
+                return (T)world;
+            }
+
+            throw new SystemException($"{nameof(entity)} missing PositionComponent");
         }
 
         public static IWorld[] GetWorlds()

@@ -1,4 +1,6 @@
-﻿using NullRPG.Interfaces;
+﻿using NullRPG.GameObjects.Components.Entity;
+using NullRPG.GameObjects.Entity;
+using NullRPG.Interfaces;
 using NullRPG.Managers;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,9 @@ namespace NullRPG.GameObjects.Abstracts
         {
             Name = name;
             ObjectId = EntityManager.GetUniqueId();
+
+
+
         }
 
         public T GetComponent<T>() where T : IEntityComponent
@@ -30,7 +35,7 @@ namespace NullRPG.GameObjects.Abstracts
         {
             foreach (IEntityComponent component in Components)
             {
-                component.ReceiveValue<T>(value);
+                component.ReceiveValue(value);
             }
         }
     }

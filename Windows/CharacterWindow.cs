@@ -90,7 +90,10 @@ namespace NullRPG.Windows
             var bodyDef = $"body def {body.GetComponent<ArmorComponent>().Defense}";
 
             Print(_x, _y, bodyName); _y++;
-            Print(_x, _y, bodyDef); 
+            Print(_x, _y, bodyDef); _y++;
+
+            var currentLocation = player.GetComponent<PositionComponent>().Location;
+            Print(_x, _y, currentLocation.Name);
         }
     }
 }

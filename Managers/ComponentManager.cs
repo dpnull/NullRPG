@@ -43,6 +43,15 @@ namespace NullRPG.Managers
             return false;
         }
 
+        public static bool ContainsEntityComponent<T>(int objectId) where T : IEntityComponent
+        {
+            var entity = EntityManager.Get<IEntity>(objectId);
+
+            if (entity.Components.OfType<T>().Any())
+                return true;
+            return false;
+        }
+
         /// <summary>
         /// Checks if passed item contains component of a named constant from ItemTypes enum.
         /// </summary>

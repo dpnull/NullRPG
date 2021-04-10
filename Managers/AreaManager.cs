@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NullRPG.GameObjects.Components.Entity;
 
 namespace NullRPG.Managers
 {
@@ -39,6 +40,17 @@ namespace NullRPG.Managers
             }
 
             return default;
+        }
+
+        public static T GetEntityArea<T>(IEntity entity) where T : IArea
+        {
+            if (ComponentManager.ContainsEntityComponent<PositionComponent>(entity.ObjectId))
+            {
+                var area = entity.GetComponent<PositionComponent>().Area;
+                return (T)area;
+            }
+
+            throw new SystemException($"{nameof(entity)} missing PositionComponent");
         }
 
         public static T[] GetAllAreas<T>() where T : IArea

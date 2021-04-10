@@ -54,7 +54,7 @@ namespace NullRPG
             public const int StatWidth = GameWidth;
             public const int StatHeight = 3;
             public const int StatX = 0;
-            public const int StatY = 1;
+            public const int StatY = 4;
         }
 
         public static class Theme

@@ -6,6 +6,7 @@ namespace NullRPG.GameObjects.Components.Entity
     {
         public int Health { get; set; }
         public int MaxHealth { get; set; }
+
         public int Defense { get; set; }
         public int Gold { get; set; }
 

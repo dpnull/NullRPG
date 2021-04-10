@@ -22,9 +22,13 @@ namespace NullRPG.GameObjects.Components.Entity
         public void ReceiveValue<T>(T value)
         {
             PositionComponentValue positionComponent = value as PositionComponentValue;
-            Location = positionComponent.Location;
-            Area = positionComponent.Area;
-            World = positionComponent.World;
+            if (positionComponent != null)
+            {
+                Location = positionComponent.Location;
+                Area = positionComponent.Area;
+                World = positionComponent.World;
+            }
+
         }
     }
 }
