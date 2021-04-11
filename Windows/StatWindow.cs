@@ -27,6 +27,8 @@ namespace NullRPG.Windows
 
         public override void Draw(TimeSpan timeElapsed)
         {
+            Clear();
+
             DrawStats();
             
             base.Draw(timeElapsed);
@@ -34,8 +36,7 @@ namespace NullRPG.Windows
 
         private void DrawStats()
         {
-            DrawPlayerLocation();
-            
+            DrawPlayerLocation();         
         }
 
         private void DrawPlayerLocation()

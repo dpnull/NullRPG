@@ -19,6 +19,8 @@ namespace NullRPG.Managers
 
         public static void Initialize()
         {
+            IsInitialized = false;
+
             var gameWindow = new Windows.GameWindow(Constants.Windows.GameWindowWidth, Constants.Windows.GameWindowHeight);
             Add(gameWindow);
 
@@ -55,6 +57,8 @@ namespace NullRPG.Managers
 
             var statWindow = new StatWindow(Constants.Windows.StatWidth, Constants.Windows.StatHeight);
             Add(statWindow);
+
+            IsInitialized = true;
         }
 
         /// <summary>
@@ -94,6 +98,28 @@ namespace NullRPG.Managers
         public static void Remove<T>(T userInterface) where T : IUserInterface
         {
             Interfaces.Remove(userInterface);
+        }
+
+        public static void AutoVisibility()
+        {
+            CheckVisibility(Get<StatWindow>(), Get<GameWindow>().IsVisible);
+        }
+
+        /// <summary>
+        /// Sets visibility for the window based on the criteria.
+        /// </summary>
+        /// <param name="window">The target window.</param>
+        /// <param name="criteria">Criteria for visibility.</param>
+        private static void CheckVisibility(IUserInterface window, bool criteria)
+        {
+            if (criteria)
+            {
+                window.Console.IsVisible = true;
+            }
+            else
+            {
+                window.Console.IsVisible = false;
+            }
         }
     }
 }

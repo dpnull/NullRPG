@@ -5,6 +5,7 @@ using NullRPG.Interfaces;
 using NullRPG.Managers;
 using SadConsole;
 using SadConsole.Input;
+using System;
 using Console = SadConsole.Console;
 
 namespace NullRPG.Windows
@@ -28,6 +29,11 @@ namespace NullRPG.Windows
             SadConsole.Game.Instance.Window.Title = Constants.GameTitle;
 
             Global.CurrentScreen = this;
+        }
+
+        public override void Update(TimeSpan timeElapsed)
+        {
+            base.Update(timeElapsed);
         }
 
         public override bool ProcessKeyboard(Keyboard info)
