@@ -16,7 +16,6 @@ namespace NullRPG.Windows
     public class CharacterWindow : Console, IUserInterface
     {
         public Console Console { get; }
-        public object AttributeManager { get; private set; }
 
         public CharacterWindow(int width, int height) : base(width, height)
         {

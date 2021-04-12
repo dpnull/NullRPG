@@ -31,11 +31,6 @@ namespace NullRPG.Windows
             Global.CurrentScreen = this;
         }
 
-        public override void Update(TimeSpan timeElapsed)
-        {
-            base.Update(timeElapsed);
-        }
-
         public override bool ProcessKeyboard(Keyboard info)
         {
             if (info.IsKeyPressed(KeybindingManager.GetKeybinding<IKeybinding>(Keybinding.Keybindings.Inventory)))
@@ -50,6 +45,12 @@ namespace NullRPG.Windows
                 return true;
             }
 
+            if (info.IsKeyPressed(KeybindingManager.GetKeybinding<IKeybinding>(Keybinding.Keybindings.Travel)))
+            {
+                OpenTravelWindow();
+                return true;
+            }
+
             return false;
         }
 
@@ -61,6 +62,11 @@ namespace NullRPG.Windows
         private void OpenCharacterWindow()
         {
             this.SwitchFocusMakeVisible(UserInterfaceManager.Get<CharacterWindow>());
+        }
+
+        private void OpenTravelWindow()
+        {
+            this.SwitchFocusMakeVisible(UserInterfaceManager.Get<TravelWindow>());
         }
     }
 }

@@ -55,6 +55,12 @@ namespace NullRPG
             public const int StatHeight = 3;
             public const int StatX = 0;
             public const int StatY = 4;
+
+            public const int TravelWidth = GameWidth;
+            public const int TravelHeight = GameHeight - KeybindingsHeight - MessageHeight;
+            public const int TravelX = 0;
+            public const int TravelY = 1;
+
         }
 
         public static class Theme

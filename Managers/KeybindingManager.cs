@@ -23,11 +23,13 @@ namespace NullRPG.Managers
             CreateKeybinding(Keybindings.Inventory, Category.General, Keys.I);
             CreateKeybinding(Keybindings.Character, Category.General, Keys.C);
 
-            CreateKeybinding(Keybindings.Equip, Category.General, Keys.E);
+            //CreateKeybinding(Keybindings.Equip, Category.General, Keys.E);
 
             CreateKeybinding(Keybindings.Back, Category.General, Keys.B);
 
-            CreateKeybinding(Keybindings.Chop, Category.General, Keys.H);
+            //CreateKeybinding(Keybindings.Chop, Category.General, Keys.H);
+
+            IsInitialized = true;
         }
 
         public static void UpdateKeybindings()
@@ -43,7 +45,7 @@ namespace NullRPG.Managers
             UpdateVisibility(Keybindings.Character, UserInterfaceManager.Get<GameWindow>().IsFocused);
 
             UpdateVisibility(Keybindings.Back, UserInterfaceManager.Get<InventoryWindow>().IsVisible ||
-                UserInterfaceManager.Get<CharacterWindow>().IsVisible);
+                UserInterfaceManager.Get<CharacterWindow>().IsVisible || UserInterfaceManager.Get<TravelWindow>().IsVisible);
 
             /*
             UpdateVisibility(Keybindings.Back,

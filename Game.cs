@@ -30,7 +30,7 @@ namespace NullRPG
 
         private static void Update(GameTime gameTime)
         {
-            if (UserInterfaceManager.IsInitialized)
+            if (UserInterfaceManager.IsInitialized == true)
             {
                 UserInterfaceManager.AutoVisibility();
             }

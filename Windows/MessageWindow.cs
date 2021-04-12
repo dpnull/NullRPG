@@ -25,6 +25,8 @@ namespace NullRPG.Windows
 
         public override void Draw(TimeSpan timeElapsed)
         {
+            Clear();
+
             DrawMessageLog();
 
             base.Draw(timeElapsed);

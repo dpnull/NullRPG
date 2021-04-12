@@ -146,18 +146,19 @@ namespace NullRPG.Managers
             {
                 if(ComponentManager.ContainsComponent<ItemPropertyComponent>(item.ObjectId) && ComponentManager.ContainsItemProperty(item, Enums.ItemProperties.Equippable))
                 {
+                    // check if no equipped item matches id of passed item.
                     if (equipped.All(i => i.ObjectId != item.ObjectId))
                     {
                         if (item.ItemCategory is Enums.ItemCategories.Weapon) { inventory.WeaponSlot = item; }
-                        else if (ComponentManager.ContainsItemType<IItem>(item, Enums.ItemTypes.HeadArmor))
+                        if (ComponentManager.ContainsItemType<IItem>(item, Enums.ItemTypes.HeadArmor))
                         {
                             inventory.HeadSlot = item;
                         }
-                        else if (ComponentManager.ContainsItemType(item, Enums.ItemTypes.ChestArmor))
+                        if (ComponentManager.ContainsItemType(item, Enums.ItemTypes.ChestArmor))
                         {
                             inventory.ChestSlot = item;
                         }
-                        else if (ComponentManager.ContainsItemType(item, Enums.ItemTypes.LegsArmor))
+                        if (ComponentManager.ContainsItemType(item, Enums.ItemTypes.LegsArmor))
                         {
                             inventory.LegsSlot = item;
                         }
@@ -214,8 +215,12 @@ namespace NullRPG.Managers
                     return GetInventoryByObjectId<T>(inventory.ObjectId).WeaponSlot;
                 case Enums.InventorySlotTypes.Head:
                     return GetInventoryByObjectId<T>(inventory.ObjectId).HeadSlot;
+                case Enums.InventorySlotTypes.Chest:
+                    return GetInventoryByObjectId<T>(inventory.ObjectId).ChestSlot;
+                case Enums.InventorySlotTypes.Legs:
+                    return GetInventoryByObjectId<T>(inventory.ObjectId).LegsSlot;
                 default:
-                    break; // should do more
+                    break;
             }
 
             return default; // should do more
@@ -226,9 +231,9 @@ namespace NullRPG.Managers
             IItem[] items =
             {
                 GetInventoryByObjectId<T>(inventory.ObjectId)?.WeaponSlot,
-                GetInventoryByObjectId<T>(inventory.ObjectId)?.HeadSlot
-                //Get<T>()?.CurrentBodyItem,
-                //Get<T>()?.CurrentLegsItem
+                GetInventoryByObjectId<T>(inventory.ObjectId)?.HeadSlot,
+                GetInventoryByObjectId<T>(inventory.ObjectId)?.ChestSlot,
+                GetInventoryByObjectId<T>(inventory.ObjectId)?.LegsSlot
             };
 
             return items;

@@ -11,7 +11,7 @@ namespace NullRPG.Managers
         private static readonly List<IUserInterface> Interfaces = new List<IUserInterface>();
 
         public static bool IsPaused { get; set; }
-        public static bool IsInitialized { get; set; }
+        public static bool IsInitialized { get; set; } = false;
 
         /// <summary>
         /// Instantiate windows upon launch.
@@ -19,7 +19,6 @@ namespace NullRPG.Managers
 
         public static void Initialize()
         {
-            IsInitialized = false;
 
             var gameWindow = new Windows.GameWindow(Constants.Windows.GameWindowWidth, Constants.Windows.GameWindowHeight);
             Add(gameWindow);
@@ -27,6 +26,9 @@ namespace NullRPG.Managers
             // Initialize last so all consoles are instantiated prior to creating keybinding bools for visibility
             var keybindingsWindow = new KeybindingsWindow(Constants.Windows.KeybindingsWidth, Constants.Windows.KeybindingsHeight);
             Add(keybindingsWindow);
+
+            var statWindow = new StatWindow(Constants.Windows.StatWidth, Constants.Windows.StatHeight);
+            Add(statWindow);
 
             var inventoryWindow = new InventoryWindow(Constants.Windows.InventoryWidth, Constants.Windows.InventoryHeight)
             {
@@ -55,8 +57,13 @@ namespace NullRPG.Managers
             var messageWindow = new MessageWindow(Constants.Windows.MessageWidth, Constants.Windows.MessageHeight);
             Add(messageWindow);
 
-            var statWindow = new StatWindow(Constants.Windows.StatWidth, Constants.Windows.StatHeight);
-            Add(statWindow);
+            var travelWindow = new TravelWindow(Constants.Windows.TravelWidth, Constants.Windows.TravelHeight)
+            {
+                IsVisible = false,
+                IsFocused = false
+            };
+            Add(travelWindow);
+
 
             IsInitialized = true;
         }
@@ -102,7 +109,7 @@ namespace NullRPG.Managers
 
         public static void AutoVisibility()
         {
-            CheckVisibility(Get<StatWindow>(), Get<GameWindow>().IsVisible);
+            CheckVisibility(Get<StatWindow>(), Get<GameWindow>().IsFocused && !Get<TravelWindow>().IsFocused);
         }
 
         /// <summary>
@@ -110,16 +117,20 @@ namespace NullRPG.Managers
         /// </summary>
         /// <param name="window">The target window.</param>
         /// <param name="criteria">Criteria for visibility.</param>
-        private static void CheckVisibility(IUserInterface window, bool criteria)
+        private static void CheckVisibility(SadConsole.Console window, bool criteria)
         {
-            if (criteria)
+            if(window != null)
             {
-                window.Console.IsVisible = true;
+                if (criteria)
+                {
+                    window.IsVisible = true;
+                }
+                else if (!criteria)
+                {
+                    window.IsVisible = false;
+                }
             }
-            else
-            {
-                window.Console.IsVisible = false;
-            }
+
         }
     }
 }
