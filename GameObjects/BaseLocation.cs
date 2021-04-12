@@ -12,13 +12,15 @@ namespace NullRPG.GameObjects
     {
         public int ObjectId { get; set; }
         public string Name { get; set; }
+        public int Level { get; set; }
 
-        public BaseLocation(string name)
+        public BaseLocation(string name, int level)
         {
             ObjectId = LocationManager.GetUniqueLocationId();
             LocationManager.AddLocation(this);
 
             Name = name;
+            Level = level;
         }
     }
 }

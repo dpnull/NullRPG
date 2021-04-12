@@ -13,6 +13,7 @@ namespace NullRPG.GameObjects.Areas
         public AreaOutskirts() : base("Outskirts")
         {
             AreaManager.AddLocationToArea(this, OutskirtsLocations.Forest());
+            AreaManager.AddLocationToArea(this, OutskirtsLocations.Cave());
         }
     }
 }

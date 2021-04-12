@@ -6,6 +6,7 @@ namespace NullRPG.Interfaces
     {
         int ObjectId { get; set; }
         public string Name { get; set; }
+        int Level { get; set; }
         public List<IEntityComponent> Components { get; set; }
 
         /// <summary>

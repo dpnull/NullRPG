@@ -38,7 +38,6 @@ namespace NullRPG.Windows
 
         public override void Draw(TimeSpan timeElapsed)
         {
-
             DrawAvailableLocations();
 
             base.Draw(timeElapsed);
@@ -48,12 +47,7 @@ namespace NullRPG.Windows
         {
             this.DrawHeader(0, "Travel to an area...", DefaultForeground, DefaultBackground);
 
-            int y = 0;
-            while(y < 10)
-            {
-                Print(0, y, "TESTETEWTWET");
-                y++;
-            }
+
         }
     }
 }

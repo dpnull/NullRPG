@@ -10,5 +10,6 @@ namespace NullRPG.Interfaces
     {
         int ObjectId { get; set; }
         string Name { get; set; }
+        int Level { get; set; }
     }
 }
