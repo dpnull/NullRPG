@@ -47,6 +47,15 @@ namespace NullRPG.Windows
         {
             this.DrawHeader(0, "Travel to an area...", DefaultForeground, DefaultBackground);
 
+            var world = EntityManager.GetEntityWorld(EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId));
+            var areas = AreaManager.GetWorldAreas(world);
+
+            int _y = 2;
+            foreach (var area in areas)
+            {
+                string locStr = $"Name: {area.Name}";
+                Print(0, _y, locStr); _y++;
+            }
 
         }
     }

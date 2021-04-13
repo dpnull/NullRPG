@@ -1,5 +1,6 @@
 ﻿using NullRPG.GameObjects.Components.Entity;
 using NullRPG.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -53,7 +54,7 @@ namespace NullRPG.Managers
             // check if location exists in area
             // check if area exists in world
 
-            var currentArea = AreaManager.GetEntityArea<IArea>(entity);
+            var currentArea = GetEntityArea(entity);
             if (currentArea.Locations.ContainsKey(locationObjectId))
             {
                 entity.GetComponent<PositionComponent>().Location = LocationManager.GetLocationByObjectId<ILocation>(locationObjectId);
@@ -63,6 +64,28 @@ namespace NullRPG.Managers
                 throw new System.Exception($"location id_{locationObjectId} does not exist in {nameof(currentArea)}.");
             }
 
+        }
+
+        public static IArea GetEntityArea<T>(T entity) where T : IEntity
+        {
+            if (ComponentManager.ContainsEntityComponent<PositionComponent>(entity.ObjectId))
+            {
+                var area = entity.GetComponent<PositionComponent>().Area;
+                return area;
+            }
+
+            throw new SystemException($"{nameof(entity)} missing PositionComponent");
+        }
+
+        public static IWorld GetEntityWorld<T>(T entity) where T : IEntity
+        {
+            if (ComponentManager.ContainsEntityComponent<PositionComponent>(entity.ObjectId))
+            {
+                var world = entity.GetComponent<PositionComponent>().World;
+                return world;
+            }
+
+            throw new SystemException($"{nameof(entity)} missing PositionComponent");
         }
 
         public static T Create<T>() where T : IEntity, new()

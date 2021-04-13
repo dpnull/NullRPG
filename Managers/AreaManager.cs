@@ -42,17 +42,6 @@ namespace NullRPG.Managers
             return default;
         }
 
-        public static T GetEntityArea<T>(IEntity entity) where T : IArea
-        {
-            if (ComponentManager.ContainsEntityComponent<PositionComponent>(entity.ObjectId))
-            {
-                var area = entity.GetComponent<PositionComponent>().Area;
-                return (T)area;
-            }
-
-            throw new SystemException($"{nameof(entity)} missing PositionComponent");
-        }
-
         public static T[] GetAllAreas<T>() where T : IArea
         {
             var collection = AreaDatabase.Areas.Values.ToArray().OfType<T>();
@@ -60,9 +49,9 @@ namespace NullRPG.Managers
         }
 
         // Unneeded?
-        public static T[] GetWorldAreas<T>(IWorld world) where T : IArea
+        public static IArea[] GetWorldAreas(IWorld world)
         {
-            return default;
+            return WorldManager.GetWorld<IWorld>(world.ObjectId).Areas.Values.ToArray();
         }
 
         private static class AreaDatabase
