@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NullRPG.Interfaces
 {
-    public interface IArea
+    public interface IArea : IIndexable
     {
         int ObjectId { get; set; }
         string Name { get; set; }

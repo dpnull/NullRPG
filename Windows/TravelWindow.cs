@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using NullRPG.Draw;
 using NullRPG.Extensions;
 using NullRPG.GameObjects.Components.Entity;
 using NullRPG.GameObjects.Components.Item;
@@ -9,6 +10,7 @@ using NullRPG.Managers;
 using SadConsole;
 using SadConsole.Input;
 using System;
+using System.Collections.Generic;
 using static NullRPG.Input.Keybinding;
 using Console = SadConsole.Console;
 
@@ -17,6 +19,7 @@ namespace NullRPG.Windows
     public class TravelWindow : Console, IUserInterface
     {
         public Console Console { get; }
+        public IIndexedKeybinding[] IndexedKeybindings { get; private set; }
 
         public TravelWindow(int width, int height) : base(width, height)
         {
@@ -50,12 +53,16 @@ namespace NullRPG.Windows
             var world = EntityManager.GetEntityWorld(EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId));
             var areas = AreaManager.GetWorldAreas(world);
 
-            int _y = 2;
-            foreach (var area in areas)
+            List<IIndexable> bindable = new();
+            foreach(var area in areas)
             {
-                string locStr = $"Name: {area.Name}";
-                Print(0, _y, locStr); _y++;
+                bindable.Add(area);
             }
+
+            IndexedKeybindings = IndexedKeybindingsManager.CreateIndexedKeybindings<IIndexedKeybinding>(bindable);
+            PrintContainerTravel printable = new PrintContainerTravel(world, IndexedKeybindings);
+
+            printable.Draw(this, 4);
 
         }
     }
