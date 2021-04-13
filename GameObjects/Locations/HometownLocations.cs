@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace NullRPG.GameObjects.Locations
 {
-    public class HometownLocations : BaseArea
+    public class HometownLocations : BaseLocation
     {
-        public HometownLocations(string name) : base(name)
+        public HometownLocations(string name) : base(name, 0)
         {
 
         }

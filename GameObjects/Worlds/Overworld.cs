@@ -14,6 +14,7 @@ namespace NullRPG.GameObjects.Worlds
         public Overworld() : base("Overworld")
         {
             WorldManager.AddAreaToWorld(this, new AreaOutskirts());
+            WorldManager.AddAreaToWorld(this, new AreaHometown());
         }
     }
 }
