@@ -72,7 +72,7 @@ namespace NullRPG.Draw
                 }
                 else
                 {
-                    quantity = new PrintContainerValue(new ColoredString($"\0"), 30); // temporary
+                    quantity = null;
                 }
 
                 PrintContainerItem containerItem = new PrintContainerItem(new List<PrintContainerValue> { buttonValue, itemNameVal, itemTypeVal, quantity });
@@ -85,14 +85,17 @@ namespace NullRPG.Draw
         /// </summary>
         /// <param name="console">Console window to be drawn from.</param>
         /// <param name="y">Starting y coordinate.</param>
-        public void Draw(SadConsole.Console console, int y = 0)
+        public void Draw(SadConsole.Console console,     int y = 0)
         {
             int _y = y;
             foreach (var item in ContainerItems)
             {
                 foreach (var value in item.ItemValues)
                 {
-                    console.Print(value.Offset, _y, value.ColoredString);
+                    if (value != null)
+                    {
+                        console.Print(value.Offset, _y, value.ColoredString);
+                    }
                 }
                 _y++;
             }

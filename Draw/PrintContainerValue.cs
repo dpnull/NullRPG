@@ -4,9 +4,10 @@ namespace NullRPG.Draw
 {
     public class PrintContainerValue
     {
-        public ColoredString ColoredString { get; set; }
+#nullable enable
+        public ColoredString? ColoredString { get; set; }
         public int Offset { get; set; }
-
+#nullable disable
         /// <summary>
         /// Create a single ColoredString object to be stored in a list in <typeparamref name="PrintContainerItem"/>
         /// </summary>
