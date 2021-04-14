@@ -3,6 +3,7 @@ using NullRPG.Extensions;
 using NullRPG.Input;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
+using NullRPG.Windows.Navigation;
 using SadConsole;
 using SadConsole.Input;
 using System;
@@ -33,6 +34,17 @@ namespace NullRPG.Windows
 
         public override bool ProcessKeyboard(Keyboard info)
         {
+            if(EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId) != null)
+            {
+                foreach(var keybinding in UserInterfaceManager.Get<LocationKeybindingsWindow>().IndexedKeybindings)
+                {
+                    if (info.IsKeyPressed(keybinding.Key))
+                    {
+                        EntityManager.ChangeEntityPosition<IEntity>(Game.GameSession.Player, EntityManager.PositionTypes.Location, keybinding.ObjectId);
+                    }
+                }
+            }
+
             if (info.IsKeyPressed(KeybindingManager.GetKeybinding<IKeybinding>(Keybinding.Keybindings.Inventory)))
             {
                 OpenInventoryWindow();
