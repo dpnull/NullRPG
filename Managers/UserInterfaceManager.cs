@@ -112,7 +112,8 @@ namespace NullRPG.Managers
 
         public static void AutoVisibility()
         {
-            CheckVisibility(Get<StatWindow>(), Get<GameWindow>().IsFocused && !Get<TravelWindow>().IsFocused);
+            CheckVisibility(Get<StatWindow>(), Get<GameWindow>().IsFocused);
+            CheckVisibility(Get<LocationKeybindingsWindow>(), Get<GameWindow>().IsFocused);
         }
 
         /// <summary>
