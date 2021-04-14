@@ -36,13 +36,17 @@ namespace NullRPG.Windows
         {
             if(EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId) != null)
             {
-                foreach(var keybinding in UserInterfaceManager.Get<LocationKeybindingsWindow>().IndexedKeybindings)
+                if(UserInterfaceManager.Get<LocationKeybindingsWindow>().IndexedKeybindings != null)
                 {
-                    if (info.IsKeyPressed(keybinding.Key))
+                    foreach (var keybinding in UserInterfaceManager.Get<LocationKeybindingsWindow>().IndexedKeybindings)
                     {
-                        EntityManager.ChangeEntityPosition<IEntity>(Game.GameSession.Player, EntityManager.PositionTypes.Location, keybinding.ObjectId);
+                        if (info.IsKeyPressed(keybinding.Key))
+                        {
+                            EntityManager.ChangeEntityPosition<IEntity>(Game.GameSession.Player, EntityManager.PositionTypes.Location, keybinding.ObjectId);
+                        }
                     }
                 }
+
             }
 
             if (info.IsKeyPressed(KeybindingManager.GetKeybinding<IKeybinding>(Keybinding.Keybindings.Inventory)))

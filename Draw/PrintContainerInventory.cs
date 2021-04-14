@@ -39,12 +39,16 @@ namespace NullRPG.Draw
                 // Name
                 ColoredString itemName = new ColoredString(slotItem.Name);
                 PrintContainerValue itemNameVal = new PrintContainerValue(itemName, 4);
-                // checks if item id matches equipped item id
-                if (slotItem.ObjectId == InventoryManager.GetEquippedItem<IEntityInventory>(inventory, Enums.InventorySlotTypes.Head).ObjectId)
+
+                // Highlight equipped items
+                foreach (var equippedItem in InventoryManager.GetEquippedItems(inventory))
                 {
-                    itemName.SetBackground(new Color(18, 77, 7));
+                    if (equippedItem.ObjectId == slotItem.ObjectId)
+                    {
+                        itemName.HighlightBackground(new Color(18, 77, 7));
+                    }
                 }
-                
+
                 // Button
                 Button = new ButtonIndex(keybindings[_index].Key, Color.Green, Color.White, 0, 0, true);
                 _index++;
