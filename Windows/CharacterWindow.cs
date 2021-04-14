@@ -67,7 +67,7 @@ namespace NullRPG.Windows
                 Print(_x, _y, p); _y++;
             }
 
-            var currentWeapon = InventoryManager.GetEntityInventory(player).WeaponSlot;
+            var currentWeapon = InventoryManager.GetEntityInventory(player).HandsSlot;
 
             var weaponName = $"+ {currentWeapon.Name} +";
             var weaponDmg = $"Atk: {currentWeapon.GetComponent<WeaponComponent>().MinDamage} - {currentWeapon.GetComponent<WeaponComponent>().MaxDamage}";

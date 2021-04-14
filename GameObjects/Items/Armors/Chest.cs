@@ -9,7 +9,7 @@ namespace NullRPG.GameObjects.Items.Armors
 {
     public class Chest : Armor
     {
-        public Chest(string name, int defense, int value) : base(name, defense, ArmorTypeWrapper.Chest, value)
+        public Chest(string name, int defense, int value) : base(name, defense, Enums.EquippableTypes.Chest, value)
         {
 
         }

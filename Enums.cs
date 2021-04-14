@@ -4,9 +4,10 @@ namespace NullRPG
 {
     public static class Enums
     {
+        // perhaps replace with EquippableTypes instead?
         public enum InventorySlotTypes
         {
-            Weapon,
+            Hands,
             Head,
             Chest,
             Legs
@@ -14,23 +15,28 @@ namespace NullRPG
 
         public enum ItemTypes
         {
-            [Description("[Head]")]
-            HeadArmor,
-            [Description("[Chest]")]
-            ChestArmor,
-            [Description("[Legs]")]
-            LegsArmor,
-            [Description("[Sword]")]
-            Sword,
+            // Equippable redundant here?
+            [Description("[Equippable]")]
+            Equippable,
             [Description("[Material]")]
             Material,
             [Description("[Misc]")]
             Misc,
         }
 
+        public enum EquippableTypes
+        {
+            Head,
+            Chest,
+            Legs,
+            Hands
+        }
+
         public enum ItemProperties
         {
+            // Should be removed and checked via EquippableTypeComponent instead?
             Equippable,
+            // Same as above once EnchantableComponent is created?
             Enchantable,
         }
         /*
@@ -44,13 +50,6 @@ namespace NullRPG
             Weapon,
             Armor,
             Misc
-        }
-
-        public enum ArmorTypes
-        {
-            Head,
-            Chest,
-            Legs
         }
 
         public enum WeaponType

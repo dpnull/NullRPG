@@ -149,16 +149,19 @@ namespace NullRPG.Managers
                     // check if no equipped item matches id of passed item.
                     if (equipped.All(i => i.ObjectId != item.ObjectId))
                     {
-                        if (item.ItemCategory is Enums.ItemCategories.Weapon) { inventory.WeaponSlot = item; }
-                        if (ComponentManager.ContainsItemType<IItem>(item, Enums.ItemTypes.HeadArmor))
+                        if (ComponentManager.ContainsEquippableComponentOfType<EquippableTypeComponent>(item, Enums.EquippableTypes.Hands))
+                        {
+                            inventory.HandsSlot = item;
+                        }
+                        else if (ComponentManager.ContainsEquippableComponentOfType<EquippableTypeComponent>(item, Enums.EquippableTypes.Head))
                         {
                             inventory.HeadSlot = item;
                         }
-                        if (ComponentManager.ContainsItemType(item, Enums.ItemTypes.ChestArmor))
+                        else if (ComponentManager.ContainsEquippableComponentOfType<EquippableTypeComponent>(item, Enums.EquippableTypes.Chest))
                         {
                             inventory.ChestSlot = item;
                         }
-                        if (ComponentManager.ContainsItemType(item, Enums.ItemTypes.LegsArmor))
+                        if (ComponentManager.ContainsEquippableComponentOfType<EquippableTypeComponent>(item, Enums.EquippableTypes.Legs))
                         {
                             inventory.LegsSlot = item;
                         }
@@ -211,8 +214,8 @@ namespace NullRPG.Managers
         {
             switch (slotType)
             {
-                case Enums.InventorySlotTypes.Weapon:
-                    return GetInventoryByObjectId<T>(inventory.ObjectId).WeaponSlot;
+                case Enums.InventorySlotTypes.Hands:
+                    return GetInventoryByObjectId<T>(inventory.ObjectId).HandsSlot;
                 case Enums.InventorySlotTypes.Head:
                     return GetInventoryByObjectId<T>(inventory.ObjectId).HeadSlot;
                 case Enums.InventorySlotTypes.Chest:
@@ -230,7 +233,7 @@ namespace NullRPG.Managers
         {
             IItem[] items =
             {
-                GetInventoryByObjectId<T>(inventory.ObjectId)?.WeaponSlot,
+                GetInventoryByObjectId<T>(inventory.ObjectId)?.HandsSlot,
                 GetInventoryByObjectId<T>(inventory.ObjectId)?.HeadSlot,
                 GetInventoryByObjectId<T>(inventory.ObjectId)?.ChestSlot,
                 GetInventoryByObjectId<T>(inventory.ObjectId)?.LegsSlot

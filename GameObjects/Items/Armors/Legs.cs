@@ -9,7 +9,7 @@ namespace NullRPG.GameObjects.Items.Armors
 {
     public class Legs : Armor
     {
-        public Legs(string name, int defense, int value) : base(name, defense, ArmorTypeWrapper.Legs, value)
+        public Legs(string name, int defense, int value) : base(name, defense, Enums.EquippableTypes.Legs, value)
         {
 
         }

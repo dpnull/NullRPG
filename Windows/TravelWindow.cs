@@ -36,6 +36,7 @@ namespace NullRPG.Windows
                 {
                     EntityManager.ChangeEntityPosition(Game.GameSession.Player, EntityManager.PositionTypes.Area, keybinding.ObjectId);
                     MessageManager.AddColoredMessage(new ColoredString("Pressed"));
+                    this.FullTransition(UserInterfaceManager.Get<GameWindow>());
                     return true;
                 }
             }

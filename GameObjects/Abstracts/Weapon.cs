@@ -14,8 +14,14 @@ namespace NullRPG.GameObjects.Abstracts
             // Once there are more weapon types, create a wrapper.
             ItemTypeComponent weaponItemTypeComponent = new ItemTypeComponent(this);
             Components.Add(weaponItemTypeComponent);
-            ItemTypeComponentValue weaponItemTypeComponentValue = new ItemTypeComponentValue(Enums.ItemTypes.Sword);
+            ItemTypeComponentValue weaponItemTypeComponentValue = new ItemTypeComponentValue(Enums.ItemTypes.Equippable);
             ReceiveComponentValue(weaponItemTypeComponentValue);
+
+            // refer to Enums.cs
+            EquippableTypeComponent equippableTypeComponent = new EquippableTypeComponent(this);
+            Components.Add(equippableTypeComponent);
+            EquippableTypeComponentValue equippableTypeComponentValue = new EquippableTypeComponentValue(Enums.EquippableTypes.Hands);
+            ReceiveComponentValue(equippableTypeComponentValue);
 
             // Currently by default all weapon items are equippable
             ItemPropertyComponent weaponProperty = new ItemPropertyComponent(this);

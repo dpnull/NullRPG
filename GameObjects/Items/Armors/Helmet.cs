@@ -5,7 +5,7 @@ namespace NullRPG.GameObjects.Items.Armors
 {
     public class Helmet : Armor
     {
-        public Helmet(string name, int defense, int value) : base(name, defense, ArmorTypeWrapper.Head, value)
+        public Helmet(string name, int defense, int value) : base(name, defense, Enums.EquippableTypes.Head, value)
         {   
         }
 

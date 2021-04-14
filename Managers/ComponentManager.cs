@@ -52,6 +52,16 @@ namespace NullRPG.Managers
             return false;
         }
 
+        public static bool ContainsEquippableComponentOfType<T>(IItem item, Enums.EquippableTypes equippableType) where T : IItemComponent
+        {
+            if (ContainsComponent<T>(item.ObjectId))
+            {
+                return true && item.GetComponent<EquippableTypeComponent>().EquippableType == equippableType;
+            }
+
+            return default;
+        }
+
         /// <summary>
         /// Checks if passed item contains component of a named constant from ItemTypes enum.
         /// </summary>
