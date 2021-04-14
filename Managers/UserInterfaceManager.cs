@@ -54,6 +54,9 @@ namespace NullRPG.Managers
             var generalKeybindingsWindow = new GeneralKeybindingsWindow(Constants.Windows.Keybindings.GeneralWidth, Constants.Windows.Keybindings.GeneralHeight);
             Add(generalKeybindingsWindow);
 
+            var locationKeybindingsWindow = new LocationKeybindingsWindow(Constants.Windows.Keybindings.LocationWidth, Constants.Windows.Keybindings.LocationHeight);
+            Add(locationKeybindingsWindow);
+
             var messageWindow = new MessageWindow(Constants.Windows.MessageWidth, Constants.Windows.MessageHeight);
             Add(messageWindow);
 

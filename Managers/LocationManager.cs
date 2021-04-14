@@ -29,6 +29,11 @@ namespace NullRPG.Managers
             return LocationDatabase.Locations.OfType<T>().SingleOrDefault().Name;
         }
 
+        public static ILocation[] GetAreaLocations(IArea area)
+        {
+            return AreaManager.GetAreaByObjectId<IArea>(area.ObjectId).Locations.Values.ToArray();
+        }
+
         public static T GetLocationByObjectId<T>(int objectId) where T : ILocation
         {
             var collection = LocationDatabase.Locations.Values.ToArray();

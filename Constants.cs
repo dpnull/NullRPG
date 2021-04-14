@@ -18,6 +18,11 @@ namespace NullRPG
                 public const int GeneralHeight = KeybindingsHeight;
                 public const int GeneralX = KeybindingsWidth - GeneralWidth;
                 public const int GeneralY = 0;
+
+                public const int LocationWidth = 30;
+                public const int LocationHeight = KeybindingsHeight;
+                public const int LocationX = KeybindingsWidth - GeneralWidth - LocationWidth;
+                public const int LocationY = 0;
             }
 
             public const int KeybindingsWidth = GameWidth;

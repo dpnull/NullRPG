@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NullRPG.Interfaces
 {
-    public interface ILocation
+    public interface ILocation : IIndexable
     {
         int ObjectId { get; set; }
         string Name { get; set; }

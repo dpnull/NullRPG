@@ -25,6 +25,10 @@ namespace NullRPG.Windows
 
             generalKeybindings.Draw();
 
+            var locationKeybindings = UserInterfaceManager.Get<LocationKeybindingsWindow>();
+
+            locationKeybindings.Draw();
+
             base.Draw(timeElapsed);
         }
     }
