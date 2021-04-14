@@ -58,12 +58,66 @@ namespace NullRPG.Managers
             if (currentArea.Locations.ContainsKey(locationObjectId))
             {
                 entity.GetComponent<PositionComponent>().Location = LocationManager.GetLocationByObjectId<ILocation>(locationObjectId);
+                MessageManager.AddTravelledToLocation(entity.GetComponent<PositionComponent>().Location.Name);
             }
             else
             {
                 throw new System.Exception($"location id_{locationObjectId} does not exist in {nameof(currentArea)}.");
             }
 
+        }
+
+        public enum PositionTypes
+        {
+            Location,
+            Area,
+            World
+        }
+
+        public static void ChangeEntityPosition<T>(T entity, PositionTypes positionType, int positionObjectId) where T : IEntity
+        {
+            var currentArea = GetEntityArea(entity);
+            var currentWorld = GetEntityWorld(entity);
+            var entityPosition = entity.GetComponent<PositionComponent>();
+
+            if(positionType is PositionTypes.Location)
+            {
+                if (currentArea.Locations.ContainsKey(positionObjectId))
+                {
+                    entityPosition.Location = LocationManager.GetLocationByObjectId<ILocation>(positionObjectId);
+                    MessageManager.AddTravelledToLocation(entityPosition.Location.Name);
+                }
+                else
+                {
+                    throw new Exception($"Location with id_{positionObjectId} does not exist.");
+                }
+            }
+            else if (positionType is PositionTypes.Area)
+            {
+                if (currentWorld.Areas.ContainsKey(positionObjectId))
+                {
+                    entityPosition.Area = AreaManager.GetAreaByObjectId<IArea>(positionObjectId);
+                    entityPosition.Location = AreaManager.GetAreaByObjectId<IArea>(positionObjectId).Locations.Values.FirstOrDefault();
+                    // Add message travelled
+                }
+                else
+                {
+                    throw new Exception($"Area with id_{positionObjectId} does not exist.");
+                }
+            } else if (positionType is PositionTypes.World)
+            {
+                if (currentWorld.ObjectId != WorldManager.GetWorld<IWorld>(positionObjectId).ObjectId)
+                {
+                    entityPosition.World = WorldManager.GetWorld<IWorld>(positionObjectId);
+                }
+                else
+                {
+                    throw new Exception($"World with id_{positionObjectId} does not exist.");
+                }
+            } else
+            {
+                throw new SystemException("Invalid position type");
+            }
         }
 
         public static IArea GetEntityArea<T>(T entity) where T : IEntity

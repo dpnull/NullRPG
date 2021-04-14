@@ -30,6 +30,15 @@ namespace NullRPG.Windows
 
         public override bool ProcessKeyboard(Keyboard info)
         {
+            foreach (var keybinding in IndexedKeybindings)
+            {
+                if (info.IsKeyPressed(keybinding.Key))
+                {
+                    EntityManager.ChangeEntityPosition(Game.GameSession.Player, EntityManager.PositionTypes.Area, keybinding.ObjectId);
+                    MessageManager.AddColoredMessage(new ColoredString("Pressed"));
+                    return true;
+                }
+            }
             if (info.IsKeyPressed(KeybindingManager.GetKeybinding<IKeybinding>(Keybindings.Back)))
             {
                 this.FullTransition(UserInterfaceManager.Get<GameWindow>());

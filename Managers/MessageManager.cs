@@ -44,6 +44,11 @@ namespace NullRPG.Managers
             AddAndHighlightLast("You have equipped ", itemName, Color.LightGreen);
         }
 
+        public static void AddTravelledToLocation(string locationName)
+        {
+            AddAndHighlightLast("Arrived at ", locationName, Color.LightGreen);
+        }
+
         private static void AddAndHighlightLast(string message, string toHighlight, Color highlightColor)
         {
             var str = new ColoredString(message);
