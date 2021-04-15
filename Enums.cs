@@ -47,8 +47,11 @@ namespace NullRPG
         // Uncertain whether this is necessary and can be replaced with something else
         public enum ItemCategories
         {
+            [Description("[Weapon]")]
             Weapon,
+            [Description("[Armor]")]
             Armor,
+            [Description("[Misc]")]
             Misc
         }
 

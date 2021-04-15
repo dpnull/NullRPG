@@ -36,9 +36,21 @@ namespace NullRPG.Draw
             {
                 var slotItem = InventoryManager.GetInventorySlot<ISlot>(Game.GameSession.Player, item.ObjectId).Item.FirstOrDefault();
 
-                // Name
-                ColoredString itemName = new ColoredString(slotItem.Name);
-                PrintContainerValue itemNameVal = new PrintContainerValue(itemName, 4);
+                // Name & Quantity
+                ColoredString itemName = new ColoredString($"{slotItem.Name}");
+                PrintContainerValue quantity;
+                PrintContainerValue itemNameVal;
+                var slot = InventoryManager.GetInventorySlot<ISlot>(Game.GameSession.Player, item.ObjectId);
+                if (slot.Item.FirstOrDefault().IsStackable)
+                {
+                    itemNameVal = new PrintContainerValue(new ColoredString($"{slotItem.Name} x{slot.Item.Count}"), 4);
+                }
+                else
+                {
+                    itemNameVal = new PrintContainerValue(new ColoredString($"{slotItem.Name}"), 4);
+                }
+
+
 
                 // Highlight equipped items
                 foreach (var equippedItem in InventoryManager.GetEquippedItems(inventory))
@@ -56,26 +68,16 @@ namespace NullRPG.Draw
                 PrintContainerValue buttonValue = new PrintContainerValue(Button.GetButtonToString(), 0);
 
                 // Item type
-                string itemType = slotItem.GetComponent<ItemTypeComponent>().ItemTypes.FirstOrDefault().ToName();
+                string itemType = slotItem.ItemCategory.ToName();
                 PrintContainerValue itemTypeVal = new PrintContainerValue(new ColoredString(itemType), 20);
 
                 // Item id
                 //string itemId = $"slotId_{item.ObjectId}  itemId_{slotItem.ObjectId}";
                 //PrintContainerValue itemIdVal = new PrintContainerValue(new ColoredString(itemId), 30);
 
-                // Quantity
-                PrintContainerValue quantity;
-                var slot = InventoryManager.GetInventorySlot<ISlot>(Game.GameSession.Player, item.ObjectId);
-                if (slot.Item.FirstOrDefault().IsStackable)
-                {
-                    quantity = new PrintContainerValue(new ColoredString($"count: {slot.Item.Count}"), 30);
-                }
-                else
-                {
-                    quantity = null;
-                }
 
-                PrintContainerItem containerItem = new PrintContainerItem(new List<PrintContainerValue> { buttonValue, itemNameVal, itemTypeVal, quantity });
+
+                PrintContainerItem containerItem = new PrintContainerItem(new List<PrintContainerValue> { buttonValue, itemNameVal, itemTypeVal });
                 ContainerItems.Add(containerItem);
             }
         }

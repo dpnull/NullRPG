@@ -108,7 +108,7 @@ namespace NullRPG.Windows
 
         private void DrawInventory()
         {
-            this.DrawHeader(1, "Character inventory", Constants.Theme.HeaderForegroundColor, Constants.Theme.HeaderBackgroundColor);
+            this.DrawHeader(0, "Character inventory", Constants.Theme.HeaderForegroundColor, Constants.Theme.HeaderBackgroundColor);
 
             var inventory = InventoryManager.GetSlots(Game.GameSession.Player);
             List<IIndexable> bindable = new();
@@ -127,7 +127,7 @@ namespace NullRPG.Windows
             IndexedKeybindings = IndexedKeybindingsManager.CreateIndexedKeybindings<IIndexedKeybinding>(bindable);
             PrintContainerInventory printable = new PrintContainerInventory(InventoryManager.GetEntityInventory(Game.GameSession.Player), IndexedKeybindings);
 
-            printable.Draw(this, 4);
+            printable.Draw(this, 2);
         }
     }
 }
