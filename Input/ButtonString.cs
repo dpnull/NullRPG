@@ -21,10 +21,13 @@ namespace NullRPG.Input
             Name = name;
         }
 
+
         public override void Draw(SadConsole.Console console)
         {
             var str = new SadConsole.ColoredString("");
-            str += KeyString + " " + Name;
+            // Implement FormatStringDisplay?
+            Name.SetForeground(NameColor);           
+            str += FormatKeyDisplay(KeyColor) + " " + Name;
             str.SetBackground(console.DefaultBackground);
 
             console.Print(X, Y, str);

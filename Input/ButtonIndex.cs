@@ -15,10 +15,10 @@ namespace NullRPG.Input
 
         public ButtonIndex(Keys key, Color keyColor, Color nameColor, int x = 0, int y = 0, bool isNumeric = false) : base(x, y, key, keyColor, nameColor, isNumeric)
         {
-            KeyString = FormatKeyDisplay();
+            KeyString = FormatKeyDisplay(keyColor);
         }
 
-        private SadConsole.ColoredString FormatKeyDisplay()
+        public SadConsole.ColoredString FormatKeyDisplay(Color keyColor)
         {
             var lBracketGlyph = new SadConsole.ColoredString("[", NameColor, Constants.Theme.DefaultBackground);
             var rBracketGlyph = new SadConsole.ColoredString("]", NameColor, Constants.Theme.DefaultBackground);

@@ -92,6 +92,14 @@ namespace NullRPG.Windows
                             Constants.Theme.ButtonKeyColor, DefaultForeground,
                             Constants.Windows.PreviewX, Constants.Windows.PreviewY + Constants.Windows.ItemPreviewHeight - 1);
 
+                        foreach(var equipped in InventoryManager.GetEquippedItems(InventoryManager.GetEntityInventory<IEntity>(Game.GameSession.Player)))
+                        {
+                            if(equipped.ObjectId == item.ObjectId)
+                            {
+                                equipBtn.KeyColor = Color.DarkOliveGreen;
+                                equipBtn.NameColor = Color.Gray; // INVESTIAGE
+                            }
+                        }
                         equipBtn.Draw(this);
                     }
                 }

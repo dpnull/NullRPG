@@ -11,6 +11,7 @@ namespace NullRPG.Input
         public Keys Key { get; set; }
         public Color KeyColor { get; set; }
         public Color NameColor { get; set; }
+        public bool IsEnabled { get; set; }
 
         public bool IsNumeric { get; set; }
 
@@ -22,6 +23,7 @@ namespace NullRPG.Input
             KeyColor = keyColor;
             NameColor = nameColor;
             IsNumeric = isNumeric;
+            IsEnabled = true;
         }
 
         /// <summary>

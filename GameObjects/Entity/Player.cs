@@ -41,6 +41,9 @@ namespace NullRPG.GameObjects.Entity
             InventoryManager.AddToInventory(this, Items.Armors.Chest.IronChestplate());
             InventoryManager.AddToInventory(this, Items.Armors.Legs.IronLeggings());
             InventoryManager.AddToInventory(this, Items.Weapons.Sword.Longsword());
+            InventoryManager.AddToInventory(this, Items.Weapons.Sword.Longsword());
+
+           
         }
     }
 }
