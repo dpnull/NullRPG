@@ -9,6 +9,9 @@ namespace NullRPG.GameObjects.Components.Entity
 
         public int Defense { get; set; }
         public int Gold { get; set; }
+        public int Level { get; set; }
+        public int Experience { get; set; }
+        public int ExperienceRequired { get; set; }
 
         public IEntity Source { get; set; }
 
@@ -26,6 +29,9 @@ namespace NullRPG.GameObjects.Components.Entity
                 MaxHealth = entityValue.MaxHealth;
                 Defense = entityValue.Defense;
                 Gold = entityValue.Gold;
+                Level = entityValue.Level;
+                Experience = entityValue.Experience;
+                ExperienceRequired = entityValue.ExperienceRequired;
             }
         }
     }

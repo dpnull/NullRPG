@@ -51,48 +51,58 @@ namespace NullRPG.Windows
         private void DrawCharacter()
         {
             var player = EntityManager.Get<Player>(Game.GameSession.Player.ObjectId);
-
             var playerStats = player.GetComponent<EntityComponent>();
 
-            var name = $"+ {player.Name}'s overview +";
-            var health = $"Health: {playerStats.Health} - {playerStats.MaxHealth}";           
+            this.DrawHeader(0, $"  {player.Name}'s character overview  ", Constants.Theme.HeaderForegroundColor, Constants.Theme.HeaderBackgroundColor);
+
+            DrawStats(playerStats);
+            DrawExperience(playerStats, 0, 2, Width);
+        }
+
+        private void DrawStats(EntityComponent playerStats)
+        {
+            
+
+            var level = $"Level: {playerStats.Level}";
+            var health = $"Health: {playerStats.Health} - {playerStats.MaxHealth}";
             var defense = $"Defense: {playerStats.Defense}";
             var gold = $"Gold: {playerStats.Gold}";
 
-            string[] printable = { name, health, defense, gold };
+            string[] printable = { level, health, defense, gold };
             int _x = 1;
             int _y = 4;
-            foreach(var p in printable)
+            foreach (var p in printable)
             {
                 Print(_x, _y, p); _y++;
             }
+        }
 
-            var currentWeapon = InventoryManager.GetEntityInventory(player).HandsSlot;
+        private void DrawExperience(EntityComponent playerStats, int x, int y, int width)
+        {
+            var experience = playerStats.Experience;
+            var experienceRequired = playerStats.ExperienceRequired;
 
-            var weaponName = $"+ {currentWeapon.Name} +";
-            var weaponDmg = $"Atk: {currentWeapon.GetComponent<WeaponComponent>().MinDamage} - {currentWeapon.GetComponent<WeaponComponent>().MaxDamage}";
+            string bar = "[";
 
-            Print(_x, _y, weaponName); _y++;
-            Print(_x, _y, weaponDmg); _y++;
+            double percent = (double)experience / experienceRequired;
+            int complete = Convert.ToInt32(percent * width);
+            //int incomplete = width - complete;
 
-            var currentHead = InventoryManager.GetEntityInventory(player).HeadSlot;
+            for (int i = 0; i < complete; i++)
+            {
+                bar += "#";
+            }
 
-            var headName = $"+ {currentHead.Name} +";
-            var headDefense = $"Def: {currentHead.GetComponent<ArmorComponent>().Defense}";
+            for (int i = complete; i < width - 2; i++)
+            {
+                bar += ".";
+            }
 
-            Print(_x, _y, headName); _y++;
-            Print(_x, _y, headDefense);
+            bar += "]";
 
-            var body = InventoryManager.GetEntityInventory(player).ChestSlot;
-
-            var bodyName = $"body armor: {body.Name}";
-            var bodyDef = $"body def {body.GetComponent<ArmorComponent>().Defense}";
-
-            Print(_x, _y, bodyName); _y++;
-            Print(_x, _y, bodyDef); _y++;
-
-            var currentLocation = player.GetComponent<PositionComponent>().Location;
-            Print(_x, _y, currentLocation.Name);
+            Print(x, y, bar);
+            string printableExperience = $"EXP: {experience} / {experienceRequired}";
+            Print(this.GetWindowXCenter() - (printableExperience.Length / 2), y + 1, printableExperience);
         }
     }
 }

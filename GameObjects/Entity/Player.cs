@@ -15,7 +15,7 @@ namespace NullRPG.GameObjects.Entity
         {
             EntityComponent entity = new EntityComponent(this);
             Components.Add(entity);
-            EntityComponentValue entityValue = new EntityComponentValue(100, 2, 35);
+            EntityComponentValue entityValue = new EntityComponentValue(100, 2, 35, 1, 0, 100);
             ReceiveComponentValue(entityValue);
 
             InventoryComponent inventory = new InventoryComponent(this);
