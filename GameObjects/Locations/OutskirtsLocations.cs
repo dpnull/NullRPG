@@ -15,7 +15,9 @@ namespace NullRPG.GameObjects.Locations
 
         public static OutskirtsLocations Forest()
         {
-            return new OutskirtsLocations("Forest", 1);
+            var forest = new OutskirtsLocations("Forest", 1);
+            
+            //FINISH
         }
 
         public static OutskirtsLocations Cave()

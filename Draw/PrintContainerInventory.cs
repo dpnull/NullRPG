@@ -38,7 +38,6 @@ namespace NullRPG.Draw
 
                 // Name & Quantity
                 ColoredString itemName = new ColoredString($"{slotItem.Name}");
-                PrintContainerValue quantity;
                 PrintContainerValue itemNameVal;
                 var slot = InventoryManager.GetInventorySlot<ISlot>(Game.GameSession.Player, item.ObjectId);
                 if (slot.Item.FirstOrDefault().IsStackable)

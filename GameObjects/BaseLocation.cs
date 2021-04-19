@@ -13,6 +13,7 @@ namespace NullRPG.GameObjects
         public int ObjectId { get; set; }
         public string Name { get; set; }
         public int Level { get; set; }
+        public List<ILocationComponent> Components { get; set; } = new List<ILocationComponent>();
 
         public BaseLocation(string name, int level)
         {
@@ -22,5 +23,20 @@ namespace NullRPG.GameObjects
             Name = name;
             Level = level;
         }
+
+        public void ReceiveComponentValue<T>(T value)
+        {
+            foreach(ILocationComponent component in Components)
+            {
+                component.ReceiveValue(value);
+            }
+        }
+
+        public T GetComponent<T>() where T : ILocationComponent
+        {
+            return Components.OfType<T>().FirstOrDefault();
+        }
+
+
     }
 }
