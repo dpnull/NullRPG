@@ -1,11 +1,14 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace NullRPG
 {
-    public static class Enums
+    public class Enums
     {
-        // perhaps replace with EquippableTypes instead?
-        public enum InventorySlotTypes
+        public enum EquippableTypes
         {
             Hands,
             Head,
@@ -13,53 +16,30 @@ namespace NullRPG
             Legs
         }
 
-        public enum ItemTypes
+        public enum ItemCategories
         {
-            // Equippable redundant here?
-            [Description("[Equippable]")]
-            Equippable,
-            [Description("[Material]")]
-            Material,
-            [Description("[Misc]")]
-            Misc,
-        }
-
-        public enum EquippableTypes
-        {
-            Head,
-            Chest,
-            Legs,
-            Hands
+            Weapon,
+            Armor,
+            Misc
         }
 
         public enum ItemProperties
         {
-            // Should be removed and checked via EquippableTypeComponent instead?
-            Equippable,
-            // Same as above once EnchantableComponent is created?
-            Enchantable,
-        }
-        /*
-         * 
-         * 
-         */
-
-        // Uncertain whether this is necessary and can be replaced with something else
-        public enum ItemCategories
-        {
-            [Description("[Weapon]")]
-            Weapon,
-            [Description("[Armor]")]
-            Armor,
-            [Description("[Misc]")]
-            Misc
+            Material,
         }
 
-        public enum WeaponType
+        public enum WeaponTypes
         {
-            Default,
             Sword,
             Axe
         }
+
+        public enum PositionTypes
+        {
+            Location,
+            Area,
+            World
+        }
+
     }
 }

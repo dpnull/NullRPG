@@ -1,4 +1,5 @@
-﻿using NullRPG.Interfaces;
+﻿using NullRPG.GameObjects.Inventory;
+using NullRPG.Interfaces;
 using NullRPG.Managers;
 using System;
 using System.Collections.Generic;
@@ -8,29 +9,13 @@ using System.Threading.Tasks;
 
 namespace NullRPG.GameObjects.Abstracts
 {
-    public abstract class BaseLocationObject : ILocationObject
+    public abstract class BaseLocationObject : ComponentSystemEntity, ILocationObject
     {
-        public int ObjectId { get; set; }
-        public string Name { get; set; }
-        public List<IItem> Items { get; set; }
-
-        public BaseLocationObject(string name)
+        public BaseLocationObject(string name) : base(name, LocationObjectManager.GetUniqueLocationObjectId())
         {
-            ObjectId = LocationObjectManager.GetUniqueLocationObjectId();
-            LocationObjectManager.AddLocationObject(this);
+            var inventory = new EntityComponents.Inventory(new EntityInventory());
 
-            Name = name;
-            Items = new List<IItem>();
-        }
-
-        public virtual void OnAction()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddItem(IItem item)
-        {
-            Items.Add(item);
+            AddComponent(inventory);
         }
     }
 }

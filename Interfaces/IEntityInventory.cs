@@ -1,16 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace NullRPG.Interfaces
 {
     public interface IEntityInventory
     {
         int ObjectId { get; set; }
-        public Dictionary<int, ISlot> Slots { get; set; }
-
-        public IItem HandsSlot { get; set; }
-        public IItem HeadSlot { get; set; }
-        public IItem ChestSlot { get; set; }
-        public IItem LegsSlot { get; set; }
-        public int GetUniqueSlotId();
+        Dictionary<int, ISlot> Slots { get; set; }
     }
 }

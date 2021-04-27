@@ -4,34 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NullRPG.GameObjects.Components.Entity;
 
 namespace NullRPG.Managers
 {
-    public static class AreaManager
+    public class AreaManager
     {
-        public static void AddArea(IArea area)
-        {
-            if (!AreaDatabase.Areas.ContainsKey(area.ObjectId))
-            {
-                AreaDatabase.Areas.Add(area.ObjectId, area);
-            }
-        }
-
-        public static void AddLocationToArea<T>(T area, ILocation location) where T : IArea
-        {
-            if (!area.Locations.ContainsKey(location.ObjectId))
-            {
-                area.Locations.Add(location.ObjectId, location);
-            }
-        }
-
         public static int GetUniqueAreaId()
         {
             return AreaDatabase.GetUniqueId();
         }
 
-        public static T GetAreaByObjectId<T>(int objectId) where T : IArea
+
+        public static T Get<T>(int objectId) where T : IArea
         {
             var collection = AreaDatabase.Areas.Values.ToArray();
             foreach (var item in collection)
@@ -42,16 +26,26 @@ namespace NullRPG.Managers
             return default;
         }
 
-        public static T[] GetAllAreas<T>() where T : IArea
+        public static void AddLocationToArea<T, U>(T area, U location) where T : IArea where U : ILocation
         {
-            var collection = AreaDatabase.Areas.Values.ToArray().OfType<T>();
-            return collection.ToArray();
+            var collection = GetAreaLocations<U>(area);
+            if (!collection.Contains(location))
+            {
+                area.Locations.Add(location.ObjectId, location);
+            }
         }
 
-        // Unneeded?
-        public static IArea[] GetWorldAreas(IWorld world)
+        public static ILocation[] GetAreaLocations<T>(IArea area) where T : ILocation
         {
-            return WorldManager.GetWorld<IWorld>(world.ObjectId).Areas.Values.ToArray();
+            return AreaManager.Get<IArea>(area.ObjectId).Locations.Values.ToArray();
+        }
+
+        public static void AddArea(IArea area)
+        {
+            if (!AreaDatabase.Areas.ContainsKey(area.ObjectId))
+            {
+                AreaDatabase.Areas.Add(area.ObjectId, area);
+            }
         }
 
         private static class AreaDatabase

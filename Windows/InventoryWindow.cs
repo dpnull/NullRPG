@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using NullRPG.Draw;
 using NullRPG.Extensions;
-using NullRPG.GameObjects.Components.Item;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
 using SadConsole;
@@ -52,7 +51,7 @@ namespace NullRPG.Windows
                 {
                     var itemPreviewWindow = UserInterfaceManager.Get<ItemPreviewWindow>();
                     itemPreviewWindow.
-                        SetObjectForPreview(InventoryManager.GetInventorySlot<ISlot>(Game.GameSession.Player, keybinding.ObjectId).Item.FirstOrDefault().ObjectId);
+                        SetObjectForPreview(InventoryManager.GetInventorySlot(Game.GameSession.Player, keybinding.ObjectId).Item.FirstOrDefault().ObjectId);
                     return true;
                 }
             }
@@ -75,7 +74,7 @@ namespace NullRPG.Windows
         private void EquipItem()
         {
             var objectId = UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId;
-            InventoryManager.EquipItem(InventoryManager.GetEntityInventory(Game.GameSession.Player), objectId);
+            EntityManager.EquipItem<IEntity>(EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId), objectId);
             
         }
 
@@ -83,18 +82,19 @@ namespace NullRPG.Windows
         {
             if (UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId != -1)
             {
-                var item = ItemManager.GetItem<IItem>(UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId);
-                if (ComponentManager.ContainsComponent<ItemPropertyComponent>(item.ObjectId))
+                var item = ItemManager.Get<IItem>(UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId);
+                if (item.HasComponent<ItemComponents.ItemType>())
                 {
-                    if (ComponentManager.ContainsItemProperty(item, Enums.ItemProperties.Equippable))
+                    if (item.HasComponent<ItemComponents.EquippableComponent>())
                     {
                         var equipBtn = new Input.ButtonString(new ColoredString("Equip"), Microsoft.Xna.Framework.Input.Keys.E,
                             Constants.Theme.ButtonKeyColor, DefaultForeground,
                             Constants.Windows.PreviewX, Constants.Windows.PreviewY + Constants.Windows.ItemPreviewHeight - 1);
 
-                        foreach(var equipped in InventoryManager.GetEquippedItems(InventoryManager.GetEntityInventory<IEntity>(Game.GameSession.Player)))
+                        // shouldn't be cast
+                        foreach (var equipped in EntityManager.GetEquippedItems<IItem, IEntity>((IEntity)Game.GameSession.Player))
                         {
-                            if(equipped.ObjectId == item.ObjectId)
+                            if (equipped.ObjectId == item.ObjectId)
                             {
                                 equipBtn.KeyColor = Color.DarkOliveGreen;
                                 equipBtn.NameColor = Color.Gray; // INVESTIAGE
@@ -110,7 +110,7 @@ namespace NullRPG.Windows
         {
             this.DrawHeader(0, "Character inventory", Constants.Theme.HeaderForegroundColor, Constants.Theme.HeaderBackgroundColor);
 
-            var inventory = InventoryManager.GetSlots(Game.GameSession.Player);
+            var inventory = InventoryManager.GetInventorySlots<IComponentSystemEntity>(Game.GameSession.Player);
             List<IIndexable> bindable = new();
 
             foreach (var slot in inventory)
@@ -125,7 +125,7 @@ namespace NullRPG.Windows
             }
 
             IndexedKeybindings = IndexedKeybindingsManager.CreateIndexedKeybindings<IIndexedKeybinding>(bindable);
-            PrintContainerInventory printable = new PrintContainerInventory(InventoryManager.GetEntityInventory(Game.GameSession.Player), IndexedKeybindings);
+            PrintContainerInventory printable = new PrintContainerInventory(Game.GameSession.Player.GetComponent<EntityComponents.Inventory>().EntityInventory, IndexedKeybindings);
 
             printable.Draw(this, 2);
         }

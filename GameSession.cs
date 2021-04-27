@@ -1,18 +1,22 @@
-﻿using NullRPG.GameObjects.Entity;
+﻿using NullRPG.GameObjects;
+using NullRPG.GameObjects.World.Overworld;
 using NullRPG.Managers;
 
 namespace NullRPG
 {
     public class GameSession
     {
+        public Overworld Overworld { get; private set; }
         public Player Player { get; private set; }
+
 
         public GameSession()
         {
-            WorldManager.AddWorld(new GameObjects.Worlds.Overworld());
-
             IndexedKeybindingsManager.Initialize();
-            Player = EntityManager.Create<Player>();
+
+            Overworld = new Overworld();
+            Player = new Player();
+
         }
     }
 }

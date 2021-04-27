@@ -1,82 +1,27 @@
-﻿using NullRPG.GameObjects.Components.Item;
+﻿using NullRPG.GameObjects.Abstracts;
 using NullRPG.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace NullRPG.Managers
 {
-    public static class ComponentManager
+    public class ComponentManager
     {
-        /// <summary>
-        /// Returns sub types from the ItemTypeComponent for the passed Item object.
-        /// </summary>
-        /// <typeparam name="T">A type that inherits from IItem interface.</typeparam>
-        /// <param name="item">An objects that inherits from IItem interface.</param>
-        /// <returns>An array of sub types for the passed IItem object.</returns>
-        public static Enums.ItemTypes[] GetItemSubTypes<T>(T item) where T : IItem
+        public static bool HasItemProperty(IItem item, Enums.ItemProperties property)
         {
-            return ItemManager.GetItem<T>(item.ObjectId).GetComponent<ItemTypeComponent>().ItemTypes.ToArray();
-        }
-
-        public static Enums.ItemProperties[] GetItemProperties<T>(T item) where T : IItem
-        {
-            var property = ItemManager.GetItem<T>(item.ObjectId).GetComponent<ItemPropertyComponent>().ItemProperties.ToArray();
-            if (property != null)
+            if (item.HasComponent<ItemComponents.PropertyComponent>())
             {
-                return property;
-            }
-            return default;
-        }
-
-        /// <summary>
-        /// Returns true if passed item contains component of type T.
-        /// </summary>
-        /// <typeparam name="T">IComponent type parameter.</typeparam>
-        /// <param name="objectId">Item object id.</param>
-        /// <returns></returns>
-        public static bool ContainsComponent<T>(int objectId) where T : IItemComponent
-        {
-            var item = ItemManager.GetItem<IItem>(objectId);
-
-            if (item.Components.OfType<T>().Any())
-                return true;
-            return false;
-        }
-
-        public static bool ContainsEntityComponent<T>(int objectId) where T : IEntityComponent
-        {
-            var entity = EntityManager.Get<IEntity>(objectId);
-
-            if (entity.Components.OfType<T>().Any())
-                return true;
-            return false;
-        }
-
-        public static bool ContainsEquippableComponentOfType<T>(IItem item, Enums.EquippableTypes equippableType) where T : IItemComponent
-        {
-            if (ContainsComponent<T>(item.ObjectId))
+                foreach (var p in item.GetComponent<ItemComponents.PropertyComponent>().Properties)
+                    return true && p == property;
+            } else
             {
-                return true && item.GetComponent<EquippableTypeComponent>().EquippableType == equippableType;
+                throw new System.Exception($"{nameof(item)} missing {nameof(ItemComponents.PropertyComponent)}.");
             }
 
-            return default;
-        }
-
-        /// <summary>
-        /// Checks if passed item contains component of a named constant from ItemTypes enum.
-        /// </summary>
-        /// <typeparam name="T">A type that inherits from IItem interface.</typeparam>
-        /// <param name="item">An object that inherits from IItem interface.</param>
-        /// <param name="itemSubType">A named constant from ItemTypes enum.</param>
-        /// <returns>Returns true if IItem object contains the passed itemSubType.</returns>
-        public static bool ContainsItemType<T>(T item, Enums.ItemTypes itemSubType) where T : IItem
-        {
-            return true && GetItemSubTypes(item).Contains(itemSubType);
-        }
-
-        public static bool ContainsItemProperty<T>(T item, Enums.ItemProperties itemProperty) where T : IItem
-        {
-            return true && GetItemProperties(item).Contains(itemProperty);
+            return false;
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using NullRPG.GameObjects.Components.Item;
 using NullRPG.Input;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
@@ -22,14 +21,14 @@ namespace NullRPG.Draw
         private void CreateLocations(IArea area, IIndexedKeybinding[] keybindings)
         {
             int _index = 0;
-            var locations = LocationManager.GetAreaLocations(area);
+            var locations = Game.GameSession.Player.GetComponent<EntityComponents.Position>().Area.Locations; // refractor
 
             foreach(var location in locations)
             {
-                ColoredString locationName = new ColoredString(location.Name);
+                ColoredString locationName = new ColoredString(location.Value.Name);
                 PrintContainerValue locationNameValue = new PrintContainerValue(locationName, 4);
 
-                ColoredString locationLevel = new ColoredString($"[ {location.Level} ]");
+                ColoredString locationLevel = new ColoredString($"[ {location.Value.Level} ]");
                 PrintContainerValue locationLevelValue = new PrintContainerValue(locationLevel, 19);
 
                 // Button

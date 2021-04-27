@@ -8,8 +8,9 @@ namespace NullRPG.Interfaces
 {
     public interface IArea : IIndexable
     {
-        int ObjectId { get; set; }
-        string Name { get; set; }
+        int ObjectId { get; }
+        string Name { get; }
+
         Dictionary<int, ILocation> Locations { get; set; }
     }
 }

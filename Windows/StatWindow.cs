@@ -9,7 +9,6 @@ using SadConsole;
 using SadConsole.Input;
 using Console = SadConsole.Console;
 using Microsoft.Xna.Framework;
-using NullRPG.GameObjects.Components.Entity;
 
 namespace NullRPG.Windows
 {
@@ -42,15 +41,20 @@ namespace NullRPG.Windows
         private void DrawPlayerLocation()
         {
             var player = EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId);
-            var location = player.GetComponent<PositionComponent>().Location;
-            var area = player.GetComponent<PositionComponent>().Area;
-            var world = player.GetComponent<PositionComponent>().World;
-
+            var location = player.GetComponent<EntityComponents.Position>().Location;
+            var area = player.GetComponent<EntityComponents.Position>().Area;
+            var world = player.GetComponent<EntityComponents.Position>().World;
+            string choppable = "None";
+            /*
+            if (ComponentManager.ContainsLocationComponent<ChoppableComponent>(location.ObjectId))
+            {
+                choppable = location.GetComponent<ChoppableComponent>().TreeObject.Name;
+            }
+            */
             string[] printable = new string[]
             {
                 $"Current location: {location.Name}",
                 $"Current area: {area.Name}",
-                $"Current world: {world.Name}"
             };
 
             int _y = 0;

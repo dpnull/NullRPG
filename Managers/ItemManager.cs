@@ -1,10 +1,14 @@
-﻿using NullRPG.Interfaces;
+﻿using NullRPG.GameObjects;
+using NullRPG.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace NullRPG.Managers
 {
-    public static class ItemManager
+    public class ItemManager
     {
         public static int GetUniqueId()
         {
@@ -19,12 +23,7 @@ namespace NullRPG.Managers
             }
         }
 
-        /// <summary>
-        /// Searches the ItemDatabase for an IItem object matching the passed objectId.
-        /// </summary>
-        /// <typeparam name="T">A type that inherits from IItem interface.</typeparam>
-        /// <returns>An IItem object with matching objectId.</returns>
-        public static T GetItem<T>(int objectId) where T : IItem
+        public static T Get<T>(int objectId) where T : IItem
         {
             var collection = ItemDatabase.Items.Values.ToArray();
             foreach (var item in collection)

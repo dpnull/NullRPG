@@ -42,7 +42,7 @@ namespace NullRPG.Windows
                     {
                         if (info.IsKeyPressed(keybinding.Key))
                         {
-                            EntityManager.ChangeEntityPosition<IEntity>(Game.GameSession.Player, EntityManager.PositionTypes.Location, keybinding.ObjectId);
+                            EntityManager.ChangeEntityPosition<IEntity>(EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId), Enums.PositionTypes.Location, keybinding.ObjectId);
                         }
                     }
                 }

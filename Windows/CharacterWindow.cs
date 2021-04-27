@@ -1,14 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using NullRPG.Extensions;
-using NullRPG.GameObjects.Components.Entity;
-using NullRPG.GameObjects.Components.Item;
-using NullRPG.GameObjects.Entity;
 using NullRPG.Input;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
 using SadConsole;
 using SadConsole.Input;
 using System;
+using static NullRPG.EntityComponents;
 using Console = SadConsole.Console;
 
 namespace NullRPG.Windows
@@ -50,8 +48,8 @@ namespace NullRPG.Windows
 
         private void DrawCharacter()
         {
-            var player = EntityManager.Get<Player>(Game.GameSession.Player.ObjectId);
-            var playerStats = player.GetComponent<EntityComponent>();
+            var player = EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId);
+            var playerStats = player.GetComponent<EntityComponents.BaseStats>();
 
             this.DrawHeader(0, $"  {player.Name}'s character overview  ", Constants.Theme.HeaderForegroundColor, Constants.Theme.HeaderBackgroundColor);
 
@@ -59,7 +57,7 @@ namespace NullRPG.Windows
             DrawExperience(playerStats, 0, 2, Width);
         }
 
-        private void DrawStats(EntityComponent playerStats)
+        private void DrawStats(BaseStats playerStats)
         {
             
 
@@ -77,10 +75,10 @@ namespace NullRPG.Windows
             }
         }
 
-        private void DrawExperience(EntityComponent playerStats, int x, int y, int width)
+        private void DrawExperience(BaseStats playerStats, int x, int y, int width)
         {
             var experience = playerStats.Experience;
-            var experienceRequired = playerStats.ExperienceRequired;
+            var experienceRequired = playerStats.RequiredExperience;
 
             string bar = "[";
 

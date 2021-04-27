@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="GameObjects\World\Overworld\OverworldAreas.cs\**" />
+    <EmbeddedResource Remove="GameObjects\World\Overworld\OverworldAreas.cs\**" />
+    <None Remove="GameObjects\World\Overworld\OverworldAreas.cs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641" />
     <PackageReference Include="SadConsole" Version="8.99.3" />
   </ItemGroup>

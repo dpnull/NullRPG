@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using NullRPG.Extensions;
-using NullRPG.GameObjects.Components.Item;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
 using SadConsole;
@@ -40,7 +39,7 @@ namespace NullRPG.Windows
 
         public void SetObjectForPreview(int objectId)
         {
-            if (ItemManager.GetItem<IItem>(objectId) != null && ItemManager.GetItem<IItem>(objectId).Name != "None")
+            if (ItemManager.Get<IItem>(objectId) != null && ItemManager.Get<IItem>(objectId).Name != "None")
             {
                 ObjectId = objectId;
                 IsVisible = true;
@@ -56,11 +55,11 @@ namespace NullRPG.Windows
         {
             if (ObjectId != -1)
             {
-                if (ItemManager.GetItem<IItem>(ObjectId) != null)
+                if (ItemManager.Get<IItem>(ObjectId) != null)
                 {
                     List<ColoredString> itemData = new List<ColoredString>();
 
-                    var item = ItemManager.GetItem<IItem>(ObjectId);
+                    var item = ItemManager.Get<IItem>(ObjectId);
 
                     ColoredString itemName = new ColoredString(item.Name);
 
@@ -68,9 +67,9 @@ namespace NullRPG.Windows
 
                     DrawWeaponComponent(item, itemData);
                     DrawArmorComponent(item, itemData);
-                    DrawItemTypeComponent(item, itemData);
+                    //DrawItemTypeComponent(item, itemData);
 
-                    ColoredString value = new ColoredString($"Value: {item.Value}");
+                    ColoredString value = new ColoredString($"Value: {item.GetComponent<ItemComponents.Value>().BaseValue}");
                     itemData.Add(value);
 
                     int index = 0;
@@ -93,9 +92,9 @@ namespace NullRPG.Windows
 
         private void DrawWeaponComponent(IItem item, List<ColoredString> itemData)
         {
-            if (ComponentManager.ContainsComponent<WeaponComponent>(item.ObjectId))
+            if (item.HasComponent<ItemComponents.Damage>())
             {
-                var weaponComponent = item.GetComponent<WeaponComponent>();
+                var weaponComponent = item.GetComponent<ItemComponents.Damage>();
 
                 int minDmg = weaponComponent.MinDamage;
                 int maxDmg = weaponComponent.MaxDamage;
@@ -107,20 +106,21 @@ namespace NullRPG.Windows
 
         private void DrawArmorComponent(IItem item, List<ColoredString> itemData)
         {
-            if (ComponentManager.ContainsComponent<ArmorComponent>(item.ObjectId))
+            if (item.HasComponent<ItemComponents.Defense>())
             {
-                var armorComponent = item.GetComponent<ArmorComponent>();
+                var armorComponent = item.GetComponent<ItemComponents.Defense>();
 
-                var defense = armorComponent.Defense;
+                var defense = armorComponent.BaseDefense;
 
                 ColoredString defenseData = Extensions.ConsoleExtensions.AttributeString(defense, "to defense");
                 itemData.Add(defenseData);
             }
         }
 
+        /*
         private void DrawItemTypeComponent(IItem item, List<ColoredString> itemData)
         {
-            if (ComponentManager.ContainsComponent<ItemTypeComponent>(item.ObjectId))
+            if ()
             {
                 var itemTypeComponent = item.GetComponent<ItemTypeComponent>();
 
@@ -129,5 +129,6 @@ namespace NullRPG.Windows
                 itemData.Add(new ColoredString(itemType));
             }
         }
+        */
     }
 }

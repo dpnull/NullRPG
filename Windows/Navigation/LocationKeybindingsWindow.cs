@@ -37,7 +37,7 @@ namespace NullRPG.Windows.Navigation
 
             List<IIndexable> bindable = new List<IIndexable>();
 
-            var area = EntityManager.GetEntityArea(Game.GameSession.Player);
+            var area = EntityManager.GetEntityArea<IEntity>(Game.GameSession.Player);
             var locations = area.Locations.Values; //temp
 
             foreach(var location in locations)

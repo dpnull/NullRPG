@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace NullRPG.Managers
 {
-    public static class LocationObjectManager
+    public class LocationObjectManager
     {
         public static int GetUniqueLocationObjectId()
         {
             return LocationObjectDatabase.GetUniqueId();
         }
 
-        public static void AddLocationObject(ILocationObject locationObject)
+        public static void AddLocationObject<T>(T locationObject) where T : ILocationObject
         {
             if (!LocationObjectDatabase.LocationObjects.ContainsKey(locationObject.ObjectId))
             {
@@ -22,7 +22,7 @@ namespace NullRPG.Managers
             }
         }
 
-        public static T GetLocationObjectById<T>(int objectId) where T : ILocationObject
+        public static T GetLocationObjectByObjectId<T>(int objectId) where T : ILocationObject
         {
             var collection = LocationObjectDatabase.LocationObjects.Values.ToArray();
             foreach (var item in collection)
@@ -30,6 +30,13 @@ namespace NullRPG.Managers
                 return (T)LocationObjectDatabase.LocationObjects.Values.SingleOrDefault(i => i.ObjectId == objectId);
             }
             return default;
+        }
+        public static void AddItemToLocationObject<T>(T locationObject, IItem item) where T : ILocationObject
+        {
+            if (locationObject.HasComponent<EntityComponents.Inventory>())
+            {
+                InventoryManager.AddToInventory((IComponentSystemEntity)locationObject, item);
+            }
         }
 
         public static class LocationObjectDatabase

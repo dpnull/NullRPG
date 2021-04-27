@@ -1,5 +1,4 @@
 ﻿using NullRPG.Interfaces;
-using SadConsole;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +7,25 @@ using System.Threading.Tasks;
 
 namespace NullRPG.Managers
 {
-    public static class LocationManager
+    public class LocationManager
     {
-        public static int GetUniqueLocationId()
+        public static int GetUniqueObjectId()
         {
-            return LocationDatabase.GetUniqueId();
+            return LocationDatabase.GetUniqueObjectId();
         }
 
-        // called automatically when creating a new item
+        public static T Get<T>(int objectId) where T : ILocation
+        {
+            var collection = LocationDatabase.Locations.Values.ToArray();
+            foreach (var item in collection)
+            {
+                return (T)LocationDatabase.Locations.Values.SingleOrDefault(i => i.ObjectId == objectId);
+            }
+
+            return default;
+        }
+
+        // called automatically when creating a new location
         public static void AddLocation(ILocation location)
         {
             if (!LocationDatabase.Locations.ContainsKey(location.ObjectId))
@@ -24,40 +34,7 @@ namespace NullRPG.Managers
             }
         }
 
-        public static string GetLocationName<T>() where T : ILocation
-        {
-            return LocationDatabase.Locations.OfType<T>().SingleOrDefault().Name;
-        }
 
-        public static ILocation[] GetAreaLocations(IArea area)
-        {
-            return AreaManager.GetAreaByObjectId<IArea>(area.ObjectId).Locations.Values.ToArray();
-        }
-
-        public static T GetLocationByObjectId<T>(int objectId) where T : ILocation
-        {
-            var collection = LocationDatabase.Locations.Values.ToArray();
-            foreach (var item in collection)
-            {
-                return (T)LocationDatabase.Locations.Values.SingleOrDefault(i => i.ObjectId == objectId);
-            }
-            return default;
-        }
-
-        public static T[] GetAllLocations<T>() where T : ILocation
-        {
-            var collection = LocationDatabase.Locations.Values.ToArray().OfType<T>();
-            return collection.ToArray();
-        }
-
-        public static ColoredString GetLocationName<T>(int objectId) where T : ILocation
-        {
-            var location = GetLocationByObjectId<ILocation>(objectId);
-
-            ColoredString locName = new ColoredString(location.Name);
-
-            return locName;
-        }
 
         public static class LocationDatabase
         {
@@ -65,7 +42,7 @@ namespace NullRPG.Managers
 
             private static int _currentId;
 
-            public static int GetUniqueId()
+            public static int GetUniqueObjectId()
             {
                 return _currentId++;
             }

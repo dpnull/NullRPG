@@ -2,6 +2,6 @@
 {
     public interface IIndexable
     {
-        int ObjectId { get; set; }
+        int ObjectId { get; }
     }
 }

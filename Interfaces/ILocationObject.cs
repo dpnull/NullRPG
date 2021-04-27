@@ -8,9 +8,10 @@ namespace NullRPG.Interfaces
 {
     public interface ILocationObject
     {
-        string Name { get; set; }
-        int ObjectId { get; set; }
-        List<IItem> Items { get; set; }
-        void OnAction();
+        int ObjectId { get; }
+        string Name { get; }
+
+        bool HasComponent<T>();
+        T GetComponent<T>();
     }
 }

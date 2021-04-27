@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using NullRPG.Draw;
 using NullRPG.Extensions;
-using NullRPG.GameObjects.Components.Entity;
-using NullRPG.GameObjects.Components.Item;
-using NullRPG.GameObjects.Entity;
 using NullRPG.Input;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
@@ -34,7 +31,7 @@ namespace NullRPG.Windows
             {
                 if (info.IsKeyPressed(keybinding.Key))
                 {
-                    EntityManager.ChangeEntityPosition(Game.GameSession.Player, EntityManager.PositionTypes.Area, keybinding.ObjectId);
+                    EntityManager.ChangeEntityPosition(EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId), Enums.PositionTypes.Area, keybinding.ObjectId);
                     MessageManager.AddColoredMessage(new ColoredString("Pressed"));
                     this.FullTransition(UserInterfaceManager.Get<GameWindow>());
                     return true;
@@ -60,9 +57,9 @@ namespace NullRPG.Windows
         {
             this.DrawHeader(0, "Travel to an area...", DefaultForeground, DefaultBackground);
 
-            var world = EntityManager.GetEntityWorld(EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId));
-            var areas = AreaManager.GetWorldAreas(world);
-
+            var world = WorldManager.GetWorld<IWorld>(EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId)
+                .GetComponent<EntityComponents.Position>().World.ObjectId);
+            var areas = world.Areas.Values;
             List<IIndexable> bindable = new();
             foreach(var area in areas)
             {

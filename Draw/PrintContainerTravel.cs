@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using NullRPG.GameObjects.Components.Item;
 using NullRPG.Input;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
@@ -22,7 +21,7 @@ namespace NullRPG.Draw
         private void CreateTravel(IWorld world, IIndexedKeybinding[] keybindings)
         {
             int _index = 0;
-            var areas = AreaManager.GetWorldAreas(world);
+            var areas = WorldManager.GetWorldAreas<IArea>(world);
 
             foreach(var area in areas)
             {
