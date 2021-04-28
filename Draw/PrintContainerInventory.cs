@@ -51,7 +51,7 @@ namespace NullRPG.Draw
 
 
                 // Highlight equipped items
-                foreach (var equippedItem in EntityManager.GetEquippedItems<IItem, IEntity>(EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId)))
+                foreach (var equippedItem in EntityManager.GetEquippedItems(EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId)))
                 {
                     if (equippedItem.ObjectId == slotItem.ObjectId)
                     {

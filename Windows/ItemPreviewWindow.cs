@@ -69,7 +69,7 @@ namespace NullRPG.Windows
                     DrawArmorComponent(item, itemData);
                     //DrawItemTypeComponent(item, itemData);
 
-                    ColoredString value = new ColoredString($"Value: {item.GetComponent<ItemComponents.Value>().BaseValue}");
+                    ColoredString value = new ColoredString($"Value: {item.GetComponent<ItemComponents.BaseItemComponent>().Value}");
                     itemData.Add(value);
 
                     int index = 0;

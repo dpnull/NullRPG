@@ -61,17 +61,17 @@ namespace NullRPG.Managers
             return entity;
         }
 
-        public static T[] GetEquippedItems<T, U>(U entity) where T : IItem where U : IEntity
+        public static IItem[] GetEquippedItems<T>(T entity) where T : IEntity
         {
             var equipment = entity.GetComponent<EntityComponents.Equipment>();
 
-            return (T[])equipment.GetEquippedSlotItems().ToArray().OfType<T>();
+            return equipment.GetEquippedSlotItems().ToArray();
         }
 
         public static void EquipItem<T>(T entity, int itemObjectId) where T : IEntity
         {
             var item = ItemManager.Get<IItem>(itemObjectId);
-            var equipped = GetEquippedItems<IItem, IEntity>(entity);
+            var equipped = GetEquippedItems(entity);
             var equippableComponent = item.GetComponent<ItemComponents.EquippableComponent>();
             if (item is not null)
             {

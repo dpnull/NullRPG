@@ -1,5 +1,6 @@
 ﻿using NullRPG.GameObjects.Abstracts;
 using NullRPG.GameObjects.Inventory;
+using NullRPG.GameObjects.Items;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
 using System;
@@ -30,6 +31,8 @@ namespace NullRPG.GameObjects
 
             var inventory = new EntityComponents.Inventory(new EntityInventory());
             AddComponent(inventory);
+
+            InventoryManager.AddToInventory(this, Weapon.Longsword());
 
             var equipment = new EntityComponents.Equipment();
             AddComponent(equipment);

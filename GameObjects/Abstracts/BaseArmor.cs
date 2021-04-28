@@ -10,7 +10,7 @@ namespace NullRPG.GameObjects.Abstracts
     {
         public Enums.ItemCategories ItemCategory { get; } = Enums.ItemCategories.Armor;
 
-        public BaseArmor(string name, int baseDefense) : base(name, isStackable: false)
+        public BaseArmor(string name, int baseDefense, int value, int level) : base(name, isStackable: false, value, level)
         {
             var defenseComponent = new ItemComponents.Defense();
             defenseComponent.ModifyBaseDefense(baseDefense);

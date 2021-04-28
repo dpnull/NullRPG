@@ -92,7 +92,7 @@ namespace NullRPG.Windows
                             Constants.Windows.PreviewX, Constants.Windows.PreviewY + Constants.Windows.ItemPreviewHeight - 1);
 
                         // shouldn't be cast
-                        foreach (var equipped in EntityManager.GetEquippedItems<IItem, IEntity>((IEntity)Game.GameSession.Player))
+                        foreach (var equipped in EntityManager.GetEquippedItems(Game.GameSession.Player))
                         {
                             if (equipped.ObjectId == item.ObjectId)
                             {

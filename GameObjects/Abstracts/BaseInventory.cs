@@ -15,8 +15,10 @@ namespace NullRPG.GameObjects.Abstracts
 
         public BaseInventory()
         {
-            ObjectId = InventoryManager.GetUniqueEntityInventoryId();
             InventoryManager.AddInventory(this);
+            ObjectId = InventoryManager.GetUniqueEntityInventoryId();
+
+            InventoryManager.CreateDefaultInventory(this);
         }
     }
 }

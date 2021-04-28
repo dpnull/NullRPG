@@ -75,9 +75,10 @@ namespace NullRPG
             }
         }
 
-        public class Value : IComponent
+        public class BaseItemComponent : IComponent
         {
-            public int BaseValue { get; set; }
+            public int Value { get; set; }
+            public int ItemLevel { get; set; }
         }
     }
 

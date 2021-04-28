@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NullRPG.GameObjects.Items
 {
-    public class Armor : BaseAArmor
+    public class Armor : BaseArmor
     {
 
     }
