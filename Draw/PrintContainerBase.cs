@@ -1,16 +1,16 @@
 ﻿using NullRPG.Input;
 using NullRPG.Interfaces;
 using SadConsole;
+using System;
 using System.Collections.Generic;
 
 namespace NullRPG.Draw
 {
     public abstract class PrintContainerBase
     {
+        // TODO: Turn XY into a Tuple
         public int XOffset { get; set; } = 0;
         public int YOffset { get; set; } = 0;
-
-        // X offsets
         public int NameOffset { get; set; } = 0;
 
         public int IndexOffset { get; set; } = 0;

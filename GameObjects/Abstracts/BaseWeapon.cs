@@ -14,6 +14,9 @@ namespace NullRPG.GameObjects.Abstracts
             var damageComponent = new ItemComponents.Damage();
             damageComponent.ModifyDamage(minDamage, maxDamage);
 
+            var equippableComponent = new ItemComponents.EquippableComponent(Enums.EquippableTypes.Hands);
+
+            AddComponent(equippableComponent);
             AddComponent(damageComponent);
         }
     }

@@ -83,25 +83,21 @@ namespace NullRPG.Windows
             if (UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId != -1)
             {
                 var item = ItemManager.Get<IItem>(UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId);
-                if (item.HasComponent<ItemComponents.ItemType>())
+                if (item.HasComponent<ItemComponents.EquippableComponent>())
                 {
-                    if (item.HasComponent<ItemComponents.EquippableComponent>())
-                    {
-                        var equipBtn = new Input.ButtonString(new ColoredString("Equip"), Microsoft.Xna.Framework.Input.Keys.E,
-                            Constants.Theme.ButtonKeyColor, DefaultForeground,
-                            Constants.Windows.PreviewX, Constants.Windows.PreviewY + Constants.Windows.ItemPreviewHeight - 1);
+                    var equipBtn = new Input.ButtonString(new ColoredString("Equip"), Microsoft.Xna.Framework.Input.Keys.E,
+                        Constants.Theme.ButtonKeyColor, DefaultForeground,
+                        Constants.Windows.PreviewX, Constants.Windows.PreviewY + Constants.Windows.ItemPreviewHeight - 1);
 
-                        // shouldn't be cast
-                        foreach (var equipped in EntityManager.GetEquippedItems(Game.GameSession.Player))
+                    foreach (var equipped in EntityManager.GetEquippedItems(Game.GameSession.Player))
+                    {
+                        if (equipped.ObjectId == item.ObjectId)
                         {
-                            if (equipped.ObjectId == item.ObjectId)
-                            {
-                                equipBtn.KeyColor = Color.DarkOliveGreen;
-                                equipBtn.NameColor = Color.Gray; // INVESTIAGE
-                            }
+                            equipBtn.KeyColor = Color.DarkOliveGreen;
+                            equipBtn.NameColor = Color.Gray; // INVESTIAGE
                         }
-                        equipBtn.Draw(this);
                     }
+                    equipBtn.Draw(this);
                 }
             }
         }
