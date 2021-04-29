@@ -72,7 +72,6 @@ namespace NullRPG.Managers
         {
             var item = ItemManager.Get<IItem>(itemObjectId);
             var equipped = GetEquippedItems(entity);
-            var equippableComponent = item.GetComponent<ItemComponents.EquippableComponent>();
             if (item is not null)
             {
                 if (item.HasComponent<ItemComponents.EquippableComponent>())

@@ -43,10 +43,11 @@ namespace NullRPG.Windows.Navigation
         private void RefractoredDrawKeybindings()
         {
             Buttons = new List<ButtonString>();
-            int _x = 2;
+            int _xSpacing = 2;
+            int _x = 0;
             int _y = 1;
 
-            this.DrawBorders(Width, Height, "+", "|", "-", DefaultForeground);
+            this.DrawSeparator(0, "-", DefaultForeground);
 
             for (int i = 0; i < Keybindings.Length; i++)
             {
@@ -56,15 +57,19 @@ namespace NullRPG.Windows.Navigation
                 }
 
                 var btn = new ButtonString(new ColoredString(Keybindings[i].Name.ToString()), Keybindings[i].Key, Color.Green, DefaultForeground, _x, _y);
+
                 Buttons.Add(btn);
 
-                _y++;
+                _x += btn.GetButtonToString().Count + _xSpacing;
             }
 
+            
             foreach (var btn in Buttons)
             {
                 btn.Draw(this);
             }
+            
+
         }
 
         public void Initialize()

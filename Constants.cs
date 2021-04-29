@@ -14,19 +14,19 @@ namespace NullRPG
         {
             public static class Keybindings
             {
-                public const int GeneralWidth = 20;
-                public const int GeneralHeight = KeybindingsHeight;
-                public const int GeneralX = KeybindingsWidth - GeneralWidth;
-                public const int GeneralY = 0;
+                public const int GeneralWidth = KeybindingsWidth;
+                public const int GeneralHeight = 2;
+                public const int GeneralX = 0;
+                public const int GeneralY = KeybindingsHeight - GeneralHeight;
 
                 public const int LocationWidth = 30;
                 public const int LocationHeight = KeybindingsHeight;
-                public const int LocationX = KeybindingsWidth - GeneralWidth - LocationWidth;
+                public const int LocationX = 0;
                 public const int LocationY = 0;
             }
 
             public const int KeybindingsWidth = GameWidth;
-            public const int KeybindingsHeight = 8;
+            public const int KeybindingsHeight = 6;
             public const int KeybindingsX = 0;
             public const int KeybindingsY = GameHeight - KeybindingsHeight;
 
