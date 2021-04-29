@@ -29,7 +29,7 @@ namespace NullRPG.GameObjects
 
             AddComponent(stats);
 
-            var inventory = new EntityComponents.Inventory(new EntityInventory());
+            var inventory = new EntityComponents.Inventory();
             AddComponent(inventory);
 
             InventoryManager.AddToInventory(this, Weapon.Longsword());

@@ -14,8 +14,7 @@ namespace NullRPG.GameObjects.World.Overworld
         public Overworld() : base("Overworld")
         {
             WorldManager.AddAreaToWorld<IWorld, IArea>(this, OverworldAreas.Town());
+            WorldManager.AddAreaToWorld<IWorld, IArea>(this, OverworldAreas.Outskirts());
         }
-
-
     }
 }

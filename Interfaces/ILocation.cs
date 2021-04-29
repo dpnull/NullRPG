@@ -13,5 +13,7 @@ namespace NullRPG.Interfaces
         int Level { get; }
 
         List<IComponent> Components { get; set; }
+        T GetComponent<T>();
+        bool HasComponent<T>();
     }
 }

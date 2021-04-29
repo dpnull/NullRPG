@@ -43,19 +43,19 @@ namespace NullRPG.Windows
             var player = EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId);
             var location = player.GetComponent<EntityComponents.Position>().Location;
             var area = player.GetComponent<EntityComponents.Position>().Area;
-            var world = player.GetComponent<EntityComponents.Position>().World;
-            string choppable = "None";
-            /*
-            if (ComponentManager.ContainsLocationComponent<ChoppableComponent>(location.ObjectId))
-            {
-                choppable = location.GetComponent<ChoppableComponent>().TreeObject.Name;
-            }
-            */
-            string[] printable = new string[]
+            string locObject;
+
+            List<string> printable = new List<string>
             {
                 $"Current location: {location.Name}",
                 $"Current area: {area.Name}",
             };
+
+            if (location.HasComponent<LocationComponents.LocationObjectComponent>())
+            {
+                locObject = location.GetComponent<LocationComponents.LocationObjectComponent>().LocationObjects.FirstOrDefault().Name;
+                printable.Add(locObject);
+            }
 
             int _y = 0;
             foreach(var p in printable)

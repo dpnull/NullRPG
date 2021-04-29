@@ -1,4 +1,5 @@
 ﻿using NullRPG.GameObjects.Abstracts;
+using NullRPG.GameObjects.Items;
 using NullRPG.GameObjects.World;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
@@ -15,6 +16,14 @@ namespace NullRPG.GameObjects.LocationObjects
         public LocationObject(string name) : base(name)
         {
             LocationObjectManager.AddLocationObject(this);
+
+        }
+
+        public static LocationObject TreeBirchnut()
+        {
+            var birchnut = new LocationObject("Birchnut");
+            birchnut.AddItem(Miscellaneous.Birchwood());
+            return birchnut;
         }
     }
 }

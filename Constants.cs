@@ -28,7 +28,7 @@ namespace NullRPG
             public const int KeybindingsWidth = GameWidth;
             public const int KeybindingsHeight = 6;
             public const int KeybindingsX = 0;
-            public const int KeybindingsY = GameHeight - KeybindingsHeight;
+            public const int KeybindingsY = GameHeight - KeybindingsHeight - MessageHeight;
 
             public const int GameWindowWidth = GameWidth;
             public const int GameWindowHeight = GameHeight - 1;
@@ -54,7 +54,7 @@ namespace NullRPG
             public const int MessageWidth = GameWidth;
             public const int MessageHeight = 2;
             public const int MessageX = 0;
-            public const int MessageY = GameHeight - KeybindingsHeight - MessageHeight;
+            public const int MessageY = GameHeight - MessageHeight;
 
             public const int StatWidth = GameWidth;
             public const int StatHeight = 3;

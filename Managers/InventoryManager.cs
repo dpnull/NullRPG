@@ -43,7 +43,7 @@ namespace NullRPG.Managers
         /// <returns></returns>
         public static IEntityInventory GetEntityInventory<T>(T entity) where T : IComponentSystemEntity
         {
-            if (entity != null)
+            if (entity.HasComponent<EntityComponents.Inventory>())
             {
                 var inventory = entity.GetComponent<EntityComponents.Inventory>();
                 return inventory.EntityInventory;
@@ -120,36 +120,40 @@ namespace NullRPG.Managers
 
         public static void AddToInventory<T>(T entity, IItem item) where T : IComponentSystemEntity
         {
-            var inventory = GetEntityInventory(entity);
-            var freeSlot = inventory.Slots.FirstOrDefault(f => !f.Value.Item.Any());
+            if (entity.HasComponent<EntityComponents.Inventory>())
+            {
+                var inventory = GetEntityInventory(entity);
+                var freeSlot = inventory.Slots.FirstOrDefault(f => !f.Value.Item.Any());
 
-            // if true, get the first available slot.
-            if (!item.IsStackable)
-            {
-                inventory.Slots[freeSlot.Key].Item.Add(item);
-            }
-            else
-            {
-                // get the first slot with matching item name to passed item in the item list and add it.
-                if (inventory.Slots.Values.Any(i => i.Item.Any(j => j.Name.ToString() == item.Name.ToString())))
+                // if true, get the first available slot.
+                if (!item.IsStackable)
                 {
-                    foreach (var slot in inventory.Slots)
-                    {
-                        if (slot.Value.Item.Any(i => i.Name.ToString() == item.Name.ToString()))
-                        {
-                            slot.Value.Item.Add(item);
-                        }
-                    }
+                    inventory.Slots[freeSlot.Key].Item.Add(item);
                 }
                 else
                 {
-                    // If no existing non-unique item in the slots exists, use up the next available slot.
-                    if (freeSlot.Value.Item.All(i => i.Name.ToString() != item.Name.ToString()))
+                    // get the first slot with matching item name to passed item in the item list and add it.
+                    if (inventory.Slots.Values.Any(i => i.Item.Any(j => j.Name.ToString() == item.Name.ToString())))
                     {
-                        inventory.Slots[freeSlot.Key].Item.Add(item);
+                        foreach (var slot in inventory.Slots)
+                        {
+                            if (slot.Value.Item.Any(i => i.Name.ToString() == item.Name.ToString()))
+                            {
+                                slot.Value.Item.Add(item);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // If no existing non-unique item in the slots exists, use up the next available slot.
+                        if (freeSlot.Value.Item.All(i => i.Name.ToString() != item.Name.ToString()))
+                        {
+                            inventory.Slots[freeSlot.Key].Item.Add(item);
+                        }
                     }
                 }
             }
+
         }
 
         public static class EntityInventoryDatabase

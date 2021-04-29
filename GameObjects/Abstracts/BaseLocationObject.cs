@@ -13,9 +13,16 @@ namespace NullRPG.GameObjects.Abstracts
     {
         public BaseLocationObject(string name) : base(name, LocationObjectManager.GetUniqueLocationObjectId())
         {
-            var inventory = new EntityComponents.Inventory(new EntityInventory());
+            LocationObjectManager.AddLocationObject(this);
+
+            var inventory = new LocationComponents.LocationObjectComponent();
 
             AddComponent(inventory);
+        }
+
+        public void AddItem(IItem item)
+        {
+            InventoryManager.AddToInventory(this, item);
         }
     }
 }

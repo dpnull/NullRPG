@@ -20,7 +20,17 @@ namespace NullRPG.GameObjects.World.Overworld
         {
             var town = new OverworldAreas("Town");
             AreaManager.AddLocationToArea<IArea, ILocation>(town, OverworldLocations.Home());
+            AreaManager.AddLocationToArea<IArea, ILocation>(town, OverworldLocations.Blacksmith());
+            AreaManager.AddLocationToArea<IArea, ILocation>(town, OverworldLocations.Herbalist());
             return town;
+        }
+
+        public static OverworldAreas Outskirts()
+        {
+            var outskirts = new OverworldAreas("Outskirts");
+            AreaManager.AddLocationToArea<IArea, ILocation>(outskirts, OverworldLocations.Cave());
+            AreaManager.AddLocationToArea<IArea, ILocation>(outskirts, OverworldLocations.Forest());
+            return outskirts;
         }
     }
 }

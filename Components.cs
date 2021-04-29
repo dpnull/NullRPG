@@ -1,5 +1,6 @@
 ﻿using NullRPG.GameObjects.Abstracts;
 using NullRPG.GameObjects.Inventory;
+using NullRPG.GameObjects.LocationObjects;
 using NullRPG.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -88,9 +89,9 @@ namespace NullRPG
         {
             public EntityInventory EntityInventory { get; private set; }
 
-            public Inventory(IEntityInventory inventory)
+            public Inventory()
             {
-                EntityInventory = (EntityInventory)inventory;
+                EntityInventory = new EntityInventory();
             }
         }
 
@@ -184,9 +185,20 @@ namespace NullRPG
         }
     }
 
-    public class LocationObjectComponents
+    public class LocationComponents
     {
-     
+        public class LocationObjectComponent : IComponent
+        {
+            public List<ILocationObject> LocationObjects { get; set; } = new List<ILocationObject>();
+
+            public void AddObject(ILocationObject locationObject)
+            {
+                if (!LocationObjects.Contains(locationObject))
+                {
+                    LocationObjects.Add(locationObject);
+                }
+            }
+        }
     }
 
 }
