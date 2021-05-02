@@ -1,4 +1,5 @@
 ﻿using NullRPG.Interfaces;
+using NullRPG.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,31 +8,39 @@ using System.Threading.Tasks;
 
 namespace NullRPG.GameObjects.Actions
 {
-    public class ActionChop : BaseAction
+    public class ActionChop : BaseLocationAction
     {
-        private ILocation _location;
-        private IEntity _entity;
+        public ILocation Location { get; set; }
+        public IEntity Entity { get; set; }
+
+        private const Enums.ActionTypes ACTION_CHOP = Enums.ActionTypes.Chop;
 
         public ActionChop(ILocation location, IEntity entity) : base()
         {
-
+            Location = location;
+            Entity = entity;
         }
 
-        public override bool CanInteract()
+        public bool CanInteract()
         {
-            if (_location.HasComponent<LocationComponents.LocationObjectComponent>())
+            if (Location.HasComponent<LocationComponents.LocationObjectComponent>())
             {
                 return true;
             }
             return false;
         }
 
-        public override void OnInteract()
+        public void OnInteract()
         {
             if (CanInteract())
             {
-                var obtainable = _location.GetComponent<LocationComponents.LocationObjectComponent>().
-                    LocationObjects///////////TODO its a list
+                if (HasActionType(Location, ACTION_CHOP))
+                {
+                    var locObject = GetLocationObject(Location, ACTION_CHOP);
+                    var locObjectInventory = InventoryManager.GetEntityInventory((IComponentSystemEntity)locObject);
+                    var obtainable = ItemManager.Get<IItem>(locObjectInventory.Slots.Values.FirstOrDefault().Item.FirstOrDefault().ObjectId);
+                    InventoryManager.AddToInventory((IComponentSystemEntity)Entity, obtainable);
+                }
             }
         }
     }

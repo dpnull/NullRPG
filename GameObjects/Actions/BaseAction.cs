@@ -9,22 +9,10 @@ namespace NullRPG.GameObjects.Actions
 {
     public abstract class BaseAction : IAction
     {
-        public BaseAction()
-        {
+        public BaseAction() { }
+        public abstract void OnInteract();
+        public abstract bool CanInteract();
+        public abstract bool HasActionType();
 
-        }
-
-        public virtual void OnInteract()
-        {
-
-        }
-
-        public virtual bool CanInteract
-        {
-            get
-            {
-
-            }
-        }
     }
 }

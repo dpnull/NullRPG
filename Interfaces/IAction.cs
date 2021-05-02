@@ -9,6 +9,6 @@ namespace NullRPG.Interfaces
     public interface IAction
     {
         void OnInteract();
-        bool CanInteract { get; }
+        bool CanInteract();
     }
 }

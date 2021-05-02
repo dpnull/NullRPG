@@ -28,6 +28,12 @@ namespace NullRPG
             Material,
         }
 
+        public enum ActionTypes
+        {
+            Chop,
+            Mine
+        }
+
         public enum WeaponTypes
         {
             Sword,

@@ -10,6 +10,7 @@ namespace NullRPG.Interfaces
     {
         int ObjectId { get; }
         string Name { get; }
+        List<Enums.ActionTypes> ActionTypes { get; }
 
         bool HasComponent<T>();
         T GetComponent<T>();

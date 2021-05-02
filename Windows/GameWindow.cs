@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using NullRPG.Extensions;
+using NullRPG.GameObjects.Actions;
 using NullRPG.Input;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
@@ -65,6 +66,12 @@ namespace NullRPG.Windows
             {
                 OpenTravelWindow();
                 return true;
+            }
+
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.U))
+            {
+                var chopAction = new ActionChop(Game.GameSession.Player.GetComponent<EntityComponents.Position>().Location, Game.GameSession.Player);
+                chopAction.OnInteract();
             }
 
             return false;

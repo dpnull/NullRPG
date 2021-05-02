@@ -13,7 +13,7 @@ namespace NullRPG.GameObjects.LocationObjects
 {
     public class LocationObject : BaseLocationObject
     {
-        public LocationObject(string name) : base(name)
+        public LocationObject(string name, List<Enums.ActionTypes> actionTypes) : base(name, actionTypes)
         {
             LocationObjectManager.AddLocationObject(this);
 
@@ -21,7 +21,7 @@ namespace NullRPG.GameObjects.LocationObjects
 
         public static LocationObject TreeBirchnut()
         {
-            var birchnut = new LocationObject("Birchnut");
+            var birchnut = new LocationObject("Birchnut", new List<Enums.ActionTypes> { Enums.ActionTypes.Chop });
             birchnut.AddItem(Miscellaneous.Birchwood());
             return birchnut;
         }

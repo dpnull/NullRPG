@@ -15,8 +15,9 @@ namespace NullRPG.GameObjects.Abstracts
 
         public BaseInventory()
         {
-            InventoryManager.AddInventory(this);
             ObjectId = InventoryManager.GetUniqueEntityInventoryId();
+            InventoryManager.AddInventory(this);
+            
 
             Slots = new Dictionary<int, ISlot>();
 
