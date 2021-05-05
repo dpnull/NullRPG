@@ -1,5 +1,8 @@
 ﻿using NullRPG.Interfaces;
 using NullRPG.Windows;
+using NullRPG.Windows.Actions;
+using NullRPG.Windows.Editor;
+using NullRPG.Windows.Editor.ItemEditor;
 using NullRPG.Windows.Navigation;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,6 +70,24 @@ namespace NullRPG.Managers
             };
             Add(travelWindow);
 
+            var chopWindow = new ChopWindow(Constants.Windows.Actions.ChopWidth, Constants.Windows.Actions.ChopHeight)
+            {
+                IsVisible = false,
+                IsFocused = false
+            };
+            Add(chopWindow);
+
+            // temporary
+
+            var editorWindow = new MainEditorWindow(Constants.GameWidth, Constants.GameHeight);
+            Add(editorWindow);
+
+            var itemCreateWindow = new ItemCreateWindow(Constants.GameWidth, Constants.GameHeight)
+            {
+                IsVisible = false,
+                IsFocused = false
+            };
+            Add(itemCreateWindow);
 
             IsInitialized = true;
         }

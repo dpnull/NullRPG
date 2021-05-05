@@ -3,6 +3,7 @@ using NullRPG.Extensions;
 using NullRPG.Input;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
+using NullRPG.Windows.Editor;
 using SadConsole;
 using SadConsole.Input;
 using System;
@@ -15,6 +16,7 @@ namespace NullRPG.Windows
     {
         private ButtonString _playBtn;
         private ButtonString _quitBtn;
+        private ButtonString _editorBtn;
 
         public Console Console
         {
@@ -46,6 +48,11 @@ namespace NullRPG.Windows
             {
                 Start();
                 return true;
+            }
+
+            if (info.IsKeyPressed(_editorBtn.Key))
+            {
+                Editor();
             }
 
             return false;
@@ -113,9 +120,12 @@ namespace NullRPG.Windows
             _playBtn = new ButtonString(new ColoredString("Play"), Microsoft.Xna.Framework.Input.Keys.D1, Color.Green, Color.White, 0, 0, true);
             _playBtn.Draw(this.GetWindowXCenter() - (_playBtn.GetLength() / 2), this.GetWindowYCenter() + 8, this);
 
-            _quitBtn = new ButtonString(new ColoredString("Quit"), Microsoft.Xna.Framework.Input.Keys.D2, Color.Green, DefaultForeground, 0, 0, true);
+            _editorBtn = new ButtonString(new ColoredString("Editor"), Microsoft.Xna.Framework.Input.Keys.D2, Color.Green, Color.White, 0, 0, true);
+            _editorBtn.Draw(this.GetWindowXCenter() - (_playBtn.GetLength() / 2), this.GetWindowYCenter() + 9, this);
+
+            _quitBtn = new ButtonString(new ColoredString("Quit"), Microsoft.Xna.Framework.Input.Keys.D3, Color.Green, DefaultForeground, 0, 0, true);
             _quitBtn.DrawNumericOnly(true);
-            _quitBtn.Draw(this.GetWindowXCenter() - (_quitBtn.GetLength() / 2), this.GetWindowYCenter() + 9, this);
+            _quitBtn.Draw(this.GetWindowXCenter() - (_quitBtn.GetLength() / 2), this.GetWindowYCenter() + 10, this);
         }
 
         public static MainMenuWindow Show()
@@ -161,6 +171,12 @@ namespace NullRPG.Windows
             UserInterfaceManager.Initialize();
 
             this.FullTransition(UserInterfaceManager.Get<GameWindow>());
+        }
+
+        private void Editor()
+        {
+            UserInterfaceManager.Initialize();
+            this.FullTransition(UserInterfaceManager.Get<MainEditorWindow>());
         }
     }
 }

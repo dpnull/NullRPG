@@ -34,6 +34,11 @@ namespace NullRPG.Managers
             return default;
         }
 
+        public static List<T> GetAll<T>() where T : IItem
+        {
+            return ItemDatabase.Items.Values.OfType<T>().ToList();
+        }
+
         public static class ItemDatabase
         {
             public static readonly Dictionary<int, IItem> Items = new Dictionary<int, IItem>();

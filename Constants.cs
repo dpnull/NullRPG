@@ -25,6 +25,12 @@ namespace NullRPG
                 public const int LocationY = 0;
             }
 
+            public static class Actions
+            {
+                public const int ChopWidth = GameWidth;
+                public const int ChopHeight = GameHeight - KeybindingsHeight - MessageHeight;
+            }
+
             public const int KeybindingsWidth = GameWidth;
             public const int KeybindingsHeight = 6;
             public const int KeybindingsX = 0;
