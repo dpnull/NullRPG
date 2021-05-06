@@ -10,9 +10,9 @@ namespace NullRPG.GameObjects.Abstracts
 {
     public class BaseEntity : ComponentSystemEntity, IEntity
     {
-        public BaseEntity(string name) : base(name, EntityManager.GetUniqueId())
+        public BaseEntity(string name) : base(name)
         {
-            EntityManager.Add(this);
+            ECSManager.AddEntity(this);
         }
     }
 }

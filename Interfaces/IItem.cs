@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace NullRPG.Interfaces
 {
-    public interface IItem
+    public interface IItem : IComponentSystemEntity
     {
-        string Name { get; }
-        int ObjectId { get; }
+        // string Name { get; }
+        // int ObjectId { get; }
         bool IsStackable { get; }
 
-        T GetComponent<T>();
-        bool HasComponent<T>();
     }
 }

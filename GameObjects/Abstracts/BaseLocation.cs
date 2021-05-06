@@ -12,9 +12,9 @@ namespace NullRPG.GameObjects.World
     public abstract class BaseLocation : ComponentSystemEntity, ILocation
     {
         public int Level { get; set; }
-        public BaseLocation(string name) : base(name, LocationManager.GetUniqueObjectId())
+        public BaseLocation(string name) : base(name)
         {
-            LocationManager.AddLocation(this);
+            ECSManager.AddEntity(this);
         }
     }
 }

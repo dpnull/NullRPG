@@ -9,19 +9,8 @@ namespace NullRPG.Managers
 {
     public class WorldManager
     {
-        public static int GetUniqueId()
-        {
-            return WorldDatabase.GetUniqueId();
-        }
 
-        public static void AddWorld<T>(T world) where T : IWorld
-        {
-            if (!WorldDatabase.Worlds.ContainsKey(world.ObjectId))
-            {
-                WorldDatabase.Worlds.Add(world.ObjectId, world);
-            }
-        }
-
+        // To check
         public static void AddAreaToWorld<T, U>(T world, U area) where T : IWorld where U : IArea
         {
             var collection = GetWorldAreas<U>(world);
@@ -38,18 +27,18 @@ namespace NullRPG.Managers
 
         public static T GetWorld<T>(int objectId) where T : IWorld
         {
-            var collection = WorldDatabase.Worlds.Values.ToArray();
+            var collection = ECSManager.Get<T>();
             foreach (var item in collection)
             {
-                return (T)WorldDatabase.Worlds.Values.SingleOrDefault(w => w.ObjectId == objectId);
+                return collection.SingleOrDefault(w => w.ObjectId == objectId);
             }
 
             return default;
         }
 
-        public static IWorld[] GetWorlds()
+        public static T[] GetWorlds<T>() where T : IWorld
         {
-            return WorldDatabase.Worlds.Values.ToArray();
+            return ECSManager.Get<T>();
         }
 
         private static class WorldDatabase

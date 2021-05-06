@@ -12,9 +12,9 @@ namespace NullRPG.GameObjects.Abstracts
     {
         public Dictionary<int, ILocation> Locations { get; set; } = new Dictionary<int, ILocation>();
 
-        public BaseArea(string name) : base(name, AreaManager.GetUniqueAreaId())
+        public BaseArea(string name) : base(name)
         {
-            AreaManager.AddArea(this);
+            ECSManager.AddEntity(this);
         }
     }
 }

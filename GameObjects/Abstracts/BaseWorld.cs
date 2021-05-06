@@ -11,9 +11,9 @@ namespace NullRPG.GameObjects.Abstracts
     public abstract class BaseWorld : ComponentSystemEntity, IWorld
     {
         public Dictionary<int, IArea> Areas { get; set; } = new Dictionary<int, IArea>();
-        public BaseWorld(string name) : base(name, WorldManager.GetUniqueId())
+        public BaseWorld(string name) : base(name)
         {
-            WorldManager.AddWorld(this);
+            ECSManager.AddEntity(this);
         }
     }
 }

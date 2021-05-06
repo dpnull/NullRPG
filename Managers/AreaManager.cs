@@ -9,18 +9,13 @@ namespace NullRPG.Managers
 {
     public class AreaManager
     {
-        public static int GetUniqueAreaId()
-        {
-            return AreaDatabase.GetUniqueId();
-        }
-
 
         public static T Get<T>(int objectId) where T : IArea
         {
-            var collection = AreaDatabase.Areas.Values.ToArray();
+            var collection = ECSManager.Get<T>();
             foreach (var item in collection)
             {
-                return (T)AreaDatabase.Areas.Values.SingleOrDefault(i => i.ObjectId == objectId);
+                return collection.SingleOrDefault(i => i.ObjectId == objectId);
             }
 
             return default;
@@ -38,26 +33,6 @@ namespace NullRPG.Managers
         public static ILocation[] GetAreaLocations<T>(IArea area) where T : ILocation
         {
             return AreaManager.Get<IArea>(area.ObjectId).Locations.Values.ToArray();
-        }
-
-        public static void AddArea(IArea area)
-        {
-            if (!AreaDatabase.Areas.ContainsKey(area.ObjectId))
-            {
-                AreaDatabase.Areas.Add(area.ObjectId, area);
-            }
-        }
-
-        private static class AreaDatabase
-        {
-            public static readonly Dictionary<int, IArea> Areas = new Dictionary<int, IArea>();
-
-            private static int _currentId;
-
-            public static int GetUniqueId()
-            {
-                return _currentId++;
-            }
         }
     }
 }

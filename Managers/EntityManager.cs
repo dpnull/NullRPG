@@ -32,10 +32,10 @@ namespace NullRPG.Managers
         /// <returns></returns>
         public static T Get<T>(int objectId) where T : IEntity
         {
-            var collection = EntityDatabase.Entities.ToArray();
+            var collection = ECSManager.Get<T>();
             foreach (var entity in collection)
             {
-                return (T)EntityDatabase.Entities.Values.SingleOrDefault(e => e.ObjectId == objectId);
+                return collection.SingleOrDefault(e => e.ObjectId == objectId);
             }
 
             return default;

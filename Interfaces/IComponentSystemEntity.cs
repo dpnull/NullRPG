@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NullRPG.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +7,12 @@ using System.Threading.Tasks;
 
 namespace NullRPG
 {
-    public interface IComponentSystemEntity
+    /*
+    Interface re-implementation must occur for this interface.
+    */
+    public interface IComponentSystemEntity : IIndexable
     {
+
         string Name { get; set; }
         int ObjectId { get; }
         int TotalComponents { get; }

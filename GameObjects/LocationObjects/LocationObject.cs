@@ -15,7 +15,7 @@ namespace NullRPG.GameObjects.LocationObjects
     {
         public LocationObject(string name, List<Enums.ActionTypes> actionTypes) : base(name, actionTypes)
         {
-            LocationObjectManager.AddLocationObject(this);
+            ECSManager.AddEntity(this);
 
         }
 

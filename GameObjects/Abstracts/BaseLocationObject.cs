@@ -12,11 +12,11 @@ namespace NullRPG.GameObjects.Abstracts
     public abstract class BaseLocationObject : ComponentSystemEntity, ILocationObject
     {
         public List<Enums.ActionTypes> ActionTypes { get; }
-        public BaseLocationObject(string name, List<Enums.ActionTypes> actionTypes) : base(name, LocationObjectManager.GetUniqueLocationObjectId())
+        public BaseLocationObject(string name, List<Enums.ActionTypes> actionTypes) : base(name)
         {
-            ActionTypes = actionTypes;
+            ECSManager.AddEntity(this);
 
-            LocationObjectManager.AddLocationObject(this);
+            ActionTypes = actionTypes;
 
             var inventory = new EntityComponents.Inventory();
 

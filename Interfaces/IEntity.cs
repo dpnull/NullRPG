@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace NullRPG.Interfaces
 {
-    public interface IEntity
+    public interface IEntity : IComponentSystemEntity
     {
-        int ObjectId { get; }
-        string Name { get; }
-        T GetComponent<T>();
-        bool HasComponent<T>();
     }
 }

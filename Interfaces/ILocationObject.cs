@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace NullRPG.Interfaces
 {
-    public interface ILocationObject
+    public interface ILocationObject : IComponentSystemEntity
     {
-        int ObjectId { get; }
-        string Name { get; }
+        //int ObjectId { get; }
+        //string Name { get; }
         List<Enums.ActionTypes> ActionTypes { get; }
-
-        bool HasComponent<T>();
-        T GetComponent<T>();
     }
 }

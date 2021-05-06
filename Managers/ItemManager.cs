@@ -10,45 +10,21 @@ namespace NullRPG.Managers
 {
     public class ItemManager
     {
-        public static int GetUniqueId()
-        {
-            return ItemDatabase.GetUniqueId();
-        }
-
-        public static void Add<T>(T item) where T : IItem
-        {
-            if (!ItemDatabase.Items.ContainsKey(item.ObjectId))
-            {
-                ItemDatabase.Items.Add(item.ObjectId, item);
-            }
-        }
 
         public static T Get<T>(int objectId) where T : IItem
         {
-            var collection = ItemDatabase.Items.Values.ToArray();
+            var collection = ECSManager.Get<T>();
             foreach (var item in collection)
             {
-                return (T)ItemDatabase.Items.Values.SingleOrDefault(i => i.ObjectId == objectId);
+                return collection.SingleOrDefault(i => i.ObjectId == objectId);
             }
 
             return default;
         }
 
-        public static List<T> GetAll<T>() where T : IItem
+        public static T[] GetAll<T>() where T : IItem
         {
-            return ItemDatabase.Items.Values.OfType<T>().ToList();
-        }
-
-        public static class ItemDatabase
-        {
-            public static readonly Dictionary<int, IItem> Items = new Dictionary<int, IItem>();
-
-            private static int _currentId;
-
-            public static int GetUniqueId()
-            {
-                return _currentId++;
-            }
+            return ECSManager.Get<T>();
         }
     }
 }

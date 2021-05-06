@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NullRPG.Managers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,15 +7,18 @@ using System.Threading.Tasks;
 
 namespace NullRPG
 {
+
     public abstract class ComponentSystemEntity : IComponentSystemEntity
     {
         public string Name { get; set; }
         public int ObjectId { get; }
 
-        public ComponentSystemEntity(string name, int objectId)
+        public ComponentSystemEntity(string name)
         {
+            ObjectId = ECSManager.GetUniqueId();
+            ECSManager.AddEntity(this);
+
             Name = name;
-            ObjectId = objectId;
         }
 
         private int _totalComponents;

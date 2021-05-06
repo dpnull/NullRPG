@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace NullRPG.Interfaces
 {
-    public interface IArea : IIndexable
+    public interface IArea : IComponentSystemEntity
     {
-        int ObjectId { get; }
-        string Name { get; }
+        // int ObjectId { get; }
+        // string Name { get; }
 
         Dictionary<int, ILocation> Locations { get; set; }
     }

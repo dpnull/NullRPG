@@ -11,9 +11,9 @@ namespace NullRPG.GameObjects
     public abstract class BaseItem : ComponentSystemEntity, IItem
     {
         public bool IsStackable { get; }
-        public BaseItem(string name, bool isStackable, int value, int level) : base(name, ItemManager.GetUniqueId())
+        public BaseItem(string name, bool isStackable, int value, int level) : base(name)
         {
-            ItemManager.Add(this);
+            ECSManager.AddEntity(this);
             IsStackable = isStackable;
 
             var baseComponent = new ItemComponents.BaseItemComponent();

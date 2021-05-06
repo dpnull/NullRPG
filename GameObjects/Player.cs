@@ -13,9 +13,8 @@ namespace NullRPG.GameObjects
 {
     public class Player : ComponentSystemEntity, IEntity
     {
-        public Player() : base("Tianyu", EntityManager.GetUniqueId())
+        public Player() : base("Tianyu")
         {
-            EntityManager.Add(this);
 
             var stats = new EntityComponents.BaseStats();
             stats.Attack = 0;
@@ -39,7 +38,7 @@ namespace NullRPG.GameObjects
 
             var position = new EntityComponents.Position();
 
-            var world = WorldManager.GetWorld<IWorld>(WorldManager.GetWorlds().FirstOrDefault().ObjectId);
+            var world = WorldManager.GetWorld<IWorld>(WorldManager.GetWorlds<IWorld>().FirstOrDefault().ObjectId);
             var area = AreaManager.Get<IArea>(world.Areas.Values.FirstOrDefault().ObjectId);
             var location = LocationManager.Get<ILocation>(area.Locations.Values.FirstOrDefault().ObjectId);
 
