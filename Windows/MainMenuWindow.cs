@@ -175,8 +175,9 @@ namespace NullRPG.Windows
 
         private void Editor()
         {
-            UserInterfaceManager.Initialize();
-            this.FullTransition(UserInterfaceManager.Get<MainEditorWindow>());
+            var editorWindow = new EditorWindow(Constants.GameWidth, Constants.GameHeight);
+            UserInterfaceManager.Add(editorWindow);
+            this.FullTransition(UserInterfaceManager.Get<EditorWindow>());
         }
     }
 }

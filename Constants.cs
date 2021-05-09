@@ -10,6 +10,21 @@ namespace NullRPG
         public const int GameWidth = 80;
         public const int GameHeight = 26;
 
+        public static class Editor
+        {
+            public const int EDITOR_W = GameWidth;
+            public const int EDITOR_H = GameHeight;
+
+            public const int EDITOR_MENU_W = EDITOR_W;
+            public const int EDITOR_MENU_H = EDITOR_H;
+
+            public const int EDITOR_ITEM_W = EDITOR_W;
+            public const int EDITOR_ITEM_H = EDITOR_H;
+
+            public const int EDITOR_INPUT_W = 30;
+            public const int EDITOR_INPUT_H = 5;
+        }
+
         public static class Windows
         {
             public static class Keybindings

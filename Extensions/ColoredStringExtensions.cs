@@ -7,6 +7,7 @@ using SadConsole;
 using Console = SadConsole.Console;
 using Microsoft.Xna.Framework;
 
+
 namespace NullRPG.Extensions
 {
     public static class ColoredStringExtensions

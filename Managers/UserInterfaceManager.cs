@@ -77,18 +77,6 @@ namespace NullRPG.Managers
             };
             Add(chopWindow);
 
-            // temporary
-
-            var editorWindow = new MainEditorWindow(Constants.GameWidth, Constants.GameHeight);
-            Add(editorWindow);
-
-            var itemCreateWindow = new ItemCreateWindow(Constants.GameWidth, Constants.GameHeight)
-            {
-                IsVisible = false,
-                IsFocused = false
-            };
-            Add(itemCreateWindow);
-
             IsInitialized = true;
         }
 
