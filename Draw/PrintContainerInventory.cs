@@ -60,10 +60,10 @@ namespace NullRPG.Draw
                 }
 
                 // Button
-                Button = new ButtonIndex(keybindings[_index].Key, Color.Green, Color.White, 0, 0, true);
+                Button = new Button(keybindings[_index].Key.ToString(), 0, 0, keybindings[_index].Key, Color.Green, Color.White, Color.Black, false, true);
                 _index++;
                 Button.DrawNumericOnly(true);
-                PrintContainerValue buttonValue = new PrintContainerValue(Button.GetButtonToString(), 0);
+                PrintContainerValue buttonValue = new PrintContainerValue(Button.GetFormattedButton(), 0);
 
                 // Item type
                 // string itemType = slotItem.ItemCategory.ToName();

@@ -13,8 +13,8 @@ namespace NullRPG.Windows.Editor.ItemEditor
 {
     public class ItemEditorWindow : Console, IUserInterface
     {
-        private ButtonString newItemBtn;
-        private ButtonString viewItemsBtn;
+        private Button newItemBtn;
+        private Button viewItemsBtn;
 
         public Console Console => this;
 
@@ -43,8 +43,8 @@ namespace NullRPG.Windows.Editor.ItemEditor
 
         public override void Update(TimeSpan timeElapsed)
         {
-            newItemBtn = new ButtonString(new ColoredString("New item"), Microsoft.Xna.Framework.Input.Keys.V, Constants.Theme.ButtonKeyColor, DefaultForeground, 0, 4, false);
-            viewItemsBtn = new ButtonString(new ColoredString("Views existing items"), Microsoft.Xna.Framework.Input.Keys.Q, Constants.Theme.ButtonKeyColor, DefaultForeground, 0, 5, false);
+            newItemBtn = new Button("Create a new item", 0, 4, Microsoft.Xna.Framework.Input.Keys.Q, Color.Green, DefaultForeground, DefaultBackground, false, true);
+            viewItemsBtn = new Button("View existing items", 0, 5, Microsoft.Xna.Framework.Input.Keys.W, Color.Green, DefaultForeground, DefaultBackground, false, true);
             if (_drawExistingItems)
             {
                 viewItemsBtn.Name = new ColoredString("Close viewing existing items");

@@ -32,10 +32,10 @@ namespace NullRPG.Draw
                 PrintContainerValue areaLevelValue = new PrintContainerValue(areaLevel, 15);
 
                 // Button
-                Button = new ButtonIndex(keybindings[_index].Key, Color.Green, Color.White, 0, 0, true);
+                Button = new Button(keybindings[_index].Key.ToString(), 0, 0, keybindings[_index].Key, Color.Green, Color.White, Color.Black, false, true);
                 _index++;
                 Button.DrawNumericOnly(true);
-                PrintContainerValue buttonValue = new PrintContainerValue(Button.GetButtonToString(), 0);
+                PrintContainerValue buttonValue = new PrintContainerValue(Button.GetFormattedButton(), 0);
 
                 PrintContainerItem containerItem = new PrintContainerItem(new List<PrintContainerValue>() { buttonValue, areaNameValue, areaLevelValue });
                 ContainerItems.Add(containerItem);

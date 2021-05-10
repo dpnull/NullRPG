@@ -33,9 +33,10 @@ namespace NullRPG.Windows.Editor.ItemEditor
         }
         public Console Console => this;
 
-        private ButtonString itemNameBtn;
-        private ButtonString itemIsStackableBtn;
-        private ButtonString itemComponentsBtn;
+        private Button itemNameBtn;
+        private Button itemIsStackableBtn;
+        private Button viewComponentsBtn;
+        private Button addComponentBtn;
 
         public string ItemName { get; set; }
         public bool IsStackable { get; set; } = true;
@@ -64,10 +65,11 @@ namespace NullRPG.Windows.Editor.ItemEditor
 
         public override void Update(TimeSpan timeElapsed)
         {
-            itemNameBtn = new ButtonString(new ColoredString("Name"), Microsoft.Xna.Framework.Input.Keys.D1, Color.Green, DefaultForeground, 0, 4, true);
-            itemIsStackableBtn = new ButtonString(new ColoredString("Is stackable?"), Microsoft.Xna.Framework.Input.Keys.D2, Color.Green, DefaultForeground, 0, 5, true);
-            itemComponentsBtn = new ButtonString(new ColoredString("Item components"), Microsoft.Xna.Framework.Input.Keys.D3, Color.Green, DefaultForeground, 0, 6, true);
-
+            itemNameBtn = new Button("Name", 0, 4, Microsoft.Xna.Framework.Input.Keys.D1, Color.Green, DefaultForeground, DefaultBackground, true, true);
+            itemIsStackableBtn = new Button("Is stackable?", 0, 5, Microsoft.Xna.Framework.Input.Keys.D2, Color.Green, DefaultForeground, DefaultBackground, true, true);
+            this.DrawSeparator(6, "-", DefaultForeground);
+            viewComponentsBtn = new Button("View components", 0, 6, Microsoft.Xna.Framework.Input.Keys.D3, Color.Green, DefaultForeground, DefaultBackground, true, true);
+            addComponentBtn = new Button("Add component", 0, 7, Microsoft.Xna.Framework.Input.Keys.D4, Color.Green, DefaultForeground, DefaultBackground, true, true);
 
             base.Update(timeElapsed);
         }
@@ -117,7 +119,8 @@ namespace NullRPG.Windows.Editor.ItemEditor
 
             itemNameBtn.Draw(this);
             itemIsStackableBtn.Draw(this);
-            itemComponentsBtn.Draw(this);
+            viewComponentsBtn.Draw(this);
+            addComponentBtn.Draw(this);
         }
 
         private void GetInput()

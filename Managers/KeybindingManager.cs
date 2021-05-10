@@ -129,20 +129,7 @@ namespace NullRPG.Managers
             return str;
         }
 
-        // TEMPORARY **************
-        public static string GetKeyNameNumeric(Keys key)
-        {
-            string str = String.Empty;
-            for (int i = 0; i < key.ToString().Length; i++)
-            {
-                if (Char.IsDigit(key.ToString()[i]))
-                {
-                    str += key.ToString()[i];
-                }
-            }
 
-            return str;
-        }
 
         private static void CreateKeybinding(Keybindings name, Category category, Keys key)
         {

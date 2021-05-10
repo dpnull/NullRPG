@@ -28,15 +28,14 @@ namespace NullRPG.Draw
                 ColoredString locationName = new ColoredString(location.Value.Name);
                 PrintContainerValue locationNameValue = new PrintContainerValue(locationName, 4);
 
-                ColoredString locationLevel = new ColoredString($"[ {location.Value.Level} ]");
+                ColoredString locationLevel = location.Value.Level == 0 ? new ColoredString("[ - ]") : new ColoredString($"[ {location.Value.Level} ]");
                 PrintContainerValue locationLevelValue = new PrintContainerValue(locationLevel, 19);
 
                 // Button
-                Button = new ButtonIndex(keybindings[_index].Key, Color.Green, Color.White, 0, 0, true);
+                Button = new Button(keybindings[_index].Key.ToString(), 0, 0, keybindings[_index].Key, Color.Green, Color.White, Color.Black, true, true);
                 _index++;
-                Button.DrawNumericOnly(true);
 
-                PrintContainerValue buttonValue = new PrintContainerValue(Button.GetButtonToString(), 0);
+                PrintContainerValue buttonValue = new PrintContainerValue(Button.GetFormattedButton(), 0);
 
                 PrintContainerItem containerItem = new PrintContainerItem(new List<PrintContainerValue> { locationNameValue, locationLevelValue, buttonValue });
                 ContainerItems.Add(containerItem);

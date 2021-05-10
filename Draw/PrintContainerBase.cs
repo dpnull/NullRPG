@@ -19,7 +19,7 @@ namespace NullRPG.Draw
         public string Type { get; set; }
         public string Data { get; set; }
         public string Id { get; set; }
-        public ButtonBase Button { get; set; }
+        public BaseButton Button { get; set; }
         public IIndexedKeybinding[] Keybindings { get; set; }
 
         public List<PrintContainerItem> ContainerItems { get; set; } = new List<PrintContainerItem>();

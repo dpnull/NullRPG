@@ -15,7 +15,7 @@ namespace NullRPG.Windows.Navigation
     {
         public Console Console { get; }
         public IIndexedKeybinding[] IndexedKeybindings { get; private set; }
-        public List<ButtonString> Buttons { get; set; }
+        public List<Button> Buttons { get; set; }
         public LocationKeybindingsWindow(int width, int height) : base(width, height)
         {
             Position = new Point(Constants.Windows.Keybindings.LocationX, Constants.Windows.Keybindings.LocationY);

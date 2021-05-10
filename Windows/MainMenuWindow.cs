@@ -14,9 +14,9 @@ namespace NullRPG.Windows
 {
     internal class MainMenuWindow : Console, IUserInterface
     {
-        private ButtonString _playBtn;
-        private ButtonString _quitBtn;
-        private ButtonString _editorBtn;
+        private Button _playBtn;
+        private Button _quitBtn;
+        private Button _editorBtn;
 
         public Console Console
         {
@@ -117,15 +117,14 @@ namespace NullRPG.Windows
 
         private void DrawButtons()
         {
-            _playBtn = new ButtonString(new ColoredString("Play"), Microsoft.Xna.Framework.Input.Keys.D1, Color.Green, Color.White, 0, 0, true);
-            _playBtn.Draw(this.GetWindowXCenter() - (_playBtn.GetLength() / 2), this.GetWindowYCenter() + 8, this);
+            _playBtn = new Button("Play", 0, 4, Microsoft.Xna.Framework.Input.Keys.D1, Color.Green, DefaultForeground, DefaultBackground, false, true);
+            _playBtn.Draw(this, this.GetWindowXCenter() - (_playBtn.GetLength() / 2), this.GetWindowYCenter() + 8);
 
-            _editorBtn = new ButtonString(new ColoredString("Editor"), Microsoft.Xna.Framework.Input.Keys.D2, Color.Green, Color.White, 0, 0, true);
-            _editorBtn.Draw(this.GetWindowXCenter() - (_playBtn.GetLength() / 2), this.GetWindowYCenter() + 9, this);
+            _editorBtn = new Button("Editor", 0, 4, Microsoft.Xna.Framework.Input.Keys.D2, Color.Green, DefaultForeground, DefaultBackground, false, true);
+            _editorBtn.Draw(this, this.GetWindowXCenter() - (_playBtn.GetLength() / 2), this.GetWindowYCenter() + 9);
 
-            _quitBtn = new ButtonString(new ColoredString("Quit"), Microsoft.Xna.Framework.Input.Keys.D3, Color.Green, DefaultForeground, 0, 0, true);
-            _quitBtn.DrawNumericOnly(true);
-            _quitBtn.Draw(this.GetWindowXCenter() - (_quitBtn.GetLength() / 2), this.GetWindowYCenter() + 10, this);
+            _quitBtn = new Button("Quit", 0, 4, Microsoft.Xna.Framework.Input.Keys.D3, Color.Green, DefaultForeground, DefaultBackground, false, true);
+            _quitBtn.Draw(this, this.GetWindowXCenter() - (_quitBtn.GetLength() / 2), this.GetWindowYCenter() + 10);
         }
 
         public static MainMenuWindow Show()

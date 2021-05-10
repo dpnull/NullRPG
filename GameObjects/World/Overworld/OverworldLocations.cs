@@ -11,7 +11,7 @@ namespace NullRPG.GameObjects.World.Overworld
     {
         // TOWN_START
 
-        public OverworldLocations(string name) : base(name)
+        public OverworldLocations(string name, int level = 0) : base(name, level)
         {
 
         }
@@ -39,12 +39,12 @@ namespace NullRPG.GameObjects.World.Overworld
 
         public static OverworldLocations Cave()
         {
-            return new OverworldLocations("Cave");
+            return new OverworldLocations("Cave", 3);
         }
 
         public static OverworldLocations Forest()
         {
-            var forest = new OverworldLocations("Forest");
+            var forest = new OverworldLocations("Forest", 1);
 
             var locationObject = new LocationComponents.LocationObjectComponent();
             locationObject.AddObject(LocationObject.TreeBirchnut());

@@ -16,7 +16,7 @@ namespace NullRPG.Windows.Editor
     {
         public Console Console => this;
 
-        private ButtonString itemEditorBtn;
+        private Button itemEditorBtn;
 
         public EditorWindow(int width, int height) : base(width, height)
         {
@@ -45,7 +45,7 @@ namespace NullRPG.Windows.Editor
 
         public override void Update(TimeSpan timeElapsed)
         {
-            itemEditorBtn = new ButtonString(new ColoredString("Items"), Microsoft.Xna.Framework.Input.Keys.I, Constants.Theme.ButtonKeyColor, DefaultForeground, 0, 4, false);
+            itemEditorBtn = new Button("Items", 0, 4, Microsoft.Xna.Framework.Input.Keys.I, Color.Green, DefaultForeground, DefaultBackground, false, true);
 
             base.Update(timeElapsed);
         }

@@ -85,9 +85,8 @@ namespace NullRPG.Windows
                 var item = ItemManager.Get<IItem>(UserInterfaceManager.Get<ItemPreviewWindow>().ObjectId);
                 if (item.HasComponent<ItemComponents.EquippableComponent>())
                 {
-                    var equipBtn = new Input.ButtonString(new ColoredString("Equip"), Microsoft.Xna.Framework.Input.Keys.E,
-                        Constants.Theme.ButtonKeyColor, DefaultForeground,
-                        Constants.Windows.PreviewX, Constants.Windows.PreviewY + Constants.Windows.ItemPreviewHeight - 1);
+                    var equipBtn = new Input.Button("Equip", Constants.Windows.PreviewX, Constants.Windows.PreviewY + Constants.Windows.ItemPreviewHeight - 1,
+                        Microsoft.Xna.Framework.Input.Keys.E, Color.Green, Color.White, Color.Black, false, true);
 
                     foreach (var equipped in EntityManager.GetEquippedItems(Game.GameSession.Player))
                     {
