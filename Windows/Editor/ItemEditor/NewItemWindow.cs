@@ -65,11 +65,11 @@ namespace NullRPG.Windows.Editor.ItemEditor
 
         public override void Update(TimeSpan timeElapsed)
         {
-            itemNameBtn = new Button("Name", 0, 4, Microsoft.Xna.Framework.Input.Keys.D1, Color.Green, DefaultForeground, DefaultBackground, true, true);
-            itemIsStackableBtn = new Button("Is stackable?", 0, 5, Microsoft.Xna.Framework.Input.Keys.D2, Color.Green, DefaultForeground, DefaultBackground, true, true);
+            itemNameBtn = new Button("Name", 0, 4, Microsoft.Xna.Framework.Input.Keys.D1, Color.Green, DefaultForeground, DefaultBackground, false, true);
+            itemIsStackableBtn = new Button("Is stackable?", 0, 5, Microsoft.Xna.Framework.Input.Keys.D2, Color.Green, DefaultForeground, DefaultBackground, false, true);
             this.DrawSeparator(6, "-", DefaultForeground);
-            viewComponentsBtn = new Button("View components", 0, 6, Microsoft.Xna.Framework.Input.Keys.D3, Color.Green, DefaultForeground, DefaultBackground, true, true);
-            addComponentBtn = new Button("Add component", 0, 7, Microsoft.Xna.Framework.Input.Keys.D4, Color.Green, DefaultForeground, DefaultBackground, true, true);
+            viewComponentsBtn = new Button("View components", 0, 6, Microsoft.Xna.Framework.Input.Keys.D3, Color.Green, DefaultForeground, DefaultBackground, false, true);
+            addComponentBtn = new Button("Add component", 0, 7, Microsoft.Xna.Framework.Input.Keys.D4, Color.Green, DefaultForeground, DefaultBackground, false, true);
 
             base.Update(timeElapsed);
         }

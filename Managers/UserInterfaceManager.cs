@@ -26,6 +26,9 @@ namespace NullRPG.Managers
             var gameWindow = new Windows.GameWindow(Constants.Windows.GameWindowWidth, Constants.Windows.GameWindowHeight);
             Add(gameWindow);
 
+            var mapWindow = new Windows.MapWindow(Constants.Windows.MapWidth, Constants.Windows.MapHeight);
+            Add(mapWindow);
+
             // Initialize last so all consoles are instantiated prior to creating keybinding bools for visibility
             var keybindingsWindow = new KeybindingsWindow(Constants.Windows.KeybindingsWidth, Constants.Windows.KeybindingsHeight);
             Add(keybindingsWindow);

@@ -74,6 +74,11 @@ namespace NullRPG.Windows
                 chopAction.OnInteract();
             }
 
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.V))
+            {
+                UserInterfaceManager.Get<MapWindow>().IsFocused = true;
+            }
+
             return false;
         }
 

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SadConsole;
 using SadConsole.Input;
-using System;
+
 using Console = SadConsole.Console;
 
 namespace NullRPG.Input

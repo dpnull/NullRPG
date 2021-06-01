@@ -1,4 +1,5 @@
 ﻿using NullRPG.GameObjects;
+using NullRPG.GameObjects.Actors;
 using NullRPG.GameObjects.World.Overworld;
 using NullRPG.Managers;
 
@@ -8,6 +9,7 @@ namespace NullRPG
     {
         public Overworld Overworld { get; private set; }
         public Player Player { get; private set; }
+        public PlayerActor PlayerActor { get; private set; }
 
 
         public GameSession()
@@ -16,6 +18,8 @@ namespace NullRPG
 
             Overworld = new Overworld();
             Player = new Player();
+            PlayerActor = new PlayerActor();
+            
 
         }
     }
