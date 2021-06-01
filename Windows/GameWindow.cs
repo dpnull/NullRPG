@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using NullRPG.Extensions;
 using NullRPG.GameObjects.Actions;
+using NullRPG.GameObjects.Actors;
 using NullRPG.Input;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
@@ -19,6 +20,8 @@ namespace NullRPG.Windows
             get { return this; }
         }
 
+        private PlayerActor _playerActor;
+
         public GameWindow(int width, int height) : base(width, height)
         {
             // print game title at the top
@@ -28,9 +31,25 @@ namespace NullRPG.Windows
             Print(Width / 8, 0, tStr);
             Print(Width - 20, 0, Constants.GameBuildVersion, Color.Gray);
 
-            SadConsole.Game.Instance.Window.Title = Constants.GameTitle;
+            _playerActor = (PlayerActor)ActorManager.Get<IActor>(Game.GameSession.PlayerActor.ObjectId);
+            _playerActor.Actor.Position = new Point(0, 1);
 
             Global.CurrentScreen = this;
+
+            // Move initializing map to another place...
+            if (UserInterfaceManager.Get<MapWindow>() is null)
+            {
+                var mapWindow = new Windows.MapWindow(Constants.Windows.MapWidth, Constants.Windows.MapHeight);
+                UserInterfaceManager.Add(mapWindow);
+                UserInterfaceManager.Get<MapWindow>().Children.Add(_playerActor.Actor);
+            } else
+            {
+                UserInterfaceManager.Get<MapWindow>().Children.Add(_playerActor.Actor);
+            }
+
+            SadConsole.Game.Instance.Window.Title = Constants.GameTitle;
+
+            
         }
 
         public override bool ProcessKeyboard(Keyboard info)
@@ -74,9 +93,25 @@ namespace NullRPG.Windows
                 chopAction.OnInteract();
             }
 
-            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.V))
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Up))
             {
-                UserInterfaceManager.Get<MapWindow>().IsFocused = true;
+                CommandManager.MoveUp(_playerActor.Actor);
+                return true;
+            }
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Down))
+            {
+                CommandManager.MoveDown(_playerActor.Actor);
+                return true;
+            }
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Left))
+            {
+                CommandManager.MoveLeft(_playerActor.Actor);
+                return true;
+            }
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Right))
+            {
+                CommandManager.MoveRight(_playerActor.Actor);
+                return true;
             }
 
             return false;

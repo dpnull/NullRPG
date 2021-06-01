@@ -17,46 +17,15 @@ namespace NullRPG.Windows
     {
         public Console Console { get; }
 
-        private PlayerActor _playerActor;
+
 
         public MapWindow(int width, int height) : base(width, height)
         {
-            _playerActor = (PlayerActor)ActorManager.Get<IActor>(Game.GameSession.PlayerActor.ObjectId);
-            _playerActor.Actor.Position = new Point(0, 1);
+            DefaultBackground = Color.Blue;
 
             Position = new Point(Constants.Windows.MapX, Constants.Windows.MapY);
 
-            this.Children.Add(_playerActor.Actor);
-
-
             Global.CurrentScreen.Children.Add(this);
         }
-
-        public override bool ProcessKeyboard(Keyboard info)
-        {
-            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Up))
-            {
-                CommandManager.MoveUp(_playerActor.Actor);
-                return true;
-            }
-            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Down))
-            {
-                CommandManager.MoveDown(_playerActor.Actor);
-                return true;
-            }
-            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Left))
-            {
-                CommandManager.MoveLeft(_playerActor.Actor);
-                return true;
-            }
-            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Right))
-            {
-                CommandManager.MoveRight(_playerActor.Actor);
-                return true;
-            }
-            return false;
-        }
-
-
     }
 }
