@@ -1,15 +1,23 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
+using System.IO;
 
 namespace NullRPG
 {
     public static class Constants
     {
+        public static string APPLICATION_ROOT = GetApplicationRoot();
+
         public const string GameTitle = "NullRPG";
         public const string GameBuildVersion = "07042021";
 
         public const int GameWidth = 80;
         public const int GameHeight = 26;
 
+        public static class Player
+        {
+            public const int PLAYER_FOV = 10;
+        }
         public static class Editor
         {
             public const int EDITOR_W = GameWidth;
@@ -46,8 +54,8 @@ namespace NullRPG
                 public const int ChopHeight = GameHeight - KeybindingsHeight - MessageHeight;
             }
 
-            public const int MapWidth = 20;
-            public const int MapHeight = 10;
+            public const int MapWidth = GameWidth;
+            public const int MapHeight = GameHeight - StatHeight - MessageHeight - KeybindingsHeight - 3; // TEMPORARY [FIX]
             public const int MapX = 0;
             public const int MapY = StatY + StatHeight + 1;
 
@@ -83,9 +91,9 @@ namespace NullRPG
             public const int MessageY = GameHeight - MessageHeight;
 
             public const int StatWidth = GameWidth;
-            public const int StatHeight = 3;
+            public const int StatHeight = 2;
             public const int StatX = 0;
-            public const int StatY = 4;
+            public const int StatY = 2;
 
             public const int TravelWidth = GameWidth;
             public const int TravelHeight = GameHeight - KeybindingsHeight - MessageHeight;
@@ -109,6 +117,21 @@ namespace NullRPG
 
             public static readonly Color HeaderForegroundColor = Color.Gold;
             public static readonly Color HeaderBackgroundColor = Color.Black;
+        }
+
+        public static class Blueprint
+        {
+            public static string BLUEPRINTS_CONFIG_PATH = Path.Combine(APPLICATION_ROOT, "NullRPG", "GameObjects", "Blueprints", "Config");
+            public static string SPECIAL_CHARACTERS_PATH = Path.Combine(APPLICATION_ROOT, "NullRPG", "GameObjects", "Blueprints", "SpecialCharactersConfig.json");           
+            public static string BLUEPRINTS_PATH = Path.Combine(APPLICATION_ROOT, "NullRPG", "GameObjects", "Blueprints");
+
+            public const string BLUEPRINT_TILES = "BlueprintTiles";
+        }
+
+        private static string GetApplicationRoot()
+        {
+            var appRoot = AppContext.BaseDirectory.Substring(0, AppContext.BaseDirectory.LastIndexOf("\\bin"));
+            return appRoot.Substring(0, appRoot.LastIndexOf("\\") + 1);
         }
     }
 }

@@ -7,6 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SadConsole;
+using Console = SadConsole.Console;
+using GoRogue;
+using Microsoft.Xna.Framework;
 
 namespace NullRPG
 {
@@ -177,11 +181,21 @@ namespace NullRPG
             public int RequiredExperience { get; set; }
         }
 
-        public class Position : IComponent
+        public class WorldPosition : IComponent
         {
             public ILocation Location { get; set; }
             public IArea Area { get; set; }
             public IWorld World { get; set; }
+        }
+
+        public class MapPosition : IComponent
+        {
+            public Console RenderConsole { get; }
+            public int CurrentBlueprintId { get; }
+            public FOV FieldOfView { get; }
+            public int FieldOfViewRadius { get; set; }
+            public Point Position { get; set; }
+            public int Glyph { get; }
         }
     }
 

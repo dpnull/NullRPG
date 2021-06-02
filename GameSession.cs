@@ -9,7 +9,7 @@ namespace NullRPG
     {
         public Overworld Overworld { get; private set; }
         public Player Player { get; private set; }
-        public PlayerActor PlayerActor { get; private set; }
+        public PlayerActor PlayerActor { get; set; }
 
 
         public GameSession()

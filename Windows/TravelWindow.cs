@@ -58,7 +58,7 @@ namespace NullRPG.Windows
             this.DrawHeader(0, "Travel to an area...", DefaultForeground, DefaultBackground);
 
             var world = WorldManager.GetWorld<IWorld>(EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId)
-                .GetComponent<EntityComponents.Position>().World.ObjectId);
+                .GetComponent<EntityComponents.WorldPosition>().World.ObjectId);
             var areas = world.Areas.Values;
             List<IIndexable> bindable = new();
             foreach(var area in areas)

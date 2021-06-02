@@ -21,7 +21,7 @@ namespace NullRPG.Draw
         private void CreateLocations(IArea area, IIndexedKeybinding[] keybindings)
         {
             int _index = 0;
-            var locations = Game.GameSession.Player.GetComponent<EntityComponents.Position>().Area.Locations; // refractor
+            var locations = Game.GameSession.Player.GetComponent<EntityComponents.WorldPosition>().Area.Locations; // refractor
 
             foreach(var location in locations)
             {

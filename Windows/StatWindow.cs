@@ -19,8 +19,6 @@ namespace NullRPG.Windows
         {
             Position = new Microsoft.Xna.Framework.Point(Constants.Windows.StatX, Constants.Windows.StatY);
 
-            DefaultBackground = Color.Red;
-
             Global.CurrentScreen.Children.Add(this);
         }
 
@@ -41,8 +39,8 @@ namespace NullRPG.Windows
         private void DrawPlayerLocation()
         {
             var player = EntityManager.Get<IEntity>(Game.GameSession.Player.ObjectId);
-            var location = player.GetComponent<EntityComponents.Position>().Location;
-            var area = player.GetComponent<EntityComponents.Position>().Area;
+            var location = player.GetComponent<EntityComponents.WorldPosition>().Location;
+            var area = player.GetComponent<EntityComponents.WorldPosition>().Area;
             string locObject;
 
             List<string> printable = new List<string>

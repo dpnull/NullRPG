@@ -16,6 +16,10 @@ namespace NullRPG.GameObjects
         public Player() : base("Tianyu")
         {
 
+        }
+
+        public void Initialize()
+        {
             var stats = new EntityComponents.BaseStats();
             stats.Attack = 0;
             stats.Defense = 0;
@@ -36,7 +40,7 @@ namespace NullRPG.GameObjects
             var equipment = new EntityComponents.Equipment();
             AddComponent(equipment);
 
-            var position = new EntityComponents.Position();
+            var position = new EntityComponents.WorldPosition();
 
             var world = WorldManager.GetWorld<IWorld>(WorldManager.GetWorlds<IWorld>().FirstOrDefault().ObjectId);
             var area = AreaManager.Get<IArea>(world.Areas.Values.FirstOrDefault().ObjectId);

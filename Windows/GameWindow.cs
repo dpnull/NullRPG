@@ -31,8 +31,7 @@ namespace NullRPG.Windows
             Print(Width / 8, 0, tStr);
             Print(Width - 20, 0, Constants.GameBuildVersion, Color.Gray);
 
-            _playerActor = (PlayerActor)ActorManager.Get<IActor>(Game.GameSession.PlayerActor.ObjectId);
-            _playerActor.Actor.Position = new Point(0, 1);
+
 
             Global.CurrentScreen = this;
 
@@ -41,7 +40,12 @@ namespace NullRPG.Windows
             {
                 var mapWindow = new Windows.MapWindow(Constants.Windows.MapWidth, Constants.Windows.MapHeight);
                 UserInterfaceManager.Add(mapWindow);
-                UserInterfaceManager.Get<MapWindow>().Children.Add(_playerActor.Actor);
+                mapWindow.Initialize();
+                //UserInterfaceManager.Get<MapWindow>().Children.Add(_playerActor.Actor);
+
+                var spawnPosition = GridManager.Grid.GetCell(a => a.CellProperties.Walkable);
+                Game.GameSession.PlayerActor = MapEntityManager.Create<PlayerActor>(spawnPosition.Position, GridManager.ActiveBlueprint.ObjectId);
+                Game.GameSession.Player.Initialize();
             } else
             {
                 UserInterfaceManager.Get<MapWindow>().Children.Add(_playerActor.Actor);
@@ -89,7 +93,7 @@ namespace NullRPG.Windows
 
             if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.U))
             {
-                var chopAction = new ActionChop(Game.GameSession.Player.GetComponent<EntityComponents.Position>().Location, Game.GameSession.Player);
+                var chopAction = new ActionChop(Game.GameSession.Player.GetComponent<EntityComponents.WorldPosition>().Location, Game.GameSession.Player);
                 chopAction.OnInteract();
             }
 

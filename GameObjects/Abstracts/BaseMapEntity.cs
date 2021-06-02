@@ -3,19 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
 
-namespace NullRPG.Interfaces
+namespace NullRPG.GameObjects.Abstracts
 {
-    public interface IEntity : IComponentSystemEntity
+    public abstract class BaseMapEntity
     {
-
     }
 }
-
-/*
-
-
-
-
- */

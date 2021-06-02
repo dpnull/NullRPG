@@ -55,8 +55,14 @@ namespace NullRPG.Windows
                 Editor();
             }
 
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D9))
+            {
+
+            }
+
             return false;
         }
+
 
         private void DrawGameTitle()
         {

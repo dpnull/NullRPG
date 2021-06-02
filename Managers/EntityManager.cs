@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using static NullRPG.Enums;
 
 namespace NullRPG.Managers
@@ -14,6 +15,12 @@ namespace NullRPG.Managers
         {
             return EntityDatabase.GetUniqueId();
         }
+
+        // START SORT OUT 
+
+
+
+        // END SORT OUT
 
         // directly add to the database
         public static void Add(IEntity entity)
@@ -43,9 +50,9 @@ namespace NullRPG.Managers
 
         public static IArea GetEntityArea<T>(T entity) where T : IEntity
         {
-            if (entity.HasComponent<EntityComponents.Position>())
+            if (entity.HasComponent<EntityComponents.WorldPosition>())
             {
-                var area = entity.GetComponent<EntityComponents.Position>().Area;
+                var area = entity.GetComponent<EntityComponents.WorldPosition>().Area;
                 return area;
             }
 
@@ -93,7 +100,7 @@ namespace NullRPG.Managers
 
         public static void ChangeEntityPosition<T>(T entity, PositionTypes positionType, int positionObjectId) where T : IEntity
         {
-            var entityPosition = entity.GetComponent<EntityComponents.Position>();
+            var entityPosition = entity.GetComponent<EntityComponents.WorldPosition>();
 
             var currentArea = entityPosition.Area;
             var currentWorld = entityPosition.World;
