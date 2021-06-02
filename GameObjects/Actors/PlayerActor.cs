@@ -12,10 +12,13 @@ using NullRPG.Windows;
 using SadConsole.Components;
 using static SadConsole.Entities.Entity;
 using SadConsole.Input;
+using static NullRPG.Input.Keybinding;
+using GoRogue;
+using NullRPG.Interfaces;
 
 namespace NullRPG.GameObjects.Actors
 {
-    public class PlayerActor : BaseActor
+    public class PlayerActor : BaseMapEntity
     {
         private MapWindow _mapWindow;
         public MapWindow MapWindow => _mapWindow ??= UserInterfaceManager.Get<MapWindow>();
@@ -24,9 +27,8 @@ namespace NullRPG.GameObjects.Actors
         {
             FieldOfViewRadius = 10;
             // interactionstatus todo here <<
-            Actor.Components.Add(new EntityViewSyncComponent());
-
-
+            _fovObjectsWindow = UserInterfaceManager.Get<FovWindow>();
+            Components.Add(new EntityViewSyncComponent());
         }
 
         public override void OnMove(object sender, EntityMovedEventArgs args)
@@ -39,28 +41,6 @@ namespace NullRPG.GameObjects.Actors
             _fovObjectsWindow.Update(this);
         }
 
-        public override bool ProcessKeyboard(Keyboard info)
-        {
-            bool keyHandled = false;
-
-            // Simplified way to check if any key we care about is pressed and set movement direction.
-            foreach (var key in _playerMovements.Keys)
-            {
-                var binding = KeybindingManager.GetKeybinding(key);
-                if (info.IsKeyPressed(binding))
-                {
-                    var moveDirection = _playerMovements[key];
-                    MoveTowards(moveDirection);
-                    keyHandled = true;
-                    break;
-                }
-            }
-
-            if (keyHandled)
-                return true;
-            else
-                return base.ProcessKeyboard(info);
-        }
 
         public void Initialize(bool addRenderObject = true)
         {
@@ -71,7 +51,7 @@ namespace NullRPG.GameObjects.Actors
             }
 
             // Make sure we check for input
-            Actor.IsFocused = true;
+            IsFocused = true;
 
             // Center viewport on player
             MapWindow.CenterOnEntity(this);
@@ -83,13 +63,6 @@ namespace NullRPG.GameObjects.Actors
             MapWindow.IsDirty = true;
         }
 
-        private readonly Dictionary<Keybindings, Direction> _playerMovements =
-        new Dictionary<Keybindings, Direction>
-        {
-            {Keybindings.Movement_Up, Direction.UP},
-            {Keybindings.Movement_Down, Direction.DOWN},
-            {Keybindings.Movement_Left, Direction.LEFT},
-            {Keybindings.Movement_Right, Direction.RIGHT}
-        };
+
     }
 }

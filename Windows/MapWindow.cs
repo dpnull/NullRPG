@@ -22,7 +22,7 @@ namespace NullRPG.Windows
 
         public MapWindow(int width, int height) : base(width, height, new Rectangle(0, 0, 23, 10))
         {
-            DefaultBackground = Color.Blue;
+          
 
             Position = new Point(Constants.Windows.MapX, Constants.Windows.MapY);
 

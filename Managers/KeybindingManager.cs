@@ -22,6 +22,10 @@ namespace NullRPG.Managers
             CreateKeybinding(Keybindings.Travel, Category.General, Keys.T);
             CreateKeybinding(Keybindings.Inventory, Category.General, Keys.I);
             CreateKeybinding(Keybindings.Character, Category.General, Keys.C);
+            CreateKeybinding(Keybindings.Movement_Up, Category.General, Keys.Up);
+            CreateKeybinding(Keybindings.Movement_Down, Category.General, Keys.Down);
+            CreateKeybinding(Keybindings.Movement_Left, Category.General, Keys.Left);
+            CreateKeybinding(Keybindings.Movement_Right, Category.General, Keys.Right);
 
             //CreateKeybinding(Keybindings.Equip, Category.General, Keys.E);
 
@@ -94,7 +98,6 @@ namespace NullRPG.Managers
 
             return default;
         }
-
         public static Keys GetKeybinding<T>(Keybindings keybinding) where T : IKeybinding
         {
             var _keybinding = Get<T>(keybinding);

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using NullRPG.Extensions;
+using NullRPG.GameObjects.Actors;
 using NullRPG.Input;
 using NullRPG.Interfaces;
 using NullRPG.Managers;
@@ -174,6 +175,11 @@ namespace NullRPG.Windows
         private void Start()
         {
             UserInterfaceManager.Initialize();
+
+            var spawnPosition = GridManager.Grid.GetCell(a => a.CellProperties.Walkable);
+            Game.GameSession.PlayerActor = MapEntityManager.Create<PlayerActor>(spawnPosition.Position, GridManager.ActiveBlueprint.ObjectId);
+            Game.GameSession.PlayerActor.Initialize();
+            Game.GameSession.Player.Initialize();
 
             this.FullTransition(UserInterfaceManager.Get<GameWindow>());
         }

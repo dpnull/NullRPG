@@ -13,6 +13,10 @@ namespace NullRPG.Input
             Back,
             Equip,
             Chop,
+            Movement_Up,
+            Movement_Down,
+            Movement_Left,
+            Movement_Right
         }
 
         public enum Category

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GoRogue;
+using Microsoft.Xna.Framework;
 using NullRPG.Extensions;
 using NullRPG.GameObjects.Actions;
 using NullRPG.GameObjects.Actors;
@@ -9,6 +10,8 @@ using NullRPG.Windows.Navigation;
 using SadConsole;
 using SadConsole.Input;
 using System;
+using System.Collections.Generic;
+using static NullRPG.Input.Keybinding;
 using Console = SadConsole.Console;
 
 namespace NullRPG.Windows
@@ -19,8 +22,6 @@ namespace NullRPG.Windows
         {
             get { return this; }
         }
-
-        private PlayerActor _playerActor;
 
         public GameWindow(int width, int height) : base(width, height)
         {
@@ -33,27 +34,11 @@ namespace NullRPG.Windows
 
 
 
-            Global.CurrentScreen = this;
-
-            // Move initializing map to another place...
-            if (UserInterfaceManager.Get<MapWindow>() is null)
-            {
-                var mapWindow = new Windows.MapWindow(Constants.Windows.MapWidth, Constants.Windows.MapHeight);
-                UserInterfaceManager.Add(mapWindow);
-                mapWindow.Initialize();
-                //UserInterfaceManager.Get<MapWindow>().Children.Add(_playerActor.Actor);
-
-                var spawnPosition = GridManager.Grid.GetCell(a => a.CellProperties.Walkable);
-                Game.GameSession.PlayerActor = MapEntityManager.Create<PlayerActor>(spawnPosition.Position, GridManager.ActiveBlueprint.ObjectId);
-                Game.GameSession.Player.Initialize();
-            } else
-            {
-                UserInterfaceManager.Get<MapWindow>().Children.Add(_playerActor.Actor);
-            }
+            
 
             SadConsole.Game.Instance.Window.Title = Constants.GameTitle;
+            Global.CurrentScreen = this;
 
-            
         }
 
         public override bool ProcessKeyboard(Keyboard info)
@@ -97,28 +82,35 @@ namespace NullRPG.Windows
                 chopAction.OnInteract();
             }
 
-            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Up))
-            {
-                CommandManager.MoveUp(_playerActor.Actor);
-                return true;
-            }
+            // Simplified way to check if any key we care about is pressed and set movement direction.
+
             if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Down))
             {
-                CommandManager.MoveDown(_playerActor.Actor);
-                return true;
-            }
-            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Left))
-            {
-                CommandManager.MoveLeft(_playerActor.Actor);
+                var moveDirection = Direction.DOWN;
+                Game.GameSession.PlayerActor.MoveTowards(moveDirection);
                 return true;
             }
             if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Right))
             {
-                CommandManager.MoveRight(_playerActor.Actor);
+                var moveDirection = Direction.RIGHT;
+                Game.GameSession.PlayerActor.MoveTowards(moveDirection);
+                return true;
+            }
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Left))
+            {
+                var moveDirection = Direction.LEFT;
+                Game.GameSession.PlayerActor.MoveTowards(moveDirection);
+                return true;
+            }
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Up))
+            {
+                var moveDirection = Direction.UP;
+                Game.GameSession.PlayerActor.MoveTowards(moveDirection);
                 return true;
             }
 
             return false;
+
         }
 
         private void OpenInventoryWindow()

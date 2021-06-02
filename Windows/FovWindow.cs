@@ -37,7 +37,7 @@ namespace NullRPG.Windows
                 Position = new Point(2, 1),
             };
 
-            Position = new Point(Constants.Windows.MapWidth, Constants.Windows.MapHeight - 2);
+            Position = new Point(Constants.Windows.MapWidth + 5, Constants.Windows.MapHeight - 2);
 
             Children.Add(_textConsole);
             Global.CurrentScreen.Children.Add(this);

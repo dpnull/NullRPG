@@ -11,6 +11,11 @@ namespace NullRPG.Managers
 {
     public static class MapEntityManager
     {
+        public static int GetUniqueId()
+        {
+            return MapEntityDatabase.GetUniqueId();
+        }
+
         /// <summary>
         /// Returns a new entity or null, if the position is already taken.
         /// </summary>
@@ -65,8 +70,7 @@ namespace NullRPG.Managers
 
         public static void RecalculatFieldOfView(IMapEntity entity, bool redrawFov = true, bool exploreCells = false)
         {
-            var mapPositionComponent = entity.GetComponent<EntityComponents.MapPosition>();
-            mapPositionComponent.FieldOfView.Calculate(mapPositionComponent.Position, mapPositionComponent.FieldOfViewRadius);
+            entity.FieldOfView.Calculate(entity.Position, entity.FieldOfViewRadius);
             if (entity is Player && redrawFov)
                 GridManager.Grid.DrawFieldOfView(entity);
         }

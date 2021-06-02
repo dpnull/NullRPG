@@ -5,7 +5,7 @@ using SadConsole;
 
 namespace NullRPG.Interfaces
 {
-    public interface IMapEntity : IComponentSystemEntity, IRenderable
+    public interface IMapEntity : IRenderable
     {
         int ObjectId { get; }
         Console RenderConsole { get; }

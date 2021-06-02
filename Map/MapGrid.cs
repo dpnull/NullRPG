@@ -167,7 +167,7 @@ namespace NullRPG.Map
                 for (int y = 0; y < GridSizeY; y++)
                 {
                     var cell = GetNonClonedCell(x, y);
-                    if (entity.GetComponent<EntityComponents.MapPosition>().FieldOfView.BooleanFOV[x, y])
+                    if (entity.FieldOfView.BooleanFOV[x, y])
                         cells.Add(cell);
                 }
             }
@@ -176,14 +176,14 @@ namespace NullRPG.Map
 
         public IEnumerable<MapCell> GetCellsInFov(IMapEntity entity, int fovRadius)
         {
-            var originalFov = entity.GetComponent<EntityComponents.MapPosition>().FieldOfViewRadius;
+            var originalFov = entity.FieldOfViewRadius;
 
-            entity.GetComponent<EntityComponents.MapPosition>().FieldOfViewRadius = fovRadius;
+            entity.FieldOfViewRadius = fovRadius;
             MapEntityManager.RecalculatFieldOfView(entity, false);
 
             var cells = GetCellsInFov(entity).ToList();
 
-            entity.GetComponent<EntityComponents.MapPosition>().FieldOfViewRadius = originalFov;
+            entity.FieldOfViewRadius = originalFov;
             MapEntityManager.RecalculatFieldOfView(entity, false);
 
             return cells;
@@ -191,11 +191,9 @@ namespace NullRPG.Map
 
         public void DrawFieldOfView(IMapEntity entity, bool discoverUnexploredTiles = false)
         {
-            var mapPosComponent = entity.GetComponent<EntityComponents.MapPosition>();
-            // Check if there is a lightsource nearby, then explore all cells enlighted by it automatically
-            var prevFov = mapPosComponent.FieldOfViewRadius;
+            var prevFov = entity.FieldOfViewRadius;
 
-            mapPosComponent.FieldOfViewRadius = Constants.Player.PLAYER_FOV;
+            entity.FieldOfViewRadius = Constants.Player.PLAYER_FOV;
             MapEntityManager.RecalculatFieldOfView(entity, false);
 
             // Actual cells we see
@@ -207,9 +205,9 @@ namespace NullRPG.Map
             }
 
             // Reset entity fov
-            if (prevFov != mapPosComponent.FieldOfViewRadius)
+            if (prevFov != entity.FieldOfViewRadius)
             {
-                mapPosComponent.FieldOfViewRadius = prevFov;
+                entity.FieldOfViewRadius = prevFov;
                 MapEntityManager.RecalculatFieldOfView(entity, false);
             }
 
@@ -221,19 +219,11 @@ namespace NullRPG.Map
 
                     if (discoverUnexploredTiles && !cell.CellProperties.IsExplored)
                     {
-                        if (mapPosComponent.FieldOfView.BooleanFOV[x, y])
+                        if (entity.FieldOfView.BooleanFOV[x, y])
                         {
                             cell.CellProperties.IsExplored = true;
                         }
                     }
-                    /*
-                    // Cells near light sources are automatically visible
-                    if (cell.LightProperties.Brightness > 0f && !cell.LightProperties.EmitsLight && !cell.CellProperties.IsExplored &&
-                        cell.LightProperties.LightSources.Any(a => a.CellProperties.IsExplored))
-                    {
-                        cell.CellProperties.IsExplored = true;
-                    }
-                    */
 
                     cell.IsVisible = cell.CellProperties.IsExplored;
 
