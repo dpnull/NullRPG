@@ -30,7 +30,7 @@ namespace NullRPG.Windows
             this.DrawBorders(width, height, "O", "|", "-", Color.Gray);
             Print(3, 0, "Objects", Color.Orange);
             _charObjects = new Dictionary<char, CharObj>();
-            _blueprintTiles = GetTilesFromConfig();
+            _blueprintTiles = GetTiles();
             _maxLineRows = Height - 2;
 
             _textConsole = new Console(Width - 2, Height - 2)
@@ -44,32 +44,23 @@ namespace NullRPG.Windows
             Global.CurrentScreen.Children.Add(this);
         }
 
-        private Dictionary<char, BlueprintTile> GetTilesFromConfig()
+        private Dictionary<char, BlueprintTile> GetTiles()
         {
-            var configPaths = GetConfigurationPaths();
+            var tiles = GridManager.GetTiles();
 
-            if (AllConfigFilesExist(configPaths) == false)
-                return new Dictionary<char, BlueprintTile>();
+            var newDictionary = new Dictionary<char, BlueprintTile>();
 
-            var configs = GetConfigurations(configPaths);
-            var tiles = GetBlueprintConfigValuePairs(configs);
+            foreach(var tile in tiles)
+            {
+                if (tile.Key != null)
+                {
+                    newDictionary.Add((char)tile.Key, tile.Value);
+                }
+            }
 
-            return new Dictionary<char, BlueprintTile>(tiles);
+            return newDictionary;
         }
 
-        private string[] GetConfigurationPaths() => new[]
-        {
-            Path.Combine(Constants.Blueprint.BLUEPRINTS_CONFIG_PATH, Constants.Blueprint.BLUEPRINT_TILES + ".json"),
-            Constants.Blueprint.SPECIAL_CHARACTERS_PATH
-        };
-
-        private bool AllConfigFilesExist(IEnumerable<string> configPaths) => configPaths.All(File.Exists);
-
-        private IEnumerable<BlueprintConfig> GetConfigurations(params string[] configPaths) =>
-            configPaths.Select(path => JsonConvert.DeserializeObject<BlueprintConfig>(File.ReadAllText(path)));
-
-        private IEnumerable<KeyValuePair<char, BlueprintTile>> GetBlueprintConfigValuePairs(IEnumerable<BlueprintConfig> configs) =>
-            configs.SelectMany(config => config.Tiles.Select(a => new KeyValuePair<char, BlueprintTile>(a.Glyph, a)));
 
         private void ReinitializeCharObjects(IEnumerable<char> characters, bool updateText = true)
         {
@@ -84,7 +75,7 @@ namespace NullRPG.Windows
             foreach (var character in characters)
             {
                 if (!_blueprintTiles.TryGetValue(character, out var tile) || tile.Name == null) continue;
-                var glyphColor = MonoGameExtensions.GetColorByString(tile.Foreground);
+                var glyphColor = tile.Foreground;
                 if (glyphColor.A == 0) continue; // Don't render transparent tiles on the fov window
                 yield return new KeyValuePair<char, CharObj>(character, new CharObj(tile.Glyph, glyphColor, tile.Name));
             }
@@ -101,7 +92,7 @@ namespace NullRPG.Windows
                 DrawCharObj(charObj);
 
             if (_charObjects.Count > _maxLineRows)
-                _textConsole.Cursor.Print("<More Objects..>");
+                _textConsole.Cursor.Print("[More Objects..] [>]");
         }
 
         private void DrawCharObj(CharObj charObj)
@@ -120,7 +111,6 @@ namespace NullRPG.Windows
             // Gets cells player can see after FOV refresh.
             var cells = GridManager.Grid.GetExploredCellsInFov(entity)
                 .Select(a => (char)a.Glyph)
-                //Merge in bright cells before FOV refresh.
                 //Take only unique cells as an array.
                 .Distinct();
 

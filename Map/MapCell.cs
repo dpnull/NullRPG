@@ -9,8 +9,27 @@ namespace NullRPG.Map
     public class MapCell : Cell, IEquatable<MapCell>
     {
         public MapCellProperties CellProperties { get; set; }
-
         public Point Position { get; set; }
+
+        public MapCell(char glyph, Color foreground, Color background, bool walkable, bool interactable, bool blocksFov)
+        {
+            Glyph = glyph;
+
+            CellProperties = new MapCellProperties
+            {
+                RegularForeground = foreground,
+                RegularBackground = background,
+                FovForeground = Color.DarkGray,
+                FovBackground = Color.Black,
+                Walkable = walkable,
+                Interactable = interactable,
+                BlocksFov = blocksFov,
+                IsExplored = false
+            };
+
+            Foreground = CellProperties.RegularBackground;
+            Background = CellProperties.RegularForeground;
+        }
 
         public MapCell()
         {

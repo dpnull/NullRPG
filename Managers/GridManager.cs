@@ -14,6 +14,18 @@ namespace NullRPG.Managers
 
         private static readonly Dictionary<Type, MapGrid> _blueprintGridCache = new Dictionary<Type, MapGrid>();
 
+        private static readonly Dictionary<char?, BlueprintTile> _tiles = new Dictionary<char?, BlueprintTile>();
+
+        public static Dictionary<char?, BlueprintTile> GetTiles()
+        {
+            return _tiles;
+        }
+
+        public static void InitializeTiles()
+        {
+            Tiles.InitTiles(_tiles);
+        }
+
         public static void InitializeBlueprint<T>(bool saveGridData) where T : Blueprint<MapCell>, new()
         {
             if (!saveGridData)

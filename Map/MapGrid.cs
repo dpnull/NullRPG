@@ -55,6 +55,8 @@ namespace NullRPG.Map
             GridSizeY = blueprint.GridSizeY;
             Blueprint = blueprint;
 
+            // init tiles
+            GridManager.InitializeTiles();
             // init cells
             Cells = Blueprint.GetCells();
         }

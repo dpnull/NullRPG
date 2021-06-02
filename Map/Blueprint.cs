@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MonoGame;
 using NullRPG.Extensions;
+using NullRPG.Managers;
 
 namespace NullRPG.Map
 {
@@ -33,11 +34,6 @@ namespace NullRPG.Map
         {
             BlueprintPath = path;
             var blueprintPath = Path.Combine(BlueprintPath, GetType().Name + ".txt");
-            var blueprintConfigPath = Path.Combine(Constants.Blueprint.BLUEPRINTS_CONFIG_PATH, Constants.Blueprint.BLUEPRINT_TILES + ".json");
-            var config = JsonConvert.DeserializeObject<BlueprintConfig>(File.ReadAllText(blueprintConfigPath));
-
-            if (!File.Exists(blueprintConfigPath) || !File.Exists(blueprintPath))
-                throw new Exception("Blueprint config file(s) were not found for " + Constants.Blueprint.BLUEPRINT_TILES);
 
             var blueprint = File.ReadAllText(blueprintPath).Replace("\r", "").Split('\n');
 
@@ -49,24 +45,22 @@ namespace NullRPG.Map
         {
             var name = GetType().Name;
             var blueprintPath = Path.Combine(BlueprintPath, name + ".txt");
-            var blueprintConfigPath = Path.Combine(Constants.Blueprint.BLUEPRINTS_CONFIG_PATH, Constants.Blueprint.BLUEPRINT_TILES + ".json");
 
-            if (!File.Exists(blueprintPath) || !File.Exists(blueprintConfigPath) || !File.Exists(Constants.Blueprint.SPECIAL_CHARACTERS_PATH))
+            if (!File.Exists(blueprintPath))
                 return Array.Empty<T>();
 
-            var specialConfig = JsonConvert.DeserializeObject<BlueprintConfig>(File.ReadAllText(Constants.Blueprint.SPECIAL_CHARACTERS_PATH));
-            var specialChars = specialConfig.Tiles.ToDictionary(a => a.Glyph, a => a);
+            //var specialConfig = JsonConvert.DeserializeObject<BlueprintConfig>(File.ReadAllText(Constants.Blueprint.SPECIAL_CHARACTERS_PATH));
+            //var specialChars = specialConfig.Tiles.ToDictionary(a => a.Glyph, a => a);
 
-            var config = JsonConvert.DeserializeObject<BlueprintConfig>(File.ReadAllText(blueprintConfigPath));
-            var tiles = config.Tiles.ToDictionary(a => (char?)a.Glyph, a => a);
+            var tiles = GridManager.GetTiles();
             var nullTile = BlueprintTile.Null();
-
+            /*
             foreach (var tile in tiles)
             {
                 if (tile.Key == null) continue;
                 if (specialChars.ContainsKey(tile.Key.Value))
                     throw new Exception("Glyph '" + tile.Key.Value + "': is reserved as a special character and cannot be used in " + name);
-            }
+            }*/
 
             var blueprint = File.ReadAllText(blueprintPath).Replace("\r", "").Split('\n');
 
@@ -90,8 +84,8 @@ namespace NullRPG.Map
                     BlueprintTile tile = nullTile;
                     if (charValue != null && !tiles.TryGetValue(charValue, out tile))
                         throw new Exception("Glyph '" + charValue + "' was not present in the config file for blueprint: " + name);
-                    var foregroundColor = MonoGameExtensions.GetColorByString(tile.Foreground);
-                    var backgroundColor = tile.Background != null ? MonoGameExtensions.GetColorByString(tile.Background) : Color.Black;
+                    var foregroundColor = tile.Foreground;
+                    var backgroundColor = tile.Background;
                     var cell = new T()
                     {
                         Glyph = tile.Glyph,
@@ -159,27 +153,23 @@ namespace NullRPG.Map
     }
 
     [Serializable]
-    internal class BlueprintTile
+    public class BlueprintTile
     {
         public char Glyph;
         public string Name;
         public bool Walkable;
         public bool Interactable;
-        public string Foreground;
-        public string Background;
+        public Color Foreground;
+        public Color Background;
         public bool BlocksFov;
-        public bool EmitsLight;
-        public string LightColor;
-        public int LightRadius;
-        public float Brightness;
 
         public static BlueprintTile Null()
         {
             var nullTile = new BlueprintTile
             {
                 Glyph = ' ',
-                Foreground = "BurlyWood",
-                Background = "Black",
+                Foreground = Color.BurlyWood,
+                Background = Color.Black,
                 Name = null,
                 Walkable = false
             };
