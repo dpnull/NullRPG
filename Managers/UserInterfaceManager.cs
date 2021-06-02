@@ -81,7 +81,7 @@ namespace NullRPG.Managers
             };
             Add(chopWindow);
 
-            var fovWindow = new FovWindow(Constants.GameWidth / 3, 12);
+            var fovWindow = new FovWindow(Constants.Windows.MapWidth, 12);
             UserInterfaceManager.Add(fovWindow);
 
             IsInitialized = true;

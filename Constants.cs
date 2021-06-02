@@ -54,10 +54,16 @@ namespace NullRPG
                 public const int ChopHeight = GameHeight - KeybindingsHeight - MessageHeight;
             }
 
-            public const int MapWidth = GameWidth;
+            public const int FovWidth = 30;
+            public const int FovHeight = GameHeight - StatHeight - MessageHeight - KeybindingsHeight - 3;
+            public const int FovX = GameWidth - FovWidth;
+            public const int FovY = StatY + StatHeight + 1;
+
+            public const int MapWidth = GameWidth - FovWidth;
             public const int MapHeight = GameHeight - StatHeight - MessageHeight - KeybindingsHeight - 3; // TEMPORARY [FIX]
             public const int MapX = 0;
             public const int MapY = StatY + StatHeight + 1;
+
 
             public const int KeybindingsWidth = GameWidth;
             public const int KeybindingsHeight = 6;

@@ -17,6 +17,30 @@
       "blocksfov": true
     },
     {
+      "glyph": ",",
+      "name": "Grass",
+      "walkable": true,
+      "foreground": "Green",
+      "background": "Transparent",
+      "blocksfov": false
+    },
+    {
+      "glyph": ".",
+      "name": "Grass",
+      "walkable": true,
+      "foreground": "Green",
+      "background": "Transparent",
+      "blocksfov": false
+    },
+    {
+      "glyph": "T",
+      "name": "Tree",
+      "walkable": false,
+      "foreground": "Green",
+      "background": "Transparent",
+      "blocksfov": true
+    },
+    {
       "glyph": "+",
       "name": "Closed door",
       "walkable": false,
@@ -96,16 +120,5 @@
       "foreground": "LightSlateGray",
       "blocksfov": false
     },
-    {
-      "glyph": ".",
-      "name": "Lamp",
-      "walkable": true,
-      "foreground": "LightYellow",
-      "blocksfov": false,
-      "EmitsLight": true,
-      "Brightness": 0.5,
-      "LightRadius": 5,
-      "LightColor": "BlanchedAlmond"
-    }
   ]
 }

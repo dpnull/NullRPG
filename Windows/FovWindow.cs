@@ -26,6 +26,7 @@ namespace NullRPG.Windows
 
         public FovWindow(int width, int height) : base(width, height)
         {
+
             this.DrawBorders(width, height, "O", "|", "-", Color.Gray);
             Print(3, 0, "Objects", Color.Orange);
             _charObjects = new Dictionary<char, CharObj>();
@@ -37,7 +38,7 @@ namespace NullRPG.Windows
                 Position = new Point(2, 1),
             };
 
-            Position = new Point(Constants.Windows.MapWidth + 5, Constants.Windows.MapHeight - 2);
+            Position = new Point(Constants.Windows.FovX, Constants.Windows.FovY);
 
             Children.Add(_textConsole);
             Global.CurrentScreen.Children.Add(this);

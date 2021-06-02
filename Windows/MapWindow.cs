@@ -20,7 +20,7 @@ namespace NullRPG.Windows
 
 
 
-        public MapWindow(int width, int height) : base(width, height, new Rectangle(0, 0, 23, 10))
+        public MapWindow(int width, int height) : base(width, height, new Rectangle(0, 0, Constants.Windows.MapWidth, 20))
         {
           
 
