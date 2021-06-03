@@ -90,7 +90,7 @@ namespace NullRPG.Map
 
         public MapCell GetCell(int x, int y)
         {
-            return Cells[y + GridSizeX + x].Clone();
+            return Cells[y * GridSizeX + x].Clone();
         }
 
         /// <summary>

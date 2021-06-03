@@ -23,6 +23,8 @@ namespace NullRPG.Map
             AddTile("Tree", 'T', Color.Green, Color.Transparent, false, false, true);
             AddTile("GrassA", '.', Color.GreenYellow, Color.Transparent, true, false, false);
             AddTile("GrassB", ',', Color.GreenYellow, Color.Transparent, true, false, false);
+            AddTile("Door Open", '=', Color.Brown, Color.Transparent, true, true, false);
+            AddTile("Door Closed", '+', Color.Brown, Color.Transparent, false, true, true);
 
             foreach(var _tile in _tiles)
             {

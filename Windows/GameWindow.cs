@@ -109,6 +109,13 @@ namespace NullRPG.Windows
                 return true;
             }
 
+            // Handle cell interactions
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Z) && Game.GameSession.PlayerActor.GetInteractedCell(out Point position))
+            {
+                Game.GameSession.PlayerActor.interactionManager.HandleInteraction(position);
+                return true;
+            }
+
             return false;
 
         }

@@ -23,9 +23,15 @@ namespace NullRPG.GameObjects.Actors
         private MapWindow _mapWindow;
         public MapWindow MapWindow => _mapWindow ??= UserInterfaceManager.Get<MapWindow>();
         private readonly FovWindow _fovObjectsWindow;
+
+        // Make private
+        public readonly InteractionManager interactionManager;
+        public bool InteractionStatus;
         public PlayerActor() : base(Color.Green, Color.Transparent, '@')
         {
             FieldOfViewRadius = 10;
+            InteractionStatus = false;
+            interactionManager = new InteractionManager(this);
             // interactionstatus todo here <<
             _fovObjectsWindow = UserInterfaceManager.Get<FovWindow>();
             Components.Add(new EntityViewSyncComponent());

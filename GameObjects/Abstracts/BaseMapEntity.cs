@@ -138,8 +138,28 @@ namespace NullRPG.GameObjects.Abstracts
 
             if (checkCanMove && !CanMoveTowards(position)) return;
 
-            var oldPos = Position;
             Position = position;
+        }
+
+        public bool GetInteractedCell(out Point cellPosition)
+        {
+            cellPosition = default;
+            //MessageManager.AddMessage($"Position: X{Position.X}, Y{Position.Y} | Facing: X{Facing.DeltaX}, Y{Facing.DeltaY}");
+            var facingPosition = Position + Facing;
+            if (CanInteract(facingPosition.X, facingPosition.Y))
+            {
+                cellPosition = new Point(facingPosition.X, facingPosition.Y);
+                return true;
+            }
+            return false;
+        }
+
+        public bool CanInteract(int x, int y)
+        {
+            if (!GridManager.Grid.InBounds(x, y)) return false;
+            var cell = GridManager.Grid.GetCell(x, y);
+            MessageManager.AddMessage($"Position: X{Position.X}, Y{Position.Y} | Facing: X{Facing.DeltaX}, Y{Facing.DeltaY} Cell: {cell.CellProperties.Name} (X{cell.Position.X}, Y{cell.Position.Y})");
+            return cell.CellProperties.Interactable && !MapEntityManager.MapEntityExistsAt(x, y, CurrentBlueprintId) && cell.CellProperties.IsExplored;
         }
 
         public void RenderObject(Console console)

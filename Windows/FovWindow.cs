@@ -76,7 +76,7 @@ namespace NullRPG.Windows
             {
                 if (!_blueprintTiles.TryGetValue(character, out var tile) || tile.Name == null) continue;
                 var glyphColor = tile.Foreground;
-                if (glyphColor.A == 0) continue; // Don't render transparent tiles on the fov window
+                //if (glyphColor.A == 0) continue; // Don't render transparent tiles on the fov window
                 yield return new KeyValuePair<char, CharObj>(character, new CharObj(tile.Glyph, glyphColor, tile.Name));
             }
         }
